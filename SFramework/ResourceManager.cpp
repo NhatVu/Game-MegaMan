@@ -2,8 +2,15 @@
 #include "rapidxml-1.13\rapidxml.hpp"
 #include <fstream>
 #include <vector>
-#include "../MegaMan/MarioUtilities.h"
+#include "../MegaMan/MegaManUtilities.h"
 
+#include <iostream>
+#include <cstdio>
+#include "rapidjson/document.h"
+#include "rapidjson/filereadstream.h"
+
+using namespace rapidjson;
+using namespace std;
 using namespace rapidxml;
 using namespace s_framework;
 
@@ -63,7 +70,7 @@ void ResourceManager::parseAnimationXML(string xmlFile)
 			delayTime = stoi(state_node->first_attribute("delayTime")->value());
 
 			// gán characterID và stateID vào lớp CharacterState
-			t_objectState.m_objectType = objectType;
+			t_objectState.m_character = objectType;
 			t_objectState.m_state = stateID;
 
 			AnimationSpec* t_animationSpec = new AnimationSpec();
@@ -80,15 +87,28 @@ void ResourceManager::parseAnimationXML(string xmlFile)
 			}
 			t_animationSpec->setSpriteSpecs(t_listSpriteSpec);
 
-			m_mapAnimationToListSprite[t_objectState] = t_animationSpec;
+			m_mapStateToAnimation[t_objectState] = t_animationSpec;
 		}
 	}
 }
-//list<SpriteSpec*> ResourceManager::getListSprteOfAnimation(ECharacter character, EState state)
-//{
-//	CharacterState t;
-//	t.m_character = character;
-//	t.m_state = state;
-//
-//	return m_mapAnimationToListSprite[t];
-//}
+
+void ResourceManager::parseAnimationJSON(string jsonFile){
+	FILE* pFile = fopen("animation.json", "rb");
+	char buffer[65536];
+	FileReadStream is(pFile, buffer, sizeof(buffer));
+	Document document;
+	//document.ParseStream<0, UTF8<>, FileReadStream>(is);
+	document.ParseStream(is);
+	Value& imagePath = document["imagePath"];
+	cout << imagePath.GetString() << "\n" << document["sprites"].GetArray()[1]["x"].GetFloat();
+	std::getchar();
+}
+
+AnimationSpec* ResourceManager::getAnimationSprites(int character, int state)
+{
+	ObjectState t;
+	t.m_character = character;
+	t.m_state = state;
+
+	return m_mapStateToAnimation[t];
+}

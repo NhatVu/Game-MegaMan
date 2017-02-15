@@ -6,10 +6,9 @@
 
 using namespace s_framework;
 
-Sprite::Sprite(Texture* texture, SpriteSpec* spriteSpec)
+Sprite::Sprite()
 {
-	m_texture = texture;
-	m_spriteSpec = spriteSpec;
+	
 }
 
 
@@ -18,6 +17,13 @@ Sprite::~Sprite()
 	//SAFE_DELETE(m_spriteSpec);
 }
 
+void Sprite::setTexture(Texture* texture){
+	m_texture = texture;
+}
+
+void Sprite::setSpriteSpec(SpriteSpec* spriteSpec){
+	m_spriteSpec = spriteSpec;
+}
 
 void Sprite::render()
 {

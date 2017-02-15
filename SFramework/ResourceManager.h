@@ -3,20 +3,20 @@
 
 #include <string>
 #include <map>
-#include "Animation.h"
 #include "AnimationSpec.h"
-
+#include <list>
+#include <vector>
 using namespace std;
 
 namespace s_framework{
 	struct ObjectState{
-		int m_objectType;
+		int m_character;
 		int    m_state;
 
 		bool operator < (const ObjectState& param)const
 		{
-			if (m_objectType < param.m_objectType) return true;
-			if (m_objectType > param.m_objectType) return false;
+			if (m_character < param.m_character) return true;
+			if (m_character > param.m_character) return false;
 			if (m_state < param.m_state) return true;
 			return false;
 		}
@@ -26,13 +26,14 @@ namespace s_framework{
 	{
 	private:
 		static ResourceManager* m_instance;
-		map<ObjectState, AnimationSpec*> m_mapAnimationToListSprite;
+		map<ObjectState, AnimationSpec*> m_mapStateToAnimation;
 
 		/*   method    */
 		ResourceManager();
-		void parseAnimationXML(string xmlFile);
 	public:
+		void parseAnimationXML(string xmlFile);
 		static ResourceManager* getInstance();
+		AnimationSpec* getAnimationSprites(int character, int state);
 		static void resetResourceManager();
 		~ResourceManager();
 	};

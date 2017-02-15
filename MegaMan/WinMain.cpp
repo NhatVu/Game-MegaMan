@@ -11,6 +11,11 @@
 #include "../SFramework/Texture.h"
 #include "../SFramework/SpriteSpec.h"
 #include "../SFramework/ViewPort.h"
+#include "../SFramework/DirectxInput.h"
+#include "../SFramework/ResourceManager.h"
+
+#include "MegaManUtilities.h"
+#include "MegaMan.h"
 
 #define APP_CLASS L"SampleWindow"
 #define MAIN_WINDOW_TITLE L"Mega Man"
@@ -72,49 +77,64 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmdLine,
 	if (!initializeWindow(hInstance))
 		return FALSE;
 
-	if (!SFramework::getInstance()->init(hwnd))
+	// install directx
+	if (!SFramework::getInstance()->initDirectX(hwnd))
 		return FALSE;
+	// install directx input, keyboard
+	DirectxInput::getInstance()->initKeyboard(hInstance, hwnd);
 
 	GameTime::getInstance();
 
 	// thiết lập ma trận transform
 	//ViewPort::getInstance()->setPosition(FPOINT(20, 20));
+
 	// load hình
 	Texture* texture = new Texture();
 	texture->init("Resource/texture.png", "Resource/texture.xml");
 
+	ResourceManager::getInstance()->parseAnimationXML("Resource/animation.xml");
 
-	Scene* scene = new Scene();
-	scene->setHeight(SCREEN_HEIGHT *4);
-	scene->setWidth(SCREEN_WIDTH * 4);
-	scene->setPostion(FPOINT((float)SCREEN_WIDTH *2, (float)SCREEN_HEIGHT *2));
-
-	Director::getInstance()->setScene(scene);	
-
+	// create layer
 	Layer* layer = new Layer();
-	layer->setHeight(SCREEN_HEIGHT*2);
-	layer->setWidth(SCREEN_WIDTH*2);
+	layer->setHeight(SCREEN_HEIGHT * 2);
+	layer->setWidth(SCREEN_WIDTH * 2);
 	FPOINT p;
 	p.x = SCREEN_WIDTH * 3;
 	p.y = SCREEN_HEIGHT * 2;
 	//scene->setPostion(FPOINT((float)SCREEN_WIDTH / 2, (float)SCREEN_HEIGHT / 2));
 
 	layer->setPostion(p);
+
+	// create scene, and add layer to scene
+	Scene* scene = new Scene();
+	scene->setHeight(SCREEN_HEIGHT *4);
+	scene->setWidth(SCREEN_WIDTH * 4);
+	scene->setPostion(FPOINT((float)SCREEN_WIDTH *2, (float)SCREEN_HEIGHT *2));
+
 	scene->addChild(layer);
+
+	// set scene to director to draw
+	Director::getInstance()->setScene(scene);	
 	
 	p.x = p.x - 200;
 	p.y = p.y - 200;
 	ViewPort::getInstance()->setPosition(p);
 
-	Sprite* sprite = new Sprite(texture, texture->getSpriteSpecById(19));
+	// create object
+	MegaMan* megaMan = new MegaMan();
+	megaMan->setTexture(texture);
+	megaMan->changeAnimation(ECharacter::SMALL_MARIO, EState::MOVE);
+	 //megaMan->setAnimationSpec(ECharacter::BIG_MARIO, EState::DIE)
+	//Sprite* sprite = new Sprite(texture, texture->getSpriteSpecById(19));
 	p.x = SCREEN_WIDTH + 100;
 	p.y = 100;
-	sprite->setPostion(p);
+	megaMan->setPostion(p);
 
 	
-	layer->addChild(sprite);
+	layer->addChild(megaMan);
 
-	SFramework::getInstance()->loop();
+	// game loop
+	SFramework::getInstance()->loop(hwnd);
 
 	//GameRelease();
 

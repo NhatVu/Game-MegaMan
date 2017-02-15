@@ -1,0 +1,19 @@
+{
+	"animation": [{
+		"objectID": 1,
+		"state": [{
+			"stateID": 1,
+			"delayTime": 30,
+			"frame": [1]
+		},{
+			"stateID": 2,
+			"delayTime": 30,
+			"frame": [1,2]
+		},{
+			"stateID": 3,
+			"delayTime": 30,
+			"frame": [3]
+		}]
+	}
+	]
+}

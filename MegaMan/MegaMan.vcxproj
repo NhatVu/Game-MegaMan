@@ -82,9 +82,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="MarioUtilities.h" />
+    <ClInclude Include="MegaManUtilities.h" />
+    <ClInclude Include="MegaMan.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="MegaMan.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>

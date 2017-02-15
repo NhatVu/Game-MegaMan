@@ -19,9 +19,11 @@ namespace s_framework
 		Texture* m_texture;
 		
 	public:
-		Sprite(Texture* texture, SpriteSpec* spriteSpec);
+		Sprite();
 		~Sprite();
 
+		void setTexture(Texture* texture);
+		void setSpriteSpec(SpriteSpec* spriteSpec);
 		void render()override;
 		void update(long delta)override;
 

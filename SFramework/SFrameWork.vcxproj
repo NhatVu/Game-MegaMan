@@ -57,6 +57,9 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Lib>
+      <AdditionalDependencies>d3d9.lib;d3dx9.lib;dxguid.lib;dxerr.lib;dinput8.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -83,6 +86,7 @@
     <ClInclude Include="Animation.h" />
     <ClInclude Include="AnimationSpec.h" />
     <ClInclude Include="Director.h" />
+    <ClInclude Include="DirectxInput.h" />
     <ClInclude Include="GameTime.h" />
     <ClInclude Include="Layer.h" />
     <ClInclude Include="Node.h" />
@@ -91,13 +95,16 @@
     <ClInclude Include="SFramework.h" />
     <ClInclude Include="SFrameWorkHeader.h" />
     <ClInclude Include="Sprite.h" />
+    <ClInclude Include="SpriteSpec.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="Utilities.h" />
     <ClInclude Include="ViewPort.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="AnimationSpec.cpp" />
     <ClCompile Include="Director.cpp" />
+    <ClCompile Include="DirectxInput.cpp" />
     <ClCompile Include="GameTime.cpp" />
     <ClCompile Include="Layer.cpp" />
     <ClCompile Include="Node.cpp" />
