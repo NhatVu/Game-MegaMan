@@ -20,7 +20,23 @@ void MegaMan::render(){
 	Sprite::render();
 }
 
-void MegaMan::processInput(LPDIRECT3DDEVICE9 d3ddv, int Delta){  }
+void MegaMan::processInput(LPDIRECT3DDEVICE9 d3ddv, int Delta){ 
+	if (isKeyDown(DIK_RIGHT))
+	{
+		MessageBox(NULL, L"right", NULL, NULL);
+	}
+	else
+	if (isKeyDown(DIK_LEFT))
+	{
+		MessageBox(NULL, L"left", NULL, NULL);
+
+	}
+	else if (isKeyDown(DIK_SPACE))
+	{
+		MessageBox(NULL, L"Space", NULL, NULL);
+
+	}
+}
 
 void MegaMan::onKeyDown(int KeyCode){}
 void MegaMan::onKeyUp(int KeyCode){}

@@ -29,7 +29,7 @@ namespace s_framework{
 	public:
 		// texture parse image source and xml specification file to m_texture. 
 		// allow you to getTexture(), getSpriteSpecById
-		static Texture* getInstance();
+		//static Texture* getInstance();
 		void init(string imageSource, string textureXML);
 		LPDIRECT3DTEXTURE9 getTexture();
 		SpriteSpec* getSpriteSpecById(int id);

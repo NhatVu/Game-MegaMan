@@ -37,7 +37,7 @@ void ResourceManager::resetResourceManager(){
 	m_instance = NULL;
 }
 
-void ResourceManager::parseAnimationXML(string xmlFile)
+void ResourceManager::parseAnimationXML(Texture* texture,string xmlFile)
 {
 	xml_document<> doc;
 	xml_node<> * root_node;
@@ -82,7 +82,7 @@ void ResourceManager::parseAnimationXML(string xmlFile)
 
 				frameID = stoi(frame_node->value());
 
-				t_spriteSpec = Texture::getInstance()->getSpriteSpecById(frameID);
+				t_spriteSpec = texture->getSpriteSpecById(frameID);
 				t_listSpriteSpec.push_back(t_spriteSpec);
 			}
 			t_animationSpec->setSpriteSpecs(t_listSpriteSpec);
@@ -92,16 +92,55 @@ void ResourceManager::parseAnimationXML(string xmlFile)
 	}
 }
 
-void ResourceManager::parseAnimationJSON(string jsonFile){
-	FILE* pFile = fopen("animation.json", "rb");
+void ResourceManager::parseAnimationJSON(Texture* texture,string jsonFile){
+	FILE* pFile = fopen(jsonFile.c_str(), "rb");
 	char buffer[65536];
 	FileReadStream is(pFile, buffer, sizeof(buffer));
 	Document document;
 	//document.ParseStream<0, UTF8<>, FileReadStream>(is);
 	document.ParseStream(is);
-	Value& imagePath = document["imagePath"];
-	cout << imagePath.GetString() << "\n" << document["sprites"].GetArray()[1]["x"].GetFloat();
-	std::getchar();
+	Value& animation_list = document["animation"];
+
+	SpriteSpec* t_spriteSpec = NULL;
+	vector<SpriteSpec*> t_listSpriteSpec;
+
+	ObjectState t_objectState;
+	int objectType = 0;
+	int stateID = 0;
+	int frameID = 0;
+	int delayTime = 0;
+	for (SizeType i = 0; i < animation_list.Size(); i++)
+	{
+		//t_spriteSpec = new SpriteSpec();
+		Value& animation = animation_list[i];
+		objectType = animation["objectID"].GetInt();
+		Value& state = animation["state"];
+		for (SizeType j = 0; j < state.Size(); j++){
+			stateID = state[j]["stateID"].GetInt();
+			delayTime = state[j]["delayTime"].GetInt();
+
+			// gán characterID và stateID vào lớp CharacterState
+			t_objectState.m_character = objectType;
+			t_objectState.m_state = stateID;
+
+			AnimationSpec* t_animationSpec = new AnimationSpec();
+			t_animationSpec->setDelayTime(delayTime);
+			//// biến tạm chứa list SpriteSpec
+			vector<SpriteSpec*> t_listSpriteSpec;
+
+			Value& frame = state[j]["frame"];
+			for (SizeType f = 0; f < frame.Size(); f++){
+
+				frameID = frame[f].GetInt();
+				t_spriteSpec = texture->getSpriteSpecById(frameID);
+				t_listSpriteSpec.push_back(t_spriteSpec);
+			}
+			t_animationSpec->setSpriteSpecs(t_listSpriteSpec);
+
+			m_mapStateToAnimation[t_objectState] = t_animationSpec;
+		}
+	}
+	
 }
 
 AnimationSpec* ResourceManager::getAnimationSprites(int character, int state)

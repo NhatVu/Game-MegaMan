@@ -16,11 +16,11 @@ Texture::~Texture()
 {
 }
 
-Texture* Texture::getInstance(){
-	if (m_instance == NULL)
-		m_instance = new Texture();
-	return m_instance;
-}
+//Texture* Texture::getInstance(){
+//	if (m_instance == NULL)
+//		m_instance = new Texture();
+//	return m_instance;
+//}
 
 
 LPDIRECT3DTEXTURE9 Texture::getTexture()

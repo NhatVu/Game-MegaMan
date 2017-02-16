@@ -92,7 +92,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmdLine,
 	Texture* texture = new Texture();
 	texture->init("Resource/texture.png", "Resource/texture.xml");
 
-	ResourceManager::getInstance()->parseAnimationXML("Resource/animation.xml");
+	//ResourceManager::getInstance()->parseAnimationXML("Resource/animation.xml");
+	ResourceManager::getInstance()->parseAnimationJSON(texture,"Resource/animation.json");
 
 	// create layer
 	Layer* layer = new Layer();
@@ -121,9 +122,9 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmdLine,
 	ViewPort::getInstance()->setPosition(p);
 
 	// create object
-	MegaMan* megaMan = new MegaMan();
+	Sprite* megaMan = new MegaMan();
 	megaMan->setTexture(texture);
-	megaMan->changeAnimation(ECharacter::SMALL_MARIO, EState::MOVE);
+	((MegaMan*)megaMan)->changeAnimation(ECharacter::SMALL_MARIO, EState::MOVE);
 	 //megaMan->setAnimationSpec(ECharacter::BIG_MARIO, EState::DIE)
 	//Sprite* sprite = new Sprite(texture, texture->getSpriteSpecById(19));
 	p.x = SCREEN_WIDTH + 100;

@@ -11,11 +11,16 @@ DirectxInput::DirectxInput()
 
 DirectxInput::~DirectxInput()
 {
+	if (_Keyboard)
+	{
+		_Keyboard->Unacquire();
+		_Keyboard->Release();
+	}
 }
 
 DirectxInput* DirectxInput::getInstance(){
 	if (m_instance == NULL)
-		return new DirectxInput();
+		m_instance = new DirectxInput();
 	return m_instance;
 }
 
@@ -114,6 +119,8 @@ int DirectxInput::isKeyDown(int KeyCode)
 	return (_KeyStates[KeyCode] & 0x80) > 0;
 }
 
-void DirectxInput::onKeyUp(int KeyCode) { }
+void DirectxInput::onKeyUp(int KeyCode) { 
+	int a;
+}
 void DirectxInput::onKeyDown(int KeyCode) { }
 void DirectxInput::processInput(LPDIRECT3DDEVICE9 d3ddv, int Delta){}
