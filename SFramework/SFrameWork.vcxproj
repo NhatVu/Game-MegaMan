@@ -88,6 +88,7 @@
     <ClInclude Include="Director.h" />
     <ClInclude Include="DirectxInput.h" />
     <ClInclude Include="GameTime.h" />
+    <ClInclude Include="IObserver.h" />
     <ClInclude Include="Layer.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="ResourceManager.h" />
@@ -96,6 +97,7 @@
     <ClInclude Include="SFrameWorkHeader.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="SpriteSpec.h" />
+    <ClInclude Include="Subject.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Utilities.h" />
     <ClInclude Include="ViewPort.h" />
@@ -106,6 +108,7 @@
     <ClCompile Include="Director.cpp" />
     <ClCompile Include="DirectxInput.cpp" />
     <ClCompile Include="GameTime.cpp" />
+    <ClCompile Include="IObserver.cpp" />
     <ClCompile Include="Layer.cpp" />
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
@@ -113,6 +116,7 @@
     <ClCompile Include="SFramework.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="SpriteSpec.cpp" />
+    <ClCompile Include="Subject.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="ViewPort.cpp" />
   </ItemGroup>

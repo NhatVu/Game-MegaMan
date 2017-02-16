@@ -2,14 +2,14 @@
 #define _MEGA_MAN_H_
 
 #include <d3dx9.h>
-#include "../SFramework/DirectxInput.h"
 #include "../SFramework/Animation.h"
 #include "../SFramework/AnimationSpec.h"
 #include "../SFramework/Sprite.h"
+#include "../SFramework/IObserver.h"
 #include <vector>
 
 using namespace s_framework;
-class MegaMan : public DirectxInput, public Sprite
+class MegaMan : public Sprite, public IObserver
 {
 public:
 	MegaMan();
@@ -26,6 +26,7 @@ public:
 	virtual void onKeyDown(int KeyCode);
 	virtual void onKeyUp(int KeyCode);
 
+	void update(int keyCode)override;
 	void changeAnimation(int character, int state);
 };
 

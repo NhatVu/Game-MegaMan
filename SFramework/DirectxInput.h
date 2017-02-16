@@ -3,11 +3,12 @@
 
 #include <d3d9.h>
 #include <dinput.h>
+#include "Subject.h"
 
 #define KEYBOARD_BUFFER_SIZE	1024
 
 namespace s_framework{
-	class DirectxInput
+	class DirectxInput : public Subject
 	{
 	public:
 		DirectxInput();

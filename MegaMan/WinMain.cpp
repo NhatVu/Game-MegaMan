@@ -83,6 +83,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmdLine,
 	// install directx input, keyboard
 	DirectxInput::getInstance()->initKeyboard(hInstance, hwnd);
 
+	
 	GameTime::getInstance();
 
 	// thiết lập ma trận transform
@@ -134,6 +135,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmdLine,
 	
 	layer->addChild(megaMan);
 
+	((Subject*)DirectxInput::getInstance())->Attach((IObserver*)megaMan);
 	// game loop
 	SFramework::getInstance()->loop(hwnd);
 

@@ -4,7 +4,7 @@ using namespace s_framework;
 
 DirectxInput* DirectxInput::m_instance = NULL;
 
-DirectxInput::DirectxInput()
+DirectxInput::DirectxInput() : Subject()
 {
 }
 
@@ -120,7 +120,11 @@ int DirectxInput::isKeyDown(int KeyCode)
 }
 
 void DirectxInput::onKeyUp(int KeyCode) { 
-	int a;
+	Notify(KeyCode);
 }
-void DirectxInput::onKeyDown(int KeyCode) { }
-void DirectxInput::processInput(LPDIRECT3DDEVICE9 d3ddv, int Delta){}
+void DirectxInput::onKeyDown(int KeyCode) { 
+	Notify(KeyCode);
+}
+void DirectxInput::processInput(LPDIRECT3DDEVICE9 d3ddv, int Delta){
+
+}
