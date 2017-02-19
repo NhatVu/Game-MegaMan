@@ -135,6 +135,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmdLine,
 	
 	layer->addChild(megaMan);
 
+	// attach megaman object in order to receive event when keyboard press
 	((Subject*)DirectxInput::getInstance())->Attach((IObserver*)megaMan);
 	// game loop
 	SFramework::getInstance()->loop(hwnd);

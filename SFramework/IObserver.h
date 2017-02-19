@@ -7,7 +7,7 @@ class IObserver
 public:
 	IObserver();
 	~IObserver();
-	virtual void update(int keyCode);
+	virtual void updateKeyboard(int keyCode);
 };
 
 #endif // !_IObserver_H_

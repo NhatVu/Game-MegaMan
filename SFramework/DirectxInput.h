@@ -29,8 +29,8 @@ namespace s_framework{
 		int isKeyDown(int KeyCode);
 		virtual void processInput(LPDIRECT3DDEVICE9 d3ddv, int Delta);
 
-		virtual void onKeyDown(int KeyCode);
-		virtual void onKeyUp(int KeyCode);
+		virtual void onKeyDown(int KeyCode); // call notify here
+		virtual void onKeyUp(int KeyCode); // call Subject::notify() here
 	};
 
 }

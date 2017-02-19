@@ -20,13 +20,13 @@ private:
 
 public:
 	void setTexture(Texture* texture);
-	virtual void render() override;
+	void render() override;
 	virtual void processInput(LPDIRECT3DDEVICE9 d3ddv, int Delta);
 
 	virtual void onKeyDown(int KeyCode);
 	virtual void onKeyUp(int KeyCode);
 
-	void update(int keyCode)override;
+	void updateKeyboard(int keyCode)override;
 	void changeAnimation(int character, int state);
 };
 

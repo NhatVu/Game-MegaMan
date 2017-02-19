@@ -10,6 +10,6 @@ IObserver::~IObserver()
 {
 }
 
-void IObserver::update(int keyCode){
+void IObserver::updateKeyboard(int keyCode){
 	int a = 0;
 }

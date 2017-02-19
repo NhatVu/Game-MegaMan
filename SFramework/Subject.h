@@ -7,7 +7,7 @@
 class Subject
 {
 	//Lets keep a track of all the shops we have observing
-	std::vector<IObserver*> list;
+	std::list<IObserver*> list;
 
 public:
 	void Attach(IObserver *observer);

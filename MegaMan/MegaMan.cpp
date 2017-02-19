@@ -46,7 +46,7 @@ void MegaMan::changeAnimation(int character, int state){
 	m_animation = ResourceManager::getInstance()->getAnimationSprites(character, state);
 }
 
-void MegaMan::update(int keyCode){
+void MegaMan::updateKeyboard(int keyCode){
 	if (keyCode == DIK_RIGHT)
 	{
 	MessageBox(NULL, L"right", NULL, NULL);
