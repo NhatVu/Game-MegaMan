@@ -11,7 +11,6 @@
 #include "../SFramework/Texture.h"
 #include "../SFramework/SpriteSpec.h"
 #include "../SFramework/ViewPort.h"
-#include "../SFramework/DirectxInput.h"
 #include "../SFramework/ResourceManager.h"
 
 #include "MegaManUtilities.h"
@@ -81,7 +80,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmdLine,
 	if (!SFramework::getInstance()->initDirectX(hwnd))
 		return FALSE;
 	// install directx input, keyboard
-	DirectxInput::getInstance()->initKeyboard(hInstance, hwnd);
+	//DirectxInput::getInstance()->initKeyboard(hInstance, hwnd);
+	SFramework::getInstance()->initKeyboard(hInstance, hwnd);
 
 	
 	GameTime::getInstance();
@@ -136,7 +136,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmdLine,
 	layer->addChild(megaMan);
 
 	// attach megaman object in order to receive event when keyboard press
-	((Subject*)DirectxInput::getInstance())->Attach((IObserver*)megaMan);
+	SFramework::getInstance()->attachInputObect(megaMan);
+	//((Subject*)DirectxInput::getInstance())->Attach((IObserver*)megaMan);
 	// game loop
 	SFramework::getInstance()->loop(hwnd);
 

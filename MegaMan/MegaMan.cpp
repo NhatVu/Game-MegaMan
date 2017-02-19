@@ -39,27 +39,43 @@ void MegaMan::processInput(LPDIRECT3DDEVICE9 d3ddv, int Delta){
 	}*/
 }
 
-void MegaMan::onKeyDown(int KeyCode){}
+void MegaMan::onKeyDown(int keyCode){
+	if (keyCode == DIK_RIGHT)
+	{
+		trace("right button");
+	}
+	else
+	if (keyCode == DIK_LEFT)
+	{
+		trace("left button");
+
+	}
+	else if (keyCode == DIK_SPACE)
+	{
+		trace("space button");
+
+	}
+}
 void MegaMan::onKeyUp(int KeyCode){}
 
 void MegaMan::changeAnimation(int character, int state){
 	m_animation = ResourceManager::getInstance()->getAnimationSprites(character, state);
 }
 
-void MegaMan::updateKeyboard(int keyCode){
-	if (keyCode == DIK_RIGHT)
-	{
-	MessageBox(NULL, L"right", NULL, NULL);
-	}
-	else
-	if (keyCode == DIK_LEFT)
-	{
-	MessageBox(NULL, L"left", NULL, NULL);
-
-	}
-	else if (keyCode == DIK_SPACE)
-	{
-	MessageBox(NULL, L"Space", NULL, NULL);
-
-	}
-}
+//void MegaMan::updateKeyboard(int keyCode){
+//	if (keyCode == DIK_RIGHT)
+//	{
+//	MessageBox(NULL, L"right", NULL, NULL);
+//	}
+//	else
+//	if (keyCode == DIK_LEFT)
+//	{
+//	MessageBox(NULL, L"left", NULL, NULL);
+//
+//	}
+//	else if (keyCode == DIK_SPACE)
+//	{
+//	MessageBox(NULL, L"Space", NULL, NULL);
+//
+//	}
+//}

@@ -5,11 +5,11 @@
 #include "../SFramework/Animation.h"
 #include "../SFramework/AnimationSpec.h"
 #include "../SFramework/Sprite.h"
-#include "../SFramework/IObserver.h"
+#include "../SFramework/Trace.h"
 #include <vector>
 
 using namespace s_framework;
-class MegaMan : public Sprite, public IObserver
+class MegaMan : public Sprite
 {
 public:
 	MegaMan();
@@ -23,10 +23,10 @@ public:
 	void render() override;
 	virtual void processInput(LPDIRECT3DDEVICE9 d3ddv, int Delta);
 
-	virtual void onKeyDown(int KeyCode);
-	virtual void onKeyUp(int KeyCode);
+	void onKeyDown(int keyCode) override;
+	void onKeyUp(int keyCode) override;
 
-	void updateKeyboard(int keyCode)override;
+	//void updateKeyboard(int keyCode)override;
 	void changeAnimation(int character, int state);
 };
 
