@@ -37,12 +37,15 @@ void AnimationSpec::addSpriteSpec(SpriteSpec* a)
 
 void AnimationSpec::nextFrame(){
 	int max_sprites = m_spriteSpecs.size();
-	for (int i = 0; i < max_sprites; i++){
+	if (m_currentIndex < max_sprites - 1)
+		m_currentIndex++;
+	else m_currentIndex = 0;
+	/*for (int i = 0; i < max_sprites; i++){
 		if (i + 1 == max_sprites)
 			m_currentIndex = 0;
 		else
 			m_currentIndex = i + 1;
-	}
+	}*/
 }
 SpriteSpec* AnimationSpec::getCurrentSpriteSpec(){
 	// get current sprite spec

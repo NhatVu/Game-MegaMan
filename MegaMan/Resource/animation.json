@@ -8,7 +8,7 @@
 		},{
 			"stateID": 2,
 			"delayTime": 30,
-			"frame": [1,2]
+			"frame": [1,2,3]
 		},{
 			"stateID": 3,
 			"delayTime": 30,
