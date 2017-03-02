@@ -135,8 +135,9 @@ void SFramework::loop(HWND hwnd)
 		}
 		// Do our game stuff here
 		//DWORD now = GetTickCount();
-		GameTime::getInstance()->setEndTime();
+		GameTime::getInstance()->setEndTime(); // tính toán lại biến mDeltaTime
 
+		// nếu thời gian delta > TimePerFrame => setStartTime(set lại biến mStartTime)
 		if (GameTime::getInstance()->getDeltaTime() > GameTime::getInstance()->getTimePerFrame())
 		{
 			GameTime::getInstance()->setStartTime();
@@ -243,6 +244,9 @@ void SFramework::initKeyboard(HINSTANCE hInstance, HWND hWnd)
 	//trace(L"Keyboard has been acquired successfully");
 }
 
+// processKeyBoard call in Game loop. 
+// It calls onKeyUp, onKeyDown. Two method with call onKeyUp, onKeyDown for each
+// sprite that in list_object sprites
 void SFramework::processKeyBoard(HWND hWnd)
 {
 	// Collect all key states first

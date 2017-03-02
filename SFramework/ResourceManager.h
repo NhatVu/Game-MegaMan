@@ -31,7 +31,6 @@ namespace s_framework{
 		/*   method    */
 		ResourceManager();
 	public:
-		void parseAnimationXML(Texture* texture, string xmlFile);
 		void parseAnimationJSON(Texture* texture, string jsonFile);
 		static ResourceManager* getInstance();
 		AnimationSpec* getAnimationSprites(int character, int state);
