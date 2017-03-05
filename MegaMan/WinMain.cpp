@@ -12,6 +12,7 @@
 #include "../SFramework/SpriteSpec.h"
 #include "../SFramework/ViewPort.h"
 #include "../SFramework/ResourceManager.h"
+#include "../SFramework/GameMap.h"
 
 #include "MegaManUtilities.h"
 #include "MegaMan.h"
@@ -134,6 +135,10 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmdLine,
 
 	
 	layer->addChild(megaMan);
+
+	// map
+	GameMap* map = new GameMap("Resource/map.tmx");
+	map->Draw();
 
 	// attach megaman object in order to receive event when keyboard press
 	SFramework::getInstance()->attachInputObect(megaMan);

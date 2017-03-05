@@ -19,6 +19,12 @@
     <Filter Include="Source Files\Characters">
       <UniqueIdentifier>{766ef409-aa47-475c-b142-70ba92046d80}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Map">
+      <UniqueIdentifier>{580ce935-4d09-4c1f-80d5-c7e344bb938f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Map">
+      <UniqueIdentifier>{7e29e13c-097e-42af-bc84-059de2be6f15}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MegaMan.h">
@@ -26,6 +32,9 @@
     </ClInclude>
     <ClInclude Include="MegaManUtilities.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MapOne.h">
+      <Filter>Header Files\Map</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -35,5 +44,11 @@
     <ClCompile Include="MegaMan.cpp">
       <Filter>Source Files\Characters</Filter>
     </ClCompile>
+    <ClCompile Include="MapOne.cpp">
+      <Filter>Source Files\Map</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

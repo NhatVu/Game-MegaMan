@@ -108,3 +108,11 @@ void Sprite::update(long delta)
 {
 
 }
+
+void Sprite::onKeyUp(int keyCode){
+
+}
+
+void Sprite::onKeyDown(int keyCode){
+
+}

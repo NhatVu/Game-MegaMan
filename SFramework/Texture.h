@@ -15,7 +15,7 @@ namespace s_framework{
 	{
 	
 	private:
-		static Texture* m_instance;
+		//static Texture* m_instance;
 		LPDIRECT3DTEXTURE9 m_texture = NULL;		// The “container”
 		//LPD3DXSPRITE _SpriteHandler;
 
@@ -31,6 +31,7 @@ namespace s_framework{
 		// allow you to getTexture(), getSpriteSpecById
 		//static Texture* getInstance();
 		void init(string imageSource, string textureXML);
+		void init(string imageSource);
 		LPDIRECT3DTEXTURE9 getTexture();
 		SpriteSpec* getSpriteSpecById(int id);
 

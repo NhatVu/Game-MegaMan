@@ -58,7 +58,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>d3d9.lib;d3dx9.lib;dxguid.lib;dxerr.lib;dinput8.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d9.lib;d3dx9.lib;dxguid.lib;dxerr.lib;dinput8.lib;zlib.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -85,6 +85,7 @@
   <ItemGroup>
     <ClInclude Include="AnimationSpec.h" />
     <ClInclude Include="Director.h" />
+    <ClInclude Include="GameMap.h" />
     <ClInclude Include="GameTime.h" />
     <ClInclude Include="Layer.h" />
     <ClInclude Include="Node.h" />
@@ -101,6 +102,7 @@
   <ItemGroup>
     <ClCompile Include="AnimationSpec.cpp" />
     <ClCompile Include="Director.cpp" />
+    <ClCompile Include="GameMap.cpp" />
     <ClCompile Include="GameTime.cpp" />
     <ClCompile Include="Layer.cpp" />
     <ClCompile Include="Node.cpp" />

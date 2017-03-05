@@ -26,8 +26,8 @@ namespace s_framework
 		void setSpriteSpec(SpriteSpec* spriteSpec);
 		void render()override;
 		void update(long delta)override;
-		virtual void onKeyUp(int keyCode) = 0;
-		virtual void onKeyDown(int keyCode) = 0;
+		virtual void onKeyUp(int keyCode);
+		virtual void onKeyDown(int keyCode);
 	};
 
 }

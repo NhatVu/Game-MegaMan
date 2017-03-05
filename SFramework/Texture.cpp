@@ -7,7 +7,7 @@
 using namespace s_framework;
 using namespace rapidxml;
 
-Texture *Texture::m_instance = NULL;
+//Texture *Texture::m_instance = NULL;
 Texture::Texture()
 {
 }
@@ -98,4 +98,8 @@ void Texture::init(string imageSource, string textureXML)
 {
 	loadImageToTexture(imageSource);
 	parseTextureXMLFile(textureXML);
+}
+
+void Texture::init(string imageSource){
+	loadImageToTexture(imageSource);
 }
