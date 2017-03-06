@@ -28,6 +28,7 @@ namespace s_framework
 		void update(long delta)override;
 		virtual void onKeyUp(int keyCode);
 		virtual void onKeyDown(int keyCode);
+		virtual void processKeyState(BYTE *keyState);
 	};
 
 }

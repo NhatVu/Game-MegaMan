@@ -257,6 +257,8 @@ void SFramework::processKeyBoard(HWND hWnd)
 		PostMessage(hWnd, WM_QUIT, 0, 0);
 	}
 
+	processKeyState(_KeyStates);
+
 	// Collect all buffered events
 	DWORD dwElements = KEYBOARD_BUFFER_SIZE;
 	HRESULT hr = _Keyboard->GetDeviceData(sizeof(DIDEVICEOBJECTDATA), _KeyEvents, &dwElements, 0);
@@ -299,3 +301,13 @@ void SFramework::onKeyDown(int KeyCode) {
 	}
 }
 void SFramework::processInput(LPDIRECT3DDEVICE9 d3ddv, int Delta){}
+
+void SFramework::processKeyState(BYTE *keyState){
+	std::list<Sprite*>::const_iterator iterator;
+	for (iterator = list_object_input.begin(); iterator != list_object_input.end(); ++iterator) {
+		if (*iterator != 0){
+			Sprite* test = (*iterator);
+			test->processKeyState(keyState);
+		}
+	}
+}

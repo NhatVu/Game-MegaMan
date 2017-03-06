@@ -69,6 +69,7 @@ namespace s_framework
 
 		virtual void onKeyDown(int KeyCode);
 		virtual void onKeyUp(int KeyCode);
+		void processKeyState(BYTE *keyState);
 
 		/*-----------------------------------------------------
 		 * GETTERS AND SETTERS

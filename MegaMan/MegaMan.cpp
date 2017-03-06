@@ -62,6 +62,18 @@ void MegaMan::changeAnimation(int character, int state){
 	m_animation = ResourceManager::getInstance()->getAnimationSprites(character, state);
 }
 
+void MegaMan::processKeyState(BYTE *keyState){
+	if ((keyState[DIK_RIGHT] & 0x80) > 0)
+		trace("right button");
+	else
+	if ((keyState[DIK_LEFT] & 0x80) > 0)
+	{
+		trace("left button");
+
+	}
+	
+}
+
 //void MegaMan::updateKeyboard(int keyCode){
 //	if (keyCode == DIK_RIGHT)
 //	{

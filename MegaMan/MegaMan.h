@@ -27,6 +27,7 @@ public:
 
 	//void updateKeyboard(int keyCode)override;
 	void changeAnimation(int character, int state);
+	void processKeyState(BYTE *keyState)override;
 };
 
 #endif // !_MEGA_MAN_H_

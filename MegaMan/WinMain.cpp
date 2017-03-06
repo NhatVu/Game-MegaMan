@@ -137,8 +137,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmdLine,
 	layer->addChild(megaMan);
 
 	// map
-	GameMap* map = new GameMap("Resource/map.tmx");
-	map->Draw();
+	//GameMap* map = new GameMap("Resource/map.tmx");
+	//map->Draw();
 
 	// attach megaman object in order to receive event when keyboard press
 	SFramework::getInstance()->attachInputObect(megaMan);
