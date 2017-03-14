@@ -14,6 +14,9 @@ Texture::Texture()
 
 Texture::~Texture()
 {
+	for (auto const &ent : m_mapTexture){
+		delete ent.second;
+	}
 }
 
 //Texture* Texture::getInstance(){

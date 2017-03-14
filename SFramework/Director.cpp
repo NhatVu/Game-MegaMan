@@ -15,6 +15,9 @@ Director::Director()
 
 Director::~Director()
 {
+	delete m_scene;
+	delete m_spriteHandler;
+	delete m_instance;
 }
 
 Director* Director::getInstance()

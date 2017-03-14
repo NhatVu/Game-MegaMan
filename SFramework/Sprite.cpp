@@ -15,6 +15,8 @@ Sprite::Sprite()
 Sprite::~Sprite()
 {
 	//SAFE_DELETE(m_spriteSpec);
+	// khong được delet texture or spriteSpec vì nó được set từ bên ngoài. ko new trong nội bộ object.
+	// resource cho toàn bộ app
 }
 
 void Sprite::setTexture(Texture* texture){
@@ -45,7 +47,7 @@ void Sprite::render()
 		m_spriteSpec->getHeight() / 2, 0);
 
 	D3DXVECTOR3 renderPosition = D3DXVECTOR3(m_position.x, m_position.y, 0);
-	renderPosition = renderPosition + D3DXVECTOR3(this->m_parent->getOffsetToScene().x, this->m_parent->getOffsetToScene().y, 0);
+	//renderPosition = renderPosition + D3DXVECTOR3(this->m_parent->getOffsetToScene().x, this->m_parent->getOffsetToScene().y, 0);
 
 	renderPosition = ViewPort::getInstance()->transform(renderPosition);
 

@@ -9,15 +9,17 @@
 #include "Sprite.h"
 #include "MapReader/Tmx.h.in"
 
+using namespace Tmx;
 //#include "GameGlobal.h"
 namespace s_framework {
 
 class GameMap
 {
 public:
+	GameMap();
 	GameMap(char* filePath);
 
-	Tmx::Map* GetMap();
+	Map* GetMap();
 
 	int GetWidth(); // độ rộng của map, đơn vị pixel chứ ko phải số tails như trong tmx file
 	int GetHeight();
@@ -25,13 +27,14 @@ public:
 	int GetTileHeight();
 
 	void Draw(); // vẽ map
+	vector<Node*> getScene();
 
 	~GameMap();
 
-private:
 	void LoadMap(char* filePath); // load image(tileset) sử dụng trong map vào biến mListTileset
-
-	Tmx::Map                        *mMap;
+private:
+	vector<Node*> mapNode;
+	Map                        *mMap;
 	std::map<int, Texture*>          mListTileset;
 };
 

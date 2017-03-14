@@ -16,12 +16,17 @@ ResourceManager* ResourceManager::m_instance = NULL;
 
 ResourceManager::ResourceManager()
 {
-	
+	for (auto const &ent : m_mapStateToAnimation){
+		delete ent.second;
+	}
 }
 
 
 ResourceManager::~ResourceManager()
 {
+	for (auto const &ent1 : m_mapStateToAnimation){
+		delete ent1.second;
+	}
 }
 
 ResourceManager* ResourceManager::getInstance(){

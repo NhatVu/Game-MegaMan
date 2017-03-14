@@ -33,15 +33,15 @@ void ViewPort::setPosition(FPOINT p) // set gốc tọa độ của ViewPort
 	m_position.y = p.y;
 }
 
-D3DXVECTOR3 ViewPort::transform(D3DXVECTOR3 p)
+D3DXVECTOR3 ViewPort::transform(D3DXVECTOR3 pWorld)
 {
 	//D3DXMatrixIdentity(&render);
 	//render._11 = p.x;
 	//render._21 = p.y;
 	D3DXVECTOR3 result;
-	result.x = p.x - m_position.x;
-	result.y = -p.y + m_position.y;
-	result.z = 0;
+	result.x = pWorld.x - m_position.x;
+	result.y = -pWorld.y + m_position.y;
+	result.z = 1;
 
 	return result;
 }

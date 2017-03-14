@@ -92,36 +92,42 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmdLine,
 
 	// load hình
 	Texture* texture = new Texture();
-	texture->init("Resource/texture.png", "Resource/texture.xml");
+	texture->init("Resources/texture.png", "Resources/texture.xml");
 
 	//ResourceManager::getInstance()->parseAnimationXML("Resource/animation.xml");
-	ResourceManager::getInstance()->parseAnimationJSON(texture,"Resource/animation.json");
+	ResourceManager::getInstance()->parseAnimationJSON(texture,"Resources/animation.json");
 
 	// create layer
-	Layer* layer = new Layer();
-	layer->setHeight(SCREEN_HEIGHT * 2);
-	layer->setWidth(SCREEN_WIDTH * 2);
-	FPOINT p;
-	p.x = SCREEN_WIDTH * 3;
-	p.y = SCREEN_HEIGHT * 2;
-	//scene->setPostion(FPOINT((float)SCREEN_WIDTH / 2, (float)SCREEN_HEIGHT / 2));
+	//s_framework::Layer* layer = new s_framework::Layer();
+	//layer->setHeight(SCREEN_HEIGHT );
+	//layer->setWidth(SCREEN_WIDTH );
+	//FPOINT p;/*
+	//p.x = SCREEN_WIDTH * 3;
+	//p.y = SCREEN_HEIGHT * 2;*/
+	//p.x = 0;
+	//p.y = 0;
+	////scene->setPostion(FPOINT((float)SCREEN_WIDTH / 2, (float)SCREEN_HEIGHT / 2));
 
-	layer->setPostion(p);
+	//layer->setPostion(p);
 
 	// create scene, and add layer to scene
 	Scene* scene = new Scene();
-	scene->setHeight(SCREEN_HEIGHT *4);
-	scene->setWidth(SCREEN_WIDTH * 4);
-	scene->setPostion(FPOINT((float)SCREEN_WIDTH *2, (float)SCREEN_HEIGHT *2));
+	scene->setHeight(SCREEN_HEIGHT );
+	scene->setWidth(SCREEN_WIDTH );
+	//scene->setPostion(FPOINT((float)SCREEN_WIDTH *2, (float)SCREEN_HEIGHT *2));
+	scene->setPostion(FPOINT(0, 0));
 
-	scene->addChild(layer);
+	//scene->addChild(layer);
 
 	// set scene to director to draw
 	Director::getInstance()->setScene(scene);	
 	
-	p.x = p.x - 200;
-	p.y = p.y - 200;
-	ViewPort::getInstance()->setPosition(p);
+	/*p.x = p.x + 100;
+	p.y = p.y + 200;*/
+	FPOINT p;
+	p.x = -100;
+	p.y = 300;
+	ViewPort::getInstance()->setPosition(p); // vị trí left-top của viewport
 
 	// create object
 	Sprite* megaMan = new MegaMan();
@@ -129,16 +135,20 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmdLine,
 	((MegaMan*)megaMan)->changeAnimation(ECharacter::SMALL_MARIO, EState::MOVE);
 	 //megaMan->setAnimationSpec(ECharacter::BIG_MARIO, EState::DIE)
 	//Sprite* sprite = new Sprite(texture, texture->getSpriteSpecById(19));
-	p.x = SCREEN_WIDTH + 100;
-	p.y = 100;
+	p.x = 200;
+	p.y = 00;
 	megaMan->setPostion(p);
 
 	
-	layer->addChild(megaMan);
 
 	// map
-	//GameMap* map = new GameMap("Resource/map.tmx");
+	GameMap* map = new GameMap("Resources/map.tmx");
 	//map->Draw();
+	vector<Node*> mapNode = map->getScene();
+	for (int i = 0; i < mapNode.size(); i++){
+		scene->addChild(mapNode[i]);
+	}
+	scene->addChild(megaMan);
 
 	// attach megaman object in order to receive event when keyboard press
 	SFramework::getInstance()->attachInputObect(megaMan);

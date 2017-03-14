@@ -9,6 +9,11 @@ AnimationSpec::AnimationSpec()
 
 AnimationSpec::~AnimationSpec()
 {
+	using Iter = std::vector<Sprite*>::const_iterator;
+	for (int i = 0; i< m_spriteSpecs.size(); i++){
+		delete m_spriteSpecs[i];
+	}
+	m_spriteSpecs.clear();
 }
 
 int AnimationSpec::getDelayTime()
