@@ -48,4 +48,7 @@
       <Filter>Source Files\Map</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
 </Project>
