@@ -3,7 +3,7 @@
 
 #include <vector>
 #include "SpriteSpec.h"
-#include "Sprite.h"
+#include "GameObject.h"
 
 using namespace std;
 

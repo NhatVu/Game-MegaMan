@@ -1,4 +1,4 @@
-﻿#include "Sprite.h"
+﻿#include "GameObject.h"
 #include "SFramework.h"
 #include "Director.h"
 #include "Texture.h"
@@ -6,28 +6,28 @@
 
 using namespace s_framework;
 
-Sprite::Sprite()
+GameObject::GameObject()
 {
 	
 }
 
 
-Sprite::~Sprite()
+GameObject::~GameObject()
 {
 	//SAFE_DELETE(m_spriteSpec);
 	// khong được delet texture or spriteSpec vì nó được set từ bên ngoài. ko new trong nội bộ object.
 	// resource cho toàn bộ app
 }
 
-void Sprite::setTexture(Texture* texture){
+void GameObject::setTexture(Texture* texture){
 	m_texture = texture;
 }
 
-void Sprite::setSpriteSpec(SpriteSpec* spriteSpec){
+void GameObject::setSpriteSpec(SpriteSpec* spriteSpec){
 	m_spriteSpec = spriteSpec;
 }
 
-void Sprite::render()
+void GameObject::render()
 {
 
 	// đang xét trục y hướng xuống. 
@@ -60,31 +60,31 @@ void Sprite::render()
 	Node::render();
 }
 
-//void Sprite::setRenderPosition(D3DXVECTOR3 position)
+//void GameObject::setRenderPosition(D3DXVECTOR3 position)
 //{
 //	m_renderPosition = position;
 //}
 //
-//SpriteSpec* Sprite::getCurrentSpriteSpec()
+//SpriteSpec* GameObject::getCurrentSpriteSpec()
 //{
 //	return *m_index;
 //}
 //
 //
-////void Sprite::update()
+////void GameObject::update()
 ////{
 ////	nextFrame(); // thiết lập lại index thành frame tiếp theo.
 ////
 ////}
 //
-//void Sprite::setup()
+//void GameObject::setup()
 //{
 //	
 //	m_listFramePerAnimtion = Animation::getInstance()->getListSprteOfAnimation(m_Sprite, m_state);
 //	m_index = m_listFramePerAnimtion.begin();
 //}
 //
-//void Sprite::nextFrame()
+//void GameObject::nextFrame()
 //{
 //	if (m_index != m_listFramePerAnimtion.end())
 //		m_index++;
@@ -92,33 +92,41 @@ void Sprite::render()
 //		m_index = m_listFramePerAnimtion.begin();
 //}
 //
-//EState Sprite::getState()
+//EState GameObject::getState()
 //{
 //	return m_state;
 //}
-//void Sprite::setState(EState state)
+//void GameObject::setState(EState state)
 //{
 //	m_state = state;
 //}
 //
-//ESprite Sprite::getSprite()
+//ESprite GameObject::getSprite()
 //{
 //	return m_Sprite;
 //}
 
-void Sprite::update(long delta)
+void GameObject::update(long delta)
 {
 
 }
 
-void Sprite::onKeyUp(int keyCode){
+void GameObject::onKeyUp(int keyCode){
 
 }
 
-void Sprite::onKeyDown(int keyCode){
+void GameObject::onKeyDown(int keyCode){
 
 }
 
-void Sprite::processKeyState(BYTE *keyState){
+void GameObject::processKeyState(BYTE *keyState){
 
+}
+
+FPOINT GameObject::getVelocity(){
+	return this->m_velocity;
+}
+
+void GameObject::setVelocity(FPOINT velocity){
+	this->m_velocity = velocity;
 }

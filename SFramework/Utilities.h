@@ -34,6 +34,8 @@ namespace s_framework{
 			result.y = y + param.y;
 			return result;
 		}
+
+		
 	};
 	
 }

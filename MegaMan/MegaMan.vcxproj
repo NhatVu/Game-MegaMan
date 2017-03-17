@@ -84,13 +84,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="MapOne.h" />
+    <ClInclude Include="Map\MapOne.h" />
     <ClInclude Include="MegaManUtilities.h" />
-    <ClInclude Include="MegaMan.h" />
+    <ClInclude Include="GameObject\MegaMan.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="MapOne.cpp" />
-    <ClCompile Include="MegaMan.cpp" />
+    <ClCompile Include="Map\MapOne.cpp" />
+    <ClCompile Include="GameObject\MegaMan.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -99,7 +99,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

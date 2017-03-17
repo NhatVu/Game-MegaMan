@@ -6,7 +6,7 @@
 //#include "Animation.h"
 #include "Texture.h"
 //#include "DirectxInput.h"
-#include "Sprite.h"
+#include "GameObject.h"
 #include <list>
 
 #define USING_S_FRAMEWORK using namespace s_framework
@@ -27,7 +27,7 @@ namespace s_framework
 
 		//// Directx input
 	
-		std::list<Sprite*> list_object_input;
+		std::list<GameObject*> list_object_input;
 
 
 		LPDIRECTINPUT8       _di;		// The DirectInput object         
@@ -59,13 +59,12 @@ namespace s_framework
 		///*-------------------------------------------------
 		// * DIRECTX INPUT
 		// *--------------------------------------------------*/
-		void attachInputObect(Sprite* object);
-		void detachInputObject(Sprite* object);
+		void attachInputObect(GameObject* object);
+		void detachInputObject(GameObject* object);
 
 		void initKeyboard(HINSTANCE hInstance, HWND hWnd);
 		void processKeyBoard(HWND hWnd);
 		int isKeyDown(int KeyCode);
-		virtual void processInput(LPDIRECT3DDEVICE9 d3ddv, int Delta);
 
 		virtual void onKeyDown(int KeyCode);
 		virtual void onKeyUp(int KeyCode);

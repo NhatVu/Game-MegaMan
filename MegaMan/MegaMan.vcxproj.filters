@@ -27,13 +27,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MegaMan.h">
-      <Filter>Header Files\Characters</Filter>
-    </ClInclude>
     <ClInclude Include="MegaManUtilities.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MapOne.h">
+    <ClInclude Include="GameObject\MegaMan.h">
+      <Filter>Header Files\Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="Map\MapOne.h">
       <Filter>Header Files\Map</Filter>
     </ClInclude>
   </ItemGroup>
@@ -41,10 +41,10 @@
     <ClCompile Include="WinMain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MegaMan.cpp">
+    <ClCompile Include="GameObject\MegaMan.cpp">
       <Filter>Source Files\Characters</Filter>
     </ClCompile>
-    <ClCompile Include="MapOne.cpp">
+    <ClCompile Include="Map\MapOne.cpp">
       <Filter>Source Files\Map</Filter>
     </ClCompile>
   </ItemGroup>

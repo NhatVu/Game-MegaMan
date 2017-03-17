@@ -2,6 +2,7 @@
 #include "GameTime.h"
 #include "Director.h"
 #include "Node.h"
+#include "Trace.h"
 #include <algorithm>
 
 
@@ -12,7 +13,7 @@ SFramework *SFramework::m_instance = NULL;
 
 #define BACKGROUND_COLOR D3DCOLOR_XRGB(242, 237, 237)
 
-SFramework::SFramework() 
+SFramework::SFramework()
 {
 }
 
@@ -90,7 +91,7 @@ int SFramework::initDirectX(HWND hwnd)
 	SetRect(&tempt, 0, 0, 100, 40);
 	drawText->setTextRect(tempt);
 	drawText->setMessage("this is a simple text");*/
-	
+
 	// load resource, có thể ghi nguồn ra 1 file text rồi chỉnh trong đó.
 	//Texture::getInstance()->init("Resource/texture.png", "Resource/texture.xml");
 	//Animation::getInstance()->init("Resource/animation.xml");
@@ -135,27 +136,22 @@ void SFramework::loop(HWND hwnd)
 		}
 		// Do our game stuff here
 		//DWORD now = GetTickCount();
-		GameTime::getInstance()->setEndTime(); // tính toán lại biến mDeltaTime
-
+		GameTime::getInstance()->setCurrentTime(); // tính toán lại biến mDeltaTime
 		// nếu thời gian delta > TimePerFrame => setStartTime(set lại biến mStartTime)
 		if (GameTime::getInstance()->getDeltaTime() > GameTime::getInstance()->getTimePerFrame())
 		{
+			//trace("delta time in sFramework " + std::to_string(GameTime::getInstance()->getDeltaTime()));
 			GameTime::getInstance()->setStartTime();
 			// run game
 			run();
-		}		
+			processKeyBoard(hwnd);
+		}
 		else
 		{
 			int sleepTime = GameTime::getInstance()->getTimeSleep();
 			if (sleepTime > 0)
 				Sleep(sleepTime);
 		}
-
-		// process input
-		//DirectxInput::getInstance()->processKeyBoard(hwnd); // gọi hàm onKeyDown, onKeyUp
-		//DirectxInput::getInstance()->processInput(m_d3ddev, GameTime::getInstance()->getDeltaTime());
-		processKeyBoard(hwnd);
-		processInput(m_d3ddev, GameTime::getInstance()->getDeltaTime());
 	}
 }
 
@@ -169,16 +165,13 @@ void SFramework::render()
 	Director::getInstance()->render();
 }
 
-void SFramework::attachInputObect(Sprite* object){
+void SFramework::attachInputObect(GameObject* object){
 	list_object_input.push_back(object);
 }
 
-void SFramework::detachInputObject(Sprite* object){
+void SFramework::detachInputObject(GameObject* object){
 	list_object_input.erase(std::remove(list_object_input.begin(), list_object_input.end(), object), list_object_input.end());
 }
-
-
-
 
 void SFramework::initKeyboard(HINSTANCE hInstance, HWND hWnd)
 {
@@ -233,7 +226,7 @@ void SFramework::initKeyboard(HINSTANCE hInstance, HWND hWnd)
 	dipdw.diph.dwHow = DIPH_DEVICE;
 	dipdw.dwData = KEYBOARD_BUFFER_SIZE; // Arbitary buffer size
 
-	//trace(L"SetProperty for keyboard successfully");
+	trace("SetProperty for keyboard successfully");
 
 	hr = _Keyboard->SetProperty(DIPROP_BUFFERSIZE, &dipdw.diph);
 	if (hr != DI_OK) return;
@@ -241,7 +234,7 @@ void SFramework::initKeyboard(HINSTANCE hInstance, HWND hWnd)
 	hr = _Keyboard->Acquire();
 	if (hr != DI_OK) return;
 
-	//trace(L"Keyboard has been acquired successfully");
+	trace("Keyboard has been acquired successfully");
 }
 
 // processKeyBoard call in Game loop. 
@@ -250,11 +243,29 @@ void SFramework::initKeyboard(HINSTANCE hInstance, HWND hWnd)
 void SFramework::processKeyBoard(HWND hWnd)
 {
 	// Collect all key states first
-	_Keyboard->GetDeviceState(sizeof(_KeyStates), _KeyStates);
+	HRESULT result = _Keyboard->GetDeviceState(sizeof(_KeyStates), _KeyStates);
+
+	if (FAILED(result))
+	{
+		// If the keyboard lost focus or was not acquired then try to get control back.
+		if ((result == DIERR_INPUTLOST) || (result == DIERR_NOTACQUIRED))
+		{
+			_Keyboard->Acquire();
+		}
+		else
+		{
+			return;
+		}
+	}
 
 	if (isKeyDown(DIK_ESCAPE))
 	{
 		PostMessage(hWnd, WM_QUIT, 0, 0);
+	}
+
+	if (isKeyDown(DIK_RIGHT)){
+		trace("RIght key down in device state");
+		int a = 0;
 	}
 
 	processKeyState(_KeyStates);
@@ -268,12 +279,27 @@ void SFramework::processKeyBoard(HWND hWnd)
 	{
 		int KeyCode = _KeyEvents[i].dwOfs;
 		int KeyState = _KeyEvents[i].dwData;
-		if ((KeyState & 0x80) > 0)
+		if ((KeyState & 0x80) > 0){
+			if (KeyCode == DIK_RIGHT)
+				trace("RIGHT keydown in device Data");
 			onKeyDown(KeyCode);
+		}
 		else
 			onKeyUp(KeyCode);
 	}
-
+	//if (FAILED(hr))
+	//{
+	//	// If the keyboard lost focus or was not acquired then try to get control back.
+	//	if ((hr == DIERR_INPUTLOST) || (hr == DIERR_NOTACQUIRED))
+	//	{
+	//		_Keyboard->Acquire();
+	//	}
+	//	else
+	//	{
+	//		return;
+	//	}
+	//}
+	//ZeroMemory(&_KeyEvents, sizeof(_KeyEvents));
 }
 
 int SFramework::isKeyDown(int KeyCode)
@@ -282,31 +308,31 @@ int SFramework::isKeyDown(int KeyCode)
 }
 
 void SFramework::onKeyUp(int KeyCode) {
-	std::list<Sprite*>::const_iterator iterator;
+	std::list<GameObject*>::const_iterator iterator;
 	for (iterator = list_object_input.begin(); iterator != list_object_input.end(); ++iterator) {
 		if (*iterator != 0){
-			Sprite* test = (*iterator);
+			GameObject* test = (*iterator);
 			test->onKeyUp(KeyCode);
 		}
 	}
 }
 
 void SFramework::onKeyDown(int KeyCode) {
-	std::list<Sprite*>::const_iterator iterator;
+	std::list<GameObject*>::const_iterator iterator;
 	for (iterator = list_object_input.begin(); iterator != list_object_input.end(); ++iterator) {
 		if (*iterator != 0){
-			Sprite* test = (*iterator);
+			GameObject* test = (*iterator);
+			trace("\ngameobject call");
 			test->onKeyDown(KeyCode);
 		}
 	}
 }
-void SFramework::processInput(LPDIRECT3DDEVICE9 d3ddv, int Delta){}
 
 void SFramework::processKeyState(BYTE *keyState){
-	std::list<Sprite*>::const_iterator iterator;
+	std::list<GameObject*>::const_iterator iterator;
 	for (iterator = list_object_input.begin(); iterator != list_object_input.end(); ++iterator) {
 		if (*iterator != 0){
-			Sprite* test = (*iterator);
+			GameObject* test = (*iterator);
 			test->processKeyState(keyState);
 		}
 	}

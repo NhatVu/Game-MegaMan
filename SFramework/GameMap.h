@@ -6,7 +6,7 @@
 #include <vector>
 
 #include "Texture.h"
-#include "Sprite.h"
+#include "GameObject.h"
 #include "MapReader/Tmx.h.in"
 
 using namespace Tmx;

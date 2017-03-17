@@ -26,9 +26,10 @@ void GameTime::setStartTime(){
 	mStartTime = GetTickCount();
 }
 
-void GameTime::setEndTime()
+void GameTime::setCurrentTime()
 {
-	mDeltaTime = GetTickCount() - mStartTime;
+	mCurrentTime = GetTickCount();
+	mDeltaTime = mCurrentTime - mStartTime;
 }
 DWORD GameTime::getDeltaTime()
 {
@@ -42,5 +43,5 @@ DWORD GameTime::getTimePerFrame()
 
 DWORD GameTime::getTimeSleep()
 {
-	return (1000 / FPS - (GetTickCount() - mStartTime));
+	return (1000 / FPS - (mCurrentTime - mStartTime));
 }

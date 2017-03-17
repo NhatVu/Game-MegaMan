@@ -158,7 +158,7 @@
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SFramework.h" />
-    <ClInclude Include="Sprite.h" />
+    <ClInclude Include="GameObject.h" />
     <ClInclude Include="SpriteSpec.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Trace.h" />
@@ -195,7 +195,7 @@
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SFramework.cpp" />
-    <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="SpriteSpec.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Trace.cpp" />

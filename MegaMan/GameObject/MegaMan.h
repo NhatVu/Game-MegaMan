@@ -2,13 +2,16 @@
 #define _MEGA_MAN_H_
 
 #include <d3dx9.h>
-#include "../SFramework/AnimationSpec.h"
-#include "../SFramework/Sprite.h"
-#include "../SFramework/Trace.h"
+#include "../../SFramework/AnimationSpec.h"
+#include "../../SFramework/GameObject.h"
+#include "../../SFramework/Trace.h"
 #include <vector>
 
+#define MEGA_MAN_VELOCITY_X 0.5f
+#define MEGA_MAN_VELOCITY_Y 0.1f
+
 using namespace s_framework;
-class MegaMan : public Sprite
+class MegaMan : public GameObject
 {
 public:
 	MegaMan();

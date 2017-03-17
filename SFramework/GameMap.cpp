@@ -115,7 +115,7 @@ void GameMap::Draw()
 					sourceRECT.left = x * tileWidth;
 					sourceRECT.right = sourceRECT.left + tileWidth;
 
-					//tru tilewidth/2 va tileheight/2 vi Sprite ve o vi tri giua hinh anh cho nen doi hinh de cho
+					//tru tilewidth/2 va tileheight/2 vi GameObject ve o vi tri giua hinh anh cho nen doi hinh de cho
 					//dung toa do (0,0) cua the gioi thuc la (0,0) neu khong thi se la (-tilewidth/2, -tileheigth/2);
 					FPOINT position(n * tileWidth + tileWidth / 2, m * tileHeight + tileHeight / 2);
 
@@ -125,7 +125,7 @@ void GameMap::Draw()
 					spriteSpec->setX(sourceRECT.left);
 					spriteSpec->setY(sourceRECT.top);
 					
-					Sprite* sprite = new Sprite();
+					GameObject* sprite = new GameObject();
 					sprite->setTexture(texture);
 					sprite->setSpriteSpec(spriteSpec);
 					sprite->setPostion(position);
@@ -179,7 +179,7 @@ vector<Node*> GameMap::getScene(){
 					sourceRECT.left = x * tileWidth;
 					sourceRECT.right = sourceRECT.left + tileWidth;
 
-					//tru tilewidth/2 va tileheight/2 vi Sprite ve o vi tri giua hinh anh cho nen doi hinh de cho
+					//tru tilewidth/2 va tileheight/2 vi GameObject ve o vi tri giua hinh anh cho nen doi hinh de cho
 					//dung toa do (0,0) cua the gioi thuc la (0,0) neu khong thi se la (-tilewidth/2, -tileheigth/2);
 					FPOINT position(n * tileWidth + tileWidth / 2, m * tileHeight + tileHeight / 2);
 
@@ -189,7 +189,7 @@ vector<Node*> GameMap::getScene(){
 					spriteSpec->setX(sourceRECT.left);
 					spriteSpec->setY(sourceRECT.top);
 
-					Sprite* sprite = new Sprite();
+					GameObject* sprite = new GameObject();
 					sprite->setTexture(texture);
 					sprite->setSpriteSpec(spriteSpec);
 					sprite->setPostion(position);

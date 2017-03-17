@@ -10,13 +10,14 @@ namespace s_framework
 		static GameTime *mTimeInstance;
 		DWORD mStartTime;
 		DWORD mDeltaTime;
+		DWORD mCurrentTime;
 		GameTime();
 
 	public:
 
 		static GameTime* getInstance();
 		void setStartTime();
-		void setEndTime();
+		void setCurrentTime();
 		DWORD getDeltaTime();
 		DWORD getTimePerFrame();
 		DWORD getTimeSleep();

@@ -1,10 +1,11 @@
 #include "MegaMan.h"
-#include "../SFramework/ResourceManager.h"
+#include "../../SFramework/ResourceManager.h"
+#include "../../SFramework/GameTime.h"
 #include <dinput.h>
 
-MegaMan::MegaMan():
-Sprite()
+MegaMan::MegaMan() : GameObject()
 {
+	GameObject::setVelocity(FPOINT(MEGA_MAN_VELOCITY_X, 0));
 }
 
 
@@ -13,12 +14,12 @@ MegaMan::~MegaMan()
 }
 
 void MegaMan::setTexture(Texture* texture){
-	Sprite::setTexture(texture);
+	GameObject::setTexture(texture);
 }
 void MegaMan::render(){
 	// render current sprite
-	Sprite::setSpriteSpec(m_animation->getCurrentSpriteSpec());
-	Sprite::render();
+	GameObject::setSpriteSpec(m_animation->getCurrentSpriteSpec());
+	GameObject::render();
 }
 
 void MegaMan::processInput(LPDIRECT3DDEVICE9 d3ddv, int Delta){ 
@@ -40,13 +41,23 @@ void MegaMan::processInput(LPDIRECT3DDEVICE9 d3ddv, int Delta){
 }
 
 void MegaMan::onKeyDown(int keyCode){
+	FPOINT currentPosition = this->getPosition();
+	DWORD deltaTime = GameTime::getInstance()->getDeltaTime();
+	
+	// key right và left thì vy = 0
 	if (keyCode == DIK_RIGHT)
 	{
-		trace("right button");
+
+		currentPosition.x = currentPosition.x + getVelocity().x*deltaTime;
+		this->setPostion(currentPosition);
+		trace("deta time " + std::to_string(deltaTime));
+		trace("mega man right button onKeyDown\n");
 	}
 	else
 	if (keyCode == DIK_LEFT)
 	{
+		/*currentPosition.x = currentPosition.x - getVelocity().x*deltaTime;
+		this->setPostion(currentPosition);*/
 		trace("left button");
 
 	}
@@ -63,13 +74,17 @@ void MegaMan::changeAnimation(int character, int state){
 }
 
 void MegaMan::processKeyState(BYTE *keyState){
+	FPOINT currentPosition = this->getPosition();
+	DWORD deltaTime = GameTime::getInstance()->getDeltaTime();
 	if ((keyState[DIK_RIGHT] & 0x80) > 0)
-		trace("right button");
+		trace("mega men right button key state");
 	else
 	if ((keyState[DIK_LEFT] & 0x80) > 0)
 	{
-		trace("left button");
-
+		
+			currentPosition.x = currentPosition.x - getVelocity().x*deltaTime;
+			this->setPostion(currentPosition);
+			trace("left button");
 	}
 	
 }

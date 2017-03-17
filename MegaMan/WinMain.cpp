@@ -6,7 +6,7 @@
 #include "../SFramework/GameTime.h"
 #include "../SFramework/Scene.h"
 #include "../SFramework/Layer.h"
-#include "../SFramework/Sprite.h"
+#include "../SFramework/GameObject.h"
 #include "../SFramework/Director.h"
 #include "../SFramework/Texture.h"
 #include "../SFramework/SpriteSpec.h"
@@ -15,7 +15,7 @@
 #include "../SFramework/GameMap.h"
 
 #include "MegaManUtilities.h"
-#include "MegaMan.h"
+#include "GameObject/MegaMan.h"
 
 #define APP_CLASS L"SampleWindow"
 #define MAIN_WINDOW_TITLE L"Mega Man"
@@ -80,15 +80,14 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmdLine,
 	// install directx
 	if (!SFramework::getInstance()->initDirectX(hwnd))
 		return FALSE;
+
 	// install directx input, keyboard
 	//DirectxInput::getInstance()->initKeyboard(hInstance, hwnd);
 	SFramework::getInstance()->initKeyboard(hInstance, hwnd);
 
-	
+	// Install Gametime
 	GameTime::getInstance();
 
-	// thiết lập ma trận transform
-	//ViewPort::getInstance()->setPosition(FPOINT(20, 20));
 
 	// load hình
 	Texture* texture = new Texture();
@@ -114,7 +113,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmdLine,
 	Scene* scene = new Scene();
 	scene->setHeight(SCREEN_HEIGHT );
 	scene->setWidth(SCREEN_WIDTH );
-	//scene->setPostion(FPOINT((float)SCREEN_WIDTH *2, (float)SCREEN_HEIGHT *2));
 	scene->setPostion(FPOINT(0, 0));
 
 	//scene->addChild(layer);
@@ -130,11 +128,11 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmdLine,
 	ViewPort::getInstance()->setPosition(p); // vị trí left-top của viewport
 
 	// create object
-	Sprite* megaMan = new MegaMan();
+	GameObject* megaMan = new MegaMan();
 	megaMan->setTexture(texture);
 	((MegaMan*)megaMan)->changeAnimation(ECharacter::SMALL_MARIO, EState::MOVE);
 	 //megaMan->setAnimationSpec(ECharacter::BIG_MARIO, EState::DIE)
-	//Sprite* sprite = new Sprite(texture, texture->getSpriteSpecById(19));
+	//GameObject* sprite = new GameObject(texture, texture->getSpriteSpecById(19));
 	p.x = 200;
 	p.y = 00;
 	megaMan->setPostion(p);
@@ -153,6 +151,10 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmdLine,
 	// attach megaman object in order to receive event when keyboard press
 	SFramework::getInstance()->attachInputObect(megaMan);
 	//((Subject*)DirectxInput::getInstance())->Attach((IObserver*)megaMan);
+
+	/*
+	* Kết thúc giai đoạn tạo map và các đối tượng trong game. Câu hỏi đặt ra là khi chuyển map từ màn 1 sang màn 2, sẽ khơi tạo map màn 2 mở đâu ?
+	*/
 	// game loop
 	SFramework::getInstance()->loop(hwnd);
 
