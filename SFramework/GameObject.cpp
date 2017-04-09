@@ -3,6 +3,7 @@
 #include "Director.h"
 #include "Texture.h"
 #include "ViewPort.h"
+#include "Trace.h"
 
 using namespace s_framework;
 
@@ -37,7 +38,9 @@ void GameObject::render()
 
 	RECT srcRect;
 	srcRect.left = m_spriteSpec->getX();
+	//trace(""+ srcRect.left);
 	srcRect.top = m_spriteSpec->getY();
+	//trace("" + srcRect.top);
 	srcRect.right = srcRect.left + m_spriteSpec->getWidth();
 	srcRect.bottom = srcRect.top + m_spriteSpec->getHeight();
 
@@ -52,7 +55,7 @@ void GameObject::render()
 	renderPosition = ViewPort::getInstance()->transform(renderPosition);
 
 	// vẽ.
-	spriteHandler->Begin(0);// (D3DXSPRITE_ALPHABLEND);
+	spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);// (D3DXSPRITE_ALPHABLEND);
 
 	spriteHandler->Draw(m_texture->getTexture(), &srcRect, &centerOfSpriteTexture, &renderPosition, D3DCOLOR_XRGB(255,255,255));
 	spriteHandler->End();

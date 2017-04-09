@@ -123,9 +123,9 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmdLine,
 	/*p.x = p.x + 100;
 	p.y = p.y + 200;*/
 	FPOINT p;
-	p.x = -100;
-	p.y = 300;
-	ViewPort::getInstance()->setPosition(p); // vị trí left-top của viewport
+	p.x = 0;
+	p.y = 400;
+	ViewPort::getInstance()->setPosition(p); // vị trí left-top của viewport trong thế giới.
 
 	// create object
 	GameObject* megaMan = new MegaMan();
@@ -133,8 +133,9 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmdLine,
 	((MegaMan*)megaMan)->changeAnimation(ECharacter::SMALL_MARIO, EState::MOVE);
 	 //megaMan->setAnimationSpec(ECharacter::BIG_MARIO, EState::DIE)
 	//GameObject* sprite = new GameObject(texture, texture->getSpriteSpecById(19));
-	p.x = 200;
-	p.y = 00;
+	// vị trí của mega man trong world
+	p.x = 100;
+	p.y = 50;
 	megaMan->setPostion(p);
 
 	

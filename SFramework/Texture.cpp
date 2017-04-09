@@ -54,7 +54,7 @@ void Texture::loadImageToTexture(string imageSource)
 		D3DPOOL_DEFAULT,
 		D3DX_DEFAULT,
 		D3DX_DEFAULT,
-		D3DCOLOR_XRGB(0,0,0),
+		D3DCOLOR_XRGB(255,255,255),
 		&info,
 		NULL,
 		&m_texture);

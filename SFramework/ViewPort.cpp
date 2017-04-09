@@ -27,7 +27,7 @@ FPOINT ViewPort::getPosition()
 	return m_position;
 }
 
-void ViewPort::setPosition(FPOINT p) // set gốc tọa độ của ViewPort
+void ViewPort::setPosition(FPOINT p) // set gốc tọa độ của ViewPort, top-left
 {
 	m_position.x = p.x;
 	m_position.y = p.y;

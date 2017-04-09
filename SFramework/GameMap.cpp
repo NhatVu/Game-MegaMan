@@ -33,15 +33,15 @@ void GameMap::LoadMap(char* filePath)
 	RECT r;
 	r.left = 0;
 	r.top = 0;
-	r.right = this->GetWidth();
-	r.bottom = this->GetHeight();
+	r.right = this->GetWidth() - 1;
+	r.bottom = this->GetHeight() - 1;
 
 	for (size_t i = 0; i < mMap->GetNumTilesets(); i++)
 	{
 		const Tileset *tileset = mMap->GetTileset(i);
 
 		Texture *texture = new Texture();
-		texture->init(tileset->GetImage()->GetSource());
+		texture->init("Resources\\" + tileset->GetImage()->GetSource());
 
 		// load texutre use in map into mListTileset
 		mListTileset[i] = texture;
@@ -152,6 +152,8 @@ vector<Node*> GameMap::getScene(){
 
 		int tileWidth = mMap->GetTileWidth();
 		int tileHeight = mMap->GetTileHeight();
+		int mapWidth = mMap->GetWidth() * tileWidth;
+		int mapHeight = mMap->GetHeight() * tileHeight;
 
 		for (size_t m = 0; m < layer->GetHeight(); m++)
 		{
@@ -183,6 +185,10 @@ vector<Node*> GameMap::getScene(){
 					//dung toa do (0,0) cua the gioi thuc la (0,0) neu khong thi se la (-tilewidth/2, -tileheigth/2);
 					FPOINT position(n * tileWidth + tileWidth / 2, m * tileHeight + tileHeight / 2);
 
+					position.y = mapHeight - position.y; 
+					/*
+					Code demo xét theo hệ trục của màn hình với y hướng xuống. nên phải thiết lập lại độ cao cho tile trong map. 
+					*/
 					SpriteSpec* spriteSpec = new SpriteSpec();
 					spriteSpec->setWidth(tileWidth);
 					spriteSpec->setHeight(tileHeight);

@@ -4,15 +4,22 @@
 		"state": [{
 			"stateID": 1,
 			"delayTime": 30,
-			"frame": [1]
+			"frame": [140]
 		},{
 			"stateID": 2,
 			"delayTime": 30,
-			"frame": [1,2,3]
+			"frame": [140,141,142,143,144]
 		},{
 			"stateID": 3,
 			"delayTime": 30,
-			"frame": [3]
+			"frame": [144]
+		}]
+	},{
+		"objectID": 2,
+		"state": [{
+			"stateID": 1,
+			"delayTime": 30,
+			"frame": [145,146]
 		}]
 	}
 	]

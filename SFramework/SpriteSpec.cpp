@@ -12,37 +12,37 @@ SpriteSpec::~SpriteSpec()
 }
 
 
-int SpriteSpec::getX()
+float SpriteSpec::getX()
 {
 	return x;
 }
-void SpriteSpec::setX(int a)
+void SpriteSpec::setX(float a)
 {
 	x = a;
 }
 
-int SpriteSpec::getY()
+float SpriteSpec::getY()
 {
 	return y;
 }
-void SpriteSpec::setY(int a)
+void SpriteSpec::setY(float a)
 {
 	y = a;
 }
 
-int SpriteSpec::getHeight()
+float SpriteSpec::getHeight()
 {
 	return height;
 }
-void SpriteSpec::setHeight(int a)
+void SpriteSpec::setHeight(float a)
 {
 	height = a;
 }
 
-int SpriteSpec::getWidth()
+float SpriteSpec::getWidth()
 {
 	return width;
 }
-void SpriteSpec::setWidth(int a){
+void SpriteSpec::setWidth(float a){
 	width = a;
 }

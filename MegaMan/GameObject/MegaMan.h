@@ -7,8 +7,8 @@
 #include "../../SFramework/Trace.h"
 #include <vector>
 
-#define MEGA_MAN_VELOCITY_X 0.5f
-#define MEGA_MAN_VELOCITY_Y 0.1f
+#define MEGA_MAN_VELOCITY_X 0.05f
+#define MEGA_MAN_VELOCITY_Y 0.01f
 
 using namespace s_framework;
 class MegaMan : public GameObject

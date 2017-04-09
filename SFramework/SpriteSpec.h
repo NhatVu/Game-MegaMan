@@ -6,25 +6,25 @@ namespace s_framework{
 	{
 
 	private:
-		int x; // tọa độ left trong image source
-		int y; // tọa độ top trong image source
-		int height; // chiều cao của sprite
-		int width; // độ rộng của sprite
+		float x; // tọa độ left trong image source
+		float y; // tọa độ top trong image source
+		float height; // chiều cao của sprite
+		float width; // độ rộng của sprite
 	public:
 		SpriteSpec();
 		~SpriteSpec();
 
-		int getX();
-		void setX(int);
+		float getX();
+		void setX(float);
 
-		int getY();
-		void setY(int);
+		float getY();
+		void setY(float);
 
-		int getHeight();
-		void setHeight(int);
+		float getHeight();
+		void setHeight(float);
 
-		int getWidth();
-		void setWidth(int);
+		float getWidth();
+		void setWidth(float);
 
 
 	};
