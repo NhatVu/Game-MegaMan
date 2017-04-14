@@ -1,5 +1,5 @@
 ﻿#include "GameMap.h"
-#include "SpriteSpec.h"
+#include "../SpriteAndAnimation/SpriteSpec.h"
 using namespace s_framework;
 
 GameMap::GameMap(char* filePath, Texture* objectTexture)

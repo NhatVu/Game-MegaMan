@@ -5,9 +5,9 @@
 #include <d3d9.h>
 #include <vector>
 
-#include "Texture.h"
-#include "GameObject.h"
-#include "MapReader/Tmx.h.in"
+#include "../SpriteAndAnimation/Texture.h"
+#include "../GameObject.h"
+#include "../MapReader/Tmx.h.in"
 
 using namespace Tmx;
 using namespace std;

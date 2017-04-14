@@ -2,7 +2,7 @@
 #define _MEGA_MAN_H_
 
 #include <d3dx9.h>
-#include "../../SFramework/AnimationSpec.h"
+#include "../../SFramework/SpriteAndAnimation/AnimationSpec.h"
 #include "../../SFramework/GameObject.h"
 #include "../../SFramework/Trace.h"
 #include <vector>

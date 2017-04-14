@@ -1,6 +1,6 @@
 #include "Texture.h"
-#include "SFramework.h"
-#include "rapidxml-1.13\rapidxml.hpp"
+#include "../SFramework.h"
+#include "../rapidxml-1.13\rapidxml.hpp"
 #include <fstream>
 #include <vector>
 

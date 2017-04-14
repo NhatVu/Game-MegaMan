@@ -85,9 +85,9 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AnimationSpec.h" />
+    <ClInclude Include="Camera\ViewPort.h" />
+    <ClInclude Include="Collision.h" />
     <ClInclude Include="Director.h" />
-    <ClInclude Include="GameMap.h" />
     <ClInclude Include="GameTime.h" />
     <ClInclude Include="Layer.h" />
     <ClInclude Include="MapReader\base64.h" />
@@ -115,6 +115,7 @@
     <ClInclude Include="MapReader\zlib.h" />
     <ClInclude Include="MapReader\zlib128-dll\include\zconf.h" />
     <ClInclude Include="MapReader\zlib128-dll\include\zlib.h" />
+    <ClInclude Include="Map\GameMap.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="rapidjson\allocators.h" />
     <ClInclude Include="rapidjson\document.h" />
@@ -159,16 +160,16 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SFramework.h" />
     <ClInclude Include="GameObject.h" />
-    <ClInclude Include="SpriteSpec.h" />
-    <ClInclude Include="Texture.h" />
+    <ClInclude Include="SpriteAndAnimation\AnimationSpec.h" />
+    <ClInclude Include="SpriteAndAnimation\SpriteSpec.h" />
+    <ClInclude Include="SpriteAndAnimation\Texture.h" />
     <ClInclude Include="Trace.h" />
     <ClInclude Include="Utilities.h" />
-    <ClInclude Include="ViewPort.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AnimationSpec.cpp" />
+    <ClCompile Include="Camera\ViewPort.cpp" />
+    <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Director.cpp" />
-    <ClCompile Include="GameMap.cpp" />
     <ClCompile Include="GameTime.cpp" />
     <ClCompile Include="Layer.cpp" />
     <ClCompile Include="MapReader\base64.cpp" />
@@ -191,15 +192,16 @@
     <ClCompile Include="MapReader\TmxTileOffset.cpp" />
     <ClCompile Include="MapReader\TmxTileset.cpp" />
     <ClCompile Include="MapReader\TmxUtil.cpp" />
+    <ClCompile Include="Map\GameMap.cpp" />
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SFramework.cpp" />
     <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="SpriteSpec.cpp" />
-    <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="SpriteAndAnimation\AnimationSpec.cpp" />
+    <ClCompile Include="SpriteAndAnimation\SpriteSpec.cpp" />
+    <ClCompile Include="SpriteAndAnimation\Texture.cpp" />
     <ClCompile Include="Trace.cpp" />
-    <ClCompile Include="ViewPort.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="rapidxml-1.13\manual.html" />

@@ -2,7 +2,7 @@
 #define _VIEW_PORT_H_
 
 #include <d3dx9.h>
-#include "Utilities.h"
+#include "../Utilities.h"
 
 namespace s_framework{
 	class ViewPort

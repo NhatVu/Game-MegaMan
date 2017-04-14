@@ -2,12 +2,12 @@
 #define _CHARACTER_H_
 
 #include "Node.h"
-#include "SpriteSpec.h"
+#include "SpriteAndAnimation/SpriteSpec.h"
 #include <d3d9.h>
 #include <d3dx9.h>
 #include "Utilities.h"
 #include <list>
-#include "Texture.h"
+#include "SpriteAndAnimation/Texture.h"
 
 using namespace std;
 namespace s_framework

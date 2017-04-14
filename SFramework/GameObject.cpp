@@ -1,8 +1,8 @@
 ﻿#include "GameObject.h"
 #include "SFramework.h"
 #include "Director.h"
-#include "Texture.h"
-#include "ViewPort.h"
+#include "SpriteAndAnimation/Texture.h"
+#include "Camera/ViewPort.h"
 #include "Trace.h"
 
 using namespace s_framework;

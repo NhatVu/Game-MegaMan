@@ -3,7 +3,7 @@
 
 #include <string>
 #include <map>
-#include "AnimationSpec.h"
+#include "SpriteAndAnimation/AnimationSpec.h"
 #include <list>
 #include <vector>
 using namespace std;
