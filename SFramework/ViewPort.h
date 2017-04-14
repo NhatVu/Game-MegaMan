@@ -26,7 +26,7 @@ namespace s_framework{
 		FPOINT getPosition();
 		void setPosition(FPOINT p);
 
-		D3DXVECTOR3 transform(D3DXVECTOR3 p);
+		D3DXVECTOR3 worldToViewport(D3DXVECTOR3 p);
 	};
 }
 #endif // !_VIEW_PORT_H_

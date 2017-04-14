@@ -123,8 +123,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmdLine,
 	/*p.x = p.x + 100;
 	p.y = p.y + 200;*/
 	FPOINT p;
-	p.x = 0;
-	p.y = 400;
+	p.x = -00;
+	p.y = 200;
 	ViewPort::getInstance()->setPosition(p); // vị trí left-top của viewport trong thế giới.
 
 	// create object
@@ -141,13 +141,22 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmdLine,
 	
 
 	// map
-	GameMap* map = new GameMap("Resources/map.tmx");
+	GameMap* map = new GameMap("Resources/map.tmx", texture);
 	//map->Draw();
-	vector<Node*> mapNode = map->getScene();
+	vector<Node*> mapNode = map->getNodesBackground();
 	for (int i = 0; i < mapNode.size(); i++){
 		scene->addChild(mapNode[i]);
 	}
 	scene->addChild(megaMan);
+
+	vector<GameObject*> mListObject = map->getListObject();
+	for (int i = 0; i < mListObject.size(); i++){
+
+		printf("Object Position: (%03d, %03d)\n", mListObject[i]->getCollisionBox().x,
+			mListObject[i]->getCollisionBox().y);
+		printf("Object Size: (%03d, %03d)\n", mListObject[i]->getCollisionBox().width,
+			mListObject[i]->getCollisionBox().height);
+	}
 
 	// attach megaman object in order to receive event when keyboard press
 	SFramework::getInstance()->attachInputObect(megaMan);

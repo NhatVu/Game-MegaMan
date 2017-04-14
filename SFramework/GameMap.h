@@ -10,14 +10,14 @@
 #include "MapReader/Tmx.h.in"
 
 using namespace Tmx;
+using namespace std;
 //#include "GameGlobal.h"
 namespace s_framework {
 
 class GameMap
 {
 public:
-	GameMap();
-	GameMap(char* filePath);
+	GameMap(char* filePath, Texture *ojbectTexture); // texture de goi ham object->setTexture
 
 	Map* GetMap();
 
@@ -25,8 +25,9 @@ public:
 	int GetHeight();
 	int GetTileWidth(); // độ rộng của tileset
 	int GetTileHeight();
-
-	void Draw(); // vẽ map
+	vector<Node*> getNodesBackground();
+	vector<GameObject*> getListObject(){ return this->mListObjet; };
+	
 	vector<Node*> getScene();
 
 	~GameMap();
@@ -36,6 +37,11 @@ private:
 	vector<Node*> mapNode;
 	Map                        *mMap;
 	std::map<int, Texture*>          mListTileset;
+	std::vector<Node*> mNodesBackground; // danh sách sprite để vẽ background cho map
+	std::vector<GameObject*> mListObjet; // danh sách các đối tượng
+	Texture* mObjectTexture;
+	void parseBackground(); // vẽ map
+	void parseObjectGroup();
 };
 
 }

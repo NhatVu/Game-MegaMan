@@ -51,13 +51,37 @@ void GameObject::render()
 
 	D3DXVECTOR3 renderPosition = D3DXVECTOR3(m_position.x, m_position.y, 0);
 	//renderPosition = renderPosition + D3DXVECTOR3(this->m_parent->getOffsetToScene().x, this->m_parent->getOffsetToScene().y, 0);
+	renderPosition = ViewPort::getInstance()->worldToViewport(renderPosition);
+	FPOINT vp = ViewPort::getInstance()->getPosition();
+	//D3DXMATRIX matFinal;
+	//D3DXVECTOR2 inScale = D3DXVECTOR2(1, 1); // flip object 
+	//D3DXVECTOR2 inRotationCenter = D3DXVECTOR2(1, 1);
+	//D3DXVECTOR2 scalingScenter = D3DXVECTOR2(1,1);
+	//D3DXVECTOR2 position = D3DXVECTOR2(renderPosition.x, renderPosition.y);
+	//float inRotation = D3DXToRadian(0.0f);
 
-	renderPosition = ViewPort::getInstance()->transform(renderPosition);
+	//D3DXMatrixTransformation2D(&matFinal, &scalingScenter, 0, &inScale, &inRotationCenter,
+	//	inRotation, &position);
+	D3DXMATRIX mt1;
+	D3DXMatrixScaling(&mt1, 2, 2, 0); //scale object
+	D3DXMATRIX output;
+	D3DXMATRIX t1, t2, r;
+	D3DXMatrixTranslation(&t1, -50, -250, 0);
+	D3DXMatrixRotationY(&r, D3DXToRadian(180.0f));
+	D3DXMatrixTranslation(&t2, 50, 250, 0);
+
+	/*D3DXMatrixMultiply(&output, &mt1,&t1);
+	D3DXMatrixMultiply(&output, &output, &r);
+	D3DXMatrixMultiply(&output, &output, &t2);*/
+
+	D3DXMatrixTransformation(&output, NULL, NULL, &D3DXVECTOR3(2, 2, 0), &D3DXVECTOR3(0, centerOfSpriteTexture.y, 0), NULL, NULL);
+
 
 	// vẽ.
 	spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);// (D3DXSPRITE_ALPHABLEND);
-
-	spriteHandler->Draw(m_texture->getTexture(), &srcRect, &centerOfSpriteTexture, &renderPosition, D3DCOLOR_XRGB(255,255,255));
+	spriteHandler->SetTransform(&output);
+	//spriteHandler->Draw(m_texture->getTexture(), &srcRect, &centerOfSpriteTexture, &renderPosition, D3DCOLOR_XRGB(255,255,255));
+	spriteHandler->Draw(m_texture->getTexture(), &srcRect, NULL, &renderPosition, D3DCOLOR_XRGB(255, 255, 255));
 	spriteHandler->End();
 
 	Node::render();
@@ -132,4 +156,12 @@ FPOINT GameObject::getVelocity(){
 
 void GameObject::setVelocity(FPOINT velocity){
 	this->m_velocity = velocity;
+}
+
+BOX GameObject::getCollisionBox(){
+	return this->m_collisionBox;
+}
+
+void GameObject::setCollisionBox(BOX box){
+	this->m_collisionBox = box;
 }

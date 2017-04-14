@@ -19,8 +19,10 @@ namespace s_framework
 	private:
 		SpriteSpec* m_spriteSpec;
 		Texture* m_texture;
-		
+
 		FPOINT m_velocity;
+		BOX m_collisionBox;
+		int type;
 	public:
 		GameObject();
 		~GameObject();
@@ -33,6 +35,13 @@ namespace s_framework
 
 		void setTexture(Texture* texture);
 		void setSpriteSpec(SpriteSpec* spriteSpec);
+
+		void setCollisionBox(BOX box);
+		BOX getCollisionBox();
+
+		void setType(int type){ this->type = type; };
+		int getType(){ return this->type; };
+
 		void render()override;
 		void update(long delta)override;
 		virtual void onKeyUp(int keyCode);
