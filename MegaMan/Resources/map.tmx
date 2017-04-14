@@ -46,8 +46,8 @@
  </layer>
  <objectgroup name="Object Layer 1">
   <object id="1" name="ground" type="0" x="2" y="1145" width="275" height="36"/>
-  <object id="5" name="ground" type="0" x="270.667" y="1112" width="61.3333" height="13.3333"/>
-  <object id="6" name="ground" type="0" x="333.333" y="1078.67" width="62.6667" height="32.6667"/>
-  <object id="7" name="ground" type="0" x="398" y="1046" width="60.6667" height="31.3333"/>
+  <object id="5" name="ground" type="0" x="270" y="1110" width="60" height="15"/>
+  <object id="6" name="ground" type="0" x="330" y="1100" width="60" height="30"/>
+  <object id="7" name="ground" type="0" x="400" y="1046" width="60" height="30"/>
  </objectgroup>
 </map>

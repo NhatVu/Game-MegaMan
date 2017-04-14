@@ -43,6 +43,8 @@ namespace s_framework{
 		float y;
 		float width;
 		float height;
+		float vx;
+		float vy;
 
 		BOX(){
 
@@ -53,6 +55,19 @@ namespace s_framework{
 			this->y = y;
 			this->width = width;
 			this->height = height;
+		}
+
+		BOX(float x, float y, float width, float height, float vx, float vy){
+			this->x = x;
+			this->y = y;
+			this->width = width;
+			this->height = height;
+			this->vx = vx;
+		}
+
+		BOX(float vx, float vy){
+			this->vx = vx;
+			this->vy = vy;
 		}
 	};
 	
