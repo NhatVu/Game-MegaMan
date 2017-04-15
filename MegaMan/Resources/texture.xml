@@ -63,9 +63,9 @@ r => 'y' only set if sprite is rotated
     <sprite n="14.png" x="237" y="115" w="12" h="11"/>
     <sprite n="140.png" x="2" y="147" w="21" h="24"/>
     <sprite n="141.png" x="25" y="147" w="21" h="24"/>
-    <sprite n="142.png" x="48" y="147" w="20" h="24"/>
-    <sprite n="143.png" x="70" y="147" w="16" h="24"/>
-    <sprite n="144.png" x="88" y="147" w="24" h="22"/>
+    <sprite n="142.png" x="48" y="147" w="21" h="24"/>
+    <sprite n="143.png" x="70" y="147" w="21" h="24"/>
+    <sprite n="144.png" x="88" y="147" w="21" h="24"/>
     <sprite n="145.png" x="114" y="147" w="21" h="22"/>
     <sprite n="146.png" x="137" y="147" w="22" h="4"/>
     <sprite n="147.png" x="161" y="147" w="22" h="12"/>

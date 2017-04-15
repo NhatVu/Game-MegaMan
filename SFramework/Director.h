@@ -20,6 +20,7 @@ namespace s_framework
 		static Director* getInstance();
 		ID3DXSprite* getD3DXSprite();
 		void setScene(Scene* scene);
+		Node* getScene(){ return this->m_scene; };
 		void render();
 
 		~Director();

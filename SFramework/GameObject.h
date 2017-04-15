@@ -21,6 +21,7 @@ namespace s_framework
 		Texture* m_texture;
 
 		FPOINT m_velocity;
+		FPOINT m_acceleration;
 		BOX m_collisionBox;
 		int type;
 	public:
@@ -35,6 +36,7 @@ namespace s_framework
 
 		void setTexture(Texture* texture);
 		void setSpriteSpec(SpriteSpec* spriteSpec);
+		SpriteSpec* getSpriteSpec(){ return this->m_spriteSpec; };
 
 		void setCollisionBox(BOX box);
 		BOX getCollisionBox();
@@ -42,13 +44,15 @@ namespace s_framework
 		void setType(int type){ this->type = type; };
 		int getType(){ return this->type; };
 
+		void setAcceleration(FPOINT acceleration){ this->m_acceleration = acceleration; };
+		FPOINT getAcceleration(){ return this->m_acceleration; };
+
 		void render()override;
 		void update(long delta)override;
 		virtual void onKeyUp(int keyCode);
 		virtual void onKeyDown(int keyCode);
 		virtual void processKeyState(BYTE *keyState);
-
-
+		virtual void onCollision(GameObject* staticObject);
 	};
 
 }

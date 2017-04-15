@@ -26,6 +26,8 @@ BOX Collision::GetBroadPhasing(BOX b)
 	broadphasebox.y = b.vy > 0 ? b.y + b.vy: b.y;
 	broadphasebox.width = b.vx > 0 ? b.vx + b.width : b.width - b.vx;
 	broadphasebox.height = b.vy > 0 ? b.vy + b.height : b.height - b.vy;
+	broadphasebox.vx = b.vx;
+	broadphasebox.vy = b.vy;
 	
 	return broadphasebox;
 }
@@ -53,7 +55,7 @@ float Collision::SweptAABB(BOX _b1, BOX _b2, float& normalx, float& normaly)
 	
 	float xInvEntry, yInvEntry;
 	float xInvExit, yInvExit;
-	if (_b1.vx > 0.0f)
+	if (_b1.vx >= 0.0f)
 	{
 		xInvEntry = _b2.x - (_b1.x + _b1.width);
 		xInvExit = (_b2.x + _b2.width) - _b1.x;
@@ -64,7 +66,7 @@ float Collision::SweptAABB(BOX _b1, BOX _b2, float& normalx, float& normaly)
 		xInvExit = _b2.x - (_b1.x + _b1.width);
 	}
 
-	if (_b1.vy > 0.0f)
+	if (_b1.vy >= 0.0f)//???????????????
 	{
 		yInvEntry = (_b2.y - _b2.height) - _b1.y;
 		yInvExit = _b2.y - (_b1.y - _b1.height);
@@ -157,10 +159,13 @@ float Collision::SweptAABB(BOX _b1, BOX _b2, float& normalx, float& normaly)
 float Collision::CheckCollision(GameObject* mDynamic, GameObject* mStatic, D3DXVECTOR2 &normal)
 {
 	BOX dynamicBox = mDynamic->getCollisionBox();
-	BOX staticBox = mDynamic->getCollisionBox();
+	BOX staticBox = mStatic->getCollisionBox();
 
 	BOX broadPhaseBox = GetBroadPhasing(dynamicBox);
-	float timeCollision;
+	float timeCollision = 0.0f;
+	if (staticBox.x == 270 && dynamicBox.x > 260){
+		int a = 5;
+	}
 	if (CheckBroadPhasing(broadPhaseBox, staticBox))
 	{
 		timeCollision = SweptAABB(dynamicBox, staticBox, normal.x, normal.y);

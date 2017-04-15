@@ -224,13 +224,10 @@ vector<Node*> GameMap::getScene(){
 }
 
 void GameMap::parseObjectGroup(){
+	int mapHeight = mMap->GetHeight() * mMap->GetTileHeight();
+
 	for (int i = 0; i < mMap->GetNumObjectGroups(); ++i)
 	{
-		printf("                                    \n");
-		printf("====================================\n");
-		printf("Object group : %02d\n", i);
-		printf("====================================\n");
-
 		// Get an object group.
 		const Tmx::ObjectGroup *objectGroup = mMap->GetObjectGroup(i);
 
@@ -246,9 +243,11 @@ void GameMap::parseObjectGroup(){
 
 			BOX collistionBox;
 			collistionBox.x = object->GetX();
-			collistionBox.y = object->GetY();
+			collistionBox.y = mapHeight - object->GetY();
 			collistionBox.width = object->GetWidth();
-			collistionBox.height = object->GetHeight();
+			collistionBox.height =object->GetHeight();
+			collistionBox.vx = 0.0f;
+			collistionBox.vy = 0.0f;
 			gameObject->setCollisionBox(collistionBox);
 
 			gameObject->setType(std::stoi(object->GetType()));
@@ -257,4 +256,10 @@ void GameMap::parseObjectGroup(){
 		}
 	}
 
+}
+
+void GameMap::draw(){
+	for (int i = 0; i < mNodesBackground.size(); i++){
+		mNodesBackground[i]->render();
+	}
 }

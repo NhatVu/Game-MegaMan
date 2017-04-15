@@ -134,15 +134,25 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmdLine,
 	 //megaMan->setAnimationSpec(ECharacter::BIG_MARIO, EState::DIE)
 	//GameObject* sprite = new GameObject(texture, texture->getSpriteSpecById(19));
 	// vị trí của mega man trong world
+
+	// va chạm top, từ trên xuống
 	p.x = 100;
-	p.y = 50;
+	p.y = 150; 
+
+	// check va chạm bottom, từ dưới lên. nhớ chỉnh lại gravitational_acceleration
+	p.x = 100;
+	p.y = -150;
+
+	// va chạm trái. chỉnh gia tốc trọng trường = 0
+	p.x = 100;
+	p.y = 60;
 	megaMan->setPostion(p);
 
 	
 
 	// map
 	GameMap* map = new GameMap("Resources/map.tmx", texture);
-	//map->Draw();
+	//map->draw();
 	vector<Node*> mapNode = map->getNodesBackground();
 	for (int i = 0; i < mapNode.size(); i++){
 		scene->addChild(mapNode[i]);
@@ -150,13 +160,28 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmdLine,
 	scene->addChild(megaMan);
 
 	vector<GameObject*> mListObject = map->getListObject();
-	for (int i = 0; i < mListObject.size(); i++){
+	megaMan->setType(2);
+	scene->addGameObject(megaMan);
+	scene->addGameObjects(mListObject);
+	//for (int i = 0; i < mListObject.size(); i++)
+	//	scene->addChild(mListObject[i]);
+
+
+	//for (int i = 0; i < mListObject.size(); i++){
+	//	if (mListObject[i]->getType() != 1)
+	//	{
+	//		for (int j = 0; j < mListObject.size() && i != j; j++)
+	//			mListObject[i]->onCollision(mListObject[j]);
+	//	}
+	//}
+
+	/*for (int i = 0; i < mListObject.size(); i++){
 
 		printf("Object Position: (%03d, %03d)\n", mListObject[i]->getCollisionBox().x,
 			mListObject[i]->getCollisionBox().y);
 		printf("Object Size: (%03d, %03d)\n", mListObject[i]->getCollisionBox().width,
 			mListObject[i]->getCollisionBox().height);
-	}
+	}*/
 
 	// attach megaman object in order to receive event when keyboard press
 	SFramework::getInstance()->attachInputObect(megaMan);

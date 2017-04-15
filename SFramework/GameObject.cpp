@@ -49,7 +49,7 @@ void GameObject::render()
 	D3DXVECTOR3 centerOfSpriteTexture = D3DXVECTOR3(m_spriteSpec->getWidth() / 2,
 		m_spriteSpec->getHeight() / 2, 0);
 
-	D3DXVECTOR3 renderPosition = D3DXVECTOR3(m_position.x, m_position.y, 0);
+	D3DXVECTOR3 renderPosition = D3DXVECTOR3(m_position.x + m_spriteSpec->getWidth() / 2, m_position.y - m_spriteSpec->getHeight() / 2, 0);
 	//renderPosition = renderPosition + D3DXVECTOR3(this->m_parent->getOffsetToScene().x, this->m_parent->getOffsetToScene().y, 0);
 	renderPosition = ViewPort::getInstance()->worldToViewport(renderPosition);
 	FPOINT vp = ViewPort::getInstance()->getPosition();
@@ -165,3 +165,5 @@ BOX GameObject::getCollisionBox(){
 void GameObject::setCollisionBox(BOX box){
 	this->m_collisionBox = box;
 }
+
+void GameObject::onCollision(GameObject* staticObject){}

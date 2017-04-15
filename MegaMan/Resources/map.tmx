@@ -45,9 +45,7 @@
 </data>
  </layer>
  <objectgroup name="Object Layer 1">
-  <object id="1" name="ground" type="0" x="2" y="1145" width="275" height="36"/>
-  <object id="5" name="ground" type="0" x="270" y="1110" width="60" height="15"/>
-  <object id="6" name="ground" type="0" x="330" y="1100" width="60" height="30"/>
-  <object id="7" name="ground" type="0" x="400" y="1046" width="60" height="30"/>
+  <object id="1" name="ground" type="0" x="2" y="1152" width="275" height="36"/>
+  <object id="5" name="ground" type="0" x="270" y="1110" width="60" height="19"/>
  </objectgroup>
 </map>

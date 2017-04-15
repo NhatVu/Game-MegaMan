@@ -29,7 +29,7 @@ public:
 	vector<GameObject*> getListObject(){ return this->mListObjet; };
 	
 	vector<Node*> getScene();
-
+	void draw();
 	~GameMap();
 
 	void LoadMap(char* filePath); // load image(tileset) sử dụng trong map vào biến mListTileset

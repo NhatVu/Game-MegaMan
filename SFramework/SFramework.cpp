@@ -110,6 +110,9 @@ void SFramework::run(){
 	m_d3ddev->Clear(0, NULL, D3DCLEAR_TARGET, BACKGROUND_COLOR, 1.0f, 0);
 	if (m_d3ddev->BeginScene()) {
 		m_d3ddev->ColorFill(m_backBuffer, NULL, BACKGROUND_COLOR);
+		// update: collision and update position
+
+		update(1.0f);
 
 		// Render
 		render();
@@ -157,7 +160,15 @@ void SFramework::loop(HWND hwnd)
 
 void SFramework::update(float delta)
 {
-
+	vector<GameObject*> mListObject = ((Scene*)Director::getInstance()->getScene())->getListGameObject();
+	for (int i = 0; i < mListObject.size(); i++){
+		if (mListObject[i]->getType() != 0)
+		{
+			for (int j = 0; j < mListObject.size(); j++)
+			if (i != j)
+				mListObject[i]->onCollision(mListObject[j]);
+		}
+	}
 }
 
 void SFramework::render()
