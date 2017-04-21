@@ -44,13 +44,15 @@ void GameObject::render()
 	srcRect.right = srcRect.left + m_spriteSpec->getWidth();
 	srcRect.bottom = srcRect.top + m_spriteSpec->getHeight();
 
+	if (m_spriteSpec->getHeight() == 24.0f){
+		int a = 5;
+	}
 	
 	// tâm của frame. tọa độ top = 0. left = 0
 	D3DXVECTOR3 centerOfSpriteTexture = D3DXVECTOR3(m_spriteSpec->getWidth() / 2,
 		m_spriteSpec->getHeight() / 2, 0);
 
 	D3DXVECTOR3 renderPosition = D3DXVECTOR3(m_position.x + m_spriteSpec->getWidth() / 2, m_position.y - m_spriteSpec->getHeight() / 2, 0);
-	//renderPosition = renderPosition + D3DXVECTOR3(this->m_parent->getOffsetToScene().x, this->m_parent->getOffsetToScene().y, 0);
 	renderPosition = ViewPort::getInstance()->worldToViewport(renderPosition);
 	FPOINT vp = ViewPort::getInstance()->getPosition();
 	//D3DXMATRIX matFinal;
@@ -63,7 +65,7 @@ void GameObject::render()
 	//D3DXMatrixTransformation2D(&matFinal, &scalingScenter, 0, &inScale, &inRotationCenter,
 	//	inRotation, &position);
 	D3DXMATRIX mt1;
-	D3DXMatrixScaling(&mt1, 2, 2, 0); //scale object
+	D3DXMatrixScaling(&mt1, 1, 1, 0); //scale object
 	D3DXMATRIX output;
 	D3DXMATRIX t1, t2, r;
 	D3DXMatrixTranslation(&t1, -50, -250, 0);
@@ -74,14 +76,14 @@ void GameObject::render()
 	D3DXMatrixMultiply(&output, &output, &r);
 	D3DXMatrixMultiply(&output, &output, &t2);*/
 
-	D3DXMatrixTransformation(&output, NULL, NULL, &D3DXVECTOR3(2, 2, 0), &D3DXVECTOR3(0, centerOfSpriteTexture.y, 0), NULL, NULL);
+	D3DXMatrixTransformation(&output, NULL, NULL, &D3DXVECTOR3(2, 2, 0), NULL, NULL, NULL);
 
 
 	// vẽ.
 	spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);// (D3DXSPRITE_ALPHABLEND);
 	spriteHandler->SetTransform(&output);
 	//spriteHandler->Draw(m_texture->getTexture(), &srcRect, &centerOfSpriteTexture, &renderPosition, D3DCOLOR_XRGB(255,255,255));
-	spriteHandler->Draw(m_texture->getTexture(), &srcRect, NULL, &renderPosition, D3DCOLOR_XRGB(255, 255, 255));
+	spriteHandler->Draw(m_texture->getTexture(), &srcRect, &centerOfSpriteTexture, &renderPosition, D3DCOLOR_XRGB(255, 255, 255));
 	spriteHandler->End();
 
 	Node::render();

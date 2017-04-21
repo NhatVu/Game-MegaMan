@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="140" height="37" tilewidth="32" tileheight="32" nextobjectid="8">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="140" height="37" tilewidth="32" tileheight="32" nextobjectid="10">
  <tileset firstgid="1" name="Bombman's Stage - Mephea" tilewidth="32" tileheight="32" tilecount="6080" columns="160">
   <image source="Bombman's Stage - Mephea.png" width="5134" height="1219"/>
  </tileset>
@@ -45,7 +45,7 @@
 </data>
  </layer>
  <objectgroup name="Object Layer 1">
-  <object id="1" name="ground" type="0" x="2" y="1152" width="275" height="36"/>
+  <object id="1" name="ground" type="0" x="0" y="1142" width="275" height="42"/>
   <object id="5" name="ground" type="0" x="270" y="1110" width="60" height="19"/>
  </objectgroup>
 </map>

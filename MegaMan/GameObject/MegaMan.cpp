@@ -5,8 +5,8 @@
 
 MegaMan::MegaMan() : GameObject()
 {
-	//GameObject::setVelocity(FPOINT(0, MEGA_MAN_VELOCITY_Y));
-	GameObject::setVelocity(FPOINT(MEGA_MAN_VELOCITY_X, 0.0f));
+	GameObject::setAcceleration(FPOINT(0, GRAVITATIONAL_ACCELERATION));
+	//GameObject::setVelocity(FPOINT(MEGA_MAN_VELOCITY_X, 0.0f));
 
 }
 
@@ -19,9 +19,7 @@ void MegaMan::setTexture(Texture* texture){
 	GameObject::setTexture(texture);
 }
 void MegaMan::render(){
-	// render current sprite
-	//GameObject::setSpriteSpec(m_animation->getCurrentSpriteSpec());
-
+	
 	// calculate possition to render
 	// việc tính vị trí sẽ vẽ ở thời điểm tiếp theo được tính trong hàm onCollide
 	FPOINT currentPosition = this->getPosition();
@@ -122,7 +120,8 @@ void MegaMan::resetVelocityAndAcceleration(){
 }
 
 void MegaMan::onCollision(GameObject* staticObject){
-	GameObject::setSpriteSpec(m_animation->getCurrentSpriteSpec());
+	SpriteSpec* currentSpriteSpec = m_animation->getCurrentSpriteSpec();
+	GameObject::setSpriteSpec(currentSpriteSpec);
 
 	int staticObjectType = staticObject->getType();
 	DWORD deltaTime = GameTime::getInstance()->getDeltaTime();
@@ -133,7 +132,7 @@ void MegaMan::onCollision(GameObject* staticObject){
 	D3DXVECTOR2 normal;
 
 	// set Collision BOX for mega man. 
-	BOX collisionBox(this->getPosition().x, this->getPosition().y, this->getSpriteSpec()->getWidth(), 
+	BOX collisionBox(this->getPosition().x, this->getPosition().y, this->getSpriteSpec()->getWidth(),
 		this->getSpriteSpec()->getHeight(), velocity.x * deltaTime, velocity.y*deltaTime);
 	this->setCollisionBox(collisionBox);
 
@@ -141,6 +140,18 @@ void MegaMan::onCollision(GameObject* staticObject){
 	float collisionTime = Collision::CheckCollision(this, staticObject, normal);
 	if (collisionTime > 0.0f && collisionTime < 1.0f){
 		int a = 5;
+		//if (normal.x == 0.0f && normal.y == 1.0f)
+		//{
+		//	FPOINT newPosition = this->getPosition();
+		//	newPosition.y = currentSpriteSpec->getHeight() + staticObject->getCollisionBox().y;
+		//	this->setPostion(newPosition);
+		//	/*
+		//		Khi mega man đứng trên mặt đất, có phản lực N triệt tiêu lực hấp dẫn. Do đó có thể coi
+		//		gia tốc trọng từng = 0 và v.y = 0;
+		//	*/
+		//	this->setAcceleration(FPOINT(MEGA_MAN_ACCELERATION_X, 0.0f)); 
+		//	this->setVelocity(FPOINT(this->getVelocity().x, 0.0f));
+		//}
 	}
 
 }
