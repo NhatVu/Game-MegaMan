@@ -121,7 +121,7 @@ float Collision::SweptAABB(BOX _b1, BOX _b2, float& normalx, float& normaly)
 		// if there was a collision
 		if (xEntry > yEntry)
 		{
-			if (yInvEntry <= 0.0f){
+			//if (yInvEntry <= 0.0f){
 				if (xInvEntry < 0.0f)
 				{ // vật đi từ bên phải sang, với vx < 0
 					normalx = 1.0f;
@@ -132,11 +132,11 @@ float Collision::SweptAABB(BOX _b1, BOX _b2, float& normalx, float& normaly)
 					normalx = -1.0f;
 					normaly = 0.0f;
 				}
-			}
+			//}
 		}
 		else
 		{
-			if (xInvEntry <= 0.0f){
+			//if (xInvEntry <= 0.0f){
 				if (yInvEntry < 0.0f)
 				{ // vật đi từ trên xuống, vy < 0
 					normalx = 0.0f;
@@ -147,7 +147,7 @@ float Collision::SweptAABB(BOX _b1, BOX _b2, float& normalx, float& normaly)
 					normalx = 0.0f;
 					normaly = -1.0f;
 				}
-			}
+			//}
 		}
 	}
 	return entryTime;

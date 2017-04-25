@@ -34,7 +34,7 @@ void MegaMan::render(){
 	this->setPostion(currentPosition);
 	GameObject::render();
 
-	//resetVelocityAndAcceleration();
+	resetVelocityAndAcceleration();
 }
 
 void MegaMan::processInput(LPDIRECT3DDEVICE9 d3ddv, int Delta){
@@ -115,7 +115,7 @@ void MegaMan::processKeyState(BYTE *keyState){
 
 void MegaMan::resetVelocityAndAcceleration(){
 	// reset velocity
-	this->setVelocity(FPOINT(0, 0));
+	//this->setVelocity(FPOINT(0, 0));
 	this->setAcceleration(FPOINT(MEGA_MAN_ACCELERATION_X, GRAVITATIONAL_ACCELERATION));
 }
 
@@ -140,18 +140,43 @@ void MegaMan::onCollision(GameObject* staticObject){
 	float collisionTime = Collision::CheckCollision(this, staticObject, normal);
 	if (collisionTime > 0.0f && collisionTime < 1.0f){
 		int a = 5;
-		//if (normal.x == 0.0f && normal.y == 1.0f)
-		//{
-		//	FPOINT newPosition = this->getPosition();
-		//	newPosition.y = currentSpriteSpec->getHeight() + staticObject->getCollisionBox().y;
-		//	this->setPostion(newPosition);
-		//	/*
-		//		Khi mega man đứng trên mặt đất, có phản lực N triệt tiêu lực hấp dẫn. Do đó có thể coi
-		//		gia tốc trọng từng = 0 và v.y = 0;
-		//	*/
-		//	this->setAcceleration(FPOINT(MEGA_MAN_ACCELERATION_X, 0.0f)); 
-		//	this->setVelocity(FPOINT(this->getVelocity().x, 0.0f));
-		//}
+		/*
+		NOTE : Khi xét va chạm, không set vị trí và chạm giữa 2 vật trùng nhau mà phải cho chúng nó lệch nhau ít nhất 1px. 
+		- Position ở đây là top-left của vật. 
+		*/
+		//vật đi từ trên xuống
+		if (normal.x == 0.0f && normal.y == 1.0f)
+		{
+			FPOINT newPosition = this->getPosition();
+			newPosition.y = currentSpriteSpec->getHeight() + staticObject->getCollisionBox().y + 1;
+			this->setPostion(newPosition);
+			/*
+				Khi mega man đứng trên mặt đất, có phản lực N triệt tiêu lực hấp dẫn. Do đó có thể coi
+				gia tốc trọng từng = 0 và v.y = 0;
+			*/ 
+			this->setAcceleration(FPOINT(MEGA_MAN_ACCELERATION_X, 0.0f)); 
+			this->setVelocity(FPOINT(this->getVelocity().x, 0.0f));
+		}
+		// vật đi từ trái sang
+		else if (normal.x == -1.0f && normal.y == 0.0f){
+			FPOINT newPosition = this->getPosition();
+			newPosition.x = -currentSpriteSpec->getWidth() + staticObject->getCollisionBox().x -1;
+			this->setPostion(newPosition);
+			
+			this->setVelocity(FPOINT(-this->getVelocity().x, 0.0f));
+		}
+		// vật đi từ phải sang
+		else if (normal.x == 1.0f && normal.y == 0.0f){
+			FPOINT newPosition = this->getPosition();
+			newPosition.x = staticObject->getCollisionBox().width + staticObject->getCollisionBox().x + 1;
+			this->setPostion(newPosition);
+
+			//this->setAcceleration(FPOINT(MEGA_MAN_ACCELERATION_X, GRAVITATIONAL_ACCELERATION));
+			// vì chúng ta ko sử dụng gia tốc trục x nên khi va chạm trái phải, ta không set lại gia tốc
+			// gia tốc trục y sẽ được giữ của lần xét va chạm trước đó. 
+			this->setVelocity(FPOINT(-this->getVelocity().x, 0.0f));
+		}
+
 	}
 
 }
