@@ -125,10 +125,10 @@ void GameMap::parseBackground()
 					sourceRECT.left = x * tileWidth;
 					sourceRECT.right = sourceRECT.left + tileWidth;
 
-					//tru tilewidth/2 va tileheight/2 vi GameObject ve o vi tri giua hinh anh cho nen doi hinh de cho
-					//dung toa do (0,0) cua the gioi thuc la (0,0) neu khong thi se la (-tilewidth/2, -tileheigth/2);
-					FPOINT position(n * tileWidth + tileWidth / 2, m * tileHeight + tileHeight / 2);
-					position.y = mapHeight - position.y;
+				
+				//	FPOINT position(n * tileWidth + tileWidth / 2, m * tileHeight + tileHeight / 2);
+					FPOINT position(n * tileWidth, m * tileHeight);
+					position.y = mapHeight - position.y; // đây là tọa độ top-left của từng tile
 					/*
 					Code demo xét theo hệ trục của màn hình với y hướng xuống. nên phải thiết lập lại độ cao cho tile trong map.
 					*/
