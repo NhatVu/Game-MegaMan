@@ -1,20 +1,20 @@
-﻿#include "ResourceManager.h"
+﻿#include "AnimationManager.h"
 #include <fstream>
 #include <vector>
-#include "../MegaMan/MegaManUtilities.h"
+#include "../../MegaMan/MegaManUtilities.h"
 
 #include <iostream>
 #include <cstdio>
-#include "rapidjson/document.h"
-#include "rapidjson/filereadstream.h"
+#include "../rapidjson/document.h"
+#include "../rapidjson/filereadstream.h"
 
 using namespace rapidjson;
 using namespace std;
 using namespace s_framework;
 
-ResourceManager* ResourceManager::m_instance = NULL;
+AnimationManager* AnimationManager::m_instance = NULL;
 
-ResourceManager::ResourceManager()
+AnimationManager::AnimationManager()
 {
 	for (auto const &ent : m_mapStateToAnimation){
 		delete ent.second;
@@ -22,25 +22,25 @@ ResourceManager::ResourceManager()
 }
 
 
-ResourceManager::~ResourceManager()
+AnimationManager::~AnimationManager()
 {
 	for (auto const &ent1 : m_mapStateToAnimation){
 		delete ent1.second;
 	}
 }
 
-ResourceManager* ResourceManager::getInstance(){
+AnimationManager* AnimationManager::getInstance(){
 	if (m_instance == NULL)
-		m_instance = new ResourceManager();
+		m_instance = new AnimationManager();
 	return m_instance;
 }
 
-void ResourceManager::resetResourceManager(){
+void AnimationManager::resetResourceManager(){
 	delete m_instance;
 	m_instance = NULL;
 }
 
-void ResourceManager::parseAnimationJSON(Texture* texture,string jsonFile){
+void AnimationManager::parseAnimationJSON(Texture* texture,string jsonFile){
 	FILE* pFile = fopen(jsonFile.c_str(), "rb");
 	char buffer[65536];
 	FileReadStream is(pFile, buffer, sizeof(buffer));
@@ -91,7 +91,7 @@ void ResourceManager::parseAnimationJSON(Texture* texture,string jsonFile){
 	
 }
 
-AnimationSpec* ResourceManager::getAnimationSprites(int character, int state)
+AnimationSpec* AnimationManager::getAnimationSprites(int character, int state)
 {
 	ObjectState t;
 	t.m_character = character;

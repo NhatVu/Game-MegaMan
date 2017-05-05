@@ -11,7 +11,7 @@
 #include "../SFramework/SpriteAndAnimation/Texture.h"
 #include "../SFramework/SpriteAndAnimation/SpriteSpec.h"
 #include "../SFramework/Camera/ViewPort.h"
-#include "../SFramework/ResourceManager.h"
+#include "../SFramework/SpriteAndAnimation/AnimationManager.h"
 #include "../SFramework/Map/GameMap.h"
 
 #include "MegaManUtilities.h"
@@ -93,8 +93,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmdLine,
 	Texture* texture = new Texture();
 	texture->init("Resources/texture.png", "Resources/texture.xml");
 
-	//ResourceManager::getInstance()->parseAnimationXML("Resource/animation.xml");
-	ResourceManager::getInstance()->parseAnimationJSON(texture,"Resources/animation.json");
+	//AnimationManager::getInstance()->parseAnimationXML("Resource/animation.xml");
+	AnimationManager::getInstance()->parseAnimationJSON(texture,"Resources/animation.json");
 
 	// create layer
 	//s_framework::Layer* layer = new s_framework::Layer();

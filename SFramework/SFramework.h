@@ -41,6 +41,15 @@ namespace s_framework
 	private:
 		SFramework();
 		~SFramework();
+		void run(HWND hWnd);
+		void update(float delta);
+		void render();
+		void processKeyBoard(HWND hWnd);
+		int isKeyDown(int KeyCode);
+
+		virtual void onKeyDown(int KeyCode);
+		virtual void onKeyUp(int KeyCode);
+		void processKeyState(BYTE *keyState);
 		
 	public:
 		static SFramework* getInstance();
@@ -49,26 +58,17 @@ namespace s_framework
 		 * CLASS LOGICS
 		 *----------------------------------------------------*/
 		int initDirectX(HWND hwnd);
-
 		void loop(HWND hwnd);
-		void update(float delta);
-		void render();
 		int release();
-		void run();
 
 		///*-------------------------------------------------
 		// * DIRECTX INPUT
 		// *--------------------------------------------------*/
+		void initKeyboard(HINSTANCE hInstance, HWND hWnd);
 		void attachInputObect(GameObject* object);
 		void detachInputObject(GameObject* object);
 
-		void initKeyboard(HINSTANCE hInstance, HWND hWnd);
-		void processKeyBoard(HWND hWnd);
-		int isKeyDown(int KeyCode);
-
-		virtual void onKeyDown(int KeyCode);
-		virtual void onKeyUp(int KeyCode);
-		void processKeyState(BYTE *keyState);
+		
 
 		/*-----------------------------------------------------
 		 * GETTERS AND SETTERS

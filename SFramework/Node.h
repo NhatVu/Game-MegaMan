@@ -31,29 +31,17 @@ namespace s_framework{
 		void setHeight(float h);
 
 		float getWidth();
-		void setWidth(float w);
-
-		/*FPOINT getOffsetToParent();
-		void setOffsetToParent(FPOINT offset);*/
-
-		//FPOINT getOffsetToScene();
-		
+		void setWidth(float w);		
 
 	protected:
 		Node* m_parent = NULL;
 		std::vector<Node*> m_children;// chua tat ca con cua no;
 
-		FPOINT m_position;// trước mắt là tâm vẽ. tọa độ so với parent.
-		//FPOINT m_offsetToParent; // vecto tịnh tiến child-parnet
-		//FPOINT m_offsetToScene; // vecto tịnh tiến child-scene, position + offsetToScene -> ra tọa độ cần vẽ.
+		FPOINT m_position;// tọa độ top-left
+	
 								//
 		float m_width = 0;
 		float m_height = 0;
-
-		private:
-			//FPOINT calculateOffsetToScene(Node *node);
-			//void calculateOffsetToScene(); // gọi hàm này trước khi vẽ
-			//void calculateOffsetToParent(); // tính m_offsetToParent theo m_position và width, height
 	};
 }
 #endif // !_NODE_H_

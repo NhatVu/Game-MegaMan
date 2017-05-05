@@ -156,7 +156,7 @@
     <ClInclude Include="rapidxml-1.13\rapidxml_iterators.hpp" />
     <ClInclude Include="rapidxml-1.13\rapidxml_print.hpp" />
     <ClInclude Include="rapidxml-1.13\rapidxml_utils.hpp" />
-    <ClInclude Include="ResourceManager.h" />
+    <ClInclude Include="SpriteAndAnimation\AnimationManager.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SFramework.h" />
     <ClInclude Include="GameObject.h" />
@@ -194,7 +194,7 @@
     <ClCompile Include="MapReader\TmxUtil.cpp" />
     <ClCompile Include="Map\GameMap.cpp" />
     <ClCompile Include="Node.cpp" />
-    <ClCompile Include="ResourceManager.cpp" />
+    <ClCompile Include="SpriteAndAnimation\AnimationManager.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SFramework.cpp" />
     <ClCompile Include="GameObject.cpp" />

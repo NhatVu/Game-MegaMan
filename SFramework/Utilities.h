@@ -72,6 +72,18 @@ namespace s_framework{
 		}
 	};
 	
+	struct ObjectState{
+		int m_character;
+		int    m_state;
+
+		bool operator < (const ObjectState& param)const
+		{
+			if (m_character < param.m_character) return true;
+			if (m_character > param.m_character) return false;
+			if (m_state < param.m_state) return true;
+			return false;
+		}
+	};
 }
 
 #endif // _UTILITIES_H_

@@ -1,5 +1,5 @@
 ﻿#include "MegaMan.h"
-#include "../../SFramework/ResourceManager.h"
+#include "../../SFramework/SpriteAndAnimation/AnimationManager.h"
 #include "../../SFramework/GameTime.h"
 #include <dinput.h>
 
@@ -99,7 +99,7 @@ void MegaMan::onKeyUp(int KeyCode){
 }
 
 void MegaMan::changeAnimation(int character, int state){
-	m_animation = ResourceManager::getInstance()->getAnimationSprites(character, state);
+	m_animation = AnimationManager::getInstance()->getAnimationSprites(character, state);
 	GameObject::setSpriteSpec(m_animation->getCurrentSpriteSpec());
 }
 

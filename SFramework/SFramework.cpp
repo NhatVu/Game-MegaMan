@@ -105,8 +105,8 @@ int SFramework::release()
 	return 1;
 }
 
-
-void SFramework::run(){
+// call in game loop
+void SFramework::run(HWND hwnd){
 	m_d3ddev->Clear(0, NULL, D3DCLEAR_TARGET, BACKGROUND_COLOR, 1.0f, 0);
 	if (m_d3ddev->BeginScene()) {
 		m_d3ddev->ColorFill(m_backBuffer, NULL, BACKGROUND_COLOR);
@@ -121,6 +121,10 @@ void SFramework::run(){
 	}
 
 	m_d3ddev->Present(NULL, NULL, NULL, NULL);
+
+	// process keywboard
+	processKeyBoard(hwnd);
+
 }
 
 void SFramework::loop(HWND hwnd)
@@ -146,8 +150,7 @@ void SFramework::loop(HWND hwnd)
 			//trace("delta time in sFramework " + std::to_string(GameTime::getInstance()->getDeltaTime()));
 			GameTime::getInstance()->setStartTime();
 			// run game
-			run();
-			processKeyBoard(hwnd);
+			run(hwnd);
 		}
 		else
 		{
@@ -333,7 +336,6 @@ void SFramework::onKeyDown(int KeyCode) {
 	for (iterator = list_object_input.begin(); iterator != list_object_input.end(); ++iterator) {
 		if (*iterator != 0){
 			GameObject* test = (*iterator);
-			trace("\ngameobject call");
 			test->onKeyDown(KeyCode);
 		}
 	}
