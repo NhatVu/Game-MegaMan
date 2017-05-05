@@ -130,7 +130,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmdLine,
 	// create object
 	GameObject* megaMan = new MegaMan();
 	megaMan->setTexture(texture);
-	((MegaMan*)megaMan)->changeAnimation(ECharacter::SMALL_MARIO, EState::MOVE);
+	((MegaMan*)megaMan)->setState(EState::IDLE);
 	// vị trí của mega man trong world
 
 	// va chạm top, từ trên xuống

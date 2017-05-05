@@ -6,15 +6,15 @@
 
 enum ECharacter
 {
-	SMALL_MARIO = 1,
+	MEGAMAN = 1,
 	BIG_MARIO = 2,
 	SUPER_MARIO = 3
 };
 
 enum EState
 {
-	STAND = 1,
-	MOVE = 2,
+	IDLE = 1,
+	RUNNING = 2,
 	RUN_REVERSE = 3,
 	JUMP = 4,
 	DIE = 5
