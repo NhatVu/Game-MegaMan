@@ -1,12 +1,14 @@
-#ifndef _MEGAMAN_IDLE_STATE_H_
-#define _MEGAMAN_IDLE_STATE_H_
+#ifndef _MEGAMAN_JUMP_STATE_H_
+#define _MEGAMAN_JUMP_STATE_H_
+
 #include "GameState.h"
-#include "MegaManJumpingState.h"
-class MegaManIdleState : public GameState
+
+#define MEGA_MAN_JUMP_VELOCITY 01.0f
+class MegaManJumpingState : public GameState
 {
 public:
-	MegaManIdleState();
-	~MegaManIdleState();
+	MegaManJumpingState();
+	~MegaManJumpingState();
 
 	GameState* onKeyDown(GameObject* gameObject, int keyCode)override;
 	GameState*  onKeyUp(GameObject* gameObject, int keyCode)override;
@@ -18,7 +20,7 @@ public:
 
 };
 
-#endif // !_MEGAMAN_IDLE_STATE_H
+#endif // !_MEGAMAN_JUMP_STATE_H_
 
 
 

@@ -137,6 +137,11 @@ void MegaMan::processKeyState(BYTE *keyState){
 void MegaMan::resetVelocityAndAcceleration(){
 	// reset velocity
 	//this->setVelocity(FPOINT(0, 0));
+	FPOINT velocity = this->getVelocity();
+	DWORD deltaTime = GameTime::getInstance()->getDeltaTime();
+	velocity.x += this->getAcceleration().x*deltaTime;
+	velocity.y += this->getAcceleration().y*deltaTime;
+	this->setVelocity(velocity);
 	this->setAcceleration(FPOINT(MEGA_MAN_ACCELERATION_X, GRAVITATIONAL_ACCELERATION));
 }
 

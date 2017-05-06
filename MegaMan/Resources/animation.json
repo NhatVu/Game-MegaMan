@@ -15,6 +15,11 @@
 			"stateID": 3,
 			"delayTime": 30,
 			"frame": [1]
+		},{
+			"stateID": 4,
+			"name": "jump",
+			"delayTime": 30,
+			"frame": [81]
 		}]
 	},{
 		"objectID": 2,

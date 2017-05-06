@@ -45,6 +45,9 @@
     <ClInclude Include="GameObject\State\MegaManRunningState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GameObject\State\MegaManJumpingState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -63,6 +66,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GameObject\State\MegaManRunningState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\State\MegaManJumpingState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

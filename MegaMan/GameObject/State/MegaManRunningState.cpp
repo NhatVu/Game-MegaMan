@@ -62,6 +62,7 @@ GameState* MegaManRunningState::onCollision(GameObject* gameObject, GameObject* 
 	FPOINT velocity = gameObject->getVelocity();
 	velocity.x += gameObject->getAcceleration().x*deltaTime;
 	velocity.y += gameObject->getAcceleration().y*deltaTime;
+	//gameObject->setVelocity(velocity);
 	
 	D3DXVECTOR2 normal;
 
@@ -82,7 +83,7 @@ GameState* MegaManRunningState::onCollision(GameObject* gameObject, GameObject* 
 		if (normal.x == 0.0f && normal.y == 1.0f)
 		{
 			FPOINT newPosition = gameObject->getPosition();
-			newPosition.y = currentSpriteSpec->getHeight() + staticObject->getCollisionBox().y + 1;
+			newPosition.y = MEGA_MAN_VIRTUAL_HEIGHT + staticObject->getCollisionBox().y + 1;
 			gameObject->setPostion(newPosition);
 			/*
 				Khi mega man đứng trên mặt đất, có phản lực N triệt tiêu lực hấp dẫn. Do đó có thể coi
@@ -94,7 +95,7 @@ GameState* MegaManRunningState::onCollision(GameObject* gameObject, GameObject* 
 		// vật đi từ trái sang
 		if (normal.x == -1.0f && normal.y == 0.0f){
 			FPOINT newPosition = gameObject->getPosition();
-			newPosition.x = -currentSpriteSpec->getWidth() + staticObject->getCollisionBox().x -1;
+			newPosition.x = -MEGA_MAN_VIRTUAL_WIDTH + staticObject->getCollisionBox().x - 1;
 			gameObject->setPostion(newPosition);
 			
 			gameObject->setVelocity(FPOINT(-gameObject->getVelocity().x, 0.0f));
@@ -102,7 +103,7 @@ GameState* MegaManRunningState::onCollision(GameObject* gameObject, GameObject* 
 		// vật đi từ phải sang
 		else if (normal.x == 1.0f && normal.y == 0.0f){
 			FPOINT newPosition = gameObject->getPosition();
-			newPosition.x = staticObject->getCollisionBox().width + staticObject->getCollisionBox().x + 1;
+			newPosition.x = MEGA_MAN_VIRTUAL_WIDTH + staticObject->getCollisionBox().x + 1;
 			gameObject->setPostion(newPosition);
 
 			//gameObject->setAcceleration(FPOINT(MEGA_MAN_ACCELERATION_X, GRAVITATIONAL_ACCELERATION));

@@ -1,52 +1,55 @@
-﻿#include "MegaManIdleState.h"
+﻿#include "MegaManJumpingState.h"
 #include "MegaManRunningState.h"
 #include "../MegaMan.h"
 #include "../../../SFramework/GameTime.h"
-MegaManIdleState::MegaManIdleState()
+
+MegaManJumpingState::MegaManJumpingState()
 {
 }
 
 
-MegaManIdleState::~MegaManIdleState()
+MegaManJumpingState::~MegaManJumpingState()
 {
 }
 
-GameState* MegaManIdleState::onKeyDown(GameObject* gameObject, int keyCode){
-	// keyboard F = Fly
-	if (keyCode == DIK_F)
-	{
-		return new MegaManJumpingState();
-	}
+GameState* MegaManJumpingState::onKeyDown(GameObject* gameObject, int keyCode){ 
+	// phim F = fly
+	//if (keyCode == DIK_F)
+
 	return NULL; 
 }
-GameState*  MegaManIdleState::onKeyUp(GameObject* gameObject, int keyCode){ return NULL; }
-GameState*  MegaManIdleState::processKeyState(GameObject* gameObject, BYTE *keyState){
+GameState*  MegaManJumpingState::onKeyUp(GameObject* gameObject, int keyCode){ return NULL; }
+GameState*  MegaManJumpingState::processKeyState(GameObject* gameObject, BYTE *keyState){
 	if ((keyState[DIK_RIGHT] * 0x80) > 0){
-		GameState* newState = new MegaManRunningState();
+		//GameState* newState = new MegaManRunningState();
 		//newState->enter(gameObject);
-		return newState;
+		//return newState;
+		gameObject->setVelocity(FPOINT(MEGA_MAN_VELOCITY_X, gameObject->getVelocity().y));
+
 	}
 
 	else if ((keyState[DIK_LEFT] * 0x80) > 0){
-		GameState* newState = new MegaManRunningState();
+		//GameState* newState = new MegaManRunningState();
 		//newState->enter(gameObject);
-		return newState;
+		//return newState;
+		gameObject->setVelocity(FPOINT(-MEGA_MAN_VELOCITY_X, gameObject->getVelocity().y));
+
 	}
-	return NULL; 
+	return NULL;
 }
 
-void MegaManIdleState::update(GameObject* gameObject) {}
+void MegaManJumpingState::update(GameObject* gameObject) {}
 
-void MegaManIdleState::enter(GameObject* gameObject){
+void MegaManJumpingState::enter(GameObject* gameObject){
 	// thay đổi animation cho trạng thái idle
-	((MegaMan*)gameObject)->changeAnimation(ECharacter::MEGAMAN, EState::IDLE);
+	((MegaMan*)gameObject)->changeAnimation(ECharacter::MEGAMAN, EState::JUMP);
 
-	// trạng thái idle, vận tốc = 0. chỉ có gia tốc trọng trường 
-	gameObject->setVelocity(FPOINT(0.0f, 0.0f));
+	// trạng thái jump, vận tốc jump y va gia tốc trọng trường 
+	gameObject->setVelocity(FPOINT(0.0f, MEGA_MAN_JUMP_VELOCITY));
 	gameObject->setAcceleration(FPOINT(0.0f, GRAVITATIONAL_ACCELERATION));
 }
 
-GameState* MegaManIdleState::onCollision(GameObject* gameObject, GameObject* staticObject) {
+GameState* MegaManJumpingState::onCollision(GameObject* gameObject, GameObject* staticObject) {
 	SpriteSpec* currentSpriteSpec = gameObject->getSpriteSpec();
 
 	int staticObjectType = staticObject->getType();
@@ -56,6 +59,7 @@ GameState* MegaManIdleState::onCollision(GameObject* gameObject, GameObject* sta
 	velocity.y += gameObject->getAcceleration().y*deltaTime;
 	//gameObject->setVelocity(velocity);
 
+
 	D3DXVECTOR2 normal;
 
 	// set Collision BOX for mega man. 
@@ -64,9 +68,6 @@ GameState* MegaManIdleState::onCollision(GameObject* gameObject, GameObject* sta
 	gameObject->setCollisionBox(collisionBox);
 
 	// collision
-	if (staticObject->getCollisionBox().y == 40.0f){
-		int a = 5;
-	}
 	float collisionTime = Collision::CheckCollision(gameObject, staticObject, normal);
 	if (collisionTime > 0.0f && collisionTime < 1.0f){
 		/*
@@ -78,14 +79,14 @@ GameState* MegaManIdleState::onCollision(GameObject* gameObject, GameObject* sta
 		{
 			FPOINT newPosition = gameObject->getPosition();
 			newPosition.y = MEGA_MAN_VIRTUAL_HEIGHT + staticObject->getCollisionBox().y + 1;
-			gameObject->setPostion(newPosition);
+			//gameObject->setPostion(newPosition);
 			/*
 			Khi mega man đứng trên mặt đất, có phản lực N triệt tiêu lực hấp dẫn. Do đó có thể coi
 			gia tốc trọng từng = 0 và v.y = 0;
 			*/
-			gameObject->setAcceleration(FPOINT(MEGA_MAN_ACCELERATION_X, 0.0f));
-			gameObject->setVelocity(FPOINT(gameObject->getVelocity().x, 0.0f));
-			//return new MegaManRunningState();
+			//gameObject->setAcceleration(FPOINT(MEGA_MAN_ACCELERATION_X, 0.0f));
+			//gameObject->setVelocity(FPOINT(gameObject->getVelocity().x, 0.0f));
+			return new MegaManIdleState();
 
 		}
 	}
