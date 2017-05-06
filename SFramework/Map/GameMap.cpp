@@ -257,9 +257,3 @@ void GameMap::parseObjectGroup(){
 	}
 
 }
-
-void GameMap::draw(){
-	for (int i = 0; i < mNodesBackground.size(); i++){
-		mNodesBackground[i]->render();
-	}
-}

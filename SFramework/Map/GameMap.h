@@ -29,7 +29,6 @@ public:
 	vector<GameObject*> getListObject(){ return this->mListObjet; };
 	
 	vector<Node*> getScene();
-	void draw();
 	~GameMap();
 
 	void LoadMap(char* filePath); // load image(tileset) sử dụng trong map vào biến mListTileset
@@ -40,7 +39,7 @@ private:
 	std::vector<Node*> mNodesBackground; // danh sách sprite để vẽ background cho map
 	std::vector<GameObject*> mListObjet; // danh sách các đối tượng
 	Texture* mObjectTexture;
-	void parseBackground(); // vẽ map
+	void parseBackground();
 	void parseObjectGroup();
 };
 

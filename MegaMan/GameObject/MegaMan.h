@@ -7,12 +7,16 @@
 #include "../../SFramework/Trace.h"
 #include "../MegaManUtilities.h"
 #include "../../SFramework/Collision.h"
-
+#include "State/GameState.h"
+#include "State/MegaManIdleState.h"
+#include "State/MegaManRunningState.h"
 #include <vector>
 
-#define MEGA_MAN_VELOCITY_X 0.08f
+#define MEGA_MAN_VELOCITY_X 0.1f
 #define MEGA_MAN_VELOCITY_Y -0.03f
 #define MEGA_MAN_ACCELERATION_X 0.0f
+#define MEGA_MAN_VIRTUAL_WIDTH 22.0f
+#define MEGA_MAN_VIRTUAL_HEIGHT 22.0f
 
 using namespace s_framework;
 class MegaMan : public GameObject
@@ -24,12 +28,23 @@ public:
 private: 
 	AnimationSpec* m_animation = NULL;
 	void resetVelocityAndAcceleration();
+	GameState *m_state;
 
 public:
 	void setTexture(Texture* texture);
 	virtual void processInput(LPDIRECT3DDEVICE9 d3ddv, int Delta);
 	void changeAnimation(int character, int state);
+	void setState(GameState* state){
+		m_state = state;
+		m_state->enter(this);
+	}
 
+	void setState(EState eState){
+		if (eState == EState::IDLE){
+			m_state = new MegaManIdleState();
+		}
+		m_state->enter(this);
+	}
 
 	/*
 		Override

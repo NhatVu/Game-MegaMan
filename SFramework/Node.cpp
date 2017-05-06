@@ -19,9 +19,6 @@ void Node::addChild(Node* pChild)
 	m_children.push_back(pChild);
 	pChild->m_parent = this;
 
-	// tính lại offset to scene cho parent and child
-	//pChild->calculateOffsetToParent();
-	//pChild->calculateOffsetToScene();
 }
 
 void Node::removeChild(Node* pChild)
@@ -69,18 +66,7 @@ FPOINT Node::getPosition()
 
 void Node::setPostion(FPOINT p)
 {
-	//FPOINT delta = p - m_position;
-	
-	// tịnh tiến tọa độ position của con theo cha.
-	// trường hợp này là cha có nhiều con. khi cha di chuyển (yêu cầu thiết lập lại position)
-	// thì con cũng phải di chuyển theo cha -> cũng cần thiết lập lại position. Phép tịnh tiến.
-	/*for (int i = 0; i < m_children.size(); i++)
-	{
-		m_children[i]->setPostion(delta + m_position);
-	}*/
 	m_position = p; // thiết lập lại position của cha
-	//calculateOffsetToParent();// tính lại offset của child vs parent
-	//calculateOffsetToScene();
 }
 
 float Node::getHeight()
@@ -103,50 +89,4 @@ void Node::setWidth(float w)
 	m_width = w;
 }
 
-//FPOINT  Node::getOffsetToParent()
-//{
-//	return m_offsetToParent;
-//}
-//
-//void  Node::setOffsetToParent(FPOINT offset)
-//{
-//	m_offsetToParent = offset;
-//}
-//
-//FPOINT Node::getOffsetToScene()
-//{
-//	calculateOffsetToScene();
-//	return m_offsetToScene;
-//}
-//
-//void Node::calculateOffsetToScene()
-//{
-//	m_offsetToScene = calculateOffsetToScene(this);
-//	for (int i = 0; i < m_children.size(); i++)
-//	{
-//		m_children[i]->m_offsetToScene = m_children[i]->calculateOffsetToScene(m_children[i]);
-//	}
-//}
-//
-//FPOINT Node::calculateOffsetToScene(Node *node)
-//{
-//	if (node==NULL || node->m_parent == NULL)
-//	{
-//		FPOINT a;
-//		a.x = 0;
-//		a.y = 0;
-//		return a;
-//	}
-//	else
-//		return node->m_offsetToParent + calculateOffsetToScene(node->m_parent);
-//}
-//
-//void Node::calculateOffsetToParent()
-//{
-//	FPOINT originChildInParentCoordinate;
-//	originChildInParentCoordinate.x = m_position.x - m_width / 2;
-//	originChildInParentCoordinate.y = m_position.y - m_height / 2;
-//	
-//	m_offsetToParent = originChildInParentCoordinate;
-//}
 

@@ -11,7 +11,6 @@ namespace s_framework
 		Layer();
 		~Layer();
 
-		//void render()override;
 		virtual void update(long delta)override;
 	};
 }

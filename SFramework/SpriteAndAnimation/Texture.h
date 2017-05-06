@@ -15,12 +15,8 @@ namespace s_framework{
 	{
 	
 	private:
-		//static Texture* m_instance;
-		LPDIRECT3DTEXTURE9 m_texture = NULL;		// The “container”
-		//LPD3DXSPRITE _SpriteHandler;
-
+		LPDIRECT3DTEXTURE9 m_texture = NULL;		
 		map<int, SpriteSpec*> m_mapTexture;
-		//SpriteSpec t_spriteSpec;
 
 	private:
 		void loadImageToTexture(string imageSource);
@@ -29,7 +25,6 @@ namespace s_framework{
 	public:
 		// texture parse image source and xml specification file to m_texture. 
 		// allow you to getTexture(), getSpriteSpecById
-		//static Texture* getInstance();
 		void init(string imageSource, string textureXML);
 		void init(string imageSource);
 		LPDIRECT3DTEXTURE9 getTexture();
