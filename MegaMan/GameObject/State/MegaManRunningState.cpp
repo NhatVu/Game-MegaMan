@@ -11,13 +11,17 @@ MegaManRunningState::~MegaManRunningState()
 {
 }
 
-GameState* MegaManRunningState::onKeyDown(GameObject* gameObject, int keyCode){ return NULL; }
+GameState* MegaManRunningState::onKeyDown(GameObject* gameObject, int keyCode){
+	GameState::onKeyDown(gameObject, keyCode);
+	return NULL; 
+}
 GameState*  MegaManRunningState::onKeyUp(GameObject* gameObject, int keyCode){
 	if (keyCode == DIK_LEFT || keyCode == DIK_RIGHT)
 		return new MegaManIdleState();
 	return NULL; 
 }
 GameState*  MegaManRunningState::processKeyState(GameObject* gameObject, BYTE *keyState){
+	GameState::processKeyState(gameObject, keyState);
 	FPOINT currentPosition = gameObject->getPosition();
 	DWORD deltaTime = GameTime::getInstance()->getDeltaTime();
 	if ((keyState[DIK_RIGHT] * 0x80) > 0)
@@ -95,7 +99,7 @@ GameState* MegaManRunningState::onCollision(GameObject* gameObject, GameObject* 
 		// vật đi từ trái sang
 		if (normal.x == -1.0f && normal.y == 0.0f){
 			FPOINT newPosition = gameObject->getPosition();
-			newPosition.x = -MEGA_MAN_VIRTUAL_WIDTH + staticObject->getCollisionBox().x - 1;
+			newPosition.x = staticObject->getCollisionBox().x - MEGA_MAN_VIRTUAL_WIDTH - 1;
 			gameObject->setPostion(newPosition);
 			
 			gameObject->setVelocity(FPOINT(-gameObject->getVelocity().x, 0.0f));
@@ -103,13 +107,14 @@ GameState* MegaManRunningState::onCollision(GameObject* gameObject, GameObject* 
 		// vật đi từ phải sang
 		else if (normal.x == 1.0f && normal.y == 0.0f){
 			FPOINT newPosition = gameObject->getPosition();
-			newPosition.x = MEGA_MAN_VIRTUAL_WIDTH + staticObject->getCollisionBox().x + 1;
+			newPosition.x = staticObject->getCollisionBox().x + staticObject->getCollisionBox().width + 1;
 			gameObject->setPostion(newPosition);
 
 			//gameObject->setAcceleration(FPOINT(MEGA_MAN_ACCELERATION_X, GRAVITATIONAL_ACCELERATION));
 			// vì chúng ta ko sử dụng gia tốc trục x nên khi va chạm trái phải, ta không set lại gia tốc
 			// gia tốc trục y sẽ được giữ của lần xét va chạm trước đó. 
 			gameObject->setVelocity(FPOINT(-gameObject->getVelocity().x, 0.0f));
+			//gameObject->setVelocity(FPOINT(0.0f, 0.0f));
 		}
 
 	}

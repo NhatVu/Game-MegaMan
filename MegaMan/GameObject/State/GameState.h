@@ -10,7 +10,7 @@ public:
 	GameState();
 	
 	// handle input
-	virtual GameState* onKeyDown(GameObject* gameObject, int keyCode)=0;
+	virtual GameState* onKeyDown(GameObject* gameObject, int keyCode);
 	virtual GameState*  onKeyUp(GameObject* gameObject, int keyCode)=0;
 	virtual GameState*  processKeyState(GameObject* gameObject, BYTE *keyState)=0;
 

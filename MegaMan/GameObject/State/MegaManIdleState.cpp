@@ -12,6 +12,7 @@ MegaManIdleState::~MegaManIdleState()
 }
 
 GameState* MegaManIdleState::onKeyDown(GameObject* gameObject, int keyCode){
+	GameState::onKeyDown(gameObject, keyCode);
 	// keyboard F = Fly
 	if (keyCode == DIK_F)
 	{
@@ -21,6 +22,7 @@ GameState* MegaManIdleState::onKeyDown(GameObject* gameObject, int keyCode){
 }
 GameState*  MegaManIdleState::onKeyUp(GameObject* gameObject, int keyCode){ return NULL; }
 GameState*  MegaManIdleState::processKeyState(GameObject* gameObject, BYTE *keyState){
+	GameState::processKeyState(gameObject, keyState);
 	if ((keyState[DIK_RIGHT] * 0x80) > 0){
 		GameState* newState = new MegaManRunningState();
 		//newState->enter(gameObject);

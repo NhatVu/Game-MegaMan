@@ -154,7 +154,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmdLine,
 	//map->draw();
 	vector<Node*> mapNode = map->getNodesBackground();
 	for (int i = 0; i < mapNode.size(); i++){
-		//scene->addChild(mapNode[i]);
+		scene->addChild(mapNode[i]);
 	}
 	scene->addChild(megaMan);
 
@@ -162,25 +162,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmdLine,
 	megaMan->setType(2);
 	scene->addGameObject(megaMan);
 	scene->addGameObjects(mListObject);
-	//for (int i = 0; i < mListObject.size(); i++)
-	//	scene->addChild(mListObject[i]);
-
-
-	//for (int i = 0; i < mListObject.size(); i++){
-	//	if (mListObject[i]->getType() != 1)
-	//	{
-	//		for (int j = 0; j < mListObject.size() && i != j; j++)
-	//			mListObject[i]->onCollision(mListObject[j]);
-	//	}
-	//}
-
-	/*for (int i = 0; i < mListObject.size(); i++){
-
-		printf("Object Position: (%03d, %03d)\n", mListObject[i]->getCollisionBox().x,
-			mListObject[i]->getCollisionBox().y);
-		printf("Object Size: (%03d, %03d)\n", mListObject[i]->getCollisionBox().width,
-			mListObject[i]->getCollisionBox().height);
-	}*/
 
 	// attach megaman object in order to receive event when keyboard press
 	SFramework::getInstance()->attachInputObect(megaMan);

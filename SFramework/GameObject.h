@@ -24,6 +24,8 @@ namespace s_framework
 		FPOINT m_acceleration;
 		BOX m_collisionBox;
 		int type;
+
+		int mFlipVertical; // 1 : quay mặt sang phải, -1: quay mặt sang trái
 	public:
 		GameObject();
 		~GameObject();
@@ -43,6 +45,15 @@ namespace s_framework
 
 		void setType(int type){ this->type = type; };
 		int getType(){ return this->type; };
+
+		void setFlipVertical(int flipVertical){
+			if (mFlipVertical != flipVertical)
+			this->mFlipVertical = flipVertical;
+		}
+
+		int getFlipVertical(){
+			return this->mFlipVertical;
+		}
 
 		void setAcceleration(FPOINT acceleration){ this->m_acceleration = acceleration; };
 		FPOINT getAcceleration(){ return this->m_acceleration; };

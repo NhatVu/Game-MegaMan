@@ -9,7 +9,7 @@ using namespace s_framework;
 
 GameObject::GameObject()
 {
-	
+	mFlipVertical = true;
 }
 
 
@@ -58,15 +58,16 @@ void GameObject::render()
 
 
 	D3DXMATRIX matFinal;
-	D3DXVECTOR2 inScale = D3DXVECTOR2(1, 1); // flip object 
-	D3DXVECTOR2 inRotationCenter = D3DXVECTOR2(1, 1);
-	D3DXVECTOR2 scalingScenter = D3DXVECTOR2(m_spriteSpec->getWidth(), m_spriteSpec->getHeight());
+	D3DXVECTOR2 inScale = D3DXVECTOR2(mFlipVertical, 1); // flip object 
+	//D3DXVECTOR2 inRotationCenter = D3DXVECTOR2(renderPosition.x, renderPosition.y);
+	D3DXVECTOR2 scalingScenter = D3DXVECTOR2(1,1 ); // scale vật ngay tại tâm.
 	D3DXVECTOR2 position = D3DXVECTOR2(renderPosition.x, renderPosition.y);
-	float inRotation = D3DXToRadian(0.0f);
+	//float inRotation = D3DXToRadian(0.0f);
 
+	/*D3DXMatrixTransformation2D(&matFinal, &scalingScenter, 0, &inScale, &inRotationCenter,
+		NULL, &position);*/
 	D3DXMatrixTransformation2D(&matFinal, &scalingScenter, 0, &inScale, NULL,
 		NULL, &position);
-
 	// vẽ.
 	spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);// (D3DXSPRITE_ALPHABLEND);
 	spriteHandler->SetTransform(&matFinal);
