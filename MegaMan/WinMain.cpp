@@ -142,9 +142,9 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmdLine,
 	p.y = -150;
 
 	// va chạm trái. chỉnh gia tốc trọng trường = 0
-	p.x = 100;
+	p.x = 130;
 	//p.y = 66; //mega man bottom trùng với ground top
-	p.y = 100;
+	p.y = 200;
 	megaMan->setPostion(p); // bắt buộc phải là top-left của vật. 
 
 	
@@ -159,6 +159,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmdLine,
 	scene->addChild(megaMan);
 
 	vector<GameObject*> mListObject = map->getListObject();
+	//map->sortListObject();
 	megaMan->setType(2);
 	scene->addGameObject(megaMan);
 	scene->addGameObjects(mListObject);

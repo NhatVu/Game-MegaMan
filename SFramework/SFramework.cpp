@@ -164,12 +164,57 @@ void SFramework::loop(HWND hwnd)
 void SFramework::update(float delta)
 {
 	vector<GameObject*> mListObject = ((Scene*)Director::getInstance()->getScene())->getListGameObject();
+	struct {
+		bool operator()(GameObject* a, GameObject* b) const
+		{
+			return a->getType() > b->getType();
+		}
+	} customGreater;
+	std::sort(mListObject.begin(), mListObject.end(), customGreater);
 	for (int i = 0; i < mListObject.size(); i++){
+		bool breakInnerLoopFlag = false;
 		if (mListObject[i]->getType() != 0)
 		{
-			for (int j = 0; j < mListObject.size(); j++)
-			if (i != j)
-				mListObject[i]->onCollision(mListObject[j]);
+			for (int j = 0; j < mListObject.size(); j++){
+				if (i != j){
+					mListObject[i]->onCollision(mListObject[j]);
+					// chỉ xét va chạm với 1 vật thể, nếu có thì chuyển sang frame khác, ko xét với những object còn lại
+					// => phải sort object theo độ ưu tiên từ cao đến thấp.
+					// mario ưu viên va chạm với viên đạn hơn là với tường.
+					if (mListObject[i]->getDetectedCollision()){
+						mListObject[i]->setDetectedCollision(false);
+						breakInnerLoopFlag = true;
+						break;
+					}
+				}
+			}
+
+			if (breakInnerLoopFlag)
+				continue;
+		}
+	}
+
+	// luôn luôn phải xét va chạm với background (type = 0). Cần thì thi sẽ để background vào 1 list riêng
+	for (int i = 0; i < mListObject.size(); i++){
+		bool breakInnerLoopFlag = false;
+		if (mListObject[i]->getType() != 0)
+		{
+			for (int j = 0; j < mListObject.size(); j++){
+				if (i != j && mListObject[j]->getType() == 0){
+					mListObject[i]->onCollision(mListObject[j]);
+					// chỉ xét va chạm với 1 vật thể, nếu có thì chuyển sang frame khác, ko xét với những object còn lại
+					// => phải sort object theo độ ưu tiên từ cao đến thấp.
+					// mario ưu viên va chạm với viên đạn hơn là với tường.
+					if (mListObject[i]->getDetectedCollision()){
+						mListObject[i]->setDetectedCollision(false);
+						breakInnerLoopFlag = true;
+						break;
+					}
+				}
+			}
+
+			if (breakInnerLoopFlag)
+				continue;
 		}
 	}
 }
@@ -240,7 +285,7 @@ void SFramework::initKeyboard(HINSTANCE hInstance, HWND hWnd)
 	dipdw.diph.dwHow = DIPH_DEVICE;
 	dipdw.dwData = KEYBOARD_BUFFER_SIZE; // Arbitary buffer size
 
-	trace("SetProperty for keyboard successfully");
+	//trace("SetProperty for keyboard successfully");
 
 	hr = _Keyboard->SetProperty(DIPROP_BUFFERSIZE, &dipdw.diph);
 	if (hr != DI_OK) return;
@@ -248,7 +293,7 @@ void SFramework::initKeyboard(HINSTANCE hInstance, HWND hWnd)
 	hr = _Keyboard->Acquire();
 	if (hr != DI_OK) return;
 
-	trace("Keyboard has been acquired successfully");
+	//trace("Keyboard has been acquired successfully");
 }
 
 // processKeyBoard call in Game loop. 
@@ -278,7 +323,6 @@ void SFramework::processKeyBoard(HWND hWnd)
 	}
 
 	if (isKeyDown(DIK_RIGHT)){
-		trace("RIght key down in device state");
 		int a = 0;
 	}
 
@@ -294,26 +338,12 @@ void SFramework::processKeyBoard(HWND hWnd)
 		int KeyCode = _KeyEvents[i].dwOfs;
 		int KeyState = _KeyEvents[i].dwData;
 		if ((KeyState & 0x80) > 0){
-			if (KeyCode == DIK_RIGHT)
-				trace("RIGHT keydown in device Data");
 			onKeyDown(KeyCode);
 		}
 		else
 			onKeyUp(KeyCode);
 	}
-	//if (FAILED(hr))
-	//{
-	//	// If the keyboard lost focus or was not acquired then try to get control back.
-	//	if ((hr == DIERR_INPUTLOST) || (hr == DIERR_NOTACQUIRED))
-	//	{
-	//		_Keyboard->Acquire();
-	//	}
-	//	else
-	//	{
-	//		return;
-	//	}
-	//}
-	//ZeroMemory(&_KeyEvents, sizeof(_KeyEvents));
+
 }
 
 int SFramework::isKeyDown(int KeyCode)

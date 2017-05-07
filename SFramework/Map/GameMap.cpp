@@ -257,3 +257,15 @@ void GameMap::parseObjectGroup(){
 	}
 
 }
+
+void GameMap::sortListObject(){
+	// sort listobject theo tiêu chuẩn độ ưu tiên. Type 1 ưu tiên hơn type 0
+	struct {
+		bool operator()(GameObject* a, GameObject* b) const
+		{
+			return a->getType() > b->getType();
+		}
+	} customGreater;
+	std::sort(mListObjet.begin(), mListObjet.end(), customGreater);
+
+}

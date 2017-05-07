@@ -13,6 +13,10 @@ MegaManRunningState::~MegaManRunningState()
 
 GameState* MegaManRunningState::onKeyDown(GameObject* gameObject, int keyCode){
 	GameState::onKeyDown(gameObject, keyCode);
+	if (keyCode == DIK_F)
+	{
+		return new MegaManJumpingState();
+	}
 	return NULL; 
 }
 GameState*  MegaManRunningState::onKeyUp(GameObject* gameObject, int keyCode){
@@ -78,7 +82,7 @@ GameState* MegaManRunningState::onCollision(GameObject* gameObject, GameObject* 
 	// collision
 	float collisionTime = Collision::CheckCollision(gameObject, staticObject, normal);
 	if (collisionTime > 0.0f && collisionTime < 1.0f){
-		int a = 5;
+		gameObject->setDetectedCollision(true);
 		/*
 		NOTE : Khi xét va chạm, không set vị trí và chạm giữa 2 vật trùng nhau mà phải cho chúng nó lệch nhau ít nhất 1px. 
 		- Position ở đây là top-left của vật. 
@@ -114,6 +118,10 @@ GameState* MegaManRunningState::onCollision(GameObject* gameObject, GameObject* 
 			// vì chúng ta ko sử dụng gia tốc trục x nên khi va chạm trái phải, ta không set lại gia tốc
 			// gia tốc trục y sẽ được giữ của lần xét va chạm trước đó. 
 			gameObject->setVelocity(FPOINT(-gameObject->getVelocity().x, 0.0f));
+			if (staticObject->getType() == 1){
+				// va chạm với tường 
+
+			}
 			//gameObject->setVelocity(FPOINT(0.0f, 0.0f));
 		}
 

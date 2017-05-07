@@ -12,11 +12,11 @@ MegaManJumpingState::~MegaManJumpingState()
 {
 }
 
-GameState* MegaManJumpingState::onKeyDown(GameObject* gameObject, int keyCode){ 
+GameState* MegaManJumpingState::onKeyDown(GameObject* gameObject, int keyCode){
 	// phim F = fly
 	//if (keyCode == DIK_F)
 
-	return NULL; 
+	return NULL;
 }
 GameState*  MegaManJumpingState::onKeyUp(GameObject* gameObject, int keyCode){ return NULL; }
 GameState*  MegaManJumpingState::processKeyState(GameObject* gameObject, BYTE *keyState){
@@ -70,6 +70,7 @@ GameState* MegaManJumpingState::onCollision(GameObject* gameObject, GameObject* 
 	// collision
 	float collisionTime = Collision::CheckCollision(gameObject, staticObject, normal);
 	if (collisionTime > 0.0f && collisionTime < 1.0f){
+		gameObject->setDetectedCollision(true);
 		/*
 		NOTE : Khi xét va chạm, không set vị trí và chạm giữa 2 vật trùng nhau mà phải cho chúng nó lệch nhau ít nhất 1px.
 		- Position ở đây là top-left của vật.
@@ -79,15 +80,47 @@ GameState* MegaManJumpingState::onCollision(GameObject* gameObject, GameObject* 
 		{
 			FPOINT newPosition = gameObject->getPosition();
 			newPosition.y = MEGA_MAN_VIRTUAL_HEIGHT + staticObject->getCollisionBox().y + 1;
-			//gameObject->setPostion(newPosition);
+			gameObject->setPostion(newPosition);
+
+			gameObject->setSkipUpdatePosition(true);
 			/*
 			Khi mega man đứng trên mặt đất, có phản lực N triệt tiêu lực hấp dẫn. Do đó có thể coi
 			gia tốc trọng từng = 0 và v.y = 0;
 			*/
-			//gameObject->setAcceleration(FPOINT(MEGA_MAN_ACCELERATION_X, 0.0f));
-			//gameObject->setVelocity(FPOINT(gameObject->getVelocity().x, 0.0f));
+			/*gameObject->setAcceleration(FPOINT(MEGA_MAN_ACCELERATION_X, 0.0f));
+			gameObject->setVelocity(FPOINT(gameObject->getVelocity().x, 0.0f));*/
 			return new MegaManIdleState();
+		}
+		// vật đi chuyển từ dưới lên
+		else if (normal.x == 0.0f && normal.y == -1.0f)
+		{
+			FPOINT newPosition = gameObject->getPosition();
+			newPosition.y = staticObject->getCollisionBox().y  - staticObject->getCollisionBox().height - 1;
+			gameObject->setPostion(newPosition);
 
+			gameObject->setVelocity(FPOINT(gameObject->getVelocity().x, -gameObject->getVelocity().y));
+			return new MegaManIdleState();
+		}
+		// vật đi từ phải sang
+		else if (normal.x == 1.0f && normal.y == 0.0f){
+			FPOINT newPosition = gameObject->getPosition();
+			newPosition.x = staticObject->getCollisionBox().x + staticObject->getCollisionBox().width + 1;
+			gameObject->setPostion(newPosition);
+			gameObject->setVelocity(FPOINT(-gameObject->getVelocity().x, 0.0f));
+			if (staticObject->getType() == 1){
+				// va chạm với tường 
+
+			}
+			
+		}
+		else
+			// vật đi từ trái sang
+		if (normal.x == -1.0f && normal.y == 0.0f){
+			FPOINT newPosition = gameObject->getPosition();
+			newPosition.x = staticObject->getCollisionBox().x - MEGA_MAN_VIRTUAL_WIDTH - 1;
+			gameObject->setPostion(newPosition);
+
+			gameObject->setVelocity(FPOINT(-gameObject->getVelocity().x, 0.0f));
 		}
 	}
 	return NULL;

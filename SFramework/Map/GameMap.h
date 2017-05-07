@@ -4,6 +4,7 @@
 #include <d3dx9.h>
 #include <d3d9.h>
 #include <vector>
+#include <algorithm>
 
 #include "../SpriteAndAnimation/Texture.h"
 #include "../GameObject.h"
@@ -32,6 +33,7 @@ public:
 	~GameMap();
 
 	void LoadMap(char* filePath); // load image(tileset) sử dụng trong map vào biến mListTileset
+	void sortListObject();
 private:
 	vector<Node*> mapNode;
 	Map                        *mMap;

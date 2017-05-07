@@ -10,6 +10,7 @@ using namespace s_framework;
 GameObject::GameObject()
 {
 	mFlipVertical = true;
+	mSkipUpdatePosition = false;
 }
 
 
@@ -38,9 +39,7 @@ void GameObject::render()
 
 	RECT srcRect;
 	srcRect.left = m_spriteSpec->getX();
-	//trace(""+ srcRect.left);
 	srcRect.top = m_spriteSpec->getY();
-	//trace("" + srcRect.top);
 	srcRect.right = srcRect.left + m_spriteSpec->getWidth();
 	srcRect.bottom = srcRect.top + m_spriteSpec->getHeight();
 
@@ -64,65 +63,17 @@ void GameObject::render()
 	D3DXVECTOR2 position = D3DXVECTOR2(renderPosition.x, renderPosition.y);
 	//float inRotation = D3DXToRadian(0.0f);
 
-	/*D3DXMatrixTransformation2D(&matFinal, &scalingScenter, 0, &inScale, &inRotationCenter,
-		NULL, &position);*/
+
 	D3DXMatrixTransformation2D(&matFinal, &scalingScenter, 0, &inScale, NULL,
 		NULL, &position);
 	// vẽ.
 	spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);// (D3DXSPRITE_ALPHABLEND);
 	spriteHandler->SetTransform(&matFinal);
-	//spriteHandler->Draw(m_texture->getTexture(), &srcRect, &centerOfSpriteTexture, &renderPosition, D3DCOLOR_XRGB(255,255,255));
 	spriteHandler->Draw(m_texture->getTexture(), &srcRect, &centerOfSpriteTexture, NULL, D3DCOLOR_XRGB(255, 255, 255));
 	spriteHandler->End();
 
 	Node::render();
 }
-
-//void GameObject::setRenderPosition(D3DXVECTOR3 position)
-//{
-//	m_renderPosition = position;
-//}
-//
-//SpriteSpec* GameObject::getCurrentSpriteSpec()
-//{
-//	return *m_index;
-//}
-//
-//
-////void GameObject::update()
-////{
-////	nextFrame(); // thiết lập lại index thành frame tiếp theo.
-////
-////}
-//
-//void GameObject::setup()
-//{
-//	
-//	m_listFramePerAnimtion = Animation::getInstance()->getListSprteOfAnimation(m_Sprite, m_state);
-//	m_index = m_listFramePerAnimtion.begin();
-//}
-//
-//void GameObject::nextFrame()
-//{
-//	if (m_index != m_listFramePerAnimtion.end())
-//		m_index++;
-//	else
-//		m_index = m_listFramePerAnimtion.begin();
-//}
-//
-//EState GameObject::getState()
-//{
-//	return m_state;
-//}
-//void GameObject::setState(EState state)
-//{
-//	m_state = state;
-//}
-//
-//ESprite GameObject::getSprite()
-//{
-//	return m_Sprite;
-//}
 
 void GameObject::update(long delta)
 {
