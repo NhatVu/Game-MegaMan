@@ -20,8 +20,8 @@
 #define APP_CLASS L"SampleWindow"
 #define MAIN_WINDOW_TITLE L"Mega Man"
 
-#define SCREEN_WIDTH 800
-#define SCREEN_HEIGHT 600
+#define SCREEN_WIDTH 256
+#define SCREEN_HEIGHT 256
 
 USING_S_FRAMEWORK;
 
@@ -154,7 +154,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmdLine,
 	//map->draw();
 	vector<Node*> mapNode = map->getNodesBackground();
 	for (int i = 0; i < mapNode.size(); i++){
-		scene->addChild(mapNode[i]);
+		//scene->addChild(mapNode[i]);
 	}
 	scene->addChild(megaMan);
 

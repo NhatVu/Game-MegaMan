@@ -55,35 +55,23 @@ void GameObject::render()
 	D3DXVECTOR3 renderPosition = D3DXVECTOR3(m_position.x + m_spriteSpec->getWidth() / 2, m_position.y - m_spriteSpec->getHeight() / 2, 0);
 	renderPosition = ViewPort::getInstance()->worldToViewport(renderPosition);
 	FPOINT vp = ViewPort::getInstance()->getPosition();
-	//D3DXMATRIX matFinal;
-	//D3DXVECTOR2 inScale = D3DXVECTOR2(1, 1); // flip object 
-	//D3DXVECTOR2 inRotationCenter = D3DXVECTOR2(1, 1);
-	//D3DXVECTOR2 scalingScenter = D3DXVECTOR2(1,1);
-	//D3DXVECTOR2 position = D3DXVECTOR2(renderPosition.x, renderPosition.y);
-	//float inRotation = D3DXToRadian(0.0f);
 
-	//D3DXMatrixTransformation2D(&matFinal, &scalingScenter, 0, &inScale, &inRotationCenter,
-	//	inRotation, &position);
-	D3DXMATRIX mt1;
-	D3DXMatrixScaling(&mt1, 1, 1, 0); //scale object
-	D3DXMATRIX output;
-	D3DXMATRIX t1, t2, r;
-	D3DXMatrixTranslation(&t1, -50, -250, 0);
-	D3DXMatrixRotationY(&r, D3DXToRadian(180.0f));
-	D3DXMatrixTranslation(&t2, 50, 250, 0);
 
-	/*D3DXMatrixMultiply(&output, &mt1,&t1);
-	D3DXMatrixMultiply(&output, &output, &r);
-	D3DXMatrixMultiply(&output, &output, &t2);*/
+	D3DXMATRIX matFinal;
+	D3DXVECTOR2 inScale = D3DXVECTOR2(1, 1); // flip object 
+	D3DXVECTOR2 inRotationCenter = D3DXVECTOR2(1, 1);
+	D3DXVECTOR2 scalingScenter = D3DXVECTOR2(m_spriteSpec->getWidth(), m_spriteSpec->getHeight());
+	D3DXVECTOR2 position = D3DXVECTOR2(renderPosition.x, renderPosition.y);
+	float inRotation = D3DXToRadian(0.0f);
 
-	D3DXMatrixTransformation(&output, NULL, NULL, &D3DXVECTOR3(2, 2, 0), NULL, NULL, NULL);
-
+	D3DXMatrixTransformation2D(&matFinal, &scalingScenter, 0, &inScale, NULL,
+		NULL, &position);
 
 	// vẽ.
 	spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);// (D3DXSPRITE_ALPHABLEND);
-	spriteHandler->SetTransform(&output);
+	spriteHandler->SetTransform(&matFinal);
 	//spriteHandler->Draw(m_texture->getTexture(), &srcRect, &centerOfSpriteTexture, &renderPosition, D3DCOLOR_XRGB(255,255,255));
-	spriteHandler->Draw(m_texture->getTexture(), &srcRect, &centerOfSpriteTexture, &renderPosition, D3DCOLOR_XRGB(255, 255, 255));
+	spriteHandler->Draw(m_texture->getTexture(), &srcRect, &centerOfSpriteTexture, NULL, D3DCOLOR_XRGB(255, 255, 255));
 	spriteHandler->End();
 
 	Node::render();
