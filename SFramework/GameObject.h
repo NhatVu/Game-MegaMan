@@ -8,6 +8,8 @@
 #include "Utilities.h"
 #include <list>
 #include "SpriteAndAnimation/Texture.h"
+#include "GameTime.h"
+
 
 
 using namespace std;
@@ -27,8 +29,6 @@ namespace s_framework
 		int type;
 
 		int mFlipVertical; // 1 : quay mặt sang phải, -1: quay mặt sang trái
-		bool mDetectedCollision; // true: has collision, false: don't have collision
-		bool mSkipUpdatePosition; // skip update position in render function. For a special case
 	public:
 		GameObject();
 		~GameObject();
@@ -51,27 +51,11 @@ namespace s_framework
 
 		void setFlipVertical(int flipVertical){
 			if (mFlipVertical != flipVertical)
-			this->mFlipVertical = flipVertical;
+				this->mFlipVertical = flipVertical;
 		}
 
 		int getFlipVertical(){
 			return this->mFlipVertical;
-		}
-
-		void setDetectedCollision(bool detectedCollision){
-			this->mDetectedCollision = detectedCollision;
-		}
-
-		bool getDetectedCollision(){
-			return this->mDetectedCollision;
-		}
-
-		void setSkipUpdatePosition(bool value){
-			this->mSkipUpdatePosition = value;
-		}
-
-		bool getSkipUpdatePosition(){
-			return this->mSkipUpdatePosition;
 		}
 
 		void setAcceleration(FPOINT acceleration){ this->m_acceleration = acceleration; };
@@ -83,6 +67,8 @@ namespace s_framework
 		virtual void onKeyDown(int keyCode);
 		virtual void processKeyState(BYTE *keyState);
 		virtual void onCollision(GameObject* staticObject);
+
+		virtual void updatePosition();
 	};
 
 }

@@ -23,28 +23,8 @@ void MegaMan::render(){
 	SpriteSpec* currentSpriteSpec = m_animation->getCurrentSpriteSpec();
 	GameObject::setSpriteSpec(currentSpriteSpec);
 
-	// calculate possition to render
-	// việc tính vị trí sẽ vẽ ở thời điểm tiếp theo được tính trong hàm onCollide trong vài trường hợp đặc biệt
-	
-	if (this->getSkipUpdatePosition()){
-		this->setSkipUpdatePosition(false);
-	}
-	else{
-		FPOINT currentPosition = this->getPosition();
-		DWORD deltaTime = GameTime::getInstance()->getDeltaTime();
-		FPOINT velocity = this->getVelocity();
-		velocity.x += this->getAcceleration().x*deltaTime;
-		velocity.y += this->getAcceleration().y*deltaTime;
-		currentPosition.x = currentPosition.x + velocity.x*deltaTime;
-		currentPosition.y = currentPosition.y + velocity.y*deltaTime;
-		this->setPostion(currentPosition);
-
-	}
-
 	// set position to render
 	GameObject::render();
-
-	resetVelocityAndAcceleration();
 }
 
 void MegaMan::processInput(LPDIRECT3DDEVICE9 d3ddv, int Delta){
@@ -104,17 +84,6 @@ void MegaMan::processKeyState(BYTE *keyState){
 
 }
 
-void MegaMan::resetVelocityAndAcceleration(){
-	// reset velocity
-	//this->setVelocity(FPOINT(0, 0));
-	FPOINT velocity = this->getVelocity();
-	DWORD deltaTime = GameTime::getInstance()->getDeltaTime();
-	velocity.x += this->getAcceleration().x*deltaTime;
-	velocity.y += this->getAcceleration().y*deltaTime;
-	this->setVelocity(velocity);
-	this->setAcceleration(FPOINT(MEGA_MAN_ACCELERATION_X, GRAVITATIONAL_ACCELERATION));
-}
-
 void MegaMan::onCollision(GameObject* staticObject){
 	GameState* newState = m_state->onCollision(this, staticObject);
 	if (newState != NULL){
@@ -122,4 +91,20 @@ void MegaMan::onCollision(GameObject* staticObject){
 		m_state = newState;
 		m_state->enter(this);
 	}
+}
+
+void MegaMan::updatePosition(){
+	FPOINT currentPosition = this->getPosition();
+	DWORD deltaTime = GameTime::getInstance()->getDeltaTime();
+	FPOINT velocity = this->getVelocity();
+	velocity.x += this->getAcceleration().x*deltaTime;
+	velocity.y += this->getAcceleration().y*deltaTime;
+	currentPosition.x = currentPosition.x + velocity.x*deltaTime;
+	currentPosition.y = currentPosition.y + velocity.y*deltaTime;
+
+	this->setPostion(currentPosition);
+	// sau khi xét va chạm xong, ta cập nhật lại vận tốc và gia tốc y cho vật. 2 đại lượng này luôn có.
+	// kể cả khi vật đứng yên. 
+	this->setVelocity(FPOINT(0.0f, velocity.y));
+	this->setAcceleration(FPOINT(0.0f, GRAVITATIONAL_ACCELERATION));
 }

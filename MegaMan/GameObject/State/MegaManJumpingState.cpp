@@ -44,9 +44,8 @@ void MegaManJumpingState::enter(GameObject* gameObject){
 	// thay đổi animation cho trạng thái idle
 	((MegaMan*)gameObject)->changeAnimation(ECharacter::MEGAMAN, EState::JUMP);
 
-	// trạng thái jump, vận tốc jump y va gia tốc trọng trường 
+	// khi bắt đầu trạng thái jump, ta cấp cho vật thể vận tốc ban đầu. 
 	gameObject->setVelocity(FPOINT(0.0f, MEGA_MAN_JUMP_VELOCITY));
-	gameObject->setAcceleration(FPOINT(0.0f, GRAVITATIONAL_ACCELERATION));
 }
 
 GameState* MegaManJumpingState::onCollision(GameObject* gameObject, GameObject* staticObject) {
@@ -70,7 +69,6 @@ GameState* MegaManJumpingState::onCollision(GameObject* gameObject, GameObject* 
 	// collision
 	float collisionTime = Collision::CheckCollision(gameObject, staticObject, normal);
 	if (collisionTime > 0.0f && collisionTime < 1.0f){
-		gameObject->setDetectedCollision(true);
 		/*
 		NOTE : Khi xét va chạm, không set vị trí và chạm giữa 2 vật trùng nhau mà phải cho chúng nó lệch nhau ít nhất 1px.
 		- Position ở đây là top-left của vật.
@@ -82,13 +80,12 @@ GameState* MegaManJumpingState::onCollision(GameObject* gameObject, GameObject* 
 			newPosition.y = MEGA_MAN_VIRTUAL_HEIGHT + staticObject->getCollisionBox().y + 1;
 			gameObject->setPostion(newPosition);
 
-			gameObject->setSkipUpdatePosition(true);
 			/*
 			Khi mega man đứng trên mặt đất, có phản lực N triệt tiêu lực hấp dẫn. Do đó có thể coi
 			gia tốc trọng từng = 0 và v.y = 0;
 			*/
-			/*gameObject->setAcceleration(FPOINT(MEGA_MAN_ACCELERATION_X, 0.0f));
-			gameObject->setVelocity(FPOINT(gameObject->getVelocity().x, 0.0f));*/
+			gameObject->setAcceleration(FPOINT(MEGA_MAN_ACCELERATION_X, 0.0f));
+			gameObject->setVelocity(FPOINT(gameObject->getVelocity().x, 0.0f));
 			return new MegaManIdleState();
 		}
 		// vật đi chuyển từ dưới lên

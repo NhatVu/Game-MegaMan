@@ -54,15 +54,10 @@ void MegaManRunningState::update(GameObject* gameObject) {}
 void MegaManRunningState::enter(GameObject* gameObject){
 	// change animation for running state
 	((MegaMan*)gameObject)->changeAnimation(ECharacter::MEGAMAN, EState::RUNNING);
-	//gameObject->setVelocity(FPOINT(MEGA_MAN_VELOCITY_X, MEGA_MAN_VELOCITY_Y));
-	gameObject->setAcceleration(FPOINT(0.0f, GRAVITATIONAL_ACCELERATION));
-
 }
 
 GameState* MegaManRunningState::onCollision(GameObject* gameObject, GameObject* staticObject) {
 	//gameObject->setAcceleration(FPOINT(0.0f, GRAVITATIONAL_ACCELERATION));
-	/*SpriteSpec* currentSpriteSpec = m_animation->getCurrentSpriteSpec();
-	GameObject::setSpriteSpec(currentSpriteSpec);*/
 	SpriteSpec* currentSpriteSpec = gameObject->getSpriteSpec();
 
 	int staticObjectType = staticObject->getType();
@@ -82,7 +77,6 @@ GameState* MegaManRunningState::onCollision(GameObject* gameObject, GameObject* 
 	// collision
 	float collisionTime = Collision::CheckCollision(gameObject, staticObject, normal);
 	if (collisionTime > 0.0f && collisionTime < 1.0f){
-		gameObject->setDetectedCollision(true);
 		/*
 		NOTE : Khi xét va chạm, không set vị trí và chạm giữa 2 vật trùng nhau mà phải cho chúng nó lệch nhau ít nhất 1px. 
 		- Position ở đây là top-left của vật. 
@@ -114,15 +108,13 @@ GameState* MegaManRunningState::onCollision(GameObject* gameObject, GameObject* 
 			newPosition.x = staticObject->getCollisionBox().x + staticObject->getCollisionBox().width + 1;
 			gameObject->setPostion(newPosition);
 
-			//gameObject->setAcceleration(FPOINT(MEGA_MAN_ACCELERATION_X, GRAVITATIONAL_ACCELERATION));
 			// vì chúng ta ko sử dụng gia tốc trục x nên khi va chạm trái phải, ta không set lại gia tốc
 			// gia tốc trục y sẽ được giữ của lần xét va chạm trước đó. 
-			gameObject->setVelocity(FPOINT(-gameObject->getVelocity().x, 0.0f));
+			gameObject->setVelocity(FPOINT(0.0f, 0.0f));
 			if (staticObject->getType() == 1){
 				// va chạm với tường 
 
 			}
-			//gameObject->setVelocity(FPOINT(0.0f, 0.0f));
 		}
 
 	}

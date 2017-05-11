@@ -10,7 +10,6 @@ using namespace s_framework;
 GameObject::GameObject()
 {
 	mFlipVertical = true;
-	mSkipUpdatePosition = false;
 }
 
 
@@ -77,7 +76,6 @@ void GameObject::render()
 
 void GameObject::update(long delta)
 {
-
 }
 
 void GameObject::onKeyUp(int keyCode){
@@ -109,3 +107,5 @@ void GameObject::setCollisionBox(BOX box){
 }
 
 void GameObject::onCollision(GameObject* staticObject){}
+
+void GameObject::updatePosition(){}

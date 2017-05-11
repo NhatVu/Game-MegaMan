@@ -25,13 +25,11 @@ GameState*  MegaManIdleState::processKeyState(GameObject* gameObject, BYTE *keyS
 	GameState::processKeyState(gameObject, keyState);
 	if ((keyState[DIK_RIGHT] * 0x80) > 0){
 		GameState* newState = new MegaManRunningState();
-		//newState->enter(gameObject);
 		return newState;
 	}
 
 	else if ((keyState[DIK_LEFT] * 0x80) > 0){
 		GameState* newState = new MegaManRunningState();
-		//newState->enter(gameObject);
 		return newState;
 	}
 	return NULL; 
@@ -43,9 +41,6 @@ void MegaManIdleState::enter(GameObject* gameObject){
 	// thay đổi animation cho trạng thái idle
 	((MegaMan*)gameObject)->changeAnimation(ECharacter::MEGAMAN, EState::IDLE);
 
-	// trạng thái idle, vận tốc = 0. chỉ có gia tốc trọng trường 
-	gameObject->setVelocity(FPOINT(0.0f, 0.0f));
-	gameObject->setAcceleration(FPOINT(0.0f, GRAVITATIONAL_ACCELERATION));
 }
 
 GameState* MegaManIdleState::onCollision(GameObject* gameObject, GameObject* staticObject) {
@@ -56,7 +51,6 @@ GameState* MegaManIdleState::onCollision(GameObject* gameObject, GameObject* sta
 	FPOINT velocity = gameObject->getVelocity();
 	velocity.x += gameObject->getAcceleration().x*deltaTime;
 	velocity.y += gameObject->getAcceleration().y*deltaTime;
-	//gameObject->setVelocity(velocity);
 
 	D3DXVECTOR2 normal;
 
@@ -71,7 +65,6 @@ GameState* MegaManIdleState::onCollision(GameObject* gameObject, GameObject* sta
 	}
 	float collisionTime = Collision::CheckCollision(gameObject, staticObject, normal);
 	if (collisionTime > 0.0f && collisionTime < 1.0f){
-		gameObject->setDetectedCollision(true);
 		/*
 		NOTE : Khi xét va chạm, không set vị trí và chạm giữa 2 vật trùng nhau mà phải cho chúng nó lệch nhau ít nhất 1px.
 		- Position ở đây là top-left của vật.
@@ -88,7 +81,6 @@ GameState* MegaManIdleState::onCollision(GameObject* gameObject, GameObject* sta
 			*/
 			gameObject->setAcceleration(FPOINT(MEGA_MAN_ACCELERATION_X, 0.0f));
 			gameObject->setVelocity(FPOINT(gameObject->getVelocity().x, 0.0f));
-			//return new MegaManRunningState();
 
 		}
 	}

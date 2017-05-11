@@ -1,14 +1,11 @@
 #ifndef _MARIO_UTILITIES_H_
 #define _MARIO_UTILITIES_H_
 
-#define GRAVITATIONAL_ACCELERATION -0.005f
 //#define GRAVITATIONAL_ACCELERATION 0.000f
 
 enum ECharacter
 {
-	MEGAMAN = 1,
-	BIG_MARIO = 2,
-	SUPER_MARIO = 3
+	MEGAMAN = 1
 };
 
 enum EState

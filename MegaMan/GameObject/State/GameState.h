@@ -1,4 +1,4 @@
-#ifndef _GAMESTATE_H_
+﻿#ifndef _GAMESTATE_H_
 #define _GAMESTATE_H_
 #include "../../../SFramework/GameObject.h"
 #include "../../MegaManUtilities.h"
@@ -15,7 +15,7 @@ public:
 	virtual GameState*  processKeyState(GameObject* gameObject, BYTE *keyState)=0;
 
 	virtual void update(GameObject* gameObject) {}
-	virtual void enter(GameObject* gameObject){}
+	virtual void enter(GameObject* gameObject){} // không được đụng chạm j hết gia tốc 
 	virtual GameState* onCollision(GameObject* gameObject, GameObject* staticObject)=0;
 	//virtual void exit(GameObject* gameObject){}
 	~GameState();
