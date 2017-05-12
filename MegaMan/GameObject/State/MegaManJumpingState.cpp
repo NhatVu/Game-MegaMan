@@ -76,49 +76,82 @@ GameState* MegaManJumpingState::onCollision(GameObject* gameObject, GameObject* 
 		//vật đi từ trên xuống
 		if (normal.x == 0.0f && normal.y == 1.0f)
 		{
-			FPOINT newPosition = gameObject->getPosition();
-			newPosition.y = MEGA_MAN_VIRTUAL_HEIGHT + staticObject->getCollisionBox().y + 1;
-			gameObject->setPostion(newPosition);
-
-			/*
-			Khi mega man đứng trên mặt đất, có phản lực N triệt tiêu lực hấp dẫn. Do đó có thể coi
-			gia tốc trọng từng = 0 và v.y = 0;
-			*/
-			gameObject->setAcceleration(FPOINT(MEGA_MAN_ACCELERATION_X, 0.0f));
-			gameObject->setVelocity(FPOINT(gameObject->getVelocity().x, 0.0f));
-			return new MegaManIdleState();
+			return topCollision(gameObject, staticObject);
 		}
 		// vật đi chuyển từ dưới lên
 		else if (normal.x == 0.0f && normal.y == -1.0f)
 		{
-			FPOINT newPosition = gameObject->getPosition();
-			newPosition.y = staticObject->getCollisionBox().y  - staticObject->getCollisionBox().height - 1;
-			gameObject->setPostion(newPosition);
-
-			gameObject->setVelocity(FPOINT(gameObject->getVelocity().x, -gameObject->getVelocity().y));
-			return new MegaManIdleState();
+			return bottomCollision(gameObject, staticObject);
 		}
 		// vật đi từ phải sang
 		else if (normal.x == 1.0f && normal.y == 0.0f){
-			FPOINT newPosition = gameObject->getPosition();
-			newPosition.x = staticObject->getCollisionBox().x + staticObject->getCollisionBox().width + 1;
-			gameObject->setPostion(newPosition);
-			gameObject->setVelocity(FPOINT(-gameObject->getVelocity().x, 0.0f));
-			if (staticObject->getType() == 1){
-				// va chạm với tường 
-
-			}
-			
+			return rightCollision(gameObject, staticObject);		
 		}
 		else
 			// vật đi từ trái sang
 		if (normal.x == -1.0f && normal.y == 0.0f){
-			FPOINT newPosition = gameObject->getPosition();
-			newPosition.x = staticObject->getCollisionBox().x - MEGA_MAN_VIRTUAL_WIDTH - 1;
-			gameObject->setPostion(newPosition);
-
-			gameObject->setVelocity(FPOINT(-gameObject->getVelocity().x, 0.0f));
+			return leftCollision(gameObject, staticObject);
 		}
 	}
+	return NULL;
+}
+
+GameState* MegaManJumpingState::topCollision(GameObject* gameObject, GameObject* staticObject){
+	FPOINT newPosition = gameObject->getPosition();
+	newPosition.y = MEGA_MAN_VIRTUAL_HEIGHT + staticObject->getCollisionBox().y + 1;
+	gameObject->setPostion(newPosition);
+
+	/*
+	Khi mega man đứng trên mặt đất, có phản lực N triệt tiêu lực hấp dẫn. Do đó có thể coi
+	gia tốc trọng từng = 0 và v.y = 0;
+	*/
+	gameObject->setAcceleration(FPOINT(MEGA_MAN_ACCELERATION_X, 0.0f));
+	gameObject->setVelocity(FPOINT(gameObject->getVelocity().x, 0.0f));
+	return new MegaManIdleState();
+}
+GameState* MegaManJumpingState::bottomCollision(GameObject* gameObject, GameObject* staticObject){
+	FPOINT newPosition = gameObject->getPosition();
+	switch (staticObject->getType()){
+	case ECharacter::STATIC:
+		newPosition.y = staticObject->getCollisionBox().y - staticObject->getCollisionBox().height - 1;
+		gameObject->setPostion(newPosition);
+		//Lẽ ra phải là gameObject->getVelocity().y nhưng vì để như vậy, vận tốc quá lớn dẫn đến frame tiếp theo,
+		// vật đã bị trùng vào nền => ko xảy ra va chạm theo swapaabb. nên ta bị dội ngược lại cho va chạm với bottom viên gạch, vận tốc lúc này chỉ có gia tốc y sinh ra, không do -vy còn dư thừa.
+
+		gameObject->setVelocity(FPOINT(gameObject->getVelocity().x, 0.0f));
+		break;
+	default:
+		break;
+	}
+
+	return NULL;
+}
+GameState* MegaManJumpingState::leftCollision(GameObject* gameObject, GameObject* staticObject){
+	FPOINT newPosition = gameObject->getPosition();
+	switch (staticObject->getType()){
+	case ECharacter::STATIC:
+		newPosition.x = staticObject->getCollisionBox().x - MEGA_MAN_VIRTUAL_WIDTH - 1;
+		gameObject->setPostion(newPosition);
+
+		gameObject->setVelocity(FPOINT(-gameObject->getVelocity().x, 0.0f));
+		break;
+	default:
+		break;
+	}
+
+	return NULL;
+}
+GameState* MegaManJumpingState::rightCollision(GameObject* gameObject, GameObject* staticObject){
+	FPOINT newPosition = gameObject->getPosition();
+	switch (staticObject->getType()){
+	case ECharacter::STATIC:
+		newPosition.x = staticObject->getCollisionBox().x + staticObject->getCollisionBox().width + 1;
+		gameObject->setPostion(newPosition);
+		gameObject->setVelocity(FPOINT(-gameObject->getVelocity().x, 0.0f));
+		break;
+	default:
+		break;
+	}
+	
 	return NULL;
 }

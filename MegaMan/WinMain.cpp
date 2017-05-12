@@ -160,7 +160,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmdLine,
 
 	vector<GameObject*> mListObject = map->getListObject();
 	//map->sortListObject();
-	megaMan->setType(2);
 	scene->addGameObject(megaMan);
 	scene->addGameObjects(mListObject);
 

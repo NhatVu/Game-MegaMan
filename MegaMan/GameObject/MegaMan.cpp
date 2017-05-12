@@ -1,8 +1,10 @@
 ﻿#include "MegaMan.h"
 #include "../../SFramework/SpriteAndAnimation/AnimationManager.h"
 #include "../../SFramework/GameTime.h"
+#include "../../SFramework/Camera/ViewPort.h"
 #include <dinput.h>
 
+using namespace s_framework;
 MegaMan::MegaMan() : GameObject()
 {
 	GameObject::setType(10);
@@ -103,6 +105,16 @@ void MegaMan::updatePosition(){
 	currentPosition.y = currentPosition.y + velocity.y*deltaTime;
 
 	this->setPostion(currentPosition);
+	
+
+	// update postion cho viewport. Tại đây, ta chỉ update position theo chiều x mà thôi
+	// khi tới một điểm nào đó cố định,ta mới update theo chiều y. như vậy cho dễ.
+	FPOINT viewport = ViewPort::getInstance()->getPosition();
+	float tmpX = viewport.x + velocity.x * deltaTime;
+	if (tmpX > 0)
+		viewport.x = tmpX;
+	ViewPort::getInstance()->setPosition(viewport);
+
 	// sau khi xét va chạm xong, ta cập nhật lại vận tốc và gia tốc y cho vật. 2 đại lượng này luôn có.
 	// kể cả khi vật đứng yên. 
 	this->setVelocity(FPOINT(0.0f, velocity.y));

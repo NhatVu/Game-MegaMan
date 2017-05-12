@@ -18,7 +18,7 @@ GameState* MegaManIdleState::onKeyDown(GameObject* gameObject, int keyCode){
 	{
 		return new MegaManJumpingState();
 	}
-	return NULL; 
+	return NULL;
 }
 GameState*  MegaManIdleState::onKeyUp(GameObject* gameObject, int keyCode){ return NULL; }
 GameState*  MegaManIdleState::processKeyState(GameObject* gameObject, BYTE *keyState){
@@ -32,7 +32,7 @@ GameState*  MegaManIdleState::processKeyState(GameObject* gameObject, BYTE *keyS
 		GameState* newState = new MegaManRunningState();
 		return newState;
 	}
-	return NULL; 
+	return NULL;
 }
 
 void MegaManIdleState::update(GameObject* gameObject) {}
@@ -72,17 +72,41 @@ GameState* MegaManIdleState::onCollision(GameObject* gameObject, GameObject* sta
 		//vật đi từ trên xuống
 		if (normal.x == 0.0f && normal.y == 1.0f)
 		{
-			FPOINT newPosition = gameObject->getPosition();
-			newPosition.y = MEGA_MAN_VIRTUAL_HEIGHT + staticObject->getCollisionBox().y + 1;
-			gameObject->setPostion(newPosition);
-			/*
-			Khi mega man đứng trên mặt đất, có phản lực N triệt tiêu lực hấp dẫn. Do đó có thể coi
-			gia tốc trọng từng = 0 và v.y = 0;
-			*/
-			gameObject->setAcceleration(FPOINT(MEGA_MAN_ACCELERATION_X, 0.0f));
-			gameObject->setVelocity(FPOINT(gameObject->getVelocity().x, 0.0f));
-
+			return topCollision(gameObject, staticObject);
 		}
 	}
+	return NULL;
+}
+
+GameState* MegaManIdleState::topCollision(GameObject* gameObject, GameObject* staticObject){
+	FPOINT newPosition = gameObject->getPosition();
+	switch (staticObject->getType()){
+		// với static object 
+	case ECharacter::STATIC:
+
+		newPosition.y = MEGA_MAN_VIRTUAL_HEIGHT + staticObject->getCollisionBox().y + 1;
+		gameObject->setPostion(newPosition);
+		/*
+		Khi mega man đứng trên mặt đất, có phản lực N triệt tiêu lực hấp dẫn. Do đó có thể coi
+		gia tốc trọng từng = 0 và v.y = 0;
+		*/
+		gameObject->setAcceleration(FPOINT(MEGA_MAN_ACCELERATION_X, 0.0f));
+		gameObject->setVelocity(FPOINT(gameObject->getVelocity().x, 0.0f));
+		return NULL;
+		//break;
+	case ECharacter::LADDER:
+		return NULL;
+
+	default:
+		break;
+	}
+}
+GameState* MegaManIdleState::bottomCollision(GameObject* gameObject, GameObject* staticObject){
+	return NULL;
+}
+GameState* MegaManIdleState::leftCollision(GameObject* gameObject, GameObject* staticObject){
+	return NULL;
+}
+GameState* MegaManIdleState::rightCollision(GameObject* gameObject, GameObject* staticObject){
 	return NULL;
 }

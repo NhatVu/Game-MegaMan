@@ -5,7 +5,9 @@
 
 enum ECharacter
 {
-	MEGAMAN = 1
+	STATIC = 0,
+	LADDER = 1,
+	MEGAMAN = 10,
 };
 
 enum EState

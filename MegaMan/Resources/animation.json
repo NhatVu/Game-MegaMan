@@ -1,6 +1,7 @@
 {
 	"animation": [{
-		"objectID": 1,
+		"objectID": 10,
+		"name": "MegaMan",
 		"state": [{
 			"stateID": 1,
 			"name": "idle",
