@@ -14,9 +14,10 @@ enum EState
 {
 	IDLE = 1,
 	RUNNING = 2,
-	RUN_REVERSE = 3,
+	CLIMB = 3,
 	JUMP = 4,
-	DIE = 5
+	DIE = 5,
+	CLIMB_IDLE = 6,
 };
 
 

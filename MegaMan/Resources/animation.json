@@ -14,13 +14,19 @@
 			"frame": [83,84,85]
 		},{
 			"stateID": 3,
+			"name": "climb",
 			"delayTime": 30,
-			"frame": [1]
+			"frame": [75,76]
 		},{
 			"stateID": 4,
 			"name": "jump",
 			"delayTime": 30,
 			"frame": [81]
+		},{
+			"stateID": 6,
+			"name": "climb-idle",
+			"delayTime": 30,
+			"frame": [76]
 		}]
 	},{
 		"objectID": 2,

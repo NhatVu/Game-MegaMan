@@ -87,6 +87,8 @@
     <ClInclude Include="GameObject\State\MegaManIdleState.h" />
     <ClInclude Include="GameObject\State\MegaManRunningState.h" />
     <ClInclude Include="GameObject\State\MegaManJumpingState.h" />
+    <ClInclude Include="GameObject\State\MegaManClimbingState.h" />
+    <ClInclude Include="GameObject\State\MegaManClimbingIdleState.h" />
     <ClInclude Include="MegaManUtilities.h" />
     <ClInclude Include="GameObject\MegaMan.h" />
   </ItemGroup>
@@ -97,6 +99,8 @@
     <ClCompile Include="GameObject\State\MegaManIdleState.cpp" />
     <ClCompile Include="GameObject\State\MegaManRunningState.cpp" />
     <ClCompile Include="GameObject\State\MegaManJumpingState.cpp" />
+    <ClCompile Include="GameObject\State\MegaManClimbingState.cpp" />
+    <ClCompile Include="GameObject\State\MegaManClimbingIdleState.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>

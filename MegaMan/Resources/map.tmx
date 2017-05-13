@@ -49,7 +49,7 @@
   <object id="5" name="static" type="0" x="269.333" y="1109.33" width="60" height="11.6667"/>
   <object id="10" name="static" type="0" x="0.666667" y="1089.33" width="29.3333" height="50.6667"/>
   <object id="12" name="static" type="0" x="95" y="1056" width="63" height="31"/>
-  <object id="14" name="ladder" type="1" x="206.333" y="1021.67" width="16" height="121"/>
-  <object id="15" name="static" type="0" x="224" y="1023" width="127" height="29"/>
+  <object id="14" name="ladder" type="1" x="206.333" y="1025" width="16" height="118"/>
+  <object id="15" name="static" type="0" x="214" y="1028" width="127" height="29"/>
  </objectgroup>
 </map>
