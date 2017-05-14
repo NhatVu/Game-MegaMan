@@ -63,11 +63,14 @@ GameState* MegaManJumpingState::onCollision(GameObject* gameObject, GameObject* 
 	BOX collisionBox(gameObject->getPosition().x, gameObject->getPosition().y, MEGA_MAN_VIRTUAL_WIDTH,
 		MEGA_MAN_VIRTUAL_HEIGHT, velocity.x * deltaTime, velocity.y*deltaTime);
 	gameObject->setCollisionBox(collisionBox);
-
+	if (gameObject->getPosition().x == 31 && staticObject->getCollisionBox().x == 0){
+		int a = 5;
+	}
 	// collision
 	float collisionTime = Collision::CheckCollision(gameObject, staticObject, normal);
 	if (collisionTime > 0.0f && collisionTime < 1.0f){
 		gameObject->setNoCollisionWithAll(false);
+		trace("x: " + std::to_string(normal.x) + "x: " + std::to_string(normal.y));
 		/*
 		NOTE : Khi xét va chạm, không set vị trí và chạm giữa 2 vật trùng nhau mà phải cho chúng nó lệch nhau ít nhất 1px.
 		- Position ở đây là top-left của vật.
@@ -132,7 +135,7 @@ GameState* MegaManJumpingState::leftCollision(GameObject* gameObject, GameObject
 		newPosition.x = staticObject->getCollisionBox().x - MEGA_MAN_VIRTUAL_WIDTH - 1;
 		gameObject->setPostion(newPosition);
 
-		gameObject->setVelocity(FPOINT(-gameObject->getVelocity().x, 0.0f));
+		gameObject->setVelocity(FPOINT(0.0f, 0.0f));
 		break;
 	default:
 		break;
@@ -146,7 +149,7 @@ GameState* MegaManJumpingState::rightCollision(GameObject* gameObject, GameObjec
 	case ECharacter::STATIC:
 		newPosition.x = staticObject->getCollisionBox().x + staticObject->getCollisionBox().width + 1;
 		gameObject->setPostion(newPosition);
-		gameObject->setVelocity(FPOINT(-gameObject->getVelocity().x, 0.0f));
+		gameObject->setVelocity(FPOINT(0.0f, 0.0f));
 		break;
 	default:
 		break;

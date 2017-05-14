@@ -4,7 +4,7 @@
 
 MegaManRunningState::MegaManRunningState()
 {
-	this->name = "running";
+	this->name = "Running";
 }
 
 
@@ -16,6 +16,7 @@ GameState* MegaManRunningState::onKeyDown(GameObject* gameObject, int keyCode){
 	GameState::onKeyDown(gameObject, keyCode);
 	if (keyCode == DIK_F)
 	{
+		gameObject->setVelocity(FPOINT(0.0f, MEGA_MAN_JUMP_VELOCITY));
 		return new MegaManJumpingState();
 	}
 	return NULL;
@@ -106,14 +107,23 @@ GameState* MegaManRunningState::onCollision(GameObject* gameObject, GameObject* 
 
 GameState* MegaManRunningState::topCollision(GameObject* gameObject, GameObject* staticObject){
 	FPOINT newPosition = gameObject->getPosition();
-	newPosition.y = MEGA_MAN_VIRTUAL_HEIGHT + staticObject->getCollisionBox().y + 1;
-	gameObject->setPostion(newPosition);
-	/*
-	Khi mega man đứng trên mặt đất, có phản lực N triệt tiêu lực hấp dẫn. Do đó có thể coi
-	gia tốc trọng từng = 0 và v.y = 0;
-	*/
-	gameObject->setAcceleration(FPOINT(MEGA_MAN_ACCELERATION_X, 0.0f));
-	gameObject->setVelocity(FPOINT(gameObject->getVelocity().x, 0.0f));
+	switch (staticObject->getType()){
+	case ECharacter::STATIC:
+		newPosition.y = MEGA_MAN_VIRTUAL_HEIGHT + staticObject->getCollisionBox().y + 1;
+		gameObject->setPostion(newPosition);
+		/*
+		Khi mega man đứng trên mặt đất, có phản lực N triệt tiêu lực hấp dẫn. Do đó có thể coi
+		gia tốc trọng từng = 0 và v.y = 0;
+		*/
+		gameObject->setAcceleration(FPOINT(MEGA_MAN_ACCELERATION_X, 0.0f));
+		gameObject->setVelocity(FPOINT(gameObject->getVelocity().x, 0.0f));
+		//return new MegaManIdleState();
+		break;
+	default:
+		break;
+	}
+
+	
 	return NULL;
 }
 GameState* MegaManRunningState::bottomCollision(GameObject* gameObject, GameObject* staticObject){

@@ -26,6 +26,10 @@ void MegaMan::render(){
 	// cá biệt với trường hợp leo thang.
 	if (this->getNoCollisionWithAll())
 		this->changeAnimation(ECharacter::MEGAMAN, EState::JUMP);
+	else m_state->enter(this);
+	/*if (m_state->name == "Running")
+		this->changeAnimation(ECharacter::MEGAMAN, EState::RUNNING);
+*/
 	SpriteSpec* currentSpriteSpec = m_animation->getCurrentSpriteSpec();
 	GameObject::setSpriteSpec(currentSpriteSpec);
 
@@ -67,28 +71,6 @@ void MegaMan::processKeyState(BYTE *keyState){
 		m_state = state;
 		m_state->enter(this);
 	}
-	//FPOINT currentPosition = this->getPosition();
-	//DWORD deltaTime = GameTime::getInstance()->getDeltaTime();
-	//if ((keyState[DIK_RIGHT] & 0x80) > 0)
-	//{
-	//	FPOINT velocity = this->getVelocity();
-	//	/*if (velocity.x < 0.0f)
-	//		velocity.x *= -1;
-	//		else if (velocity.x == 0.0f)*/
-	//	velocity.x = MEGA_MAN_VELOCITY_X;
-	//	this->setVelocity(velocity);
-	//}
-	//else
-	//if ((keyState[DIK_LEFT] & 0x80) > 0)
-	//{
-	//	FPOINT velocity = this->getVelocity();
-	//	/*	if (velocity.x > 0.0f)
-	//			velocity.x *= -1;
-	//			else if (velocity.x == 0.0f)*/
-	//	velocity.x = -MEGA_MAN_VELOCITY_X;
-	//	this->setVelocity(velocity);
-	//}
-
 }
 
 void MegaMan::onCollision(GameObject* staticObject){
