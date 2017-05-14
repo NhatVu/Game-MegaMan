@@ -68,7 +68,8 @@ namespace s_framework
 		void initKeyboard(HINSTANCE hInstance, HWND hWnd);
 		void attachInputObect(GameObject* object);
 		void detachInputObject(GameObject* object);
-
+		void detectCollision(list<GameObject*> game_objects);
+		static Quadtree* CreateQuadTree(list<GameObject*> game_objects);
 		
 
 		/*-----------------------------------------------------
@@ -76,7 +77,6 @@ namespace s_framework
 		 *---------------------------------------------------*/
 		LPDIRECT3D9 getDirect3D();
 		LPDIRECT3DDEVICE9 getDirect3DDevice();
-
 	};
 }
 #endif // !_NS_FRAMEWORK_

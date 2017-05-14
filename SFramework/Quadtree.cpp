@@ -6,6 +6,11 @@ Quadtree::Quadtree()
 {
 }
 
+s_framework::Quadtree::Quadtree(int level, BOX region)
+{
+	this->m_level = level;
+	this->m_region = region;
+}
 
 Quadtree::~Quadtree()
 {
@@ -25,21 +30,17 @@ void Quadtree::Clear()
 	}
 
 	//Clear current quadtree
-	m_objects_list.clear;
-
-	m_objects_list.remove;
-
-	delete m_region;
+	m_objects_list.clear();
 }
 
 bool Quadtree::IsContain(GameObject* entity)
 {
-	BOX* bound = entity->getCollisionBox;
+	BOX bound = entity->getCollisionBox();
 
-	return !(bound->x + bound->width < m_region->x ||
-		bound->y + bound->height < m_region->y ||
-		bound->x > m_region->x + m_region->width ||
-		bound->y > m_region->y + m_region->height);
+	return !(bound.x + bound.width < m_region.x ||
+		bound.y + bound.height < m_region.y ||
+		bound.x > m_region.x + m_region.width ||
+		bound.y > m_region.y + m_region.height);
 }
 
 void Quadtree::Split()
@@ -47,14 +48,14 @@ void Quadtree::Split()
 	m_nodes = new Quadtree*[4];
 
 	m_nodes[0] = new Quadtree(m_level + 1,
-		new BOX(m_region->x, m_region->y, m_region->width / 2, m_region->height / 2));
+		BOX(m_region.x, m_region.y, m_region.width / 2, m_region.height / 2));
 	m_nodes[1] = new Quadtree(m_level + 1,
-		new BOX(m_region->x + m_region->width / 2, m_region->y, m_region->width / 2, m_region->height / 2));
+		BOX(m_region.x + m_region.width / 2, m_region.y, m_region.width / 2, m_region.height / 2));
 	m_nodes[2] = new Quadtree(m_level + 1,
-		new BOX(m_region->x, m_region->y + m_region->height / 2, m_region->width / 2, m_region->height / 2));
+		BOX(m_region.x, m_region.y + m_region.height / 2, m_region.width / 2, m_region.height / 2));
 	m_nodes[3] = new Quadtree(m_level + 1,
-		new BOX(m_region->x + m_region->width / 2,
-			m_region->y + m_region->height / 2, m_region->width / 2, m_region->height / 2));
+		BOX(m_region.x + m_region.width / 2,
+			m_region.y + m_region.height / 2, m_region.width / 2, m_region.height / 2));
 }
 
 void Quadtree::Insert(GameObject* entity)
@@ -99,16 +100,6 @@ void Quadtree::Insert(GameObject* entity)
 	}
 }
 
-Quadtree* s_framework::Quadtree::CreateQuadTree(list<GameObject*> game_objects)
-{
-	Quadtree* quadtree = new Quadtree(1, new BOX(0, 0, 800, 600));
-
-
-	for (auto i = game_objects.begin(); i != game_objects.end(); i++)
-		quadtree->Insert(*i);
-	return quadtree;
-}
-
 list<GameObject*> Quadtree::Retrieve(list<GameObject*> return_objects_list, GameObject* entity)
 {
 	if (m_nodes)
@@ -122,7 +113,7 @@ list<GameObject*> Quadtree::Retrieve(list<GameObject*> return_objects_list, Game
 		if (m_nodes[3]->IsContain(entity))
 			m_nodes[3]->Retrieve(return_objects_list, entity);
 
-		return; // Return here to ignore rest.
+		return{}; // Return here to ignore rest.
 	}
 
 	//Add all entities in current region into return_objects_list

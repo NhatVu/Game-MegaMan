@@ -210,7 +210,7 @@ void SFramework::detachInputObject(GameObject* object){
 
 void s_framework::SFramework::detectCollision(list<GameObject*> game_objects)
 {
-	Quadtree* quadtree = Quadtree::CreateQuadTree(game_objects);
+	Quadtree* quadtree = CreateQuadTree(game_objects);
 
 	list<GameObject*> return_objects_list;
 
@@ -233,8 +233,16 @@ void s_framework::SFramework::detectCollision(list<GameObject*> game_objects)
 	}
 
 	quadtree->Release();
+}
 
-	return_objects_list.remove;
+Quadtree* s_framework::SFramework::CreateQuadTree(list<GameObject*> game_objects)
+{
+	Quadtree* quadtree = new Quadtree(1, BOX(0, 0, 800, 600));
+
+
+	for (auto i = game_objects.begin(); i != game_objects.end(); i++)
+		quadtree->Insert(*i);
+	return quadtree;
 }
 
 void SFramework::initKeyboard(HINSTANCE hInstance, HWND hWnd)

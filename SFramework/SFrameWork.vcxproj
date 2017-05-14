@@ -15,12 +15,13 @@
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>SFrameWork</RootNamespace>
     <ProjectName>SFramework</ProjectName>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -117,6 +118,7 @@
     <ClInclude Include="MapReader\zlib128-dll\include\zlib.h" />
     <ClInclude Include="Map\GameMap.h" />
     <ClInclude Include="Node.h" />
+    <ClInclude Include="Quadtree.h" />
     <ClInclude Include="rapidjson\allocators.h" />
     <ClInclude Include="rapidjson\document.h" />
     <ClInclude Include="rapidjson\encodedstream.h" />
@@ -194,6 +196,7 @@
     <ClCompile Include="MapReader\TmxUtil.cpp" />
     <ClCompile Include="Map\GameMap.cpp" />
     <ClCompile Include="Node.cpp" />
+    <ClCompile Include="Quadtree.cpp" />
     <ClCompile Include="SpriteAndAnimation\AnimationManager.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SFramework.cpp" />
