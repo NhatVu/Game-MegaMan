@@ -63,7 +63,7 @@ namespace s_framework
 			this->canClimb = value;
 		}
 
-		bool getCanClimb(){
+		int getCanClimb(){
 			return this->canClimb;
 		}
 

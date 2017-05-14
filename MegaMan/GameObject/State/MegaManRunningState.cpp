@@ -98,6 +98,7 @@ GameState* MegaManRunningState::onCollision(GameObject* gameObject, GameObject* 
 		}
 
 	}
+	
 
 	return NULL;
 }

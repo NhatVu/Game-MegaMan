@@ -26,7 +26,7 @@ GameState* MegaManIdleState::onKeyDown(GameObject* gameObject, int keyCode){
 
 		return new MegaManClimbingState();
 	}
-	else if (gameObject->getCanClimb() && keyCode == DIK_DOWN){
+	else if (gameObject->getCanClimb() == 1 && keyCode == DIK_DOWN){
 		//gameObject->setVelocity(FPOINT(0.0f, -MEGA_MAN_CLIMB_VELOCITY));
 		GameState* state = new MegaManClimbingState();
 		((MegaManClimbingState*)state)->isPressDown = true;
@@ -98,6 +98,10 @@ GameState* MegaManIdleState::onCollision(GameObject* gameObject, GameObject* sta
 			newPosition.x = staticObject->getCollisionBox().x + staticObject->getCollisionBox().width / 2 - MEGA_MAN_VIRTUAL_WIDTH / 2;
 			gameObject->setPostion(newPosition);
 			gameObject->setCanClimb(true);
+			
+			//// 
+			if (gameObject->getPosition().y - MEGA_MAN_VIRTUAL_HEIGHT  < staticObject->getCollisionBox().y - staticObject->getCollisionBox().height)
+				gameObject->setCanClimb(2);
 		}
 		else
 			gameObject->setCanClimb(false);
