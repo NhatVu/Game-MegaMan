@@ -24,14 +24,15 @@ GameState* MegaManClimbingState::onKeyDown(GameObject* gameObject, int keyCode){
 	}
 
 	if (gameObject->getCanClimb() && (keyCode == DIK_UP || keyCode == DIK_DOWN)){
-		((MegaMan*)gameObject)->changeAnimation(ECharacter::MEGAMAN, EState::CLIMB);
+		//((MegaMan*)gameObject)->changeAnimation(ECharacter::MEGAMAN, EState::CLIMB);
 	}
 	return NULL;
 }
 GameState*  MegaManClimbingState::onKeyUp(GameObject* gameObject, int keyCode){
 	if (keyCode == DIK_UP || keyCode == DIK_DOWN)
 	{
-		((MegaMan*)gameObject)->changeAnimation(ECharacter::MEGAMAN, EState::CLIMB_IDLE);
+		//((MegaMan*)gameObject)->changeAnimation(ECharacter::MEGAMAN, EState::CLIMB_IDLE);
+		gameObject->setStopUpdateAnimation(true);
 		gameObject->setVelocity(FPOINT(0.0f, 0.0f));
 		gameObject->setAcceleration(FPOINT(0.0f, 0.0f));
 	}
@@ -40,9 +41,11 @@ GameState*  MegaManClimbingState::onKeyUp(GameObject* gameObject, int keyCode){
 GameState*  MegaManClimbingState::processKeyState(GameObject* gameObject, BYTE *keyState){
 	GameState::processKeyState(gameObject, keyState);
 	if (gameObject->getCanClimb() && (keyState[DIK_UP] * 0x80) > 0){
+		gameObject->setStopUpdateAnimation(false);
 		gameObject->setVelocity(FPOINT(0.0f, MEGA_MAN_CLIMB_VELOCITY));
 	}
 	else if (gameObject->getCanClimb() && (keyState[DIK_DOWN] * 0x80) > 0){
+		gameObject->setStopUpdateAnimation(false);
 		this->isPressDown = true;
 		gameObject->setVelocity(FPOINT(0.0f, -MEGA_MAN_CLIMB_VELOCITY));
 	}
@@ -111,18 +114,6 @@ GameState* MegaManClimbingState::onCollision(GameObject* gameObject, GameObject*
 			gameObject->setVelocity(FPOINT(gameObject->getVelocity().x, 0.0f));
 			return new MegaManIdleState();
 		}
-		//if ((gameObject->getPosition().y - MEGA_MAN_VIRTUAL_HEIGHT < staticCollisonBox.y - staticCollisonBox.height ) )
-		//{
-		//	this->canTransitToIdle = true;
-		//	if (gameObject->getCanClimb() == false)
-		//		gameObject->setAcceleration(FPOINT(0.0f, GRAVITATIONAL_ACCELERATION));
-		//}
-		//else {
-		//	//gameObject->setAcceleration(FPOINT())
-		//	gameObject->setAcceleration(FPOINT(0.0f, 0.0f));
-		//	this->canTransitToIdle = false;
-
-		//}
 	}
 	return NULL;
 }

@@ -30,8 +30,11 @@ void MegaMan::render(){
 	/*if (m_state->name == "Running")
 		this->changeAnimation(ECharacter::MEGAMAN, EState::RUNNING);
 */
+	if (this->getStopUpdateAnimation() == 0){
+
 	SpriteSpec* currentSpriteSpec = m_animation->getCurrentSpriteSpec();
 	GameObject::setSpriteSpec(currentSpriteSpec);
+	}
 
 	// set position to render
 	GameObject::render();
@@ -61,7 +64,7 @@ void MegaMan::onKeyUp(int KeyCode){
 
 void MegaMan::changeAnimation(int character, int state){
 	m_animation = AnimationManager::getInstance()->getAnimationSprites(character, state);
-	GameObject::setSpriteSpec(m_animation->getCurrentSpriteSpec());
+	GameObject::setSpriteSpec(m_animation->getSpriteSpecs()[0]);
 }
 
 void MegaMan::processKeyState(BYTE *keyState){

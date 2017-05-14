@@ -13,17 +13,18 @@ namespace s_framework{
 	{
 	private:
 		vector<SpriteSpec*> m_spriteSpecs; 		// danh sách chứa SpriteSpec của 1 animation của 1 đối tượng trong 1 trạng thái  
-		int m_delayTime;						// thời gian delay giữa 2 frame. tính bằng milis
+		int m_delayFrame = 0;						// delay frame
 		int m_currentIndex = 0;	
 	
 		void nextFrame();						// cập nhật lại chỉ số của frame tiếp theo
+		int currentDelay = 0;
 
 	public:
 		/*-------------------------------------------
 			GETTERS AND SETTERS
 		---------------------------------------------*/
-		int getDelayTime();
-		void setDelayTime(int a);
+		int getDelayFrame();
+		void setDelayFrame(int a);
 
 		vector<SpriteSpec*> getSpriteSpecs();
 		void setSpriteSpecs(vector<SpriteSpec*> a);

@@ -10,6 +10,7 @@ using namespace s_framework;
 GameObject::GameObject()
 {
 	mFlipVertical = true;
+	stopUpdateAnimation = false;
 }
 
 

@@ -89,21 +89,37 @@ GameState* MegaManIdleState::onCollision(GameObject* gameObject, GameObject* sta
 		{
 			return topCollision(gameObject, staticObject);
 		}
+		// vật đi chuyển từ dưới lên
+		else if (normal.x == 0.0f && normal.y == -1.0f)
+		{
+			return bottomCollision(gameObject, staticObject);
+		}
+		// vật đi từ phải sang
+		else if (normal.x == 1.0f && normal.y == 0.0f){
+			return rightCollision(gameObject, staticObject);
+		}
+		else
+			// vật đi từ trái sang
+		if (normal.x == -1.0f && normal.y == 0.0f){
+			return leftCollision(gameObject, staticObject);
+		}
 	}
 
 	if (staticObjectType == ECharacter::LADDER){
+
 		/*if (collisionTime == 0.0f)
 			gameObject->setCanClimb(false);
 			else*/
 		if (collisionTime != 0.0f && (gameObject->getPosition().x + MEGA_MAN_VIRTUAL_WIDTH / 2 > staticObject->getCollisionBox().x + staticObject->getCollisionBox().width / 5)
 			&& (gameObject->getPosition().x + MEGA_MAN_VIRTUAL_WIDTH / 2 < staticObject->getCollisionBox().x + 4 * staticObject->getCollisionBox().width / 5)){
+			gameObject->setNoCollisionWithAll(false);
 			FPOINT newPosition = gameObject->getPosition();
 			newPosition.x = staticObject->getCollisionBox().x + staticObject->getCollisionBox().width / 2 - MEGA_MAN_VIRTUAL_WIDTH / 2;
 			gameObject->setPostion(newPosition);
 			gameObject->setCanClimb(true);
-			
+
 			//// 
-			if (gameObject->getPosition().y - MEGA_MAN_VIRTUAL_HEIGHT  < staticObject->getCollisionBox().y - staticObject->getCollisionBox().height)
+			if (gameObject->getPosition().y - MEGA_MAN_VIRTUAL_HEIGHT < staticObject->getCollisionBox().y - staticObject->getCollisionBox().height)
 				gameObject->setCanClimb(2);
 		}
 		else
@@ -149,8 +165,30 @@ GameState* MegaManIdleState::bottomCollision(GameObject* gameObject, GameObject*
 	return NULL;
 }
 GameState* MegaManIdleState::leftCollision(GameObject* gameObject, GameObject* staticObject){
+	FPOINT newPosition = gameObject->getPosition();
+	switch (staticObject->getType()){
+	case ECharacter::STATIC:
+		newPosition.x = staticObject->getCollisionBox().x - MEGA_MAN_VIRTUAL_WIDTH - 1;
+		gameObject->setPostion(newPosition);
+
+		gameObject->setVelocity(FPOINT(0.0f, gameObject->getVelocity().y));
+		break;
+	default:
+		break;
+	}
 	return NULL;
 }
 GameState* MegaManIdleState::rightCollision(GameObject* gameObject, GameObject* staticObject){
+	FPOINT newPosition = gameObject->getPosition();
+	switch (staticObject->getType()){
+	case ECharacter::STATIC:
+		newPosition.x = staticObject->getCollisionBox().x + staticObject->getCollisionBox().width + 1;
+		gameObject->setPostion(newPosition);
+		gameObject->setVelocity(FPOINT(0.0f, gameObject->getVelocity().y));
+		break;
+	default:
+		break;
+	}
+
 	return NULL;
 }

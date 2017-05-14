@@ -31,6 +31,7 @@ namespace s_framework
 		int mFlipVertical; // 1 : quay mặt sang phải, -1: quay mặt sang trái
 		int canClimb; // 0: không thể, 1: có thể, 2 : có thể leo xuống
 		int noCollisionWithAll;
+		int stopUpdateAnimation; // ngừng update animation khi object idle
 	public:
 		GameObject();
 		~GameObject();
@@ -74,6 +75,14 @@ namespace s_framework
 
 		int getNoCollisionWithAll(){
 			return this->noCollisionWithAll;
+		}
+
+		void setStopUpdateAnimation(int value){
+			this->stopUpdateAnimation = value;
+		}
+
+		int getStopUpdateAnimation(){
+			return this->stopUpdateAnimation;
 		}
 
 		void setAcceleration(FPOINT acceleration){ this->m_acceleration = acceleration; };
