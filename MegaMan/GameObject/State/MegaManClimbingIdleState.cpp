@@ -34,7 +34,10 @@ void MegaManClimbingIdleState::enter(GameObject* gameObject){
 //	gameObject->setAcceleration(FPOINT(0.0f, 0.0f));
 }
 GameState* MegaManClimbingIdleState::onCollision(GameObject* gameObject, GameObject* staticObject) {
+	if (staticObject->getType() == ECharacter::LADDER){
+
 	gameObject->setVelocity(FPOINT(0.0f, 0.0f));
-	//gameObject->setAcceleration(FPOINT(0.0f, 0.0f));
+	gameObject->setAcceleration(FPOINT(0.0f, 0.0f));
+	}
 	return NULL;
 }

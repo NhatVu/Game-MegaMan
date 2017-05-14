@@ -20,6 +20,7 @@ private:
 	GameState* rightCollision(GameObject* gameObject, GameObject* staticObject);
 
 	bool canTransitToIdle;
+	bool isPressDown;
 };
 
 #endif

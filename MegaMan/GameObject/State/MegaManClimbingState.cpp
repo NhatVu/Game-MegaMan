@@ -3,21 +3,23 @@
 #include "../../../SFramework/GameTime.h"
 #include "MegaManClimbingIdleState.h"
 
-#define MEGA_MAN_CLIMB_VELOCITY 0.4f
+#define MEGA_MAN_CLIMB_VELOCITY 0.3f
 MegaManClimbingState::MegaManClimbingState()
 {
+	this->name = "MegaManClimbingState";
+	this->canTransitToIdle = false;
+	this->isPressDown = false;
 }
 
 
 MegaManClimbingState::~MegaManClimbingState()
 {
-	this->name = "MegaManClimbingState";
-	this->canTransitToIdle = false;
+	
 
 }
 
 GameState* MegaManClimbingState::onKeyDown(GameObject* gameObject, int keyCode){
-	if (keyCode == DIK_UP || keyCode == DIK_DOWN){
+	if (gameObject->getCanClimb() && (keyCode == DIK_UP || keyCode == DIK_DOWN)){
 		((MegaMan*)gameObject)->changeAnimation(ECharacter::MEGAMAN, EState::CLIMB);
 	}
 	return NULL;
@@ -38,6 +40,7 @@ GameState*  MegaManClimbingState::processKeyState(GameObject* gameObject, BYTE *
 		gameObject->setVelocity(FPOINT(0.0f, MEGA_MAN_CLIMB_VELOCITY));
 	}
 	else if (gameObject->getCanClimb() && (keyState[DIK_DOWN] * 0x80) > 0){
+		this->isPressDown = true;
 		gameObject->setVelocity(FPOINT(0.0f, -MEGA_MAN_CLIMB_VELOCITY));
 	}
 	return NULL;
@@ -46,7 +49,6 @@ GameState*  MegaManClimbingState::processKeyState(GameObject* gameObject, BYTE *
 void MegaManClimbingState::update(GameObject* gameObject) {}
 void MegaManClimbingState::enter(GameObject* gameObject){
 	((MegaMan*)gameObject)->changeAnimation(ECharacter::MEGAMAN, EState::CLIMB);
-	gameObject->setVelocity(FPOINT(0.0f, MEGA_MAN_CLIMB_VELOCITY));
 
 }
 GameState* MegaManClimbingState::onCollision(GameObject* gameObject, GameObject* staticObject) {
@@ -82,21 +84,40 @@ GameState* MegaManClimbingState::onCollision(GameObject* gameObject, GameObject*
 	if (staticObjectType == ECharacter::LADDER){
 		if (collisionTime == 1.0f)
 			gameObject->setCanClimb(true);
-		else
+		else{
 			gameObject->setCanClimb(false);
+		}
 		// neu megaman botton < ladder bottom hoac megaman top > ladder top => co gia toc trong tuong
-		BOX staticCollisonBox = staticObject->getCollisionBox();
-		if ((gameObject->getPosition().y - MEGA_MAN_VIRTUAL_HEIGHT < staticCollisonBox.y - staticCollisonBox.height ) || gameObject->getPosition().y > staticCollisonBox.y)
-		{
-			gameObject->setAcceleration(FPOINT(0.0f, GRAVITATIONAL_ACCELERATION));
-			this->canTransitToIdle = true;
-		}
-		else {
-			//gameObject->setAcceleration(FPOINT())
-			gameObject->setAcceleration(FPOINT(0.0f, 0.0f));
-			this->canTransitToIdle = false;
+		gameObject->setAcceleration(FPOINT(0.0f, 0.0f));
 
+		BOX staticCollisonBox = staticObject->getCollisionBox();
+		// nếu tâm của mega man (trục y) > cầu thang.y => ta chuyển luôn mega man về trạng thái idle. 
+		if (gameObject->getPosition().y - MEGA_MAN_VIRTUAL_HEIGHT / 2 > staticCollisonBox.y
+			|| (gameObject->getPosition().y - MEGA_MAN_VIRTUAL_HEIGHT / 2 < staticCollisonBox.y - staticCollisonBox.height)){
+			FPOINT newPosition = gameObject->getPosition();
+
+			newPosition.y = MEGA_MAN_VIRTUAL_HEIGHT + staticObject->getCollisionBox().y + 1;
+			gameObject->setPostion(newPosition);
+			/*
+			Khi mega man đứng trên mặt đất, có phản lực N triệt tiêu lực hấp dẫn. Do đó có thể coi
+			gia tốc trọng từng = 0 và v.y = 0;
+			*/
+			gameObject->setAcceleration(FPOINT(MEGA_MAN_ACCELERATION_X, 0.0f));
+			gameObject->setVelocity(FPOINT(gameObject->getVelocity().x, 0.0f));
+			return new MegaManIdleState();
 		}
+		//if ((gameObject->getPosition().y - MEGA_MAN_VIRTUAL_HEIGHT < staticCollisonBox.y - staticCollisonBox.height ) )
+		//{
+		//	this->canTransitToIdle = true;
+		//	if (gameObject->getCanClimb() == false)
+		//		gameObject->setAcceleration(FPOINT(0.0f, GRAVITATIONAL_ACCELERATION));
+		//}
+		//else {
+		//	//gameObject->setAcceleration(FPOINT())
+		//	gameObject->setAcceleration(FPOINT(0.0f, 0.0f));
+		//	this->canTransitToIdle = false;
+
+		//}
 	}
 	return NULL;
 }
@@ -105,7 +126,6 @@ GameState* MegaManClimbingState::topCollision(GameObject* gameObject, GameObject
 	switch (staticObject->getType()){
 		// với static object 
 	case ECharacter::STATIC:
-	case ECharacter::LADDER:
 
 		newPosition.y = MEGA_MAN_VIRTUAL_HEIGHT + staticObject->getCollisionBox().y + 1;
 		gameObject->setPostion(newPosition);
@@ -115,8 +135,25 @@ GameState* MegaManClimbingState::topCollision(GameObject* gameObject, GameObject
 		*/
 		gameObject->setAcceleration(FPOINT(MEGA_MAN_ACCELERATION_X, 0.0f));
 		gameObject->setVelocity(FPOINT(gameObject->getVelocity().x, 0.0f));
-		if (this->canTransitToIdle)
+		return new MegaManIdleState();
+		break;
+	case ECharacter::LADDER:
+		if (isPressDown){
+			newPosition.y = staticObject->getCollisionBox().y - MEGA_MAN_VIRTUAL_HEIGHT / 2 - 1;
+			gameObject->setPostion(newPosition);
+		}
+		else{
+			newPosition.y = MEGA_MAN_VIRTUAL_HEIGHT + staticObject->getCollisionBox().y + 1;
+			gameObject->setPostion(newPosition);
+			/*
+			Khi mega man đứng trên mặt đất, có phản lực N triệt tiêu lực hấp dẫn. Do đó có thể coi
+			gia tốc trọng từng = 0 và v.y = 0;
+			*/
+			gameObject->setAcceleration(FPOINT(MEGA_MAN_ACCELERATION_X, 0.0f));
+			gameObject->setVelocity(FPOINT(gameObject->getVelocity().x, 0.0f));
 			return new MegaManIdleState();
+		}
+		
 		break;
 
 	default:
@@ -125,7 +162,7 @@ GameState* MegaManClimbingState::topCollision(GameObject* gameObject, GameObject
 	return NULL;
 }
 GameState* MegaManClimbingState::bottomCollision(GameObject* gameObject, GameObject* staticObject){
-	
+
 	return NULL;
 }
 GameState* MegaManClimbingState::leftCollision(GameObject* gameObject, GameObject* staticObject){

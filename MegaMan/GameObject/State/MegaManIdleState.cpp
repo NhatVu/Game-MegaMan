@@ -20,7 +20,13 @@ GameState* MegaManIdleState::onKeyDown(GameObject* gameObject, int keyCode){
 	{
 		return new MegaManJumpingState();
 	}
-	else if (gameObject->getCanClimb() && (keyCode == DIK_UP || keyCode == DIK_DOWN)){
+	else if (gameObject->getCanClimb() && keyCode == DIK_UP ){
+		//gameObject->setVelocity(FPOINT(0.0f, MEGA_MAN_CLIMB_VELOCITY));
+
+		return new MegaManClimbingState();
+	}
+	else if (gameObject->getCanClimb() && keyCode == DIK_DOWN){
+		//gameObject->setVelocity(FPOINT(0.0f, -MEGA_MAN_CLIMB_VELOCITY));
 		return new MegaManClimbingState();
 	}
 	return NULL;
@@ -80,9 +86,9 @@ GameState* MegaManIdleState::onCollision(GameObject* gameObject, GameObject* sta
 	}
 
 	if (staticObjectType == ECharacter::LADDER){
-		if (collisionTime == 1.0f)
-			gameObject->setCanClimb(true);
-		else gameObject->setCanClimb(false);
+		if (collisionTime == 0.0f)
+			gameObject->setCanClimb(false);
+		else gameObject->setCanClimb(true);
 		// neu megaman botton < ladder bottom hoac megaman top > ladder top => co gia toc trong tuong
 		//if ((gameObject->getPosition().x - MEGA_MAN_VIRTUAL_HEIGHT < staticObject->getPosition().x - staticObject->getHeight()) || gameObject->getPosition().x > staticObject->getPosition().x)
 		//{
