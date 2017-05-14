@@ -5,6 +5,7 @@
 
 MegaManJumpingState::MegaManJumpingState()
 {
+	this->name = "Jumping";
 }
 
 

@@ -4,6 +4,7 @@
 
 MegaManRunningState::MegaManRunningState()
 {
+	this->name = "running";
 }
 
 

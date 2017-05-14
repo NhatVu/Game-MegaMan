@@ -18,6 +18,8 @@ private:
 	GameState* bottomCollision(GameObject* gameObject, GameObject* staticObject);
 	GameState* leftCollision(GameObject* gameObject, GameObject* staticObject);
 	GameState* rightCollision(GameObject* gameObject, GameObject* staticObject);
+
+	bool canTransitToIdle;
 };
 
 #endif

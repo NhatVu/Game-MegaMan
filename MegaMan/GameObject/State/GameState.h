@@ -3,7 +3,9 @@
 #include "../../../SFramework/GameObject.h"
 #include "../../MegaManUtilities.h"
 #include <dinput.h>
+#include <string>
 using namespace s_framework;
+using namespace std;
 class GameState
 {
 public:
@@ -19,6 +21,8 @@ public:
 	virtual GameState* onCollision(GameObject* gameObject, GameObject* staticObject)=0;
 	//virtual void exit(GameObject* gameObject){}
 	~GameState();
+	string name;
+
 };
 #endif // _GAMESTATE_H_
 

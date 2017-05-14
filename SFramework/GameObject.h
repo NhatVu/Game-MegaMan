@@ -29,6 +29,7 @@ namespace s_framework
 		int type;
 
 		int mFlipVertical; // 1 : quay mặt sang phải, -1: quay mặt sang trái
+		bool canClimb;
 	public:
 		GameObject();
 		~GameObject();
@@ -56,6 +57,14 @@ namespace s_framework
 
 		int getFlipVertical(){
 			return this->mFlipVertical;
+		}
+
+		void setCanClimb(bool value){
+			this->canClimb = value;
+		}
+
+		bool getCanClimb(){
+			return this->canClimb;
 		}
 
 		void setAcceleration(FPOINT acceleration){ this->m_acceleration = acceleration; };

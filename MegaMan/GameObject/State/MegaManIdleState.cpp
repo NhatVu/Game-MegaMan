@@ -2,8 +2,10 @@
 #include "MegaManRunningState.h"
 #include "../MegaMan.h"
 #include "../../../SFramework/GameTime.h"
+#include "MegaManClimbingState.h"
 MegaManIdleState::MegaManIdleState()
 {
+	this->name = "Idle";
 }
 
 
@@ -17,6 +19,9 @@ GameState* MegaManIdleState::onKeyDown(GameObject* gameObject, int keyCode){
 	if (keyCode == DIK_F)
 	{
 		return new MegaManJumpingState();
+	}
+	else if (gameObject->getCanClimb() && (keyCode == DIK_UP || keyCode == DIK_DOWN)){
+		return new MegaManClimbingState();
 	}
 	return NULL;
 }
@@ -60,9 +65,7 @@ GameState* MegaManIdleState::onCollision(GameObject* gameObject, GameObject* sta
 	gameObject->setCollisionBox(collisionBox);
 
 	// collision
-	if (staticObject->getCollisionBox().y == 40.0f){
-		int a = 5;
-	}
+
 	float collisionTime = Collision::CheckCollision(gameObject, staticObject, normal);
 	if (collisionTime > 0.0f && collisionTime < 1.0f){
 		/*
@@ -75,6 +78,22 @@ GameState* MegaManIdleState::onCollision(GameObject* gameObject, GameObject* sta
 			return topCollision(gameObject, staticObject);
 		}
 	}
+
+	if (staticObjectType == ECharacter::LADDER){
+		if (collisionTime == 1.0f)
+			gameObject->setCanClimb(true);
+		else gameObject->setCanClimb(false);
+		// neu megaman botton < ladder bottom hoac megaman top > ladder top => co gia toc trong tuong
+		//if ((gameObject->getPosition().x - MEGA_MAN_VIRTUAL_HEIGHT < staticObject->getPosition().x - staticObject->getHeight()) || gameObject->getPosition().x > staticObject->getPosition().x)
+		//{
+		//	gameObject->setAcceleration(FPOINT(0.0f, GRAVITATIONAL_ACCELERATION));
+		//}
+		//else {
+		//	//gameObject->setAcceleration(FPOINT())
+		//	gameObject->setAcceleration(FPOINT(0.0f, 0.0f));
+
+		//}
+	}
 	return NULL;
 }
 
@@ -83,6 +102,7 @@ GameState* MegaManIdleState::topCollision(GameObject* gameObject, GameObject* st
 	switch (staticObject->getType()){
 		// với static object 
 	case ECharacter::STATIC:
+	case ECharacter::LADDER:
 
 		newPosition.y = MEGA_MAN_VIRTUAL_HEIGHT + staticObject->getCollisionBox().y + 1;
 		gameObject->setPostion(newPosition);
@@ -93,13 +113,12 @@ GameState* MegaManIdleState::topCollision(GameObject* gameObject, GameObject* st
 		gameObject->setAcceleration(FPOINT(MEGA_MAN_ACCELERATION_X, 0.0f));
 		gameObject->setVelocity(FPOINT(gameObject->getVelocity().x, 0.0f));
 		return NULL;
-		//break;
-	case ECharacter::LADDER:
-		return NULL;
+		//break
 
 	default:
 		break;
 	}
+	return NULL;
 }
 GameState* MegaManIdleState::bottomCollision(GameObject* gameObject, GameObject* staticObject){
 	return NULL;
