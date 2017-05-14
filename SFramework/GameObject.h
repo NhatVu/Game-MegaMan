@@ -8,6 +8,8 @@
 #include "Utilities.h"
 #include <list>
 #include "SpriteAndAnimation/Texture.h"
+#include "GameTime.h"
+
 
 
 using namespace std;
@@ -27,8 +29,9 @@ namespace s_framework
 		int type;
 
 		int mFlipVertical; // 1 : quay mặt sang phải, -1: quay mặt sang trái
-		bool mDetectedCollision; // true: has collision, false: don't have collision
-		bool mSkipUpdatePosition; // skip update position in render function. For a special case
+		int canClimb; // 0: không thể, 1: có thể, 2 : có thể leo xuống
+		int noCollisionWithAll;
+		int stopUpdateAnimation; // ngừng update animation khi object idle
 	public:
 		GameObject();
 		~GameObject();
@@ -51,27 +54,35 @@ namespace s_framework
 
 		void setFlipVertical(int flipVertical){
 			if (mFlipVertical != flipVertical)
-			this->mFlipVertical = flipVertical;
+				this->mFlipVertical = flipVertical;
 		}
 
 		int getFlipVertical(){
 			return this->mFlipVertical;
 		}
 
-		void setDetectedCollision(bool detectedCollision){
-			this->mDetectedCollision = detectedCollision;
+		void setCanClimb(int value){
+			this->canClimb = value;
 		}
 
-		bool getDetectedCollision(){
-			return this->mDetectedCollision;
+		int getCanClimb(){
+			return this->canClimb;
 		}
 
-		void setSkipUpdatePosition(bool value){
-			this->mSkipUpdatePosition = value;
+		void setNoCollisionWithAll(int value){
+			this->noCollisionWithAll = value;
 		}
 
-		bool getSkipUpdatePosition(){
-			return this->mSkipUpdatePosition;
+		int getNoCollisionWithAll(){
+			return this->noCollisionWithAll;
+		}
+
+		void setStopUpdateAnimation(int value){
+			this->stopUpdateAnimation = value;
+		}
+
+		int getStopUpdateAnimation(){
+			return this->stopUpdateAnimation;
 		}
 
 		void setAcceleration(FPOINT acceleration){ this->m_acceleration = acceleration; };
@@ -83,6 +94,8 @@ namespace s_framework
 		virtual void onKeyDown(int keyCode);
 		virtual void processKeyState(BYTE *keyState);
 		virtual void onCollision(GameObject* staticObject);
+
+		virtual void updatePosition();
 	};
 
 }

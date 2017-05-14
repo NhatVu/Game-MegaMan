@@ -113,6 +113,8 @@ void SFramework::run(HWND hwnd){
 		m_d3ddev->ColorFill(m_backBuffer, NULL, BACKGROUND_COLOR);
 		// update: collision and update position
 
+		processKeyBoard(hwnd);
+		
 		update(1.0f);
 
 		// Render
@@ -124,7 +126,6 @@ void SFramework::run(HWND hwnd){
 	m_d3ddev->Present(NULL, NULL, NULL, NULL);
 
 	// process keywboard
-	processKeyBoard(hwnd);
 
 }
 
@@ -164,6 +165,7 @@ void SFramework::loop(HWND hwnd)
 
 void SFramework::update(float delta)
 {
+
 	vector<GameObject*> mListObject = ((Scene*)Director::getInstance()->getScene())->getListGameObject();
 	struct {
 		bool operator()(GameObject* a, GameObject* b) const
@@ -172,6 +174,8 @@ void SFramework::update(float delta)
 		}
 	} customGreater;
 	std::sort(mListObject.begin(), mListObject.end(), customGreater);
+	
+
 	for (int i = 0; i < mListObject.size(); i++){
 		bool breakInnerLoopFlag = false;
 		if (mListObject[i]->getType() != 0)
@@ -179,45 +183,16 @@ void SFramework::update(float delta)
 			for (int j = 0; j < mListObject.size(); j++){
 				if (i != j){
 					mListObject[i]->onCollision(mListObject[j]);
-					// chỉ xét va chạm với 1 vật thể, nếu có thì chuyển sang frame khác, ko xét với những object còn lại
-					// => phải sort object theo độ ưu tiên từ cao đến thấp.
-					// mario ưu viên va chạm với viên đạn hơn là với tường.
-					if (mListObject[i]->getDetectedCollision()){
-						mListObject[i]->setDetectedCollision(false);
-						breakInnerLoopFlag = true;
-						break;
-					}
 				}
 			}
 
-			if (breakInnerLoopFlag)
-				continue;
 		}
 	}
-
-	// luôn luôn phải xét va chạm với background (type = 0). Cần thì thi sẽ để background vào 1 list riêng
+	// update postion before detect collision
 	for (int i = 0; i < mListObject.size(); i++){
-		bool breakInnerLoopFlag = false;
-		if (mListObject[i]->getType() != 0)
-		{
-			for (int j = 0; j < mListObject.size(); j++){
-				if (i != j && mListObject[j]->getType() == 0){
-					mListObject[i]->onCollision(mListObject[j]);
-					// chỉ xét va chạm với 1 vật thể, nếu có thì chuyển sang frame khác, ko xét với những object còn lại
-					// => phải sort object theo độ ưu tiên từ cao đến thấp.
-					// mario ưu viên va chạm với viên đạn hơn là với tường.
-					if (mListObject[i]->getDetectedCollision()){
-						mListObject[i]->setDetectedCollision(false);
-						breakInnerLoopFlag = true;
-						break;
-					}
-				}
-			}
-
-			if (breakInnerLoopFlag)
-				continue;
-		}
+		mListObject[i]->updatePosition();
 	}
+
 }
 
 void SFramework::render()

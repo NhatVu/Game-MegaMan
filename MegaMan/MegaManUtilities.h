@@ -1,23 +1,24 @@
 #ifndef _MARIO_UTILITIES_H_
 #define _MARIO_UTILITIES_H_
 
-#define GRAVITATIONAL_ACCELERATION -0.005f
 //#define GRAVITATIONAL_ACCELERATION 0.000f
-
+#define SCREEN_WIDTH 256
+#define SCREEN_HEIGHT 256
 enum ECharacter
 {
-	MEGAMAN = 1,
-	BIG_MARIO = 2,
-	SUPER_MARIO = 3
+	STATIC = 0,
+	LADDER = 1,
+	MEGAMAN = 10,
 };
 
 enum EState
 {
 	IDLE = 1,
 	RUNNING = 2,
-	RUN_REVERSE = 3,
+	CLIMB = 3,
 	JUMP = 4,
-	DIE = 5
+	DIE = 5,
+	CLIMB_IDLE = 6,
 };
 
 

@@ -26,7 +26,6 @@ public:
 
 private: 
 	AnimationSpec* m_animation = NULL;
-	void resetVelocityAndAcceleration();
 	GameState *m_state;
 
 public:
@@ -55,6 +54,7 @@ public:
 	//void updateKeyboard(int keyCode)override;
 	void processKeyState(BYTE *keyState)override;
 	void onCollision(GameObject* staticObject)override;
+	void updatePosition()override;
 };
 
 #endif // !_MEGA_MAN_H_

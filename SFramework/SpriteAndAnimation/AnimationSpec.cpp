@@ -10,19 +10,20 @@ AnimationSpec::AnimationSpec()
 AnimationSpec::~AnimationSpec()
 {
 	using Iter = std::vector<GameObject*>::const_iterator;
-	for (int i = 0; i< m_spriteSpecs.size(); i++){
+	for (int i = 0; i < m_spriteSpecs.size(); i++){
 		delete m_spriteSpecs[i];
 	}
 	m_spriteSpecs.clear();
 }
 
-int AnimationSpec::getDelayTime()
+int AnimationSpec::getDelayFrame()
 {
-	return m_delayTime;
+	return m_delayFrame;
 }
-void AnimationSpec::setDelayTime(int a)
+void AnimationSpec::setDelayFrame(int a)
 {
-	m_delayTime = a;
+	m_delayFrame = a;
+	currentDelay = a;
 }
 
 vector<SpriteSpec*> AnimationSpec::getSpriteSpecs()
@@ -51,7 +52,13 @@ SpriteSpec* AnimationSpec::getCurrentSpriteSpec(){
 	// get current sprite spec
 	SpriteSpec* currentSprite = m_spriteSpecs[m_currentIndex];
 	// get next sprite index
-	nextFrame();
+	if (currentDelay == 0){
+		nextFrame();
+		currentDelay = m_delayFrame;
+	}
+	else
+		currentDelay--;
+
 
 	return currentSprite;
 }

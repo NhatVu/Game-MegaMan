@@ -1,8 +1,10 @@
 ﻿#include "MegaMan.h"
 #include "../../SFramework/SpriteAndAnimation/AnimationManager.h"
 #include "../../SFramework/GameTime.h"
+#include "../../SFramework/Camera/ViewPort.h"
 #include <dinput.h>
 
+using namespace s_framework;
 MegaMan::MegaMan() : GameObject()
 {
 	GameObject::setType(10);
@@ -20,31 +22,23 @@ void MegaMan::setTexture(Texture* texture){
 	GameObject::setTexture(texture);
 }
 void MegaMan::render(){
+	// nếu như không va chạm với bất kỳ vật nào => đang rơi tự do, chuyển hình thành jump.
+	// cá biệt với trường hợp leo thang.
+	if (this->getNoCollisionWithAll())
+		this->changeAnimation(ECharacter::MEGAMAN, EState::JUMP);
+	else m_state->enter(this);
+	/*if (m_state->name == "Running")
+		this->changeAnimation(ECharacter::MEGAMAN, EState::RUNNING);
+*/
+	if (this->getStopUpdateAnimation() == 0){
+
 	SpriteSpec* currentSpriteSpec = m_animation->getCurrentSpriteSpec();
 	GameObject::setSpriteSpec(currentSpriteSpec);
-
-	// calculate possition to render
-	// việc tính vị trí sẽ vẽ ở thời điểm tiếp theo được tính trong hàm onCollide trong vài trường hợp đặc biệt
-	
-	if (this->getSkipUpdatePosition()){
-		this->setSkipUpdatePosition(false);
-	}
-	else{
-		FPOINT currentPosition = this->getPosition();
-		DWORD deltaTime = GameTime::getInstance()->getDeltaTime();
-		FPOINT velocity = this->getVelocity();
-		velocity.x += this->getAcceleration().x*deltaTime;
-		velocity.y += this->getAcceleration().y*deltaTime;
-		currentPosition.x = currentPosition.x + velocity.x*deltaTime;
-		currentPosition.y = currentPosition.y + velocity.y*deltaTime;
-		this->setPostion(currentPosition);
-
 	}
 
 	// set position to render
 	GameObject::render();
-
-	resetVelocityAndAcceleration();
+	this->setNoCollisionWithAll(true);
 }
 
 void MegaMan::processInput(LPDIRECT3DDEVICE9 d3ddv, int Delta){
@@ -70,7 +64,7 @@ void MegaMan::onKeyUp(int KeyCode){
 
 void MegaMan::changeAnimation(int character, int state){
 	m_animation = AnimationManager::getInstance()->getAnimationSprites(character, state);
-	GameObject::setSpriteSpec(m_animation->getCurrentSpriteSpec());
+	GameObject::setSpriteSpec(m_animation->getSpriteSpecs()[0]);
 }
 
 void MegaMan::processKeyState(BYTE *keyState){
@@ -80,39 +74,6 @@ void MegaMan::processKeyState(BYTE *keyState){
 		m_state = state;
 		m_state->enter(this);
 	}
-	//FPOINT currentPosition = this->getPosition();
-	//DWORD deltaTime = GameTime::getInstance()->getDeltaTime();
-	//if ((keyState[DIK_RIGHT] & 0x80) > 0)
-	//{
-	//	FPOINT velocity = this->getVelocity();
-	//	/*if (velocity.x < 0.0f)
-	//		velocity.x *= -1;
-	//		else if (velocity.x == 0.0f)*/
-	//	velocity.x = MEGA_MAN_VELOCITY_X;
-	//	this->setVelocity(velocity);
-	//}
-	//else
-	//if ((keyState[DIK_LEFT] & 0x80) > 0)
-	//{
-	//	FPOINT velocity = this->getVelocity();
-	//	/*	if (velocity.x > 0.0f)
-	//			velocity.x *= -1;
-	//			else if (velocity.x == 0.0f)*/
-	//	velocity.x = -MEGA_MAN_VELOCITY_X;
-	//	this->setVelocity(velocity);
-	//}
-
-}
-
-void MegaMan::resetVelocityAndAcceleration(){
-	// reset velocity
-	//this->setVelocity(FPOINT(0, 0));
-	FPOINT velocity = this->getVelocity();
-	DWORD deltaTime = GameTime::getInstance()->getDeltaTime();
-	velocity.x += this->getAcceleration().x*deltaTime;
-	velocity.y += this->getAcceleration().y*deltaTime;
-	this->setVelocity(velocity);
-	this->setAcceleration(FPOINT(MEGA_MAN_ACCELERATION_X, GRAVITATIONAL_ACCELERATION));
 }
 
 void MegaMan::onCollision(GameObject* staticObject){
@@ -122,4 +83,33 @@ void MegaMan::onCollision(GameObject* staticObject){
 		m_state = newState;
 		m_state->enter(this);
 	}
+}
+
+// update mega man position and VIEWPORT position 
+void MegaMan::updatePosition(){
+	FPOINT currentPosition = this->getPosition();
+	DWORD deltaTime = GameTime::getInstance()->getDeltaTime();
+	FPOINT velocity = this->getVelocity();
+	velocity.x += this->getAcceleration().x*deltaTime;
+	velocity.y += this->getAcceleration().y*deltaTime;
+	currentPosition.x = currentPosition.x + velocity.x*deltaTime;
+	currentPosition.y = currentPosition.y + velocity.y*deltaTime;
+
+	this->setPostion(currentPosition);
+	
+
+	// update postion cho viewport. Tại đây, ta chỉ update position theo chiều x mà thôi
+	// khi tới một điểm nào đó cố định,ta mới update theo chiều y. như vậy cho dễ.
+	FPOINT viewport = ViewPort::getInstance()->getPosition();
+	float tmpX = viewport.x + velocity.x * deltaTime;
+	if (this->getPosition().x < SCREEN_WIDTH / 2)
+		viewport.x = 0;
+	else
+		viewport.x = tmpX;
+	ViewPort::getInstance()->setPosition(viewport);
+
+	// sau khi xét va chạm xong, ta cập nhật lại vận tốc và gia tốc y cho vật. 2 đại lượng này luôn có.
+	// kể cả khi vật đứng yên. 
+	this->setVelocity(FPOINT(0.0f, velocity.y));
+	this->setAcceleration(FPOINT(0.0f, GRAVITATIONAL_ACCELERATION));
 }

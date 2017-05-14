@@ -56,7 +56,7 @@ void AnimationManager::parseAnimationJSON(Texture* texture,string jsonFile){
 	int objectType = 0;
 	int stateID = 0;
 	int frameID = 0;
-	int delayTime = 0;
+	int delayFrame = 0;
 	for (SizeType i = 0; i < animation_list.Size(); i++)
 	{
 		//t_spriteSpec = new SpriteSpec();
@@ -65,14 +65,14 @@ void AnimationManager::parseAnimationJSON(Texture* texture,string jsonFile){
 		Value& state = animation["state"];
 		for (SizeType j = 0; j < state.Size(); j++){
 			stateID = state[j]["stateID"].GetInt();
-			delayTime = state[j]["delayTime"].GetInt();
+			delayFrame = state[j]["delayFrame"].GetInt();
 
 			// gán characterID và stateID vào lớp CharacterState
 			t_objectState.m_character = objectType;
 			t_objectState.m_state = stateID;
 
 			AnimationSpec* t_animationSpec = new AnimationSpec();
-			t_animationSpec->setDelayTime(delayTime);
+			t_animationSpec->setDelayFrame(delayFrame);
 			//// biến tạm chứa list SpriteSpec
 			vector<SpriteSpec*> t_listSpriteSpec;
 
