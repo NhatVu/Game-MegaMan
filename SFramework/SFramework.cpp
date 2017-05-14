@@ -4,6 +4,7 @@
 #include "Node.h"
 #include "Trace.h"
 #include <algorithm>
+#include <list>
 
 
 using namespace s_framework;
@@ -230,6 +231,35 @@ void SFramework::attachInputObect(GameObject* object){
 
 void SFramework::detachInputObject(GameObject* object){
 	list_object_input.erase(std::remove(list_object_input.begin(), list_object_input.end(), object), list_object_input.end());
+}
+
+void s_framework::SFramework::detectCollision(list<GameObject*> game_objects)
+{
+	Quadtree* quadtree = Quadtree::CreateQuadTree(game_objects);
+
+	list<GameObject*> return_objects_list;
+
+	for (list<GameObject*>::iterator i = game_objects.begin(); i != game_objects.end(); i++)
+	{
+		//Get all objects that can collide with current entity
+		quadtree->Retrieve(return_objects_list, *i);
+
+		for (auto x = return_objects_list.begin(); x != return_objects_list.end(); x++)
+		{
+			GameObject* a = *i;
+			GameObject* b = *x;
+			//if (a->onCollision(b) == true)
+			//{
+				///
+			//}
+		}
+
+		return_objects_list.clear();
+	}
+
+	quadtree->Release();
+
+	return_objects_list.remove;
 }
 
 void SFramework::initKeyboard(HINSTANCE hInstance, HWND hWnd)

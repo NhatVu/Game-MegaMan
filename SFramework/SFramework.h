@@ -7,6 +7,7 @@
 #include "SpriteAndAnimation/Texture.h"
 //#include "DirectxInput.h"
 #include "GameObject.h"
+#include "Quadtree.h"
 #include <list>
 
 #define USING_S_FRAMEWORK using namespace s_framework
