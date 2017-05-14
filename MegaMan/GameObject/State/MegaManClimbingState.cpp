@@ -1,9 +1,9 @@
 ﻿#include "MegaManClimbingState.h"
 #include "../MegaMan.h"
 #include "../../../SFramework/GameTime.h"
-#include "MegaManClimbingIdleState.h"
+#include "MegaManJumpingState.h"
 
-#define MEGA_MAN_CLIMB_VELOCITY 0.3f
+#define MEGA_MAN_CLIMB_VELOCITY 0.25f
 MegaManClimbingState::MegaManClimbingState()
 {
 	this->name = "MegaManClimbingState";
@@ -19,6 +19,10 @@ MegaManClimbingState::~MegaManClimbingState()
 }
 
 GameState* MegaManClimbingState::onKeyDown(GameObject* gameObject, int keyCode){
+	if (keyCode == DIK_F){
+		return new MegaManJumpingState();
+	}
+
 	if (gameObject->getCanClimb() && (keyCode == DIK_UP || keyCode == DIK_DOWN)){
 		((MegaMan*)gameObject)->changeAnimation(ECharacter::MEGAMAN, EState::CLIMB);
 	}
@@ -26,7 +30,6 @@ GameState* MegaManClimbingState::onKeyDown(GameObject* gameObject, int keyCode){
 }
 GameState*  MegaManClimbingState::onKeyUp(GameObject* gameObject, int keyCode){
 	if (keyCode == DIK_UP || keyCode == DIK_DOWN)
-		//	return new MegaManClimbingIdleState();
 	{
 		((MegaMan*)gameObject)->changeAnimation(ECharacter::MEGAMAN, EState::CLIMB_IDLE);
 		gameObject->setVelocity(FPOINT(0.0f, 0.0f));
@@ -48,6 +51,7 @@ GameState*  MegaManClimbingState::processKeyState(GameObject* gameObject, BYTE *
 
 void MegaManClimbingState::update(GameObject* gameObject) {}
 void MegaManClimbingState::enter(GameObject* gameObject){
+
 	((MegaMan*)gameObject)->changeAnimation(ECharacter::MEGAMAN, EState::CLIMB);
 
 }
@@ -139,7 +143,7 @@ GameState* MegaManClimbingState::topCollision(GameObject* gameObject, GameObject
 		break;
 	case ECharacter::LADDER:
 		if (isPressDown){
-			newPosition.y = staticObject->getCollisionBox().y - MEGA_MAN_VIRTUAL_HEIGHT / 2 - 1;
+			newPosition.y = staticObject->getCollisionBox().y + MEGA_MAN_VIRTUAL_HEIGHT/2 ;
 			gameObject->setPostion(newPosition);
 		}
 		else{

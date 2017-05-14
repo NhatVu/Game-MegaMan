@@ -29,7 +29,7 @@ namespace s_framework
 		int type;
 
 		int mFlipVertical; // 1 : quay mặt sang phải, -1: quay mặt sang trái
-		bool canClimb;
+		int canClimb; // 0: không thể, 1: có thể, 2 : có thể leo xuống
 	public:
 		GameObject();
 		~GameObject();
@@ -59,7 +59,7 @@ namespace s_framework
 			return this->mFlipVertical;
 		}
 
-		void setCanClimb(bool value){
+		void setCanClimb(int value){
 			this->canClimb = value;
 		}
 

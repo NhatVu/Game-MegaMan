@@ -43,10 +43,7 @@ void MegaManJumpingState::update(GameObject* gameObject) {}
 
 void MegaManJumpingState::enter(GameObject* gameObject){
 	// thay đổi animation cho trạng thái idle
-	((MegaMan*)gameObject)->changeAnimation(ECharacter::MEGAMAN, EState::JUMP);
-
-	// khi bắt đầu trạng thái jump, ta cấp cho vật thể vận tốc ban đầu. 
-	gameObject->setVelocity(FPOINT(0.0f, MEGA_MAN_JUMP_VELOCITY));
+	((MegaMan*)gameObject)->changeAnimation(ECharacter::MEGAMAN, EState::JUMP);	
 }
 
 GameState* MegaManJumpingState::onCollision(GameObject* gameObject, GameObject* staticObject) {

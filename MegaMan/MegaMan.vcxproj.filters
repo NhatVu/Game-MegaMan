@@ -51,9 +51,6 @@
     <ClInclude Include="GameObject\State\MegaManClimbingState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GameObject\State\MegaManClimbingIdleState.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -78,9 +75,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GameObject\State\MegaManClimbingState.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject\State\MegaManClimbingIdleState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

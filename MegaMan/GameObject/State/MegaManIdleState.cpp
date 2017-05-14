@@ -18,16 +18,19 @@ GameState* MegaManIdleState::onKeyDown(GameObject* gameObject, int keyCode){
 	// keyboard F = Fly
 	if (keyCode == DIK_F)
 	{
+		gameObject->setVelocity(FPOINT(0.0f, MEGA_MAN_JUMP_VELOCITY));
 		return new MegaManJumpingState();
 	}
-	else if (gameObject->getCanClimb() && keyCode == DIK_UP ){
+	else if (gameObject->getCanClimb() && keyCode == DIK_UP){
 		//gameObject->setVelocity(FPOINT(0.0f, MEGA_MAN_CLIMB_VELOCITY));
 
 		return new MegaManClimbingState();
 	}
 	else if (gameObject->getCanClimb() && keyCode == DIK_DOWN){
 		//gameObject->setVelocity(FPOINT(0.0f, -MEGA_MAN_CLIMB_VELOCITY));
-		return new MegaManClimbingState();
+		GameState* state = new MegaManClimbingState();
+		((MegaManClimbingState*)state)->isPressDown = true;
+		return state;
 	}
 	return NULL;
 }
@@ -86,19 +89,19 @@ GameState* MegaManIdleState::onCollision(GameObject* gameObject, GameObject* sta
 	}
 
 	if (staticObjectType == ECharacter::LADDER){
-		if (collisionTime == 0.0f)
+		/*if (collisionTime == 0.0f)
 			gameObject->setCanClimb(false);
-		else gameObject->setCanClimb(true);
-		// neu megaman botton < ladder bottom hoac megaman top > ladder top => co gia toc trong tuong
-		//if ((gameObject->getPosition().x - MEGA_MAN_VIRTUAL_HEIGHT < staticObject->getPosition().x - staticObject->getHeight()) || gameObject->getPosition().x > staticObject->getPosition().x)
-		//{
-		//	gameObject->setAcceleration(FPOINT(0.0f, GRAVITATIONAL_ACCELERATION));
-		//}
-		//else {
-		//	//gameObject->setAcceleration(FPOINT())
-		//	gameObject->setAcceleration(FPOINT(0.0f, 0.0f));
+			else*/
+		if (collisionTime != 0.0f && (gameObject->getPosition().x + MEGA_MAN_VIRTUAL_WIDTH / 2 > staticObject->getCollisionBox().x + staticObject->getCollisionBox().width / 5)
+			&& (gameObject->getPosition().x + MEGA_MAN_VIRTUAL_WIDTH / 2 < staticObject->getCollisionBox().x + 4 * staticObject->getCollisionBox().width / 5)){
+			FPOINT newPosition = gameObject->getPosition();
+			newPosition.x = staticObject->getCollisionBox().x + staticObject->getCollisionBox().width / 2 - MEGA_MAN_VIRTUAL_WIDTH / 2;
+			gameObject->setPostion(newPosition);
+			gameObject->setCanClimb(true);
+		}
+		else
+			gameObject->setCanClimb(false);
 
-		//}
 	}
 	return NULL;
 }
@@ -108,8 +111,6 @@ GameState* MegaManIdleState::topCollision(GameObject* gameObject, GameObject* st
 	switch (staticObject->getType()){
 		// với static object 
 	case ECharacter::STATIC:
-	case ECharacter::LADDER:
-
 		newPosition.y = MEGA_MAN_VIRTUAL_HEIGHT + staticObject->getCollisionBox().y + 1;
 		gameObject->setPostion(newPosition);
 		/*
@@ -120,7 +121,18 @@ GameState* MegaManIdleState::topCollision(GameObject* gameObject, GameObject* st
 		gameObject->setVelocity(FPOINT(gameObject->getVelocity().x, 0.0f));
 		return NULL;
 		//break
+	case ECharacter::LADDER:
+		if ((gameObject->getPosition().x + MEGA_MAN_VIRTUAL_WIDTH / 2 > staticObject->getCollisionBox().x + staticObject->getCollisionBox().width / 5)
+			&& (gameObject->getPosition().x + MEGA_MAN_VIRTUAL_WIDTH / 2 < staticObject->getCollisionBox().x + 4 * staticObject->getCollisionBox().width / 5)){
+			newPosition.x = staticObject->getCollisionBox().x + staticObject->getCollisionBox().width / 2 - MEGA_MAN_VIRTUAL_WIDTH / 2;
+			gameObject->setPostion(newPosition);
+			gameObject->setCanClimb(true);
+		}
+		else{
+			gameObject->setCanClimb(false);
 
+		}
+		break;
 	default:
 		break;
 	}
