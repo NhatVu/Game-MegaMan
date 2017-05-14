@@ -74,6 +74,7 @@ GameState* MegaManClimbingState::onCollision(GameObject* gameObject, GameObject*
 	// collision
 
 	float collisionTime = Collision::CheckCollision(gameObject, staticObject, normal);
+		gameObject->setNoCollisionWithAll(false);
 	if (collisionTime > 0.0f && collisionTime < 1.0f){
 		/*
 		NOTE : Khi xét va chạm, không set vị trí và chạm giữa 2 vật trùng nhau mà phải cho chúng nó lệch nhau ít nhất 1px.

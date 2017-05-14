@@ -20,8 +20,7 @@
 #define APP_CLASS L"SampleWindow"
 #define MAIN_WINDOW_TITLE L"Mega Man"
 
-#define SCREEN_WIDTH 256
-#define SCREEN_HEIGHT 256
+
 
 USING_S_FRAMEWORK;
 

@@ -2,7 +2,8 @@
 #define _MARIO_UTILITIES_H_
 
 //#define GRAVITATIONAL_ACCELERATION 0.000f
-
+#define SCREEN_WIDTH 256
+#define SCREEN_HEIGHT 256
 enum ECharacter
 {
 	STATIC = 0,

@@ -30,6 +30,7 @@ namespace s_framework
 
 		int mFlipVertical; // 1 : quay mặt sang phải, -1: quay mặt sang trái
 		int canClimb; // 0: không thể, 1: có thể, 2 : có thể leo xuống
+		int noCollisionWithAll;
 	public:
 		GameObject();
 		~GameObject();
@@ -65,6 +66,14 @@ namespace s_framework
 
 		int getCanClimb(){
 			return this->canClimb;
+		}
+
+		void setNoCollisionWithAll(int value){
+			this->noCollisionWithAll = value;
+		}
+
+		int getNoCollisionWithAll(){
+			return this->noCollisionWithAll;
 		}
 
 		void setAcceleration(FPOINT acceleration){ this->m_acceleration = acceleration; };

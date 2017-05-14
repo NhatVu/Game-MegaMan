@@ -22,11 +22,16 @@ void MegaMan::setTexture(Texture* texture){
 	GameObject::setTexture(texture);
 }
 void MegaMan::render(){
+	// nếu như không va chạm với bất kỳ vật nào => đang rơi tự do, chuyển hình thành jump.
+	// cá biệt với trường hợp leo thang.
+	if (this->getNoCollisionWithAll())
+		this->changeAnimation(ECharacter::MEGAMAN, EState::JUMP);
 	SpriteSpec* currentSpriteSpec = m_animation->getCurrentSpriteSpec();
 	GameObject::setSpriteSpec(currentSpriteSpec);
 
 	// set position to render
 	GameObject::render();
+	this->setNoCollisionWithAll(true);
 }
 
 void MegaMan::processInput(LPDIRECT3DDEVICE9 d3ddv, int Delta){
@@ -95,6 +100,7 @@ void MegaMan::onCollision(GameObject* staticObject){
 	}
 }
 
+// update mega man position and VIEWPORT position 
 void MegaMan::updatePosition(){
 	FPOINT currentPosition = this->getPosition();
 	DWORD deltaTime = GameTime::getInstance()->getDeltaTime();
@@ -111,7 +117,9 @@ void MegaMan::updatePosition(){
 	// khi tới một điểm nào đó cố định,ta mới update theo chiều y. như vậy cho dễ.
 	FPOINT viewport = ViewPort::getInstance()->getPosition();
 	float tmpX = viewport.x + velocity.x * deltaTime;
-	if (tmpX > 0)
+	if (this->getPosition().x < SCREEN_WIDTH / 2)
+		viewport.x = 0;
+	else
 		viewport.x = tmpX;
 	ViewPort::getInstance()->setPosition(viewport);
 
