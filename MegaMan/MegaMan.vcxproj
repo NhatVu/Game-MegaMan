@@ -83,6 +83,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="GameObject\State\GameState.h" />
+    <ClInclude Include="Map\MapBombMan.h" />
     <ClInclude Include="Map\MapOne.h" />
     <ClInclude Include="GameObject\State\MegaManIdleState.h" />
     <ClInclude Include="GameObject\State\MegaManRunningState.h" />
@@ -93,6 +94,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject\State\GameState.cpp" />
+    <ClCompile Include="Map\MapBombMan.cpp" />
     <ClCompile Include="Map\MapOne.cpp" />
     <ClCompile Include="GameObject\MegaMan.cpp" />
     <ClCompile Include="GameObject\State\MegaManIdleState.cpp" />

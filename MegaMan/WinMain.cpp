@@ -16,6 +16,7 @@
 
 #include "MegaManUtilities.h"
 #include "GameObject/MegaMan.h"
+#include "Map/MapBombMan.h"
 
 #define APP_CLASS L"SampleWindow"
 #define MAIN_WINDOW_TITLE L"Mega Man"
@@ -81,7 +82,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmdLine,
 		return FALSE;
 
 	// install directx input, keyboard
-	//DirectxInput::getInstance()->initKeyboard(hInstance, hwnd);
 	SFramework::getInstance()->initKeyboard(hInstance, hwnd);
 
 	// Install Gametime
@@ -94,19 +94,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmdLine,
 
 	//AnimationManager::getInstance()->parseAnimationXML("Resource/animation.xml");
 	AnimationManager::getInstance()->parseAnimationJSON(texture,"Resources/animation.json");
-
-	// create layer
-	//s_framework::Layer* layer = new s_framework::Layer();
-	//layer->setHeight(SCREEN_HEIGHT );
-	//layer->setWidth(SCREEN_WIDTH );
-	//FPOINT p;/*
-	//p.x = SCREEN_WIDTH * 3;
-	//p.y = SCREEN_HEIGHT * 2;*/
-	//p.x = 0;
-	//p.y = 0;
-	////scene->setPostion(FPOINT((float)SCREEN_WIDTH / 2, (float)SCREEN_HEIGHT / 2));
-
-	//layer->setPostion(p);
 
 	// create scene, and add layer to scene
 	Scene* scene = new Scene();
@@ -132,39 +119,16 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmdLine,
 	((MegaMan*)megaMan)->setState(EState::IDLE);
 	// vị trí của mega man trong world
 
-	// va chạm top, từ trên xuống
-	p.x = 100;
-	p.y = 150; 
-
-	// check va chạm bottom, từ dưới lên. nhớ chỉnh lại gravitational_acceleration
-	p.x = 100;
-	p.y = -150;
-
-	// va chạm trái. chỉnh gia tốc trọng trường = 0
 	p.x = 130;
-	//p.y = 66; //mega man bottom trùng với ground top
 	p.y = 200;
 	megaMan->setPostion(p); // bắt buộc phải là top-left của vật. 
 
-	
-
-	// map
-	GameMap* map = new GameMap("Resources/map.tmx", texture);
-	//map->draw();
-	vector<Node*> mapNode = map->getNodesBackground();
-	for (int i = 0; i < mapNode.size(); i++){
-		scene->addChild(mapNode[i]);
-	}
-	scene->addChild(megaMan);
-
-	vector<GameObject*> mListObject = map->getListObject();
-	//map->sortListObject();
-	scene->addGameObject(megaMan);
-	scene->addGameObjects(mListObject);
-
 	// attach megaman object in order to receive event when keyboard press
 	SFramework::getInstance()->attachInputObect(megaMan);
-	//((Subject*)DirectxInput::getInstance())->Attach((IObserver*)megaMan);
+
+	// map
+	MapBombMan* mapBombMan = new MapBombMan("Resources/map.tmx", texture, megaMan);
+	mapBombMan->init();
 
 	/*
 	* Kết thúc giai đoạn tạo map và các đối tượng trong game. Câu hỏi đặt ra là khi chuyển map từ màn 1 sang màn 2, sẽ khơi tạo map màn 2 mở đâu ?
