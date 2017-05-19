@@ -9,6 +9,8 @@ MegaManClimbingState::MegaManClimbingState()
 	this->name = "MegaManClimbingState";
 	this->canTransitToIdle = false;
 	this->isPressDown = false;
+	this->canChangeToNextViewport = false;
+	this->canChangeToPreviousViewport = false;
 }
 
 
@@ -89,12 +91,20 @@ GameState* MegaManClimbingState::onCollision(GameObject* gameObject, GameObject*
 			return topCollision(gameObject, staticObject);
 		}
 	}
+
+
 	if (staticObjectType == ECharacter::LADDER){
+
+		// kiểm tra xem megaman có thể leo được hay không. 
 		if (collisionTime == 1.0f)
 			gameObject->setCanClimb(true);
 		else{
 			gameObject->setCanClimb(false);
+			return NULL;
 		}
+
+		// check xem trong khi đang leo thang có thể chuyển viewport state được hay không 
+		
 		// neu megaman botton < ladder bottom hoac megaman top > ladder top => co gia toc trong tuong
 		gameObject->setAcceleration(FPOINT(0.0f, 0.0f));
 
@@ -112,6 +122,7 @@ GameState* MegaManClimbingState::onCollision(GameObject* gameObject, GameObject*
 			*/
 			gameObject->setAcceleration(FPOINT(MEGA_MAN_ACCELERATION_X, 0.0f));
 			gameObject->setVelocity(FPOINT(gameObject->getVelocity().x, 0.0f));
+			gameObject->setStopUpdateAnimation(false);
 			return new MegaManIdleState();
 		}
 	}

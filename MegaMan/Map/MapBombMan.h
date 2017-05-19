@@ -1,11 +1,16 @@
-#ifndef _MAP_BOMB_MAN_H
+﻿#ifndef _MAP_BOMB_MAN_H
 #define _MAP_BOMB_MAN_H
 #include "../../SFramework/Scene.h"
 #include "../../SFramework/Map/GameMap.h"
 #include "../../SFramework/Director.h"
 #include "../../SFramework/GameObject.h"
 #include "../GameObject/MegaMan.h"
+#include "../../SFramework/Utilities.h"
+#include "../MegaManUtilities.h"
+#include <map>
+
 using namespace s_framework;
+using namespace std;
 class MapBombMan
 {
 private:
@@ -13,6 +18,10 @@ private:
 	Texture* texture;
 	GameMap* map;
 	GameObject* megaMan;
+
+
+	std::map<FPOINT, BOX> mapViewport;
+	
 public:
 	/*
 		GETTER AND SETTER

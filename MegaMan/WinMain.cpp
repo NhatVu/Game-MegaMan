@@ -97,11 +97,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmdLine,
 
 	// create scene, and add layer to scene
 	Scene* scene = new Scene();
-	scene->setHeight(SCREEN_HEIGHT );
-	scene->setWidth(SCREEN_WIDTH );
-	scene->setPostion(FPOINT(0, 0));
-
-	//scene->addChild(layer);
 
 	// set scene to director to draw
 	Director::getInstance()->setScene(scene);	

@@ -36,6 +36,12 @@ namespace s_framework{
 			return result;
 		}
 
+		bool operator < (const FPOINT& param)const
+		{
+			if (x < param.x) return true;
+			if (y < param.y) return true;
+			return false;
+		}
 		
 	};
 
@@ -71,6 +77,8 @@ namespace s_framework{
 			this->vx = vx;
 			this->vy = vy;
 		}
+
+	
 	};
 	
 	struct ObjectState{

@@ -20,8 +20,10 @@ private:
 	GameState* leftCollision(GameObject* gameObject, GameObject* staticObject);
 	GameState* rightCollision(GameObject* gameObject, GameObject* staticObject);
 
+	void checkViewportState(GameObject* megaMan);
 	bool canTransitToIdle;
-	
+	bool canChangeToNextViewport;
+	bool canChangeToPreviousViewport;
 };
 
 #endif
