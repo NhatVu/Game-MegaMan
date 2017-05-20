@@ -76,6 +76,7 @@ GameState* MegaManIdleState::onCollision(GameObject* gameObject, GameObject* sta
 	// collision
 
 	float collisionTime = Collision::CheckCollision(gameObject, staticObject, normal);
+	gameObject->setTimeCollision(collisionTime);
 	if (collisionTime > 0.0f && collisionTime < 1.0f){
 		gameObject->setNoCollisionWithAll(false);
 		((MegaMan*)gameObject)->changeAnimation(ECharacter::MEGAMAN, EState::IDLE);
@@ -105,11 +106,9 @@ GameState* MegaManIdleState::onCollision(GameObject* gameObject, GameObject* sta
 		}
 	}
 
+	// xét trong trường hợp collideTime = 1
 	if (staticObjectType == ECharacter::LADDER){
 
-		/*if (collisionTime == 0.0f)
-			gameObject->setCanClimb(false);
-			else*/
 		if (collisionTime != 0.0f && (gameObject->getPosition().x + MEGA_MAN_VIRTUAL_WIDTH / 2 > staticObject->getCollisionBox().x + staticObject->getCollisionBox().width / 5)
 			&& (gameObject->getPosition().x + MEGA_MAN_VIRTUAL_WIDTH / 2 < staticObject->getCollisionBox().x + 4 * staticObject->getCollisionBox().width / 5)){
 			gameObject->setNoCollisionWithAll(false);
@@ -118,9 +117,6 @@ GameState* MegaManIdleState::onCollision(GameObject* gameObject, GameObject* sta
 			gameObject->setPostion(newPosition);
 			gameObject->setCanClimb(true);
 
-			//// 
-			if (gameObject->getPosition().y - MEGA_MAN_VIRTUAL_HEIGHT < staticObject->getCollisionBox().y - staticObject->getCollisionBox().height)
-				gameObject->setCanClimb(2);
 		}
 		else
 			gameObject->setCanClimb(false);
@@ -145,16 +141,22 @@ GameState* MegaManIdleState::topCollision(GameObject* gameObject, GameObject* st
 		return NULL;
 		//break
 	case ECharacter::LADDER:
+		//trong tạng thái nghỉ, mega man va chạm top với ladder, nếu dk về x không thỏa mãn
+		// không thể leo xuống được. canClimb = false;
 		if ((gameObject->getPosition().x + MEGA_MAN_VIRTUAL_WIDTH / 2 > staticObject->getCollisionBox().x + staticObject->getCollisionBox().width / 5)
 			&& (gameObject->getPosition().x + MEGA_MAN_VIRTUAL_WIDTH / 2 < staticObject->getCollisionBox().x + 4 * staticObject->getCollisionBox().width / 5)){
 			newPosition.x = staticObject->getCollisionBox().x + staticObject->getCollisionBox().width / 2 - MEGA_MAN_VIRTUAL_WIDTH / 2;
-			gameObject->setPostion(newPosition);
+
 			gameObject->setCanClimb(true);
 		}
 		else{
 			gameObject->setCanClimb(false);
 
 		}
+		newPosition.y = MEGA_MAN_VIRTUAL_HEIGHT + staticObject->getCollisionBox().y + 1;
+		gameObject->setPostion(newPosition);
+		gameObject->setAcceleration(FPOINT(MEGA_MAN_ACCELERATION_X, 0.0f));
+		gameObject->setVelocity(FPOINT(gameObject->getVelocity().x, 0.0f));
 		break;
 	default:
 		break;
