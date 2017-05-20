@@ -32,6 +32,7 @@ namespace s_framework
 		int canClimb; // 0: không thể, 1: có thể, 2 : có thể leo xuống
 		int noCollisionWithAll;
 		int stopUpdateAnimation; // ngừng update animation khi object idle
+		float timeCollision;
 	public:
 		GameObject();
 		~GameObject();
@@ -84,6 +85,9 @@ namespace s_framework
 		int getStopUpdateAnimation(){
 			return this->stopUpdateAnimation;
 		}
+
+		float getTimeCollision(){ return this->timeCollision; }
+		void setTimeCollision(float time){ this->timeCollision = time; }
 
 		void setAcceleration(FPOINT acceleration){ this->m_acceleration = acceleration; };
 		FPOINT getAcceleration(){ return this->m_acceleration; };

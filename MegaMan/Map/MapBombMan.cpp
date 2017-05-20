@@ -1,4 +1,5 @@
 ﻿#include "MapBombMan.h"
+#include "../../SFramework/Camera/ViewPort.h"
 
 
 MapBombMan::MapBombMan(char* tmxFile, Texture* texture, GameObject* megaMan)
@@ -10,13 +11,13 @@ MapBombMan::MapBombMan(char* tmxFile, Texture* texture, GameObject* megaMan)
 
 
 	// 1 map chứa viewport state, gồm id và Box
-	BOX viewportState1 = BOX(0, 0, 57 * 32, 8 * 32); // trừ thanh tiêu đề ra 32px
-	BOX viewportState2 = BOX(48 * 32, 7 * 32, 8.5f * 32, 7 * 32);
-	BOX viewportState3 = BOX(48 * 32, 15 * 32, 49 * 32, 7 * 32);
+	BOX viewportState1 = BOX(0, 7 * 32, 57 * 32, 8 * 32); // trừ thanh tiêu đề ra 32px
+	BOX viewportState2 = BOX(48 * 32, 14 * 32, 8.5f * 32, 7 * 32);
+	BOX viewportState3 = BOX(48 * 32, 21 * 32, 49 * 32, 7 * 32);
 
-	mapViewport[FPOINT(0, 0)] = viewportState1;
-	mapViewport[FPOINT(48 * 32, 7 * 32)] = viewportState2;
-	mapViewport[FPOINT(48 * 32, 15 * 32)] = viewportState3;
+	mapViewport[FPOINT(0, 7*32)] = viewportState1;
+	mapViewport[FPOINT(48 * 32, 14 * 32)] = viewportState2;
+	mapViewport[FPOINT(48 * 32, 21 * 32)] = viewportState3;
 
 
 }
@@ -46,4 +47,9 @@ void MapBombMan::init(){
 	scene->addGameObjects(mListObject);
 	// add sceen to Dircector
 	Director::getInstance()->setScene(scene);
+
+	// Init viewport
+	//ViewPort::getInstance()->setViewportBoundary(mapViewport[FPOINT(0, 7*32)]);
+	ViewPort::getInstance()->setMapViewport(mapViewport);
+	ViewPort::getInstance()->resetViewport(FPOINT(0, 7 * 32));
 }

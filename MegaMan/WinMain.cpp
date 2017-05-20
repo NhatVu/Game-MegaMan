@@ -104,9 +104,9 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmdLine,
 	/*p.x = p.x + 100;
 	p.y = p.y + 200;*/
 	FPOINT p;
-	p.x = -00.0f;
-	p.y = 224.0f;
-	ViewPort::getInstance()->setPosition(p); // vị trí left-top của viewport trong thế giới.
+	//p.x = -00.0f;
+	//p.y = 224.0f;
+	//ViewPort::getInstance()->setPosition(p); // vị trí left-top của viewport trong thế giới.
 
 	// create object
 	GameObject* megaMan = new MegaMan();

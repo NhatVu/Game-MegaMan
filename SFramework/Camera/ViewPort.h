@@ -3,6 +3,9 @@
 
 #include <d3dx9.h>
 #include "../Utilities.h"
+#include <map>
+
+using namespace std;
 
 namespace s_framework{
 	class ViewPort
@@ -11,7 +14,8 @@ namespace s_framework{
 		static ViewPort* m_instance;
 		//D3DXMATRIX m_matrixTransform;
 		FPOINT m_position; // vị trí của viewPort, left top. Vẽ sprite vẽ theo center.
-
+		BOX viewportBoundary;
+		std::map<FPOINT, BOX> mapViewport;
 
 		/*   method   */
 		ViewPort();
@@ -25,6 +29,20 @@ namespace s_framework{
 
 		FPOINT getPosition();
 		void setPosition(FPOINT p);
+
+		BOX getViewportBoundary(){ return this->viewportBoundary; }
+		void setViewportBoundary(BOX value){ 
+			this->viewportBoundary = value; 
+		}
+
+		void resetViewport(FPOINT position){
+			
+			this->m_position = position;
+			this->viewportBoundary = mapViewport[position];
+		}
+
+		void setMapViewport(std::map<FPOINT, BOX> value){ this->mapViewport = value; }
+		std::map<FPOINT, BOX> getMapViewport(){ return this->mapViewport; }
 
 		D3DXVECTOR3 worldToViewport(D3DXVECTOR3 p);
 	};

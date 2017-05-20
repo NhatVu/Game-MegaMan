@@ -78,6 +78,7 @@ GameState* MegaManRunningState::onCollision(GameObject* gameObject, GameObject* 
 
 	// collision
 	float collisionTime = Collision::CheckCollision(gameObject, staticObject, normal);
+	gameObject->setTimeCollision(collisionTime);
 	if (collisionTime > 0.0f && collisionTime < 1.0f){
 		gameObject->setNoCollisionWithAll(false);
 		/*

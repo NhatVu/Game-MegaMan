@@ -181,8 +181,29 @@ void SFramework::update(float delta)
 		if (mListObject[i]->getType() != 0)
 		{
 			for (int j = 0; j < mListObject.size(); j++){
-				if (i != j){
+				if (mListObject[j]->getType() != 0 && i != j){
 					mListObject[i]->onCollision(mListObject[j]);
+					if (mListObject[i]->getTimeCollision() > 0.0f && mListObject[i]->getTimeCollision() <= 1.0f){
+						breakInnerLoopFlag = true;
+						break;
+					}
+				}
+			}
+
+		}
+	}
+
+	for (int i = 0; i < mListObject.size(); i++){
+		bool breakInnerLoopFlag = false;
+		if (mListObject[i]->getType() != 0)
+		{
+			for (int j = 0; j < mListObject.size(); j++){
+				if (mListObject[j]->getType() == 0 && i != j){
+					mListObject[i]->onCollision(mListObject[j]);
+					if (mListObject[i]->getTimeCollision() > 0.0f && mListObject[i]->getTimeCollision() <= 1.0f){
+						breakInnerLoopFlag = true;
+						
+					}
 				}
 			}
 

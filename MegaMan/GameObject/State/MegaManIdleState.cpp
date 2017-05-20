@@ -3,6 +3,7 @@
 #include "../MegaMan.h"
 #include "../../../SFramework/GameTime.h"
 #include "MegaManClimbingState.h"
+#include "../../../SFramework/Camera/ViewPort.h"
 MegaManIdleState::MegaManIdleState()
 {
 	this->name = "Idle";
@@ -76,6 +77,7 @@ GameState* MegaManIdleState::onCollision(GameObject* gameObject, GameObject* sta
 	// collision
 
 	float collisionTime = Collision::CheckCollision(gameObject, staticObject, normal);
+	gameObject->setTimeCollision(collisionTime);
 	if (collisionTime > 0.0f && collisionTime < 1.0f){
 		gameObject->setNoCollisionWithAll(false);
 		((MegaMan*)gameObject)->changeAnimation(ECharacter::MEGAMAN, EState::IDLE);
@@ -118,7 +120,11 @@ GameState* MegaManIdleState::onCollision(GameObject* gameObject, GameObject* sta
 			gameObject->setPostion(newPosition);
 			gameObject->setCanClimb(true);
 
-			//// 
+			//// canClimb = 2 => co the leo xuong 
+			// Vì cầu thang có thể nội bộ trong viewport hoặc là cầu nối giữa 2 view port nên phải xét đặc biệt cho từng trường hợp.
+			FPOINT viewportPosition = ViewPort::getInstance()->getPosition(); // top - left của viewport
+			float newYLadder = 0.0f;
+			//if (viewportPosition.y < staticObject->getCollisionBox().y)
 			if (gameObject->getPosition().y - MEGA_MAN_VIRTUAL_HEIGHT < staticObject->getCollisionBox().y - staticObject->getCollisionBox().height)
 				gameObject->setCanClimb(2);
 		}
@@ -148,6 +154,8 @@ GameState* MegaManIdleState::topCollision(GameObject* gameObject, GameObject* st
 		if ((gameObject->getPosition().x + MEGA_MAN_VIRTUAL_WIDTH / 2 > staticObject->getCollisionBox().x + staticObject->getCollisionBox().width / 5)
 			&& (gameObject->getPosition().x + MEGA_MAN_VIRTUAL_WIDTH / 2 < staticObject->getCollisionBox().x + 4 * staticObject->getCollisionBox().width / 5)){
 			newPosition.x = staticObject->getCollisionBox().x + staticObject->getCollisionBox().width / 2 - MEGA_MAN_VIRTUAL_WIDTH / 2;
+			newPosition.y = MEGA_MAN_VIRTUAL_HEIGHT + staticObject->getCollisionBox().y + 1;
+
 			gameObject->setPostion(newPosition);
 			gameObject->setCanClimb(true);
 		}
