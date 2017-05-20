@@ -101,9 +101,12 @@ void MegaMan::updatePosition(){
 	// update postion cho viewport. Tại đây, ta chỉ update position theo chiều x mà thôi
 	// khi tới một điểm nào đó cố định,ta mới update theo chiều y. như vậy cho dễ.
 	FPOINT viewport = ViewPort::getInstance()->getPosition();
+	BOX viewportBoundary = ViewPort::getInstance()->getViewportBoundary();
 	float tmpX = viewport.x + velocity.x * deltaTime;
-	if (this->getPosition().x < SCREEN_WIDTH / 2)
-		viewport.x = 0;
+	if (this->getPosition().x < SCREEN_WIDTH / 2 + viewportBoundary.x) // không cho di chuyển quá min viewport
+		viewport.x = viewportBoundary.x;
+	else if (this->getPosition().x > viewportBoundary.x + viewportBoundary.width - SCREEN_WIDTH / 2) // không cho di chuyển quả max viewport
+		viewport.x = viewportBoundary.x + viewportBoundary.width - SCREEN_WIDTH;
 	else
 		viewport.x = tmpX;
 	ViewPort::getInstance()->setPosition(viewport);

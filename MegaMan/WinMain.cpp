@@ -95,19 +95,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmdLine,
 	//AnimationManager::getInstance()->parseAnimationXML("Resource/animation.xml");
 	AnimationManager::getInstance()->parseAnimationJSON(texture,"Resources/animation.json");
 
-	// create scene, and add layer to scene
-	Scene* scene = new Scene();
-
-	// set scene to director to draw
-	Director::getInstance()->setScene(scene);	
-	
-	/*p.x = p.x + 100;
-	p.y = p.y + 200;*/
 	FPOINT p;
-	p.x = -00.0f;
-	p.y = 224.0f;
-	ViewPort::getInstance()->setPosition(p); // vị trí left-top của viewport trong thế giới.
-
+	
 	// create object
 	GameObject* megaMan = new MegaMan();
 	megaMan->setTexture(texture);
@@ -115,6 +104,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmdLine,
 	// vị trí của mega man trong world
 
 	p.x = 130;
+	p.x = 52 * 32; // test change viewport state
 	p.y = 200;
 	megaMan->setPostion(p); // bắt buộc phải là top-left của vật. 
 
