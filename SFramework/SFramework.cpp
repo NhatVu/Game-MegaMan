@@ -119,7 +119,11 @@ void SFramework::run(HWND hwnd){
 
 		// Render
 		render();
-
+		vector<GameObject*> mListObject = ((Scene*)Director::getInstance()->getScene())->getListGameObject();
+		// update postion before detect collision
+		for (int i = 0; i < mListObject.size(); i++){
+			mListObject[i]->updatePosition();
+		}
 		m_d3ddev->EndScene();
 	}
 
@@ -212,10 +216,10 @@ void SFramework::update(float delta)
 
 		}
 	}
-	// update postion before detect collision
-	for (int i = 0; i < mListObject.size(); i++){
-		mListObject[i]->updatePosition();
-	}
+	//// update postion before detect collision
+	//for (int i = 0; i < mListObject.size(); i++){
+	//	mListObject[i]->updatePosition();
+	//}
 
 }
 

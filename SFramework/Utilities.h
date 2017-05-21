@@ -1,7 +1,7 @@
 ﻿#ifndef _UTILITIES_H_
 #define _UTILITIES_H_
 
-#define GRAVITATIONAL_ACCELERATION -0.005f
+#define GRAVITATIONAL_ACCELERATION -0.0034f
 
 namespace s_framework{
 
