@@ -15,7 +15,7 @@
 #include <vector>
 #include <sstream>
 #include "../rapidxml-1.13/rapidxml.hpp"
-
+#include "ObjectManager.h"
 using namespace  rapidxml;
 using namespace Tmx;
 using namespace std;
@@ -33,14 +33,13 @@ namespace s_framework {
 		int GetHeight();
 		int GetTileWidth(); // độ rộng của tileset
 		int GetTileHeight();
-		vector<Node*> getNodesBackground();
-		vector<GameObject*> getListObject(){ return this->mListObjet; };
+		//vector<Node*> getNodesBackground();
+		//vector<GameObject*> getListObject(){ return this->mListObjet; };
 
-		vector<Node*> getScene();
+		//vector<Node*> getScene();
 		~GameMap();
 
 		void LoadMap(char* filePath); // load image(tileset) sử dụng trong map vào biến mListTileset
-		void sortListObject();
 	private:
 		vector<Node*> mapNode;
 		Map                        *mMap;

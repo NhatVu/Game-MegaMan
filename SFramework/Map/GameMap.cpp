@@ -32,9 +32,9 @@ GameMap::~GameMap()
 		delete tileSetTexture;
 }
 
-vector<Node*> GameMap::getNodesBackground(){
-	return mNodesBackground;
-}
+//vector<Node*> GameMap::getNodesBackground(){
+//	return mNodesBackground;
+//}
 
 void GameMap::LoadMap(char* filePath)
 {
@@ -260,83 +260,85 @@ void GameMap::parseBackground(){
 		sprite->setSpriteSpec(spriteSpec);
 		sprite->setPostion(position);
 		//sprite->render();
-		mNodesBackground.push_back(sprite);
+		//mNodesBackground.push_back(sprite);
+		ObjectManager::getInstance()->getAllBackground()[tileIDInMap] = sprite;
+
 		tileIDInMap++;
 	}
 
 }
 
-vector<Node*> GameMap::getScene(){
-
-	for (size_t i = 0; i < mMap->GetNumTileLayers(); i++)
-	{
-		const Tmx::TileLayer *layer = mMap->GetTileLayer(i);
-
-		if (!layer->IsVisible())
-		{
-			continue;
-		}
-
-		RECT sourceRECT;
-
-		int tileWidth = mMap->GetTileWidth();
-		int tileHeight = mMap->GetTileHeight();
-		int mapWidth = mMap->GetWidth() * tileWidth;
-		int mapHeight = mMap->GetHeight() * tileHeight;
-
-		for (size_t m = 0; m < layer->GetHeight(); m++)
-		{
-			for (size_t n = 0; n < layer->GetWidth(); n++)
-			{
-				int tilesetIndex = layer->GetTileTilesetIndex(n, m);
-
-				if (tilesetIndex != -1)
-				{
-					const Tmx::Tileset *tileSet = mMap->GetTileset(tilesetIndex);
-
-					int tileSetWidth = tileSet->GetImage()->GetWidth() / tileWidth;
-					int tileSetHeight = tileSet->GetImage()->GetHeight() / tileHeight;
-
-					Texture* texture = mListTileset[layer->GetTileTilesetIndex(n, m)];
-
-					//tile index
-					int tileID = layer->GetTileId(n, m);
-
-					int y = tileID / tileSetWidth; // chỉ số của tileId trong tileset
-					int x = tileID % tileSetWidth;
-
-					sourceRECT.top = y * tileHeight;
-					sourceRECT.bottom = sourceRECT.top + tileHeight;
-					sourceRECT.left = x * tileWidth;
-					sourceRECT.right = sourceRECT.left + tileWidth;
-
-					//tru tilewidth/2 va tileheight/2 vi GameObject ve o vi tri giua hinh anh cho nen doi hinh de cho
-					//dung toa do (0,0) cua the gioi thuc la (0,0) neu khong thi se la (-tilewidth/2, -tileheigth/2);
-					FPOINT position(n * tileWidth + tileWidth / 2, m * tileHeight + tileHeight / 2);
-
-					position.y = mapHeight - position.y;
-					/*
-					Code demo xét theo hệ trục của màn hình với y hướng xuống. nên phải thiết lập lại độ cao cho tile trong map.
-					*/
-					SpriteSpec* spriteSpec = new SpriteSpec();
-					spriteSpec->setWidth(tileWidth);
-					spriteSpec->setHeight(tileHeight);
-					spriteSpec->setX(sourceRECT.left);
-					spriteSpec->setY(sourceRECT.top);
-
-					GameObject* sprite = new GameObject();
-					sprite->setTexture(texture);
-					sprite->setSpriteSpec(spriteSpec);
-					sprite->setPostion(position);
-					mapNode.push_back(sprite);
-					//sprite->Draw(position, sourceRECT, D3DXVECTOR2());
-				}
-			}
-		}
-	}
-
-	return mapNode;
-}
+//vector<Node*> GameMap::getScene(){
+//
+//	for (size_t i = 0; i < mMap->GetNumTileLayers(); i++)
+//	{
+//		const Tmx::TileLayer *layer = mMap->GetTileLayer(i);
+//
+//		if (!layer->IsVisible())
+//		{
+//			continue;
+//		}
+//
+//		RECT sourceRECT;
+//
+//		int tileWidth = mMap->GetTileWidth();
+//		int tileHeight = mMap->GetTileHeight();
+//		int mapWidth = mMap->GetWidth() * tileWidth;
+//		int mapHeight = mMap->GetHeight() * tileHeight;
+//
+//		for (size_t m = 0; m < layer->GetHeight(); m++)
+//		{
+//			for (size_t n = 0; n < layer->GetWidth(); n++)
+//			{
+//				int tilesetIndex = layer->GetTileTilesetIndex(n, m);
+//
+//				if (tilesetIndex != -1)
+//				{
+//					const Tmx::Tileset *tileSet = mMap->GetTileset(tilesetIndex);
+//
+//					int tileSetWidth = tileSet->GetImage()->GetWidth() / tileWidth;
+//					int tileSetHeight = tileSet->GetImage()->GetHeight() / tileHeight;
+//
+//					Texture* texture = mListTileset[layer->GetTileTilesetIndex(n, m)];
+//
+//					//tile index
+//					int tileID = layer->GetTileId(n, m);
+//
+//					int y = tileID / tileSetWidth; // chỉ số của tileId trong tileset
+//					int x = tileID % tileSetWidth;
+//
+//					sourceRECT.top = y * tileHeight;
+//					sourceRECT.bottom = sourceRECT.top + tileHeight;
+//					sourceRECT.left = x * tileWidth;
+//					sourceRECT.right = sourceRECT.left + tileWidth;
+//
+//					//tru tilewidth/2 va tileheight/2 vi GameObject ve o vi tri giua hinh anh cho nen doi hinh de cho
+//					//dung toa do (0,0) cua the gioi thuc la (0,0) neu khong thi se la (-tilewidth/2, -tileheigth/2);
+//					FPOINT position(n * tileWidth + tileWidth / 2, m * tileHeight + tileHeight / 2);
+//
+//					position.y = mapHeight - position.y;
+//					/*
+//					Code demo xét theo hệ trục của màn hình với y hướng xuống. nên phải thiết lập lại độ cao cho tile trong map.
+//					*/
+//					SpriteSpec* spriteSpec = new SpriteSpec();
+//					spriteSpec->setWidth(tileWidth);
+//					spriteSpec->setHeight(tileHeight);
+//					spriteSpec->setX(sourceRECT.left);
+//					spriteSpec->setY(sourceRECT.top);
+//
+//					GameObject* sprite = new GameObject();
+//					sprite->setTexture(texture);
+//					sprite->setSpriteSpec(spriteSpec);
+//					sprite->setPostion(position);
+//					mapNode.push_back(sprite);
+//					//sprite->Draw(position, sourceRECT, D3DXVECTOR2());
+//				}
+//			}
+//		}
+//	}
+//
+//	return mapNode;
+//}
 
 //void GameMap::parseObjectGroup(){
 //	int mapHeight = mMap->GetHeight() * mMap->GetTileHeight();
@@ -410,6 +412,7 @@ void GameMap::parseObjectGroup(){
 
 			// new GameObject
 			GameObject* gameObject = new GameObject();
+			gameObject->setObjectID(id);
 			gameObject->setTexture(mObjectTexture);
 
 			BOX collistionBox;
@@ -423,19 +426,8 @@ void GameMap::parseObjectGroup(){
 
 			gameObject->setType(objectType);
 
-			mListObjet.push_back(gameObject);
+			//mListObjet.push_back(gameObject);
+			ObjectManager::getInstance()->getAllObject()[id] = gameObject;
 		}
 	}
-}
-
-void GameMap::sortListObject(){
-	// sort listobject theo tiêu chuẩn độ ưu tiên. Type 1 ưu tiên hơn type 0
-	struct {
-		bool operator()(GameObject* a, GameObject* b) const
-		{
-			return a->getType() > b->getType();
-		}
-	} customGreater;
-	std::sort(mListObjet.begin(), mListObjet.end(), customGreater);
-
 }

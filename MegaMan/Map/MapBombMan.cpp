@@ -1,6 +1,6 @@
 ﻿#include "MapBombMan.h"
 #include "../../SFramework/Camera/ViewPort.h"
-
+#include "../../SFramework/Map/ObjectManager.h"
 MapBombMan::MapBombMan(char* tmxFile, Texture* texture, GameObject* megaMan)
 {
 	scene = new Scene();
@@ -14,11 +14,9 @@ MapBombMan::MapBombMan(char* tmxFile, Texture* texture, GameObject* megaMan)
 	BOX viewportState2 = BOX(48 * 32, 14 * 32, 8.5f * 32, 7 * 32);
 	BOX viewportState3 = BOX(48 * 32, 21 * 32, 49 * 32, 7 * 32);
 
-	mapViewport[FPOINT(0, 7*32)] = viewportState1;
-	mapViewport[FPOINT(49 * 32, 14 * 32)] = viewportState2;
-	//mapViewport[FPOINT(48 * 32, 21 * 32)] = viewportState3;
-
-
+	listViewportState.push_back(viewportState1);
+	listViewportState.push_back(viewportState2);
+	listViewportState.push_back(viewportState3);
 }
 
 
@@ -34,20 +32,18 @@ MapBombMan::~MapBombMan()
 }
 
 void MapBombMan::init(){ 
-	vector<Node*> mapNode = map->getNodesBackground();
-	for (int i = 0; i < mapNode.size(); i++){
-		scene->addChild(mapNode[i]);
+	std::map<int,GameObject*> mapNode = ObjectManager::getInstance()->getAllBackground();
+	for (std::map<int, GameObject*>::iterator it = mapNode.begin(); it != mapNode.end(); ++it) {
+		scene->addChild(it->second);
 	}
 	scene->addChild(megaMan);
 
-	vector<GameObject*> mListObject = map->getListObject();
-	//map->sortListObject();
-	scene->addGameObject(megaMan);
-	scene->addGameObjects(mListObject);
 	// add sceen to Dircector
+	ObjectManager::getInstance()->getAllObject()[0] = megaMan;
 	Director::getInstance()->setScene(scene);
 
 	// Init viewport
-	ViewPort::getInstance()->setMapViewport(mapViewport);
-	ViewPort::getInstance()->resetViewport(FPOINT(0, 7 * 32));
+	ViewPort::getInstance()->setListViewportState(listViewportState);
+	ViewPort::getInstance()->setViewportBoundary(BOX(0, 7 * 32, 57 * 32, 8 * 32));
+	ViewPort::getInstance()->setPosition(FPOINT(0, 7 * 32));
 }

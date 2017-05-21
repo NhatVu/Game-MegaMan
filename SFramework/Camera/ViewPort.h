@@ -15,7 +15,6 @@ namespace s_framework{
 		//D3DXMATRIX m_matrixTransform;
 		FPOINT m_position; // vị trí của viewPort, left top. Vẽ sprite vẽ theo center.
 		BOX viewportBoundary;
-		std::map<FPOINT, BOX> mapViewport;
 		std::vector<BOX> listViewportState;
 
 		/*   method   */
@@ -36,16 +35,10 @@ namespace s_framework{
 			this->viewportBoundary = value;
 		}
 
-		void resetViewport(FPOINT position){
-
-			this->m_position = position;
-			this->viewportBoundary = mapViewport[position];
+		std::vector<BOX> &getListViewportState(){ return this->listViewportState; }
+		void setListViewportState(std::vector<BOX> &listViewportState){
+			this->listViewportState = listViewportState;
 		}
-
-		std::vector<BOX> getListViewportState(){ return this->listViewportState; }
-
-		void setMapViewport(std::map<FPOINT, BOX> value){ this->mapViewport = value; }
-		std::map<FPOINT, BOX> getMapViewport(){ return this->mapViewport; }
 
 		D3DXVECTOR3 worldToViewport(D3DXVECTOR3 p);
 	};

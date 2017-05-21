@@ -33,6 +33,7 @@ namespace s_framework
 		int noCollisionWithAll;
 		int stopUpdateAnimation; // ngừng update animation khi object idle
 		float timeCollision;
+		int objectID = -1;
 
 	public:
 		GameObject();
@@ -93,6 +94,11 @@ namespace s_framework
 		float getTimeCollision(){ return this->timeCollision; }
 		void setTimeCollision(float time){ this->timeCollision = time; }
 
+		int getObjectID(){ return this->objectID; }
+		void setObjectID(int id){
+			if (objectID == -1)
+				objectID = id;
+		}
 		void render()override;
 		void update(long delta)override;
 		virtual void onKeyUp(int keyCode);

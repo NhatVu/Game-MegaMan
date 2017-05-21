@@ -118,6 +118,7 @@
     <ClInclude Include="MapReader\zlib128-dll\include\zlib.h" />
     <ClInclude Include="Map\GameMap.h" />
     <ClInclude Include="Node.h" />
+    <ClInclude Include="Map\ObjectManager.h" />
     <ClInclude Include="Quadtree.h" />
     <ClInclude Include="rapidjson\allocators.h" />
     <ClInclude Include="rapidjson\document.h" />
@@ -196,6 +197,7 @@
     <ClCompile Include="MapReader\TmxUtil.cpp" />
     <ClCompile Include="Map\GameMap.cpp" />
     <ClCompile Include="Node.cpp" />
+    <ClCompile Include="Map\ObjectManager.cpp" />
     <ClCompile Include="Quadtree.cpp" />
     <ClCompile Include="SpriteAndAnimation\AnimationManager.cpp" />
     <ClCompile Include="Scene.cpp" />

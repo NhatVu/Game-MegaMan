@@ -100,6 +100,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmdLine,
 	// create object
 	GameObject* megaMan = new MegaMan();
 	megaMan->setTexture(texture);
+	megaMan->setObjectID(0);
 	((MegaMan*)megaMan)->setState(EState::IDLE);
 	// vị trí của mega man trong world
 

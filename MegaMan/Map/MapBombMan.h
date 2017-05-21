@@ -8,7 +8,7 @@
 #include "../../SFramework/Utilities.h"
 #include "../MegaManUtilities.h"
 #include <map>
-
+#include <vector>
 using namespace s_framework;
 using namespace std;
 class MapBombMan
@@ -18,10 +18,7 @@ private:
 	Texture* texture;
 	GameMap* map;
 	GameObject* megaMan;
-
-
-	std::map<FPOINT, BOX> mapViewport;
-	
+	vector<BOX> listViewportState;
 public:
 	/*
 		GETTER AND SETTER

@@ -5,7 +5,9 @@
 #include "Trace.h"
 #include <algorithm>
 #include <list>
-
+#include <map>
+#include "Map\ObjectManager.h"
+#include "Camera\ViewPort.h"
 
 using namespace s_framework;
 using namespace std;
@@ -119,11 +121,12 @@ void SFramework::run(HWND hwnd){
 
 		// Render
 		render();
-		vector<GameObject*> mListObject = ((Scene*)Director::getInstance()->getScene())->getListGameObject();
 		// update postion before detect collision
-		for (int i = 0; i < mListObject.size(); i++){
-			mListObject[i]->updatePosition();
+		map<int, GameObject*> mapActiveObject = ObjectManager::getInstance()->getAllObject();
+		for (map<int, GameObject*>::iterator it = mapActiveObject.begin(); it != mapActiveObject.end(); ++it) {
+			it->second->updatePosition();
 		}
+		
 		m_d3ddev->EndScene();
 	}
 
@@ -162,15 +165,21 @@ void SFramework::loop(HWND hwnd)
 		{
 			int sleepTime = GameTime::getInstance()->getTimeSleep();
 			if (sleepTime > 0)
-				Sleep(sleepTime);
+				Sleep(sleepTime/2);
 		}
 	}
 }
 
 void SFramework::update(float delta)
 {
-
-	vector<GameObject*> mListObject = ((Scene*)Director::getInstance()->getScene())->getListGameObject();
+	// trước khi xử lý va chạm, ta chạy quadtree để lấy đối tượng có khả năng va chạm
+	ObjectManager *objectManager = ObjectManager::getInstance();
+	objectManager->processQuadTreeAndViewport(ViewPort::getInstance()->getPosition());
+	map<int, GameObject*> mapActiveObject = objectManager->getActiveObject();
+	vector<GameObject*> mListObject;
+	for (map<int, GameObject*>::iterator it = mapActiveObject.begin(); it != mapActiveObject.end(); ++it) {
+		mListObject.push_back(it->second);
+	}	
 	struct {
 		bool operator()(GameObject* a, GameObject* b) const
 		{

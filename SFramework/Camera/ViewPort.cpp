@@ -8,15 +8,6 @@ ViewPort* ViewPort::m_instance = NULL;
 
 ViewPort::ViewPort()
 {
-	//D3DXMatrixIdentity(&m_matrixTransform);
-	//m_matrixTransform._22 = -1;
-	BOX viewportState1 = BOX(0, 7 * 32, 57 * 32, 8 * 32); // trừ thanh tiêu đề ra 32px
-	BOX viewportState2 = BOX(48 * 32, 14 * 32, 8.5f * 32, 7 * 32);
-	BOX viewportState3 = BOX(48 * 32, 21 * 32, 49 * 32, 7 * 32);
-
-	listViewportState.push_back(viewportState1);
-	listViewportState.push_back(viewportState2);
-	listViewportState.push_back(viewportState3);
 }
 
 
