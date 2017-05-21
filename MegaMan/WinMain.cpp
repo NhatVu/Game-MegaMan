@@ -104,7 +104,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmdLine,
 	// vị trí của mega man trong world
 
 	p.x = 130;
-	p.x = 52 * 32; // test change viewport state
+	//p.x = 52 * 32; // test change viewport state
 	p.y = 200;
 	megaMan->setPostion(p); // bắt buộc phải là top-left của vật. 
 

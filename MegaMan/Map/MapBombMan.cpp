@@ -50,7 +50,4 @@ void MapBombMan::init(){
 	// Init viewport
 	ViewPort::getInstance()->setMapViewport(mapViewport);
 	ViewPort::getInstance()->resetViewport(FPOINT(0, 7 * 32));
-
-	// test change viewport state
-	ViewPort::getInstance()->setPosition(FPOINT(51 * 32, 224));
 }

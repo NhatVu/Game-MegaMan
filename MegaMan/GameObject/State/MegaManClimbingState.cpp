@@ -100,6 +100,7 @@ GameState*  MegaManClimbingState::processKeyState(GameObject* gameObject, BYTE *
 				break;
 			}
 		}
+		Sleep(400);
 		//ViewPort::getInstance()->resetViewport(position);
 
 	}
@@ -118,6 +119,7 @@ GameState*  MegaManClimbingState::processKeyState(GameObject* gameObject, BYTE *
 				break;
 			}
 		}
+		Sleep(400);
 
 	}
 	return NULL;
@@ -165,6 +167,9 @@ GameState* MegaManClimbingState::onCollision(GameObject* gameObject, GameObject*
 
 	if (staticObjectType == ECharacter::LADDER){
 
+		// check xem trong khi đang leo thang có thể chuyển viewport state được hay không 
+		this->canChangeToUpViewport = false;
+		this->canChangeToDownViewport = false;
 		// kiểm tra xem megaman có thể leo được hay không. 
 		if (collisionTime == 1.0f)
 			gameObject->setCanClimb(true);
@@ -173,9 +178,6 @@ GameState* MegaManClimbingState::onCollision(GameObject* gameObject, GameObject*
 			return NULL;
 		}
 
-		// check xem trong khi đang leo thang có thể chuyển viewport state được hay không 
-		this->canChangeToUpViewport = false;
-		this->canChangeToDownViewport = false;
 		BOX staticCollisonBox = staticObject->getCollisionBox();
 		// check xem trong khi đang leo thang có thể chuyển viewport state được hay không 
 		if (gameObject->getCanClimb()){
@@ -242,6 +244,7 @@ GameState* MegaManClimbingState::topCollision(GameObject* gameObject, GameObject
 			*/
 			gameObject->setAcceleration(FPOINT(MEGA_MAN_ACCELERATION_X, 0.0f));
 			gameObject->setVelocity(FPOINT(gameObject->getVelocity().x, 0.0f));
+			gameObject->setStopUpdateAnimation(false);
 			return new MegaManIdleState();
 		}
 		
