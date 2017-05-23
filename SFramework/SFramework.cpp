@@ -8,7 +8,7 @@
 #include <map>
 #include "Map\ObjectManager.h"
 #include "Camera\ViewPort.h"
-
+#include "../MegaMan/MegaManUtilities.h"
 using namespace s_framework;
 using namespace std;
 
@@ -122,7 +122,7 @@ void SFramework::run(HWND hwnd){
 		// Render
 		render();
 		// update postion before detect collision
-		map<int, GameObject*> mapActiveObject = ObjectManager::getInstance()->getAllObject();
+		map<int, GameObject*> mapActiveObject = ObjectManager::getInstance()->getActiveObject();
 		for (map<int, GameObject*>::iterator it = mapActiveObject.begin(); it != mapActiveObject.end(); ++it) {
 			it->second->updatePosition();
 		}
@@ -175,11 +175,28 @@ void SFramework::update(float delta)
 	// trước khi xử lý va chạm, ta chạy quadtree để lấy đối tượng có khả năng va chạm
 	ObjectManager *objectManager = ObjectManager::getInstance();
 	objectManager->processQuadTreeAndViewport(ViewPort::getInstance()->getPosition());
+	map<int, GameObject*> mapQuadtreeBackground = objectManager->getQuadtreeBackground();
 	map<int, GameObject*> mapActiveObject = objectManager->getActiveObject();
+
+	// clear old scene
+	delete Director::getInstance()->getScene();
+	Scene* newScene = new Scene();
+	for (map<int, GameObject*>::iterator it = mapQuadtreeBackground.begin(); it != mapQuadtreeBackground.end(); ++it) {
+		newScene->addChild(it->second);
+	}
 	vector<GameObject*> mListObject;
 	for (map<int, GameObject*>::iterator it = mapActiveObject.begin(); it != mapActiveObject.end(); ++it) {
+		GameObject* tmp = it->second;
 		mListObject.push_back(it->second);
+
+		if (tmp->getType() == ECharacter::STATIC || tmp->getType() == ECharacter::LADDER)
+			continue;
+		if (tmp->getType() == ECharacter::KAMADOMA){
+			int a = 5;
+		}
+		newScene->addChild(tmp);
 	}	
+	Director::getInstance()->setScene(newScene);
 	struct {
 		bool operator()(GameObject* a, GameObject* b) const
 		{

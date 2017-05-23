@@ -61,7 +61,7 @@ void AnimationManager::parseAnimationJSON(Texture* texture,string jsonFile){
 	{
 		//t_spriteSpec = new SpriteSpec();
 		Value& animation = animation_list[i];
-		objectType = animation["objectID"].GetInt();
+		objectType = animation["characterID"].GetInt();
 		Value& state = animation["state"];
 		for (SizeType j = 0; j < state.Size(); j++){
 			stateID = state[j]["stateID"].GetInt();

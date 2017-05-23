@@ -1,6 +1,6 @@
 {
 	"animation": [{
-		"objectID": 10,
+		"characterID": 10,
 		"name": "MegaMan",
 		"state": [{
 			"stateID": 1,
@@ -25,15 +25,30 @@
 		},{
 			"stateID": 6,
 			"name": "climb-idle",
-			"delayFrame": 30,
+			"delayFrame": 0,
 			"frame": [76]
+		},{
+			"stateID": 7,
+			"name": "idle-fire",
+			"delayFrame": 0,
+			"frame": [89]
 		}]
 	},{
-		"objectID": 2,
+		"characterID": 2,
 		"state": [{
-			"stateID": 1,
-			"delayFrame": 30,
-			"frame": [2,3]
+			"stateID": 8,
+			"name":"active",
+			"delayFrame": 0,
+			"frame": [32]
+		}]
+	},{
+		"characterID": 3,
+		"name": "kamadoma",
+		"state": [{
+			"stateID": 8,
+			"name":"active",
+			"delayFrame": 0,
+			"frame": [39]
 		}]
 	}
 	]

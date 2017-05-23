@@ -15,8 +15,8 @@ namespace s_framework {
 
 		// Quadtree. lưu quadtree vào objectmanager luôn. sau này chỉ cần gọi 
 		std::map<int, GameObject*> quadtreeBackground;
-		std::map<int, GameObject*> quadtreeStaticObject;
-		std::map<int, GameObject*> quadtreeDynamicObject;
+		//std::map<int, GameObject*> quadtreeStaticObject;
+		std::map<int, GameObject*> quadtreeObject;
 		std::map<int, GameObject*> activeObject; // bao gồm cả static và dynamic. active khi nằm trong camara. Đây thực chất 
 		// là danh sách sẽ xử lý va chạm
 		std::map<int, GameObject*> allObject; // tất cả object trong map
@@ -24,6 +24,9 @@ namespace s_framework {
 		ObjectManager();
 	public:
 
+		map<int, GameObject*>& getQuadtreeBackground(){
+			return this->quadtreeBackground;
+		}
 		map<int, GameObject*>& getAllObject(){ return this->allObject; }
 		void setAllObject(map<int, GameObject*> allObject){
 			this->allObject = allObject;

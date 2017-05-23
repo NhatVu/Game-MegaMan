@@ -119,6 +119,7 @@
     <ClInclude Include="Map\GameMap.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="Map\ObjectManager.h" />
+    <ClInclude Include="Map\ObjectFactory.h" />
     <ClInclude Include="Quadtree.h" />
     <ClInclude Include="rapidjson\allocators.h" />
     <ClInclude Include="rapidjson\document.h" />
@@ -198,6 +199,7 @@
     <ClCompile Include="Map\GameMap.cpp" />
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="Map\ObjectManager.cpp" />
+    <ClCompile Include="Map\ObjectFactory.cpp" />
     <ClCompile Include="Quadtree.cpp" />
     <ClCompile Include="SpriteAndAnimation\AnimationManager.cpp" />
     <ClCompile Include="Scene.cpp" />

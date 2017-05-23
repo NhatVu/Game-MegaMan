@@ -8,7 +8,10 @@ enum ECharacter
 {
 	STATIC = 0,
 	LADDER = 1,
+	MEGAMAN_BULLET = 2,
+	KAMADOMA = 3,
 	MEGAMAN = 10,
+
 };
 
 enum EState
@@ -19,6 +22,8 @@ enum EState
 	JUMP = 4,
 	DIE = 5,
 	CLIMB_IDLE = 6,
+	IDLE_FIRE = 7,
+	ACTIVE = 8,
 };
 
 

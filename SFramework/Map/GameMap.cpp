@@ -1,5 +1,6 @@
 ﻿#include "GameMap.h"
 #include "../SpriteAndAnimation/SpriteSpec.h"
+#include "ObjectFactory.h"
 using namespace s_framework;
 
 GameMap::GameMap(char* filePath, Texture* objectTexture)
@@ -411,9 +412,10 @@ void GameMap::parseObjectGroup(){
 			//int objDataInteger = atoi(objectNode->first_attribute("data")->value());
 
 			// new GameObject
-			GameObject* gameObject = new GameObject();
+			GameObject* gameObject = ObjectFactory::createObject(objType);
 			gameObject->setObjectID(id);
 			gameObject->setTexture(mObjectTexture);
+			gameObject->setType(objectType);
 
 			BOX collistionBox;
 			collistionBox.x = x;
@@ -423,9 +425,8 @@ void GameMap::parseObjectGroup(){
 			collistionBox.vx = 0.0f;
 			collistionBox.vy = 0.0f;
 			gameObject->setCollisionBox(collistionBox);
-
-			gameObject->setType(objectType);
-
+			gameObject->setPostion(FPOINT(collistionBox.x, collistionBox.y));
+			gameObject->setInitPosition(FPOINT(collistionBox.x, collistionBox.y));
 			//mListObjet.push_back(gameObject);
 			ObjectManager::getInstance()->getAllObject()[id] = gameObject;
 		}

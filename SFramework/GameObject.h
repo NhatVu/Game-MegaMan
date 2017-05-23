@@ -35,6 +35,8 @@ namespace s_framework
 		float timeCollision;
 		int objectID = -1;
 
+		FPOINT initPosition;
+		
 	public:
 		GameObject();
 		~GameObject();
@@ -99,6 +101,15 @@ namespace s_framework
 			if (objectID == -1)
 				objectID = id;
 		}
+
+		FPOINT getInitPosition(){
+			return this->initPosition;
+		}
+		void setInitPosition(FPOINT initPosition){
+			this->initPosition = initPosition;
+		}
+		
+
 		void render()override;
 		void update(long delta)override;
 		virtual void onKeyUp(int keyCode);
@@ -107,6 +118,7 @@ namespace s_framework
 		virtual void onCollision(GameObject* staticObject);
 
 		virtual void updatePosition();
+		virtual void resetToInit(){}
 	};
 
 }
