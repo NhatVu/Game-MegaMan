@@ -12,7 +12,7 @@
 
 #define USING_S_FRAMEWORK using namespace s_framework
 #define SAFE_DELETE(p) { if(p != NULL) delete p; p = NULL; }
-#define FPS 60
+#define FPS 30
 #define KEYBOARD_BUFFER_SIZE 1024
 #define KEY_DOWN(code) ( IsKeyDown(code) )
 

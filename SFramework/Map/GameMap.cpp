@@ -7,82 +7,14 @@ GameMap::GameMap(char* filePath, Texture* objectTexture)
 {
 	this->mObjectTexture = objectTexture;
 	this->filePath = filePath;
-	LoadMap(filePath);
 	parseBackground();
 	parseObjectGroup();
 }
 
 GameMap::~GameMap()
 {
-	for (auto const &ent1 : mListTileset){
-		delete ent1.second;
-	}
-
-	for (int i = 0; i < mapNode.size(); i++){
-		delete mapNode[i];
-	}
-
-	for (int i = 0; i < mNodesBackground.size(); i++)
-		delete mNodesBackground[i];
-
-
-	mapNode.clear();
-	mNodesBackground.clear();
-	delete mMap;
 	if (tileSetTexture != NULL)
 		delete tileSetTexture;
-}
-
-//vector<Node*> GameMap::getNodesBackground(){
-//	return mNodesBackground;
-//}
-
-void GameMap::LoadMap(char* filePath)
-{
-	mMap = new Tmx::Map();
-	mMap->ParseFile(filePath);
-
-	RECT r;
-	r.left = 0;
-	r.top = 0;
-	r.right = this->GetWidth() - 1;
-	r.bottom = this->GetHeight() - 1;
-
-	for (size_t i = 0; i < mMap->GetNumTilesets(); i++)
-	{
-		const Tileset *tileset = mMap->GetTileset(i);
-
-		Texture *texture = new Texture();
-		texture->init("Resources\\" + tileset->GetImage()->GetSource());
-
-		// load texutre use in map into mListTileset
-		mListTileset[i] = texture;
-	}
-}
-
-Tmx::Map* GameMap::GetMap()
-{
-	return mMap;
-}
-
-int GameMap::GetWidth()
-{
-	return mMap->GetWidth() * mMap->GetTileWidth();
-}
-
-int GameMap::GetHeight()
-{
-	return mMap->GetHeight() * mMap->GetTileHeight();
-}
-
-int GameMap::GetTileWidth()
-{
-	return mMap->GetTileWidth();
-}
-
-int GameMap::GetTileHeight()
-{
-	return mMap->GetTileHeight();
 }
 
 void GameMap::parseBackground(){
