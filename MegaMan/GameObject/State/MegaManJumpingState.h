@@ -3,7 +3,7 @@
 
 #include "GameState.h"
 
-#define MEGA_MAN_JUMP_VELOCITY 1.0f
+#define MEGA_MAN_JUMP_VELOCITY 0.8f
 class MegaManJumpingState : public GameState
 {
 public:

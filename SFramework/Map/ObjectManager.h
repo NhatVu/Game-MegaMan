@@ -21,6 +21,7 @@ namespace s_framework {
 		// là danh sách sẽ xử lý va chạm
 		std::map<int, GameObject*> allObject; // tất cả object trong map
 		std::map<int, GameObject*> allBackground;
+		GameObject* megaMan;
 		ObjectManager();
 	public:
 
@@ -43,6 +44,14 @@ namespace s_framework {
 		map<int, GameObject*> getActiveObject(){ return this->activeObject; }
 		void setActiveObject(map<int, GameObject*> activeObject){
 			this->activeObject = activeObject;
+		}
+
+		GameObject* getMegaMan(){
+			return this->megaMan;
+		}
+
+		void setMegaMan(GameObject* megaMan){
+			this->megaMan = megaMan;
 		}
 
 		// 3. sẽ xử lý quadtree -> lấy được quadtreeBackground,quadtreeStaticObject,quadtreeDynamicObject

@@ -165,7 +165,7 @@ void SFramework::loop(HWND hwnd)
 		{
 			int sleepTime = GameTime::getInstance()->getTimeSleep();
 			if (sleepTime > 0)
-				Sleep(sleepTime/2);
+				Sleep(sleepTime);
 		}
 	}
 }

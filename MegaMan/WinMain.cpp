@@ -13,7 +13,7 @@
 #include "../SFramework/Camera/ViewPort.h"
 #include "../SFramework/SpriteAndAnimation/AnimationManager.h"
 #include "../SFramework/Map/GameMap.h"
-
+#include "../SFramework/Map/ObjectManager.h"
 #include "MegaManUtilities.h"
 #include "GameObject/MegaMan.h"
 #include "Map/MapBombMan.h"
@@ -103,7 +103,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmdLine,
 	megaMan->setObjectID(0);
 	((MegaMan*)megaMan)->setState(EState::IDLE);
 	// vị trí của mega man trong world
-
+	ObjectManager::getInstance()->setMegaMan(megaMan);
 	p.x = 130;
 	//p.x = 52 * 32; // test change viewport state
 	p.y = 200;
