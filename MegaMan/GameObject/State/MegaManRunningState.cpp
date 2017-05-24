@@ -56,6 +56,7 @@ void MegaManRunningState::update(GameObject* gameObject) {}
 void MegaManRunningState::enter(GameObject* gameObject){
 	// change animation for running state
 	((MegaMan*)gameObject)->changeAnimation(ECharacter::MEGAMAN, EState::RUNNING);
+	gameObject->eState = EState::RUNNING;
 }
 
 GameState* MegaManRunningState::onCollision(GameObject* gameObject, GameObject* staticObject) {

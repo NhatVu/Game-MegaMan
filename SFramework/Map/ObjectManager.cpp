@@ -3,6 +3,7 @@
 using namespace s_framework;
 
 ObjectManager* ObjectManager::instance = NULL;
+int ObjectManager::notInMapObjectId = 1000;
 ObjectManager::ObjectManager()
 {
 }
@@ -28,6 +29,18 @@ void ObjectManager::processQuadTreeAndViewport(FPOINT viewportPosition){
 	// nếu quadtreeObject nằm ngoài camera => remove 
 	BOX cameraBox = BOX(viewportPosition.x, viewportPosition.y, SCREEN_WIDTH, SCREEN_HEIGHT);
 	GameObject *object;
+	for (map<int, GameObject*>::iterator it = quadtreeBackground.begin(); it != quadtreeBackground.end();) {
+		object = it->second;
+		BOX collisionBox = object->getCollisionBox();
+		// object trong activeObject nằm ngoài camera => remove
+		if ((collisionBox.x > cameraBox.x + cameraBox.width) || (collisionBox.x + collisionBox.width < cameraBox.x)
+			|| (collisionBox.y < cameraBox.y - cameraBox.height) || (collisionBox.y - collisionBox.height > cameraBox.y)){
+			object->resetToInit();
+			quadtreeBackground.erase(it++);
+		}
+		else
+			++it;
+	}
 	// loại bỏ những object trong activeObject nằm ngoài camera
 	for (map<int, GameObject*>::iterator it = activeObject.begin(); it != activeObject.end();) {
 		object = it->second;

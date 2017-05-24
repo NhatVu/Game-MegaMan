@@ -3,6 +3,13 @@
 #include "../MegaMan.h"
 #include "../../../SFramework/GameTime.h"
 #include "MegaManClimbingState.h"
+#include "../../../SFramework/Map/ObjectFactory.h"
+#include "../../../SFramework/Map/ObjectManager.h"
+#include "../MegaManBullet.h"
+#include <map>
+#include "MegaManAttackState.h"
+
+using namespace std;
 MegaManIdleState::MegaManIdleState()
 {
 	this->name = "Idle";
@@ -32,9 +39,17 @@ GameState* MegaManIdleState::onKeyDown(GameObject* gameObject, int keyCode){
 		((MegaManClimbingState*)state)->isPressDown = true;
 		return state;
 	}
+	
+	
 	return NULL;
 }
-GameState*  MegaManIdleState::onKeyUp(GameObject* gameObject, int keyCode){ return NULL; }
+GameState*  MegaManIdleState::onKeyUp(GameObject* gameObject, int keyCode){ 
+	if (keyCode == DIK_D){
+		//((MegaMan*)gameObject)->changeAnimation(ECharacter::MEGAMAN, EState::IDLE);
+
+	}
+	return NULL; 
+}
 GameState*  MegaManIdleState::processKeyState(GameObject* gameObject, BYTE *keyState){
 	GameState::processKeyState(gameObject, keyState);
 	if ((keyState[DIK_RIGHT] * 0x80) > 0){
@@ -54,7 +69,7 @@ void MegaManIdleState::update(GameObject* gameObject) {}
 void MegaManIdleState::enter(GameObject* gameObject){
 	// thay đổi animation cho trạng thái idle
 	((MegaMan*)gameObject)->changeAnimation(ECharacter::MEGAMAN, EState::IDLE);
-
+	gameObject->eState = EState::IDLE;
 }
 
 GameState* MegaManIdleState::onCollision(GameObject* gameObject, GameObject* staticObject) {

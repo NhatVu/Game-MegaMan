@@ -12,7 +12,6 @@ namespace s_framework {
 	{
 	private:
 		static ObjectManager* instance;
-
 		// Quadtree. lưu quadtree vào objectmanager luôn. sau này chỉ cần gọi 
 		std::map<int, GameObject*> quadtreeBackground;
 		//std::map<int, GameObject*> quadtreeStaticObject;
@@ -24,6 +23,7 @@ namespace s_framework {
 		GameObject* megaMan;
 		ObjectManager();
 	public:
+		static int notInMapObjectId; // những object được tạo ra, không có ở trong map. vd như viên đạn
 
 		map<int, GameObject*>& getQuadtreeBackground(){
 			return this->quadtreeBackground;
@@ -41,7 +41,7 @@ namespace s_framework {
 			allBackground[id] = gameobject;
 		}*/
 
-		map<int, GameObject*> getActiveObject(){ return this->activeObject; }
+		map<int, GameObject*> &getActiveObject(){ return this->activeObject; }
 		void setActiveObject(map<int, GameObject*> activeObject){
 			this->activeObject = activeObject;
 		}
@@ -59,6 +59,10 @@ namespace s_framework {
 		// từ đó lấy được activeObject. (nếu objectID chưa có trong activeObject -> tạo mới. có rồi thì thôi) kèm với điều kiện object đó phải nằm gọn trong viewport
 		void processQuadTreeAndViewport(FPOINT viewportPosition);
 		static ObjectManager* getInstance();
+		void addObjectToActiveObject(GameObject* object){
+			activeObject[ObjectManager::notInMapObjectId] = object;
+			ObjectManager::notInMapObjectId++;
+		}
 		~ObjectManager();
 	};
 }

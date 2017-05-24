@@ -156,6 +156,11 @@ void SFramework::loop(HWND hwnd)
 		// nếu thời gian delta > TimePerFrame => setStartTime(set lại biến mStartTime)
 		if (GameTime::getInstance()->getDeltaTime() > GameTime::getInstance()->getTimePerFrame())
 		{
+			/*
+			// FPS at that specific frame would be 1.0/dt assuming time is in seconds
+			// Normally you get the time in microseconds or at least milliseconds
+			//   so it would be 1.0/(dt*1e6) or 1.0/(dt*1e4)
+			*/
 			//trace("delta time in sFramework " + std::to_string(GameTime::getInstance()->getDeltaTime()));
 			GameTime::getInstance()->setStartTime();
 			// run game

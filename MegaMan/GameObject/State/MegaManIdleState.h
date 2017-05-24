@@ -2,6 +2,7 @@
 #define _MEGAMAN_IDLE_STATE_H_
 #include "GameState.h"
 #include "MegaManJumpingState.h"
+
 class MegaManIdleState : public GameState
 {
 public:

@@ -5,41 +5,47 @@
 		"state": [{
 			"stateID": 1,
 			"name": "idle",
-			"delayFrame": 2,
-			"frame": [79,80]
+			"delayFrame": 4,
+			"frame": [80,81]
 		},{
 			"stateID": 2,
 			"name": "running",
-			"delayFrame": 0,
-			"frame": [83,84,85]
+			"delayFrame": 2,
+			"frame": [84,85,86]
 		},{
 			"stateID": 3,
 			"name": "climb",
-			"delayFrame": 1,
-			"frame": [75,76]
+			"delayFrame": 2,
+			"frame": [76,77]
 		},{
 			"stateID": 4,
 			"name": "jump",
 			"delayFrame": 0,
-			"frame": [81]
+			"frame": [82]
 		},{
 			"stateID": 6,
 			"name": "climb-idle",
 			"delayFrame": 0,
-			"frame": [76]
+			"frame": [77]
 		},{
 			"stateID": 7,
 			"name": "idle-fire",
-			"delayFrame": 0,
-			"frame": [89]
+			"delayFrame": 1,
+			"frame": [90]
 		}]
 	},{
 		"characterID": 2,
+		"name": "MegaMan-bullet",
 		"state": [{
 			"stateID": 8,
 			"name":"active",
 			"delayFrame": 0,
-			"frame": [32]
+			"frame": [95]
+		},{
+			"stateID": 5,
+			"name":"die",
+			"delayFrame": 0,
+			"frame": [75]
 		}]
 	},{
 		"characterID": 3,
@@ -48,7 +54,12 @@
 			"stateID": 8,
 			"name":"active",
 			"delayFrame": 0,
-			"frame": [39]
+			"frame": [40]
+		},{
+			"stateID": 5,
+			"name":"die",
+			"delayFrame": 0,
+			"frame": [65]
 		}]
 	}
 	]

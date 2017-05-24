@@ -3,14 +3,15 @@
 #include "../../SFramework/GameTime.h"
 #include "../../SFramework/Camera/ViewPort.h"
 #include <dinput.h>
-
+#include "State\MegaManAttackState.h"
+#include "../../SFramework/SFramework.h"
 using namespace s_framework;
 MegaMan::MegaMan() : GameObject()
 {
 	GameObject::setType(10);
 	GameObject::setAcceleration(FPOINT(0, GRAVITATIONAL_ACCELERATION));
 	//GameObject::setVelocity(FPOINT(MEGA_MAN_VELOCITY_X, 0.0f));
-
+	m_state_attack = new MegaManAttackState();
 }
 
 
@@ -27,6 +28,8 @@ void MegaMan::render(){
 	if (this->getNoCollisionWithAll())
 		this->changeAnimation(ECharacter::MEGAMAN, EState::JUMP);
 	else m_state->enter(this);
+
+	m_state_attack->enter(this);
 	/*if (m_state->name == "Running")
 		this->changeAnimation(ECharacter::MEGAMAN, EState::RUNNING);
 */
@@ -39,6 +42,12 @@ void MegaMan::render(){
 	// set position to render
 	GameObject::render();
 	this->setNoCollisionWithAll(true);
+	int count = ((MegaManAttackState*)m_state_attack)->countFrame;
+	((MegaManAttackState*)m_state_attack)->countFrame++;
+	if (((MegaManAttackState*)m_state_attack)->countFrame > FPS/3){
+		((MegaManAttackState*)m_state_attack)->countFrame = 0;
+	((MegaManAttackState*)m_state_attack)->isFinishAttack = true;
+	}
 }
 
 void MegaMan::processInput(LPDIRECT3DDEVICE9 d3ddv, int Delta){
@@ -52,6 +61,13 @@ void MegaMan::onKeyDown(int keyCode){
 		m_state = state;
 		m_state->enter(this);
 	}
+
+	state = m_state_attack->onKeyDown(this, keyCode);
+	if (state != NULL){
+		delete m_state_attack;
+		m_state_attack = state;
+		m_state_attack->enter(this);
+	}
 }
 void MegaMan::onKeyUp(int KeyCode){
 	GameState* state = m_state->onKeyUp(this, KeyCode);
@@ -59,6 +75,13 @@ void MegaMan::onKeyUp(int KeyCode){
 		delete m_state;
 		m_state = state;
 		m_state->enter(this);
+	}
+
+	state = m_state_attack->onKeyUp(this, KeyCode);
+	if (state != NULL){
+		delete m_state_attack;
+		m_state_attack = state;
+		m_state_attack->enter(this);
 	}
 }
 

@@ -38,10 +38,10 @@ DWORD GameTime::getDeltaTime()
 
 DWORD GameTime::getTimePerFrame()
 {
-	return 1000 / FPS;
+	return 1.0f / (FPS*1000);
 }
 
 DWORD GameTime::getTimeSleep()
 {
-	return (1000 / FPS - (mCurrentTime - mStartTime));
+	return (1.0f / (FPS*1000) - (mCurrentTime - mStartTime));
 }

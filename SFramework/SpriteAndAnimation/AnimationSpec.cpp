@@ -45,7 +45,9 @@ void AnimationSpec::nextFrame(){
 	int max_sprites = m_spriteSpecs.size();
 	if (m_currentIndex < max_sprites - 1)
 		m_currentIndex++;
-	else m_currentIndex = 0;
+	else{
+		m_currentIndex = 0;
+	}
 
 }
 SpriteSpec* AnimationSpec::getCurrentSpriteSpec(){

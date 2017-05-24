@@ -85,76 +85,6 @@ int GameMap::GetTileHeight()
 	return mMap->GetTileHeight();
 }
 
-//void GameMap::parseBackground()
-//{
-//	for (size_t i = 0; i < mMap->GetNumTileLayers(); i++)
-//	{
-//		const Tmx::TileLayer *layer = mMap->GetTileLayer(i);
-//
-//		if (!layer->IsVisible())
-//		{
-//			continue;
-//		}
-//
-//		RECT sourceRECT;
-//
-//		int tileWidth = mMap->GetTileWidth();
-//		int tileHeight = mMap->GetTileHeight();
-//		int mapHeight = mMap->GetHeight() * tileHeight;
-//
-//
-//		for (size_t m = 0; m < layer->GetHeight(); m++)
-//		{
-//			for (size_t n = 0; n < layer->GetWidth(); n++)
-//			{
-//				int tilesetIndex = layer->GetTileTilesetIndex(n, m);
-//
-//				if (tilesetIndex != -1)
-//				{
-//					const Tmx::Tileset *tileSet = mMap->GetTileset(tilesetIndex);
-//
-//					int tileSetWidth = tileSet->GetImage()->GetWidth() / tileWidth;
-//					int tileSetHeight = tileSet->GetImage()->GetHeight() / tileHeight;
-//
-//					Texture* texture = mListTileset[layer->GetTileTilesetIndex(n, m)];
-//
-//					//tile index
-//					int tileID = layer->GetTileId(n, m);
-//
-//					int y = tileID / tileSetWidth; // chỉ số của tileId trong tileset
-//					int x = tileID % tileSetWidth;
-//
-//					sourceRECT.top = y * tileHeight;
-//					sourceRECT.bottom = sourceRECT.top + tileHeight;
-//					sourceRECT.left = x * tileWidth;
-//					sourceRECT.right = sourceRECT.left + tileWidth;
-//
-//				
-//				//	FPOINT position(n * tileWidth + tileWidth / 2, m * tileHeight + tileHeight / 2);
-//					FPOINT position(n * tileWidth, m * tileHeight);
-//					position.y = mapHeight - position.y; // đây là tọa độ top-left của từng tile
-//					/*
-//					Code demo xét theo hệ trục của màn hình với y hướng xuống. nên phải thiết lập lại độ cao cho tile trong map.
-//					*/
-//					SpriteSpec* spriteSpec = new SpriteSpec();
-//					spriteSpec->setWidth(tileWidth);
-//					spriteSpec->setHeight(tileHeight);
-//					spriteSpec->setX(sourceRECT.left);
-//					spriteSpec->setY(sourceRECT.top);
-//					
-//					GameObject* sprite = new GameObject();
-//					sprite->setTexture(texture);
-//					sprite->setSpriteSpec(spriteSpec);
-//					sprite->setPostion(position);
-//					//sprite->render();
-//					mNodesBackground.push_back(sprite);
-//					//sprite->Draw(position, sourceRECT, D3DXVECTOR2());
-//				}
-//			}
-//		}
-//	}
-//}
-
 void GameMap::parseBackground(){
 	// Read the xml file into a vector
 	xml_node<> * m_rootNode;
@@ -260,6 +190,14 @@ void GameMap::parseBackground(){
 		sprite->setTexture(tileSetTexture);
 		sprite->setSpriteSpec(spriteSpec);
 		sprite->setPostion(position);
+		BOX collistionBox;
+		collistionBox.x = x;
+		collistionBox.y = mapHeight - y;
+		collistionBox.width = tileSetWidth;
+		collistionBox.height = tileSetHeight;
+		collistionBox.vx = 0.0f;
+		collistionBox.vy = 0.0f;
+		sprite->setCollisionBox(collistionBox);
 		//sprite->render();
 		//mNodesBackground.push_back(sprite);
 		ObjectManager::getInstance()->getAllBackground()[tileIDInMap] = sprite;
@@ -269,112 +207,6 @@ void GameMap::parseBackground(){
 
 }
 
-//vector<Node*> GameMap::getScene(){
-//
-//	for (size_t i = 0; i < mMap->GetNumTileLayers(); i++)
-//	{
-//		const Tmx::TileLayer *layer = mMap->GetTileLayer(i);
-//
-//		if (!layer->IsVisible())
-//		{
-//			continue;
-//		}
-//
-//		RECT sourceRECT;
-//
-//		int tileWidth = mMap->GetTileWidth();
-//		int tileHeight = mMap->GetTileHeight();
-//		int mapWidth = mMap->GetWidth() * tileWidth;
-//		int mapHeight = mMap->GetHeight() * tileHeight;
-//
-//		for (size_t m = 0; m < layer->GetHeight(); m++)
-//		{
-//			for (size_t n = 0; n < layer->GetWidth(); n++)
-//			{
-//				int tilesetIndex = layer->GetTileTilesetIndex(n, m);
-//
-//				if (tilesetIndex != -1)
-//				{
-//					const Tmx::Tileset *tileSet = mMap->GetTileset(tilesetIndex);
-//
-//					int tileSetWidth = tileSet->GetImage()->GetWidth() / tileWidth;
-//					int tileSetHeight = tileSet->GetImage()->GetHeight() / tileHeight;
-//
-//					Texture* texture = mListTileset[layer->GetTileTilesetIndex(n, m)];
-//
-//					//tile index
-//					int tileID = layer->GetTileId(n, m);
-//
-//					int y = tileID / tileSetWidth; // chỉ số của tileId trong tileset
-//					int x = tileID % tileSetWidth;
-//
-//					sourceRECT.top = y * tileHeight;
-//					sourceRECT.bottom = sourceRECT.top + tileHeight;
-//					sourceRECT.left = x * tileWidth;
-//					sourceRECT.right = sourceRECT.left + tileWidth;
-//
-//					//tru tilewidth/2 va tileheight/2 vi GameObject ve o vi tri giua hinh anh cho nen doi hinh de cho
-//					//dung toa do (0,0) cua the gioi thuc la (0,0) neu khong thi se la (-tilewidth/2, -tileheigth/2);
-//					FPOINT position(n * tileWidth + tileWidth / 2, m * tileHeight + tileHeight / 2);
-//
-//					position.y = mapHeight - position.y;
-//					/*
-//					Code demo xét theo hệ trục của màn hình với y hướng xuống. nên phải thiết lập lại độ cao cho tile trong map.
-//					*/
-//					SpriteSpec* spriteSpec = new SpriteSpec();
-//					spriteSpec->setWidth(tileWidth);
-//					spriteSpec->setHeight(tileHeight);
-//					spriteSpec->setX(sourceRECT.left);
-//					spriteSpec->setY(sourceRECT.top);
-//
-//					GameObject* sprite = new GameObject();
-//					sprite->setTexture(texture);
-//					sprite->setSpriteSpec(spriteSpec);
-//					sprite->setPostion(position);
-//					mapNode.push_back(sprite);
-//					//sprite->Draw(position, sourceRECT, D3DXVECTOR2());
-//				}
-//			}
-//		}
-//	}
-//
-//	return mapNode;
-//}
-
-//void GameMap::parseObjectGroup(){
-//	int mapHeight = mMap->GetHeight() * mMap->GetTileHeight();
-//
-//	for (int i = 0; i < mMap->GetNumObjectGroups(); ++i)
-//	{
-//		// Get an object group.
-//		const Tmx::ObjectGroup *objectGroup = mMap->GetObjectGroup(i);
-//
-//		// Iterate through all objects in the object group.
-//		for (int j = 0; j < objectGroup->GetNumObjects(); ++j)
-//		{
-//			// Get an object.
-//			const Tmx::Object *object = objectGroup->GetObject(j);
-//
-//			// new GameObject
-//			GameObject* gameObject = new GameObject();
-//			gameObject->setTexture(mObjectTexture);
-//
-//			BOX collistionBox;
-//			collistionBox.x = object->GetX();
-//			collistionBox.y = mapHeight - object->GetY();
-//			collistionBox.width = object->GetWidth();
-//			collistionBox.height = object->GetHeight();
-//			collistionBox.vx = 0.0f;
-//			collistionBox.vy = 0.0f;
-//			gameObject->setCollisionBox(collistionBox);
-//
-//			gameObject->setType(std::stoi(object->GetType()));
-//
-//			mListObjet.push_back(gameObject);
-//		}
-//	}
-//
-//}
 
 void GameMap::parseObjectGroup(){
 	// Parse object group

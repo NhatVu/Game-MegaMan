@@ -9,7 +9,7 @@
 #include <list>
 #include "SpriteAndAnimation/Texture.h"
 #include "GameTime.h"
-
+#include "../MegaMan/MegaManUtilities.h"
 
 
 using namespace std;
@@ -33,13 +33,15 @@ namespace s_framework
 		int noCollisionWithAll;
 		int stopUpdateAnimation; // ngừng update animation khi object idle
 		float timeCollision;
-		int objectID = -1;
+		int objectID;
 
 		FPOINT initPosition;
 		
 	public:
 		GameObject();
 		~GameObject();
+
+		EState eState;
 
 		/*
 		* GETTERS AND SETTERS

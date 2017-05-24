@@ -22,7 +22,6 @@ public:
 	//virtual void exit(GameObject* gameObject){}
 	~GameState();
 	string name;
-
 };
 #endif // _GAMESTATE_H_
 

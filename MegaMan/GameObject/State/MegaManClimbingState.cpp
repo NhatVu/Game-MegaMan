@@ -129,7 +129,7 @@ void MegaManClimbingState::update(GameObject* gameObject) {}
 void MegaManClimbingState::enter(GameObject* gameObject){
 
 	((MegaMan*)gameObject)->changeAnimation(ECharacter::MEGAMAN, EState::CLIMB);
-
+	gameObject->eState = EState::CLIMB;
 }
 GameState* MegaManClimbingState::onCollision(GameObject* gameObject, GameObject* staticObject) {
 	SpriteSpec* currentSpriteSpec = gameObject->getSpriteSpec();

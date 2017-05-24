@@ -11,7 +11,7 @@
 using namespace std;
 using namespace s_framework;
 
-#define KAMADOMA_VELOCITY_Y 0.55f
+#define KAMADOMA_VELOCITY_Y 0.5f
 #define KAMADOMA_VELOCITY_X 0.07f
 #define KAMADOMA_ACTIVE_DISTANCE 100.0f
 #define KAMADOMA_FORCE_ATTACK_DISTANCE 70.0f

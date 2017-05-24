@@ -11,6 +11,7 @@ GameObject::GameObject()
 {
 	mFlipVertical = true;
 	stopUpdateAnimation = false;
+	objectID = -1;
 }
 
 

@@ -27,7 +27,7 @@ namespace s_framework{
 		FPOINT getPosition();
 		void setPostion(FPOINT p); // top-left position
 
-		float getHeight();
+		float getHeight(); 
 		void setHeight(float h);
 
 		float getWidth();

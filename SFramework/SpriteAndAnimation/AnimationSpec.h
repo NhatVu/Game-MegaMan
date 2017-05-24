@@ -18,7 +18,6 @@ namespace s_framework{
 	
 		void nextFrame();						// cập nhật lại chỉ số của frame tiếp theo
 		int currentDelay = 0;
-
 	public:
 		/*-------------------------------------------
 			GETTERS AND SETTERS

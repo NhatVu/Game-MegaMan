@@ -27,6 +27,7 @@ public:
 private: 
 	AnimationSpec* m_animation = NULL;
 	GameState *m_state;
+	GameState *m_state_attack;
 
 public:
 	void setTexture(Texture* texture);

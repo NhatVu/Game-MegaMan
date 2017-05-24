@@ -78,12 +78,12 @@ void Kamadoma::onCollision(GameObject* staticObject){
 					int numberFrame = (KAMADOMA_VELOCITY_Y / (-GRAVITATIONAL_ACCELERATION/2 * deltaTime)) * 2 ;
 					velocity.x = (megaManPos.x - newPosition.x) / (deltaTime * numberFrame);
 					canAttack = false;
-				}
+				}else
 
-				if (isRightCollision){
-					velocity.x = -1.5f*KAMADOMA_VELOCITY_X;
+				if (isRightCollision){// đi từ phải sang
+					velocity.x = 1.5f*KAMADOMA_VELOCITY_X;
 				}
-				else if(isLeftCollision) velocity.x = 1.5f*KAMADOMA_VELOCITY_X;
+				else if(isLeftCollision) velocity.x = -1.5f*KAMADOMA_VELOCITY_X;
 
 				isRightCollision = false;
 				isLeftCollision = false;
