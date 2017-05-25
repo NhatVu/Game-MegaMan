@@ -19,7 +19,7 @@ MegaMan::~MegaMan()
 {
 }
 
-void MegaMan::setTexture(Texture* texture){
+void MegaMan::setTexture(LPDIRECT3DTEXTURE9 texture){
 	GameObject::setTexture(texture);
 }
 void MegaMan::render(){

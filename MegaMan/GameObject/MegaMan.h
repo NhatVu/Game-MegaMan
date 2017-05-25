@@ -30,7 +30,7 @@ private:
 	GameState *m_state_attack;
 
 public:
-	void setTexture(Texture* texture);
+	void setTexture(LPDIRECT3DTEXTURE9 texture);
 	virtual void processInput(LPDIRECT3DDEVICE9 d3ddv, int Delta);
 	void changeAnimation(int character, int state);
 	void setState(GameState* state){

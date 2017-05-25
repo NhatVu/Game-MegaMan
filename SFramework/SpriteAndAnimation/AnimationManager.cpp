@@ -7,6 +7,7 @@
 #include <cstdio>
 #include "../rapidjson/document.h"
 #include "../rapidjson/filereadstream.h"
+#include "TextureManager.h"
 
 using namespace rapidjson;
 using namespace std;
@@ -40,7 +41,7 @@ void AnimationManager::resetResourceManager(){
 	m_instance = NULL;
 }
 
-void AnimationManager::parseAnimationJSON(Texture* texture,string jsonFile){
+void AnimationManager::parseAnimationJSON(string jsonFile){
 	FILE* pFile = fopen(jsonFile.c_str(), "rb");
 	char buffer[65536];
 	FileReadStream is(pFile, buffer, sizeof(buffer));
@@ -80,7 +81,7 @@ void AnimationManager::parseAnimationJSON(Texture* texture,string jsonFile){
 			for (SizeType f = 0; f < frame.Size(); f++){
 
 				frameID = frame[f].GetInt();
-				t_spriteSpec = texture->getSpriteSpecById(frameID);
+				t_spriteSpec = TextureManager::getInstance()->getSpriteSpecById(frameID);
 				t_listSpriteSpec.push_back(t_spriteSpec);
 			}
 			t_animationSpec->setSpriteSpecs(t_listSpriteSpec);

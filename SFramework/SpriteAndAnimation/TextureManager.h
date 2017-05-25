@@ -1,7 +1,7 @@
 #ifndef _TEXTURE_MANAGER_H
 #define _TEXTURE_MANAGER_H
 
-#include<d3dx9.h>
+#include <d3dx9.h>
 #include "SpriteSpec.h"
 #include <map>
 #include <string>
@@ -13,7 +13,7 @@ namespace s_framework {
 	private:
 		static constexpr const char* SOURCE_TEXTURE_XML = "Resources/texture.xml";
 		static constexpr const char* SOURCE_TEXTURE_PNG = "Resources/texture.png";
-		static constexpr const char* SOURCE_MAP_PNG = "Resources\\map1.png";
+		static constexpr const char* SOURCE_MAP_PNG = "Resources/Bombman's Stage - Mephea.png";
 
 		static TextureManager* mInstance;
 

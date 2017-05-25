@@ -7,7 +7,6 @@
 #include <d3dx9.h>
 #include "Utilities.h"
 #include <list>
-#include "SpriteAndAnimation/Texture.h"
 #include "GameTime.h"
 #include "../MegaMan/MegaManUtilities.h"
 
@@ -21,8 +20,7 @@ namespace s_framework
 	{
 	private:
 		SpriteSpec* m_spriteSpec;
-		Texture* m_texture;
-
+		LPDIRECT3DTEXTURE9 mTexture;
 		FPOINT m_velocity;
 		FPOINT m_acceleration;
 		BOX m_collisionBox;
@@ -41,6 +39,7 @@ namespace s_framework
 		GameObject();
 		~GameObject();
 
+		void setTexture(LPDIRECT3DTEXTURE9 texture);
 		EState eState;
 
 		/*
@@ -49,7 +48,6 @@ namespace s_framework
 		FPOINT getVelocity();
 		void setVelocity(FPOINT velocity);
 
-		void setTexture(Texture* texture);
 		void setSpriteSpec(SpriteSpec* spriteSpec);
 		SpriteSpec* getSpriteSpec(){ return this->m_spriteSpec; };
 

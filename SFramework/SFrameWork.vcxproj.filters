@@ -177,9 +177,6 @@
     <ClInclude Include="SpriteAndAnimation\SpriteSpec.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SpriteAndAnimation\Texture.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="SpriteAndAnimation\AnimationManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -190,6 +187,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Map\ObjectFactory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteAndAnimation\TextureManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -233,9 +233,6 @@
     <ClCompile Include="SpriteAndAnimation\SpriteSpec.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SpriteAndAnimation\Texture.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="SpriteAndAnimation\AnimationManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -246,6 +243,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Map\ObjectFactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteAndAnimation\TextureManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

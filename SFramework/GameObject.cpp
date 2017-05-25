@@ -1,9 +1,9 @@
 ﻿#include "GameObject.h"
 #include "SFramework.h"
 #include "Director.h"
-#include "SpriteAndAnimation/Texture.h"
 #include "Camera/ViewPort.h"
 #include "Trace.h"
+#include "SpriteAndAnimation/TextureManager.h"
 
 using namespace s_framework;
 
@@ -22,8 +22,9 @@ GameObject::~GameObject()
 	// resource cho toàn bộ app
 }
 
-void GameObject::setTexture(Texture* texture){
-	m_texture = texture;
+void s_framework::GameObject::setTexture(LPDIRECT3DTEXTURE9 texture)
+{
+	mTexture = texture;
 }
 
 void GameObject::setSpriteSpec(SpriteSpec* spriteSpec){
@@ -70,7 +71,7 @@ void GameObject::render()
 	// vẽ.
 	spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);// (D3DXSPRITE_ALPHABLEND);
 	spriteHandler->SetTransform(&matFinal);
-	spriteHandler->Draw(m_texture->getTexture(), &srcRect, &centerOfSpriteTexture, NULL, D3DCOLOR_XRGB(255, 255, 255));
+	spriteHandler->Draw(mTexture, &srcRect, &centerOfSpriteTexture, NULL, D3DCOLOR_XRGB(255, 255, 255));
 	spriteHandler->End();
 
 	Node::render();

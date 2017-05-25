@@ -15,7 +15,6 @@ class MapBombMan
 {
 private:
 	Scene* scene;
-	Texture* texture;
 	GameMap* map;
 	GameObject* megaMan;
 	vector<BOX> listViewportState;
@@ -24,7 +23,7 @@ public:
 		GETTER AND SETTER
 	*/
 	void init();
-	MapBombMan(char* tmxFile, Texture* texture, GameObject* megaMan);
+	MapBombMan(char* tmxFile,GameObject* megaMan);
 	~MapBombMan();
 };
 

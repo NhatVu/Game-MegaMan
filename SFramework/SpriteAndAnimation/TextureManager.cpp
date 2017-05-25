@@ -114,7 +114,7 @@ LPDIRECT3DTEXTURE9 s_framework::TextureManager::getObjectTexture()
 	return mObjectTexture;
 }
 
-LPDIRECT3DTEXTURE9 s_framework::TextureManager::getObjectTexture()
+LPDIRECT3DTEXTURE9 s_framework::TextureManager::getMapTexture()
 {
 	if (mMapTexture == NULL)
 	{

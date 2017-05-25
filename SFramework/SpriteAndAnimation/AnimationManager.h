@@ -19,7 +19,7 @@ namespace s_framework{
 		/*   method    */
 		AnimationManager();
 	public:
-		void parseAnimationJSON(Texture* texture, string jsonFile);
+		void parseAnimationJSON(string jsonFile);
 		static AnimationManager* getInstance();
 		AnimationSpec* getAnimationSprites(int character, int state);
 		static void resetResourceManager();

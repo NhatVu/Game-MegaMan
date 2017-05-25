@@ -8,12 +8,12 @@
 #include "../SFramework/Layer.h"
 #include "../SFramework/GameObject.h"
 #include "../SFramework/Director.h"
-#include "../SFramework/SpriteAndAnimation/Texture.h"
 #include "../SFramework/SpriteAndAnimation/SpriteSpec.h"
 #include "../SFramework/Camera/ViewPort.h"
 #include "../SFramework/SpriteAndAnimation/AnimationManager.h"
 #include "../SFramework/Map/GameMap.h"
 #include "../SFramework/Map/ObjectManager.h"
+#include "../SFramework/SpriteAndAnimation/TextureManager.h"
 #include "MegaManUtilities.h"
 #include "GameObject/MegaMan.h"
 #include "Map/MapBombMan.h"
@@ -89,17 +89,17 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmdLine,
 
 
 	// load hình
-	Texture* texture = new Texture();
-	texture->init("Resources/texture.png", "Resources/texture.xml");
+	//Texture* texture = new Texture();
+	//texture->init("Resources/texture.png", "Resources/texture.xml");
 
 	//AnimationManager::getInstance()->parseAnimationXML("Resource/animation.xml");
-	AnimationManager::getInstance()->parseAnimationJSON(texture,"Resources/animation.json");
+	AnimationManager::getInstance()->parseAnimationJSON("Resources/animation.json");
 
 	FPOINT p;
 	
 	// create object
 	GameObject* megaMan = new MegaMan();
-	megaMan->setTexture(texture);
+	megaMan->setTexture(TextureManager::getInstance()->getObjectTexture());
 	megaMan->setObjectID(0);
 	((MegaMan*)megaMan)->setState(EState::IDLE);
 	// vị trí của mega man trong world
@@ -113,7 +113,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmdLine,
 	SFramework::getInstance()->attachInputObect(megaMan);
 
 	// map
-	MapBombMan* mapBombMan = new MapBombMan("Resources/map.tmx", texture, megaMan);
+	MapBombMan* mapBombMan = new MapBombMan("Resources/map.tmx", megaMan);
 	mapBombMan->init();
 
 	/*

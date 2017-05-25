@@ -3,8 +3,6 @@
 #include <d3d9.h>
 #include <d3dx9.h>
 #include <dinput.h>
-//#include "Animation.h"
-#include "SpriteAndAnimation/Texture.h"
 //#include "DirectxInput.h"
 #include "GameObject.h"
 #include "Quadtree.h"

@@ -1,11 +1,12 @@
 ﻿#include "GameMap.h"
 #include "../SpriteAndAnimation/SpriteSpec.h"
 #include "ObjectFactory.h"
+#include "../SpriteAndAnimation/TextureManager.h"
+
 using namespace s_framework;
 
-GameMap::GameMap(char* filePath, Texture* objectTexture)
+GameMap::GameMap(char* filePath)
 {
-	this->mObjectTexture = objectTexture;
 	this->filePath = filePath;
 	parseBackground();
 	parseObjectGroup();
@@ -13,8 +14,6 @@ GameMap::GameMap(char* filePath, Texture* objectTexture)
 
 GameMap::~GameMap()
 {
-	if (tileSetTexture != NULL)
-		delete tileSetTexture;
 }
 
 void GameMap::parseBackground(){
@@ -63,11 +62,6 @@ void GameMap::parseBackground(){
 
 
 		std::string texturePath = imageSourceName;
-
-
-		//Register texture
-		tileSetTexture = new Texture();
-		tileSetTexture->init("Resources\\" + texturePath); // chỉ load image vào texture
 	}
 
 	//Parse map data
@@ -119,7 +113,7 @@ void GameMap::parseBackground(){
 		spriteSpec->setY(sourceRECT.top);
 
 		GameObject* sprite = new GameObject();
-		sprite->setTexture(tileSetTexture);
+		sprite->setTexture(TextureManager::getInstance()->getMapTexture());
 		sprite->setSpriteSpec(spriteSpec);
 		sprite->setPostion(position);
 		BOX collistionBox;
@@ -178,7 +172,7 @@ void GameMap::parseObjectGroup(){
 			// new GameObject
 			GameObject* gameObject = ObjectFactory::createObject(objType);
 			gameObject->setObjectID(id);
-			gameObject->setTexture(mObjectTexture);
+			gameObject->setTexture(TextureManager::getInstance()->getObjectTexture());
 			gameObject->setType(objectType);
 
 			BOX collistionBox;

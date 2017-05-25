@@ -1,11 +1,10 @@
 ﻿#include "MapBombMan.h"
 #include "../../SFramework/Camera/ViewPort.h"
 #include "../../SFramework/Map/ObjectManager.h"
-MapBombMan::MapBombMan(char* tmxFile, Texture* texture, GameObject* megaMan)
+MapBombMan::MapBombMan(char* tmxFile, GameObject* megaMan)
 {
 	scene = new Scene();
-	this->texture = texture;
-	this->map = new GameMap(tmxFile, texture);
+	this->map = new GameMap(tmxFile);
 	this->megaMan = megaMan;
 
 

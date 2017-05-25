@@ -6,7 +6,6 @@
 #include <vector>
 #include <algorithm>
 
-#include "../SpriteAndAnimation/Texture.h"
 #include "../GameObject.h"
 #include <stdio.h>
 #include <iostream>
@@ -23,18 +22,15 @@ namespace s_framework {
 	class GameMap
 	{
 	public:
-		GameMap(char* filePath, Texture *ojbectTexture); // texture de goi ham object->setTexture
+		GameMap(char* filePath); // texture de goi ham object->setTexture
 		~GameMap();
 
 	private:
 		vector<Node*> mapNode;
-		Texture* mObjectTexture;
 		void parseBackground();
 		void parseObjectGroup();
 		char* filePath;
-		Texture* tileSetTexture; // hard code. giả sử trong game chỉ cần 1 tileset
 		int mapHeight;
-
 	};
 
 }

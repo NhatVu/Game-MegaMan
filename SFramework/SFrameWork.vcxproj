@@ -21,7 +21,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -141,7 +141,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="SpriteAndAnimation\AnimationSpec.h" />
     <ClInclude Include="SpriteAndAnimation\SpriteSpec.h" />
-    <ClInclude Include="SpriteAndAnimation\Texture.h" />
+    <ClInclude Include="SpriteAndAnimation\TextureManager.h" />
     <ClInclude Include="Trace.h" />
     <ClInclude Include="Utilities.h" />
   </ItemGroup>
@@ -162,7 +162,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="SpriteAndAnimation\AnimationSpec.cpp" />
     <ClCompile Include="SpriteAndAnimation\SpriteSpec.cpp" />
-    <ClCompile Include="SpriteAndAnimation\Texture.cpp" />
+    <ClCompile Include="SpriteAndAnimation\TextureManager.cpp" />
     <ClCompile Include="Trace.cpp" />
   </ItemGroup>
   <ItemGroup>
