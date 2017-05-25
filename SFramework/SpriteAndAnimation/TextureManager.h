@@ -10,9 +10,9 @@ namespace s_framework {
 	class TextureManager
 	{
 	private:
-		static constexpr const char* SOURCE_TEXTURE_XML = "Resources/texture.xml";
-		static constexpr const char* SOURCE_TEXTURE_PNG = "Resources/texture.png";
-		static constexpr const char* SOURCE_MAP_PNG = "Resources/Bombman's Stage - Mephea.png";
+		static   char* SOURCE_TEXTURE_XML;
+		static   char* SOURCE_TEXTURE_PNG;
+		static   char* SOURCE_MAP_PNG;
 
 		static TextureManager* mInstance;
 
@@ -27,7 +27,7 @@ namespace s_framework {
 
 		static TextureManager* getInstance();
 
-		void setTexture(LPDIRECT3DTEXTURE9 texture, string src);
+		void setTexture(LPDIRECT3DTEXTURE9 &texture, string src);
 
 		void setObjectTexture();
 
