@@ -8,6 +8,7 @@
 #include "../SFramework/Layer.h"
 #include "../SFramework/GameObject.h"
 #include "../SFramework/Director.h"
+#include "../SFramework/SpriteAndAnimation/TextureManager.h"
 #include "../SFramework/SpriteAndAnimation/SpriteSpec.h"
 #include "../SFramework/Camera/ViewPort.h"
 #include "../SFramework/SpriteAndAnimation/AnimationManager.h"

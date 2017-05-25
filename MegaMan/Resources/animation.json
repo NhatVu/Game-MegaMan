@@ -32,6 +32,11 @@
 			"name": "idle-fire",
 			"delayFrame": 1,
 			"frame": [90]
+		},{
+			"stateID": 9,
+			"name": "jump-fire",
+			"delayFrame": 1,
+			"frame": [83]
 		}]
 	},{
 		"characterID": 2,

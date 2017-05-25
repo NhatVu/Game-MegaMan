@@ -66,11 +66,11 @@ void Kamadoma::onCollision(GameObject* staticObject){
 				newPosition.y = collisionBox.height + staticObject->getCollisionBox().y + 1;
 				// xác định hướng đi của kamadoma dựa vào vị trí của mega man
 
-				if (megaManPos.x - newPosition.x > KAMADOMA_FORCE_ATTACK_DISTANCE){
+				if (megaManPos.x - newPosition.x >= KAMADOMA_FORCE_ATTACK_DISTANCE){
 					velocity.x = KAMADOMA_VELOCITY_X;
 					canAttack = true;
 				}
-				else if (newPosition.x - megaManPos.x > KAMADOMA_FORCE_ATTACK_DISTANCE){
+				else if (newPosition.x - megaManPos.x >= KAMADOMA_FORCE_ATTACK_DISTANCE){
 					velocity.x = -KAMADOMA_VELOCITY_X;
 					canAttack = true;
 				}
@@ -122,7 +122,7 @@ void Kamadoma::onCollision(GameObject* staticObject){
 			{
 			case ECharacter::STATIC:
 				velocity.x *= 0;
-				isRightCollision = true;
+				isLeftCollision = true;
 				newPosition.x = staticObject->getCollisionBox().x - collisionBox.width - 1;
 				//newPosition.y = staticObject->getCollisionBox().y - staticObject->getCollisionBox().height + collisionBox.height + 1;
 				this->setPostion(newPosition);

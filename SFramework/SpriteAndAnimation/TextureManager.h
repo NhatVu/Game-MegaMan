@@ -5,7 +5,6 @@
 #include "SpriteSpec.h"
 #include <map>
 #include <string>
-
 using namespace std;
 namespace s_framework {
 	class TextureManager
@@ -28,13 +27,13 @@ namespace s_framework {
 
 		static TextureManager* getInstance();
 
-		void setTextureMap();
-
 		void setTexture(LPDIRECT3DTEXTURE9 texture, string src);
 
 		void setObjectTexture();
 
 		void setMapTexture();
+
+		void initSpriteSpecification();
 
 		LPDIRECT3DTEXTURE9 getObjectTexture();
 

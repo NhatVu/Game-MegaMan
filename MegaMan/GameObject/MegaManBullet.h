@@ -12,7 +12,7 @@
 using namespace std;
 using namespace s_framework;
 
-#define MEGAMAN_BULLET_VELOCITY_X 0.2f
+#define MEGAMAN_BULLET_VELOCITY_X 0.45f
 #define MEGAMAN_BULLET_VIRTUAL_WIDTH 9.0f
 #define MEGAMAN_BULLET_VIRTUAL_HEIGHT 9.0f
 class MegaManBullet : public GameObject

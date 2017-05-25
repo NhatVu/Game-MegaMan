@@ -31,7 +31,69 @@ TextureManager * s_framework::TextureManager::getInstance()
 	return mInstance;
 }
 
-void s_framework::TextureManager::setTextureMap()
+void s_framework::TextureManager::setTexture(LPDIRECT3DTEXTURE9 texture, string src)
+{
+	D3DXIMAGE_INFO info;
+	HRESULT result;
+
+
+	result = D3DXGetImageInfoFromFileA(src.c_str(), &info);
+
+	D3DXCreateTextureFromFileExA(
+		SFramework::getInstance()->getDirect3DDevice(),
+		src.c_str(),
+		info.Width,
+		info.Height,
+		1,
+		D3DUSAGE_DYNAMIC,
+		D3DFMT_UNKNOWN,
+		D3DPOOL_DEFAULT,
+		D3DX_DEFAULT,
+		D3DX_DEFAULT,
+		D3DCOLOR_XRGB(255, 255, 255),
+		&info,
+		NULL,
+		&texture);
+
+	if (result != D3D_OK)
+	{
+		int i = 10;
+	}
+}
+
+LPDIRECT3DTEXTURE9 s_framework::TextureManager::getObjectTexture()
+{
+	if (mObjectTexture == NULL)
+	{
+		setObjectTexture();
+	}
+
+	return mObjectTexture;
+}
+
+LPDIRECT3DTEXTURE9 s_framework::TextureManager::getMapTexture()
+{
+	if (mMapTexture == NULL)
+	{
+		setMapTexture();
+	}
+
+	return mMapTexture;
+}
+
+void s_framework::TextureManager::setObjectTexture()
+{
+	string fileName(SOURCE_TEXTURE_PNG);
+	setTexture(mObjectTexture, fileName);
+}
+
+void s_framework::TextureManager::setMapTexture()
+{
+	string fileName(SOURCE_MAP_PNG);
+	setTexture(mObjectTexture, fileName);
+}
+
+void s_framework::TextureManager::initSpriteSpecification()
 {
 	xml_document<> doc;
 	xml_node<> * root_node;
@@ -62,73 +124,11 @@ void s_framework::TextureManager::setTextureMap()
 	}
 }
 
-void s_framework::TextureManager::setTexture(LPDIRECT3DTEXTURE9 texture, string src)
-{
-	D3DXIMAGE_INFO info;
-	HRESULT result;
-
-	
-	result = D3DXGetImageInfoFromFileA(src.c_str(), &info); //
-
-	D3DXCreateTextureFromFileExA(
-		SFramework::getInstance()->getDirect3DDevice(),
-		src.c_str(),
-		info.Width,
-		info.Height,
-		1,
-		D3DUSAGE_DYNAMIC,
-		D3DFMT_UNKNOWN,
-		D3DPOOL_DEFAULT,
-		D3DX_DEFAULT,
-		D3DX_DEFAULT,
-		D3DCOLOR_XRGB(255, 255, 255),
-		&info,
-		NULL,
-		&texture);
-
-	if (result != D3D_OK)
-	{
-		int i = 10;
-	}
-}
-
-void s_framework::TextureManager::setObjectTexture()
-{
-	string fileName(SOURCE_TEXTURE_PNG);
-	setTexture(mObjectTexture, fileName);
-}
-
-void s_framework::TextureManager::setMapTexture()
-{
-	string fileName(SOURCE_MAP_PNG);
-	setTexture(mObjectTexture, fileName);
-}
-
-LPDIRECT3DTEXTURE9 s_framework::TextureManager::getObjectTexture()
-{
-	if (mObjectTexture == NULL)
-	{
-		setObjectTexture();
-	}
-
-	return mObjectTexture;
-}
-
-LPDIRECT3DTEXTURE9 s_framework::TextureManager::getMapTexture()
-{
-	if (mMapTexture == NULL)
-	{
-		setMapTexture();
-	}
-
-	return mMapTexture;
-}
-
 SpriteSpec * s_framework::TextureManager::getSpriteSpecById(int id)
 {
 	if (mTextureMap.empty())
 	{
-		setTextureMap();
+		initSpriteSpecification();
 	}
 	
 	return mTextureMap[id];

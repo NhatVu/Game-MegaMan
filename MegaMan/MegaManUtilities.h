@@ -24,6 +24,7 @@ enum EState
 	CLIMB_IDLE = 6,
 	IDLE_FIRE = 7,
 	ACTIVE = 8,
+	JUMP_FIRE = 9,
 };
 
 
