@@ -9,7 +9,9 @@ using namespace s_framework;
 using namespace rapidxml;
 
 TextureManager* TextureManager::mInstance = NULL;
-
+char* TextureManager::SOURCE_TEXTURE_XML = "Resources/texture.xml";
+char* TextureManager::SOURCE_TEXTURE_PNG = "Resources/texture.png";
+char* TextureManager::SOURCE_MAP_PNG = "Resources/Bombman's Stage - Mephea.png";
 TextureManager::TextureManager()
 {
 }
@@ -31,7 +33,7 @@ TextureManager * s_framework::TextureManager::getInstance()
 	return mInstance;
 }
 
-void s_framework::TextureManager::setTexture(LPDIRECT3DTEXTURE9 texture, string src)
+void s_framework::TextureManager::setTexture(LPDIRECT3DTEXTURE9& texture, string src)
 {
 	D3DXIMAGE_INFO info;
 	HRESULT result;
@@ -90,7 +92,7 @@ void s_framework::TextureManager::setObjectTexture()
 void s_framework::TextureManager::setMapTexture()
 {
 	string fileName(SOURCE_MAP_PNG);
-	setTexture(mObjectTexture, fileName);
+	setTexture(mMapTexture, fileName);
 }
 
 void s_framework::TextureManager::initSpriteSpecification()
