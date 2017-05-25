@@ -142,6 +142,7 @@
     <ClInclude Include="SpriteAndAnimation\AnimationSpec.h" />
     <ClInclude Include="SpriteAndAnimation\SpriteSpec.h" />
     <ClInclude Include="SpriteAndAnimation\Texture.h" />
+    <ClInclude Include="SpriteAndAnimation\TextureManager.h" />
     <ClInclude Include="Trace.h" />
     <ClInclude Include="Utilities.h" />
   </ItemGroup>
@@ -163,6 +164,7 @@
     <ClCompile Include="SpriteAndAnimation\AnimationSpec.cpp" />
     <ClCompile Include="SpriteAndAnimation\SpriteSpec.cpp" />
     <ClCompile Include="SpriteAndAnimation\Texture.cpp" />
+    <ClCompile Include="SpriteAndAnimation\TextureManager.cpp" />
     <ClCompile Include="Trace.cpp" />
   </ItemGroup>
   <ItemGroup>

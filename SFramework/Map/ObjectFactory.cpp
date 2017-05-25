@@ -27,6 +27,7 @@ GameObject* ObjectFactory::createObject(int objectType){
 	case ECharacter::MEGAMAN_BULLET:
 		object = new MegaManBullet();
 		((MegaManBullet*)object)->setState(EState::ACTIVE);
+		object->setType(ECharacter::MEGAMAN_BULLET);
 		break;
 	default:
 		break;

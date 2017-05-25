@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:fd3c76afd785357bef3e8006506ec8e4:1/1$ -->
+<!-- $TexturePacker:SmartUpdate:821da7c08d1b2e1366eaa33ab1051cc7:1/1$ -->
 <!--Format:
 n  => name of the sprite
 x  => sprite x pos in texture
@@ -85,18 +85,18 @@ r => 'y' only set if sprite is rotated
     <sprite n="73.png" x="68" y="182" w="28" h="28"/>
     <sprite n="74.png" x="98" y="182" w="28" h="28"/>
     <sprite n="75.png" x="128" y="182" w="28" h="28"/>
-    <sprite n="76.png" x="158" y="182" w="16" h="29"/>
-    <sprite n="77.png" x="176" y="182" w="16" h="29"/>
-    <sprite n="78.png" x="194" y="182" w="16" h="22"/>
-    <sprite n="79.png" x="212" y="182" w="24" h="29"/>
+    <sprite n="76.png" x="158" y="182" w="24" h="29"/>
+    <sprite n="77.png" x="184" y="182" w="24" h="29"/>
+    <sprite n="78.png" x="210" y="182" w="16" h="22"/>
+    <sprite n="79.png" x="228" y="182" w="24" h="29"/>
     <sprite n="8.png" x="2" y="216" w="30" h="23"/>
     <sprite n="80.png" x="34" y="216" w="31" h="24"/>
     <sprite n="81.png" x="67" y="216" w="31" h="24"/>
-    <sprite n="82.png" x="100" y="216" w="26" h="30"/>
-    <sprite n="83.png" x="128" y="216" w="29" h="30"/>
-    <sprite n="84.png" x="159" y="216" w="24" h="22"/>
-    <sprite n="85.png" x="185" y="216" w="24" h="22"/>
-    <sprite n="86.png" x="211" y="216" w="24" h="22"/>
+    <sprite n="82.png" x="100" y="216" w="30" h="30"/>
+    <sprite n="83.png" x="132" y="216" w="30" h="30"/>
+    <sprite n="84.png" x="164" y="216" w="24" h="22"/>
+    <sprite n="85.png" x="190" y="216" w="24" h="22"/>
+    <sprite n="86.png" x="216" y="216" w="24" h="22"/>
     <sprite n="87.png" x="2" y="248" w="29" h="24"/>
     <sprite n="88.png" x="33" y="248" w="29" h="24"/>
     <sprite n="89.png" x="64" y="248" w="30" h="24"/>

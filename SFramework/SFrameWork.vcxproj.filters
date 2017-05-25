@@ -192,6 +192,9 @@
     <ClInclude Include="Map\ObjectFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SpriteAndAnimation\TextureManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Director.cpp">
@@ -246,6 +249,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Map\ObjectFactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteAndAnimation\TextureManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

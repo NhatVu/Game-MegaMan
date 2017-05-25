@@ -9,6 +9,7 @@
 #include "../SFramework/GameObject.h"
 #include "../SFramework/Director.h"
 #include "../SFramework/SpriteAndAnimation/Texture.h"
+#include "../SFramework/SpriteAndAnimation/TextureManager.h"
 #include "../SFramework/SpriteAndAnimation/SpriteSpec.h"
 #include "../SFramework/Camera/ViewPort.h"
 #include "../SFramework/SpriteAndAnimation/AnimationManager.h"
@@ -92,6 +93,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmdLine,
 	Texture* texture = new Texture();
 	texture->init("Resources/texture.png", "Resources/texture.xml");
 
+	TextureManager::objectTexture = texture;
 	//AnimationManager::getInstance()->parseAnimationXML("Resource/animation.xml");
 	AnimationManager::getInstance()->parseAnimationJSON(texture,"Resources/animation.json");
 

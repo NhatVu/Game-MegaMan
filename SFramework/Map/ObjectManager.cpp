@@ -48,6 +48,10 @@ void ObjectManager::processQuadTreeAndViewport(FPOINT viewportPosition){
 		// object trong activeObject nằm ngoài camera => remove
 		if ((collisionBox.x > cameraBox.x + cameraBox.width) || (collisionBox.x + collisionBox.width < cameraBox.x)
 			|| (collisionBox.y < cameraBox.y - cameraBox.height) || (collisionBox.y - collisionBox.height > cameraBox.y)){
+			if (object->getType() == ECharacter::MEGAMAN){
+				++it;
+				continue;
+			}
 			object->resetToInit();
 			activeObject.erase(it++);
 		}

@@ -1,6 +1,6 @@
 ﻿#include "MegaManAttackState.h"
 #include "../../../SFramework/Map/ObjectFactory.h"
-
+#include "../../../SFramework/SpriteAndAnimation/TextureManager.h"
 
 MegaManAttackState::MegaManAttackState()
 {
@@ -22,6 +22,7 @@ GameState* MegaManAttackState::onKeyDown(GameObject* gameObject, int keyCode){
 		map<int, GameObject*> &activeObject = ObjectManager::getInstance()->getActiveObject();
 		GameObject* megaManBullet = ObjectFactory::createObject(ECharacter::MEGAMAN_BULLET);
 		megaManBullet->setObjectID(ObjectManager::notInMapObjectId);
+		megaManBullet->setTexture(TextureManager::objectTexture);
 		((MegaManBullet*)megaManBullet)->initFire();
 		ObjectManager::getInstance()->addObjectToActiveObject(megaManBullet);
 		map<int, GameObject*> newactiveObject = ObjectManager::getInstance()->getActiveObject();
@@ -43,13 +44,20 @@ GameState*  MegaManAttackState::processKeyState(GameObject* gameObject, BYTE *ke
 void MegaManAttackState::update(GameObject* gameObject) {}
 void MegaManAttackState::enter(GameObject* gameObject){
 	//((MegaMan*)gameObject)->changeAnimation(ECharacter::MEGAMAN, EState::IDLE_FIRE);
+	int megaManState = gameObject->eState;
 	if (isFinishAttack){
-		if (gameObject->eState == EState::IDLE)
+		if (megaManState == EState::IDLE)
 			((MegaMan*)gameObject)->changeAnimation(ECharacter::MEGAMAN, EState::IDLE);
+		else if (megaManState == EState::JUMP)
+			((MegaMan*)gameObject)->changeAnimation(ECharacter::MEGAMAN, EState::JUMP);
+
 	}
 	else{
-		if (gameObject->eState == EState::IDLE)
+		if (megaManState == EState::IDLE)
 			((MegaMan*)gameObject)->changeAnimation(ECharacter::MEGAMAN, EState::IDLE_FIRE);
+		else if (megaManState == EState::JUMP)
+			((MegaMan*)gameObject)->changeAnimation(ECharacter::MEGAMAN, EState::JUMP_FIRE);
+
 	}
 	
 
