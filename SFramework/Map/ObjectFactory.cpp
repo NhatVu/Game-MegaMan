@@ -22,11 +22,14 @@ GameObject* ObjectFactory::createObject(int objectType){
 		break;
 	case ECharacter::KAMADOMA:
 		object = new Kamadoma();
-		((Kamadoma*)object)->setState(EState::ACTIVE);
+		//((Kamadoma*)object)->setState(EState::ACTIVE);
+		object->setState(EState::ACTIVE);
+
 		break;
 	case ECharacter::MEGAMAN_BULLET:
 		object = new MegaManBullet();
-		((MegaManBullet*)object)->setState(EState::ACTIVE);
+		//((MegaManBullet*)object)->setState(EState::ACTIVE);
+		object->setState(EState::ACTIVE);
 		object->setType(ECharacter::MEGAMAN_BULLET);
 		break;
 	default:

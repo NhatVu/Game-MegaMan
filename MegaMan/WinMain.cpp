@@ -102,7 +102,9 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmdLine,
 	GameObject* megaMan = new MegaMan();
 	megaMan->setTexture(TextureManager::getInstance()->getObjectTexture());
 	megaMan->setObjectID(0);
-	((MegaMan*)megaMan)->setState(EState::IDLE);
+	//((MegaMan*)megaMan)->setState(EState::IDLE);
+	((MegaMan*)megaMan)->setState(new MegaManIdleState());
+
 	// vị trí của mega man trong world
 	ObjectManager::getInstance()->setMegaMan(megaMan);
 	p.x = 130;

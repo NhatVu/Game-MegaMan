@@ -44,31 +44,31 @@ void MegaManJumpingState::update(GameObject* gameObject) {}
 void MegaManJumpingState::enter(GameObject* gameObject){
 	// thay đổi animation cho trạng thái idle
 	((MegaMan*)gameObject)->changeAnimation(ECharacter::MEGAMAN, EState::JUMP);	
-	gameObject->eState = EState::JUMP;
+	gameObject->setState(EState::JUMP);
 }
 
-GameState* MegaManJumpingState::onCollision(GameObject* gameObject, GameObject* staticObject) {
+GameState* MegaManJumpingState::onCollision(GameObject* gameObject, GameObject* staticObject, float collisionTime, D3DXVECTOR2 collisionVector) {
 	SpriteSpec* currentSpriteSpec = gameObject->getSpriteSpec();
 
 	int staticObjectType = staticObject->getType();
-	DWORD deltaTime = GameTime::getInstance()->getDeltaTime();
-	FPOINT velocity = gameObject->getVelocity();
-	velocity.x += gameObject->getAcceleration().x*deltaTime;
-	velocity.y += gameObject->getAcceleration().y*deltaTime;
-	//gameObject->setVelocity(velocity);
+	D3DXVECTOR2 normal = collisionVector;
+	//
+	//DWORD deltaTime = GameTime::getInstance()->getDeltaTime();
+	//FPOINT velocity = gameObject->getVelocity();
+	//velocity.x += gameObject->getAcceleration().x*deltaTime;
+	//velocity.y += gameObject->getAcceleration().y*deltaTime;
+	////gameObject->setVelocity(velocity);
+	//
+	//// set Collision BOX for mega man. 
+	//BOX collisionBox(gameObject->getPosition().x, gameObject->getPosition().y, MEGA_MAN_VIRTUAL_WIDTH,
+	//	MEGA_MAN_VIRTUAL_HEIGHT, velocity.x * deltaTime, velocity.y*deltaTime);
+	//gameObject->setCollisionBox(collisionBox);
 
-
-	D3DXVECTOR2 normal;
-
-	// set Collision BOX for mega man. 
-	BOX collisionBox(gameObject->getPosition().x, gameObject->getPosition().y, MEGA_MAN_VIRTUAL_WIDTH,
-		MEGA_MAN_VIRTUAL_HEIGHT, velocity.x * deltaTime, velocity.y*deltaTime);
-	gameObject->setCollisionBox(collisionBox);
 	if (gameObject->getPosition().x == 31 && staticObject->getCollisionBox().x == 0){
 		int a = 5;
 	}
 	// collision
-	float collisionTime = Collision::CheckCollision(gameObject, staticObject, normal);
+	//float collisionTime = Collision::CheckCollision(gameObject, staticObject, normal);
 	gameObject->setTimeCollision(collisionTime);
 	if (collisionTime > 0.0f && collisionTime < 1.0f){
 		gameObject->setNoCollisionWithAll(false);

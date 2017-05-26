@@ -11,7 +11,7 @@
 using namespace std;
 using namespace s_framework;
 
-#define KAMADOMA_VELOCITY_Y 0.5f
+#define KAMADOMA_VELOCITY_Y 0.45f
 #define KAMADOMA_VELOCITY_X 0.07f
 #define KAMADOMA_ACTIVE_DISTANCE 100.0f
 #define KAMADOMA_FORCE_ATTACK_DISTANCE 70.0f
@@ -43,15 +43,13 @@ public:
 
 	//void updateKeyboard(int keyCode)override;
 	void processKeyState(BYTE *keyState)override;
-	void onCollision(GameObject* staticObject)override;
+	void onCollision(GameObject* staticObject, float collisionTime, D3DXVECTOR2 collisionVector)override;
 	void updatePosition()override;
-	void setState(EState state){
-		this->state = state;
-		m_animation = AnimationManager::getInstance()->getAnimationSprites(ECharacter::KAMADOMA, state);
-		GameObject::setSpriteSpec(m_animation->getSpriteSpecs()[0]);
-	}
+	void calculateCollisionBox()override;
+	void setState(int state)override;
 
 	void resetToInit()override;
+	void die();
 };
 
 #endif // !_KAMADOMA_H_

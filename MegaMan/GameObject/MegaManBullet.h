@@ -20,7 +20,7 @@ class MegaManBullet : public GameObject
 
 private:
 	AnimationSpec* m_animation = NULL;
-	EState state;
+	//EState state;
 public:
 	MegaManBullet();
 	~MegaManBullet();
@@ -34,14 +34,10 @@ public:
 
 	//void updateKeyboard(int keyCode)override;
 	void processKeyState(BYTE *keyState)override;
-	void onCollision(GameObject* staticObject)override;
+	void onCollision(GameObject* staticObject, float collisionTime, D3DXVECTOR2 collisionVector)override;
 	void updatePosition()override;
-
-	void setState(EState state){
-		this->state = state;
-		m_animation = AnimationManager::getInstance()->getAnimationSprites(ECharacter::MEGAMAN_BULLET, state);
-		GameObject::setSpriteSpec(m_animation->getSpriteSpecs()[0]);
-	}
+	void calculateCollisionBox()override;
+	void setState(int state)override;
 
 	void initFire(); // dua vao vi tri cua megaman -> init state
 };

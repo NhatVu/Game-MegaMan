@@ -11,6 +11,12 @@ MegaManBullet::~MegaManBullet()
 {
 }
 
+void MegaManBullet::setState(int state){
+//	this->state = state;
+	GameObject::setState(state);
+	m_animation = AnimationManager::getInstance()->getAnimationSprites(ECharacter::MEGAMAN_BULLET, state);
+	GameObject::setSpriteSpec(m_animation->getSpriteSpecs()[0]);
+}
 void MegaManBullet::render() {
 	SpriteSpec* currentSpriteSpec = m_animation->getCurrentSpriteSpec();
 	GameObject::setSpriteSpec(currentSpriteSpec);
@@ -37,22 +43,39 @@ void MegaManBullet::initFire(){
 
 }
 void MegaManBullet::processKeyState(BYTE *keyState){}
-void MegaManBullet::onCollision(GameObject* staticObject){
-	SpriteSpec* currentSpriteSpec = this->getSpriteSpec();
 
-	int staticObjectType = staticObject->getType();
+void MegaManBullet::calculateCollisionBox(){
 	DWORD deltaTime = GameTime::getInstance()->getDeltaTime();
 	FPOINT velocity = this->getVelocity();
 
 
 	velocity.x += this->getAcceleration().x*deltaTime;
 	velocity.y += this->getAcceleration().y*deltaTime;
-	D3DXVECTOR2 normal;
+	
 
 	// set Collision BOX for kamadoma. 
 	BOX collisionBox(this->getPosition().x, this->getPosition().y, MEGAMAN_BULLET_VIRTUAL_WIDTH,
 		MEGAMAN_BULLET_VIRTUAL_HEIGHT, velocity.x * deltaTime, velocity.y*deltaTime);
 	this->setCollisionBox(collisionBox);
+}
+void MegaManBullet::onCollision(GameObject* staticObject, float collisionTime, D3DXVECTOR2 collisionVector){
+	SpriteSpec* currentSpriteSpec = this->getSpriteSpec();
+
+	int staticObjectType = staticObject->getType();
+	D3DXVECTOR2 normal = collisionVector;
+	DWORD deltaTime = GameTime::getInstance()->getDeltaTime();
+	FPOINT velocity = this->getVelocity();
+	if (collisionTime > 0.0f && collisionTime < 1.0f){
+
+		switch (staticObjectType)
+		{
+		case ECharacter::KAMADOMA:
+			this->setState(EState::DIE);
+			break;
+		default:
+			break;
+		}
+	}
 }
 void MegaManBullet::updatePosition(){
 	FPOINT currentPosition = this->getPosition();

@@ -87,7 +87,8 @@ void MegaMan::onKeyUp(int KeyCode){
 
 void MegaMan::changeAnimation(int character, int state){
 	m_animation = AnimationManager::getInstance()->getAnimationSprites(character, state);
-	GameObject::setSpriteSpec(m_animation->getSpriteSpecs()[0]);
+	SpriteSpec* a = m_animation->getSpriteSpecs()[0];
+	GameObject::setSpriteSpec(a);
 }
 
 void MegaMan::processKeyState(BYTE *keyState){
@@ -99,13 +100,24 @@ void MegaMan::processKeyState(BYTE *keyState){
 	}
 }
 
-void MegaMan::onCollision(GameObject* staticObject){
-	GameState* newState = m_state->onCollision(this, staticObject);
+void MegaMan::onCollision(GameObject* staticObject, float collisionTime, D3DXVECTOR2 collisionVector){
+	GameState* newState = m_state->onCollision(this, staticObject, collisionTime, collisionVector);
 	if (newState != NULL){
 		delete m_state;
 		m_state = newState;
 		m_state->enter(this);
 	}
+}
+
+void MegaMan::calculateCollisionBox(){
+	DWORD deltaTime = GameTime::getInstance()->getDeltaTime();
+	FPOINT velocity = this->getVelocity();
+	velocity.x += this->getAcceleration().x*deltaTime;
+	velocity.y += this->getAcceleration().y*deltaTime;
+
+	BOX collisionBox(this->getPosition().x, this->getPosition().y, MEGA_MAN_VIRTUAL_WIDTH,
+		MEGA_MAN_VIRTUAL_HEIGHT, velocity.x * deltaTime, velocity.y*deltaTime);
+	this->setCollisionBox(collisionBox);
 }
 
 // update mega man position and VIEWPORT position 

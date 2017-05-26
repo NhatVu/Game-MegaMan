@@ -38,11 +38,12 @@ public:
 		m_state->enter(this);
 	}
 
-	void setState(EState eState){
-		if (eState == EState::IDLE){
+	void setState(int eState)override{
+		GameObject::setState(eState);
+	/*	if (eState == EState::IDLE){
 			m_state = new MegaManIdleState();
 		}
-		m_state->enter(this);
+		m_state->enter(this);*/
 	}
 
 	/*
@@ -54,7 +55,8 @@ public:
 
 	//void updateKeyboard(int keyCode)override;
 	void processKeyState(BYTE *keyState)override;
-	void onCollision(GameObject* staticObject)override;
+	void onCollision(GameObject* staticObject, float collisionTime, D3DXVECTOR2 collisionVector)override;
+	void calculateCollisionBox()override;
 	void updatePosition()override;
 };
 

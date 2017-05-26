@@ -129,27 +129,25 @@ void MegaManClimbingState::update(GameObject* gameObject) {}
 void MegaManClimbingState::enter(GameObject* gameObject){
 
 	((MegaMan*)gameObject)->changeAnimation(ECharacter::MEGAMAN, EState::CLIMB);
-	gameObject->eState = EState::CLIMB;
+	gameObject->setState(EState::CLIMB);
 }
-GameState* MegaManClimbingState::onCollision(GameObject* gameObject, GameObject* staticObject) {
-	SpriteSpec* currentSpriteSpec = gameObject->getSpriteSpec();
+GameState* MegaManClimbingState::onCollision(GameObject* gameObject, GameObject* staticObject, float collisionTime, D3DXVECTOR2 collisionVector) {
 
 	int staticObjectType = staticObject->getType();
-	DWORD deltaTime = GameTime::getInstance()->getDeltaTime();
-	FPOINT velocity = gameObject->getVelocity();
-	velocity.x += gameObject->getAcceleration().x*deltaTime;
-	velocity.y += gameObject->getAcceleration().y*deltaTime;
+	D3DXVECTOR2 normal = collisionVector;
+	//DWORD deltaTime = GameTime::getInstance()->getDeltaTime();
+	//FPOINT velocity = gameObject->getVelocity();
+	//velocity.x += gameObject->getAcceleration().x*deltaTime;
+	//velocity.y += gameObject->getAcceleration().y*deltaTime;
 
-	D3DXVECTOR2 normal;
-
-	// set Collision BOX for mega man. 
-	BOX collisionBox(gameObject->getPosition().x, gameObject->getPosition().y, MEGA_MAN_VIRTUAL_WIDTH,
-		MEGA_MAN_VIRTUAL_HEIGHT, velocity.x * deltaTime, velocity.y*deltaTime);
-	gameObject->setCollisionBox(collisionBox);
+	//	// set Collision BOX for mega man. 
+	//BOX collisionBox(gameObject->getPosition().x, gameObject->getPosition().y, MEGA_MAN_VIRTUAL_WIDTH,
+	//	MEGA_MAN_VIRTUAL_HEIGHT, velocity.x * deltaTime, velocity.y*deltaTime);
+	//gameObject->setCollisionBox(collisionBox);
 
 	// collision
 
-	float collisionTime = Collision::CheckCollision(gameObject, staticObject, normal);
+	//float collisionTime = Collision::CheckCollision(gameObject, staticObject, normal);
 		gameObject->setNoCollisionWithAll(false);
 		gameObject->setTimeCollision(collisionTime);
 	if (collisionTime > 0.0f && collisionTime < 1.0f){
