@@ -83,6 +83,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="GameObject\BombombombParent.h" />
     <ClInclude Include="GameObject\State\GameState.h" />
     <ClInclude Include="GameObject\Kamadoma.h" />
     <ClInclude Include="Map\MapBombMan.h" />
@@ -97,6 +98,7 @@
     <ClInclude Include="GameObject\MegaMan.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="GameObject\BombombombParent.cpp" />
     <ClCompile Include="GameObject\State\GameState.cpp" />
     <ClCompile Include="GameObject\Kamadoma.cpp" />
     <ClCompile Include="Map\MapBombMan.cpp" />

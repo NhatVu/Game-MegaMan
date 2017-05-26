@@ -22,7 +22,6 @@ GameState* MegaManAttackState::onKeyDown(GameObject* gameObject, int keyCode){
 		map<int, GameObject*> &activeObject = ObjectManager::getInstance()->getActiveObject();
 		GameObject* megaManBullet = ObjectFactory::createObject(ECharacter::MEGAMAN_BULLET);
 		megaManBullet->setObjectID(ObjectManager::notInMapObjectId);
-		megaManBullet->setTexture(TextureManager::getInstance()->getObjectTexture());
 		((MegaManBullet*)megaManBullet)->initFire();
 		ObjectManager::getInstance()->addObjectToActiveObject(megaManBullet);
 		map<int, GameObject*> newactiveObject = ObjectManager::getInstance()->getActiveObject();

@@ -38,11 +38,6 @@ public:
 	Override
 	*/
 	void render() override;
-	void onKeyDown(int keyCode) override;
-	void onKeyUp(int keyCode) override;
-
-	//void updateKeyboard(int keyCode)override;
-	void processKeyState(BYTE *keyState)override;
 	void onCollision(GameObject* staticObject, float collisionTime, D3DXVECTOR2 collisionVector)override;
 	void updatePosition()override;
 	void calculateCollisionBox()override;

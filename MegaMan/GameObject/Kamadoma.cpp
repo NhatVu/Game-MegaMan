@@ -25,10 +25,6 @@ void Kamadoma::render() {
 	// set position to render
 	GameObject::render();
 }
-void Kamadoma::onKeyDown(int keyCode) {}
-void Kamadoma::onKeyUp(int keyCode) {}
-
-void Kamadoma::processKeyState(BYTE *keyState){}
 
 void Kamadoma::calculateCollisionBox(){
 	if (this->getIsInactive())
@@ -46,6 +42,7 @@ void Kamadoma::calculateCollisionBox(){
 }
 
 void Kamadoma::die(){
+	this->setState(EState::DIE);
 	this->setIsInactive(true);
 	//this->setPostion(this->getInitPosition());
 	BOX oldCollisionBox = this->getCollisionBox();
@@ -80,7 +77,6 @@ void Kamadoma::onCollision(GameObject* staticObject, float collisionTime, D3DXVE
 	//float collisionTime = Collision::CheckCollision(this, staticObject, normal);
 	if (collisionTime > 0.0f && collisionTime < 1.0f){
 		if (staticObjectType == ECharacter::MEGAMAN_BULLET){
-			this->setState(EState::DIE);
 			this->die();
 			return;
 		}

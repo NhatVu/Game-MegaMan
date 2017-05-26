@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="140" height="37" tilewidth="32" tileheight="32" nextobjectid="44">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="140" height="37" tilewidth="32" tileheight="32" nextobjectid="54">
  <tileset firstgid="1" name="Bombman's Stage - Mephea" tilewidth="32" tileheight="32" tilecount="6080" columns="160">
   <image source="Bombman's Stage - Mephea.png" width="5134" height="1219"/>
  </tileset>
@@ -5188,7 +5188,7 @@
   </data>
  </layer>
  <objectgroup name="Object Layer 1">
-  <object id="1" name="static" type="0" x="1.3333" y="1143.67" width="1729.5" height="38.6667"/>
+  <object id="1" name="static" type="0" x="1.3333" y="1143.67" width="839.5" height="38.6667"/>
   <object id="5" name="static" type="0" x="270.333" y="1111.33" width="60" height="15.6667"/>
   <object id="10" name="static" type="0" x="0" y="1019" width="5" height="120.667"/>
   <object id="20" type="0" x="1628" y="1111" width="18" height="14"/>
@@ -5211,5 +5211,15 @@
   <object id="40" name="Kamadoma" type="3" x="413" y="1027" width="16" height="14"/>
   <object id="41" name="Kamadoma" type="3" x="479" y="1064" width="12" height="9"/>
   <object id="43" name="Kamadoma" type="3" x="516" y="1091" width="10" height="13"/>
+  <object id="44" type="0" x="876" y="1146" width="63" height="34"/>
+  <object id="45" type="0" x="910" y="1112" width="29" height="11"/>
+  <object id="46" type="0" x="942" y="1077" width="28" height="104"/>
+  <object id="47" type="0" x="1007" y="1145" width="60" height="34"/>
+  <object id="48" type="0" x="1037" y="1110" width="29" height="34"/>
+  <object id="49" type="0" x="1070" y="1076" width="29" height="106"/>
+  <object id="50" type="0" x="1131" y="1143" width="64" height="37"/>
+  <object id="51" type="0" x="1165" y="1110" width="29" height="15"/>
+  <object id="52" type="0" x="1198" y="1077" width="28" height="104"/>
+  <object id="53" name="bombombomb" type="4" x="852" y="1177" width="17" height="17"/>
  </objectgroup>
 </map>
