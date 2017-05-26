@@ -48,6 +48,8 @@ void Kamadoma::die(){
 	BOX oldCollisionBox = this->getCollisionBox();
 	oldCollisionBox.x = this->getInitPosition().x;
 	oldCollisionBox.y = this->getInitPosition().y;
+	oldCollisionBox.width = KAMADOMA_VIRTUAL_WIDTH;
+	oldCollisionBox.height = KAMADOMA_VIRTUAL_HEIGHT;
 	oldCollisionBox.vx = 0.0f;
 	oldCollisionBox.vy = 0.0f;
 	this->setCollisionBox(oldCollisionBox);
@@ -193,6 +195,8 @@ void Kamadoma::resetToInit(){
 	BOX oldCollisionBox = this->getCollisionBox();
 	oldCollisionBox.x = this->getPosition().x;
 	oldCollisionBox.y = this->getPosition().y;
+	oldCollisionBox.width = KAMADOMA_VIRTUAL_WIDTH;
+	oldCollisionBox.height = KAMADOMA_VIRTUAL_HEIGHT;
 	oldCollisionBox.vx = 0.0f;
 	oldCollisionBox.vy = 0.0f;
 	this->setCollisionBox(oldCollisionBox);

@@ -26,7 +26,7 @@ MegaManClimbingState::~MegaManClimbingState()
 GameState* MegaManClimbingState::onKeyDown(GameObject* gameObject, int keyCode){
 	if (keyCode == DIK_F){
 		return new MegaManJumpingState();
-	}else
+	}//else
 
 	//if (this->canChangeToUpViewport && keyCode == DIK_UP){
 	//	// change viewport lên trên

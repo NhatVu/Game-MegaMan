@@ -1,17 +1,29 @@
 ﻿#include "BombombombParent.h"
-
+#include "BombombombChildren.h"
 
 BombombombParent::BombombombParent()
 {
 	this->countFrame = 0;
 	this->deactiveInterval = false;
 	setVelocity(FPOINT(0.0f, BOMBOMBOMB_PARENT_VELOCITY_Y));
-
 }
+
 
 
 BombombombParent::~BombombombParent()
 {
+}
+
+GameObject* BombombombParent::createBombombombChldren(float velocity_x){
+	GameObject* bombombombChildren = ObjectFactory::createObject(ECharacter::BOMBOMBOM_CHILDREN);
+	bombombombChildren->setObjectID(ObjectManager::notInMapObjectId++);
+	bombombombChildren->setVelocity(FPOINT(velocity_x, BOMBOMBOMB_CHILDREN_VELOCITY_Y));
+	bombombombChildren->setAcceleration(FPOINT(0.0f, GRAVITATIONAL_ACCELERATION / 5));
+	bombombombChildren->setInitPosition(FPOINT(this->getPosition().x, BOMBOMBOMB_PARENT_EXPLOSIVE_HEIGHT));
+	bombombombChildren->resetToInit();
+	bombombombChildren->setIsInactive(true);
+
+	return bombombombChildren;
 }
 
 void BombombombParent::setState(int state){
@@ -51,6 +63,21 @@ void BombombombParent::onCollision(GameObject* staticObject, float collisionTime
 		return;
 	if (position.y > BOMBOMBOMB_PARENT_EXPLOSIVE_HEIGHT){
 		this->die();
+		if (listBombombombChildren.size() == 0){
+			//init bombombomb children
+
+			listBombombombChildren.push_back(createBombombombChldren(BOMBOMBOMB_CHILDREN_VELOCITY_X_STANDARD));
+			listBombombombChildren.push_back(createBombombombChldren(-BOMBOMBOMB_CHILDREN_VELOCITY_X_STANDARD));
+			listBombombombChildren.push_back(createBombombombChldren(1.4 * BOMBOMBOMB_CHILDREN_VELOCITY_X_STANDARD));
+			listBombombombChildren.push_back(createBombombombChldren(-1.4 * BOMBOMBOMB_CHILDREN_VELOCITY_X_STANDARD));
+		}
+		// active bombombomb chldren
+		map<int, GameObject*> active = ObjectManager::getInstance()->getActiveObject();
+		for (int i = 0; i < listBombombombChildren.size(); i++){
+			listBombombombChildren[i]->setIsInactive(false);
+			listBombombombChildren[i]->resetToInit(); // do chưa ra khỏi viewport nên không gọi được trong hàm processQuadTreeAndViewport
+			ObjectManager::getInstance()->addObjectToActiveObject(listBombombombChildren[i]);
+		}
 	}
 }
 void BombombombParent::updatePosition(){
@@ -89,21 +116,16 @@ void BombombombParent::resetToInit(){
 	oldCollisionBox.vx = 0.0f;
 	oldCollisionBox.vy = 0.0f;
 	this->setCollisionBox(oldCollisionBox);
-	this->setVelocity(FPOINT(0.0f, BOMBOMBOMB_PARENT_VELOCITY_Y));
-
 	this->setState(EState::ACTIVE);
 }
 void BombombombParent::die(){
 	this->setState(EState::DIE);
 	this->deactiveInterval = true;
-	//this->setIsInactive(true);
-	//this->setPostion(this->getInitPosition());
 	BOX oldCollisionBox = this->getCollisionBox();
 	oldCollisionBox.x = this->getInitPosition().x;
 	oldCollisionBox.y = this->getInitPosition().y;
 	oldCollisionBox.vx = 0.0f;
 	oldCollisionBox.vy = 0.0f;
 	this->setCollisionBox(oldCollisionBox);
-	this->setVelocity(FPOINT(0.0f, 0.0f));
 
 }

@@ -23,8 +23,7 @@ void MegaManBullet::render() {
 	// set position to render
 	GameObject::render();
 }
-void MegaManBullet::onKeyDown(int keyCode) {}
-void MegaManBullet::onKeyUp(int keyCode) {}
+
 void MegaManBullet::initFire(){
 	GameObject* megaMan = ObjectManager::getInstance()->getMegaMan();
 	FPOINT initPos = megaMan->getPosition();
@@ -42,7 +41,6 @@ void MegaManBullet::initFire(){
 	this->setCollisionBox(collisionBox);
 
 }
-void MegaManBullet::processKeyState(BYTE *keyState){}
 
 void MegaManBullet::calculateCollisionBox(){
 	DWORD deltaTime = GameTime::getInstance()->getDeltaTime();

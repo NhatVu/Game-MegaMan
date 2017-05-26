@@ -3,6 +3,8 @@
 #include "../../MegaMan/GameObject/MegaManBullet.h"
 #include "../../MegaMan/MegaManUtilities.h"
 #include "../../MegaMan/GameObject/BombombombParent.h"
+#include "../../MegaMan/GameObject/BombombombChildren.h"
+
 #include "../SpriteAndAnimation/TextureManager.h"
 using namespace s_framework;
 ObjectFactory::ObjectFactory()
@@ -40,6 +42,13 @@ GameObject* ObjectFactory::createObject(int objectType){
 		object->setState(EState::ACTIVE);
 		object->setType(ECharacter::BOMBOMBOMB_PARENT);
 		object->setTexture(TextureManager::getInstance()->getObjectTexture());
+		break;
+	case ECharacter::BOMBOMBOM_CHILDREN:
+		object = new BombombombChildren();
+		object->setState(EState::ACTIVE);
+		object->setType(ECharacter::BOMBOMBOM_CHILDREN);
+		object->setTexture(TextureManager::getInstance()->getObjectTexture());
+		break;
 	default:
 		break;
 	}

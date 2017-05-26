@@ -123,8 +123,8 @@ GameState* MegaManIdleState::onCollision(GameObject* gameObject, GameObject* sta
 	// xét trong trường hợp collideTime = 1
 	if (staticObjectType == ECharacter::LADDER){
 
-		if (collisionTime != 0.0f && (gameObject->getPosition().x + MEGA_MAN_VIRTUAL_WIDTH / 2 > staticObject->getCollisionBox().x + staticObject->getCollisionBox().width / 5)
-			&& (gameObject->getPosition().x + MEGA_MAN_VIRTUAL_WIDTH / 2 < staticObject->getCollisionBox().x + 4 * staticObject->getCollisionBox().width / 5)){
+		if (collisionTime != 0.0f && (gameObject->getPosition().x + MEGA_MAN_VIRTUAL_WIDTH / 2 > staticObject->getCollisionBox().x + staticObject->getCollisionBox().width / 6)
+			&& (gameObject->getPosition().x + MEGA_MAN_VIRTUAL_WIDTH / 2 < staticObject->getCollisionBox().x + 5.0f * staticObject->getCollisionBox().width / 6)){
 			gameObject->setNoCollisionWithAll(false);
 			FPOINT newPosition = gameObject->getPosition();
 			newPosition.x = staticObject->getCollisionBox().x + staticObject->getCollisionBox().width / 2 - MEGA_MAN_VIRTUAL_WIDTH / 2;

@@ -8,7 +8,10 @@
 #include "../MegaManUtilities.h"
 #include "../../SFramework/Collision.h"
 #include "../../SFramework/SFramework.h"
-
+#include <map>
+#include "../../SFramework/Map/ObjectFactory.h"
+#include "../../SFramework/Map/ObjectManager.h"
+#include <vector>
 using namespace std;
 using namespace s_framework;
 
@@ -27,6 +30,8 @@ private:
 	AnimationSpec* m_animation = NULL;
 	int countFrame;
 	bool deactiveInterval;
+	vector<GameObject*> listBombombombChildren;
+	GameObject* createBombombombChldren(float velocity_x);
 public:
 	BombombombParent();
 	~BombombombParent();

@@ -193,7 +193,7 @@ void SFramework::update(float delta)
 	
 
 	for (int i = 0; i < mListObject.size(); i++){
-		if (mListObject[i]->getType() != 0)
+		if (mListObject[i]->getType() != ECharacter::STATIC && mListObject[i]->getType() != ECharacter::LADDER)
 		{
 			for (int j = 0; j < mListObject.size(); j++){
 				if (mListObject[j]->getType() != 0 && i != j){

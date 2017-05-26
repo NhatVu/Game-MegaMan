@@ -24,8 +24,8 @@ GameState* MegaManAttackState::onKeyDown(GameObject* gameObject, int keyCode){
 		megaManBullet->setObjectID(ObjectManager::notInMapObjectId);
 		((MegaManBullet*)megaManBullet)->initFire();
 		ObjectManager::getInstance()->addObjectToActiveObject(megaManBullet);
-		map<int, GameObject*> newactiveObject = ObjectManager::getInstance()->getActiveObject();
 		this->isFinishAttack = false;
+		ObjectManager::notInMapObjectId++;
 	}
 	return NULL;
 }
