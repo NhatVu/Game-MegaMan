@@ -27,6 +27,8 @@ enum EState
 	IDLE_FIRE = 7,
 	ACTIVE = 8,
 	JUMP_FIRE = 9,
+	ATTACK_BEGIN = 10,
+	ATTCK_FINISH = 11,
 };
 
 

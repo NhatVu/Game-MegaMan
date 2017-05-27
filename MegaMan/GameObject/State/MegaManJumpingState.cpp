@@ -2,6 +2,7 @@
 #include "MegaManRunningState.h"
 #include "../MegaMan.h"
 #include "../../../SFramework/GameTime.h"
+#include "../../../SFramework/Camera/ViewPort.h"
 
 MegaManJumpingState::MegaManJumpingState()
 {
@@ -64,8 +65,20 @@ GameState* MegaManJumpingState::onCollision(GameObject* gameObject, GameObject* 
 	//	MEGA_MAN_VIRTUAL_HEIGHT, velocity.x * deltaTime, velocity.y*deltaTime);
 	//gameObject->setCollisionBox(collisionBox);
 
-	if (gameObject->getPosition().x == 31 && staticObject->getCollisionBox().x == 0){
-		int a = 5;
+	if (gameObject->getPosition().y - MEGA_MAN_VIRTUAL_HEIGHT / 2 < ViewPort::getInstance()->getPosition().y - ViewPort::getInstance()->getViewportBoundary().height + 32){
+		FPOINT position = ViewPort::getInstance()->getPosition();
+		position.y -= 9 * 32;
+		vector<BOX> listViewportState = ViewPort::getInstance()->getListViewportState();
+		for (int i = 0; i < listViewportState.size(); i++){
+			BOX temp = listViewportState[i];
+			if (position.y < temp.y && position.y > temp.y - temp.height) // điểm y thuộc boundary temp
+			{
+				ViewPort::getInstance()->setViewportBoundary(temp);
+				ViewPort::getInstance()->setPosition(FPOINT(position.x, temp.y));
+				break;
+			}
+		}
+		Sleep(400);
 	}
 	// collision
 	//float collisionTime = Collision::CheckCollision(gameObject, staticObject, normal);

@@ -37,6 +37,16 @@
 			"name": "jump-fire",
 			"delayFrame": 1,
 			"frame": [83]
+		},{
+			"stateID": 10,
+			"name": "attack-begin",
+			"delayFrame": 2,
+			"frame": [73,75]
+		},{
+			"stateID": 11,
+			"name": "attack-finish",
+			"delayFrame": 2,
+			"frame": [80,75]
 		}]
 	},{
 		"characterID": 2,
