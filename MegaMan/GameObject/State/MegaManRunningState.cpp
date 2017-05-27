@@ -65,19 +65,6 @@ GameState* MegaManRunningState::onCollision(GameObject* gameObject, GameObject* 
 	int staticObjectType = staticObject->getType();
 	D3DXVECTOR2 normal = collisionVector;
 
-	//DWORD deltaTime = GameTime::getInstance()->getDeltaTime();
-	//FPOINT velocity = gameObject->getVelocity();
-	//velocity.x += gameObject->getAcceleration().x*deltaTime;
-	//velocity.y += gameObject->getAcceleration().y*deltaTime;
-	////gameObject->setVelocity(velocity);
-
-	//// set Collision BOX for mega man. 
-	//BOX collisionBox(gameObject->getPosition().x, gameObject->getPosition().y, MEGA_MAN_VIRTUAL_WIDTH,
-	//	MEGA_MAN_VIRTUAL_HEIGHT, velocity.x * deltaTime, velocity.y*deltaTime);
-	//gameObject->setCollisionBox(collisionBox);
-
-	// collision
-	//float collisionTime = Collision::CheckCollision(gameObject, staticObject, normal);
 	gameObject->setTimeCollision(collisionTime);
 	if (collisionTime > 0.0f && collisionTime < 1.0f){
 		gameObject->setNoCollisionWithAll(false);
@@ -113,13 +100,9 @@ GameState* MegaManRunningState::topCollision(GameObject* gameObject, GameObject*
 	case ECharacter::LADDER:
 		newPosition.y = MEGA_MAN_VIRTUAL_HEIGHT + staticObject->getCollisionBox().y + 1;
 		gameObject->setPostion(newPosition);
-		/*
-		Khi mega man đứng trên mặt đất, có phản lực N triệt tiêu lực hấp dẫn. Do đó có thể coi
-		gia tốc trọng từng = 0 và v.y = 0;
-		*/
+
 		gameObject->setAcceleration(FPOINT(MEGA_MAN_ACCELERATION_X, 0.0f));
 		gameObject->setVelocity(FPOINT(gameObject->getVelocity().x, 0.0f));
-		//return new MegaManIdleState();
 		break;
 	default:
 		break;

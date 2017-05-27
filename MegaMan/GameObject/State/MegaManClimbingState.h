@@ -22,8 +22,6 @@ private:
 
 	void checkViewportState(GameObject* megaMan);
 	bool canTransitToIdle;
-	bool canChangeToUpViewport;
-	bool canChangeToDownViewport;
 };
 
 #endif

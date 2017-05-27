@@ -235,6 +235,9 @@ void SFramework::update(float delta)
 
 		}
 	}
+
+	// update viewport position 
+	ViewPort::getInstance()->updateViewportNextFrame();
 	//// update postion before detect collision
 	//for (int i = 0; i < mListObject.size(); i++){
 	//	mListObject[i]->updatePosition();

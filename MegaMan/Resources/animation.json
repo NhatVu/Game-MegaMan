@@ -40,12 +40,12 @@
 		},{
 			"stateID": 10,
 			"name": "attack-begin",
-			"delayFrame": 2,
+			"delayFrame": 1,
 			"frame": [73,75]
 		},{
 			"stateID": 11,
 			"name": "attack-finish",
-			"delayFrame": 2,
+			"delayFrame": 1,
 			"frame": [80,75]
 		}]
 	},{

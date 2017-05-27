@@ -65,15 +65,6 @@ void Kamadoma::onCollision(GameObject* staticObject, float collisionTime, D3DXVE
 	
 	DWORD deltaTime = GameTime::getInstance()->getDeltaTime();
 	FPOINT velocity = this->getVelocity();
-	//
-	//velocity.x += this->getAcceleration().x*deltaTime;
-	//velocity.y += this->getAcceleration().y*deltaTime;
-
-	//// set Collision BOX for kamadoma. 
-	//BOX collisionBox(this->getPosition().x, this->getPosition().y, KAMADOMA_VIRTUAL_WIDTH,
-	//	KAMADOMA_VIRTUAL_HEIGHT, velocity.x * deltaTime, velocity.y*deltaTime);
-	//this->setCollisionBox(collisionBox);
-
 	// collision
 	BOX collisionBox = this->getCollisionBox();
 	//float collisionTime = Collision::CheckCollision(this, staticObject, normal);
@@ -82,10 +73,7 @@ void Kamadoma::onCollision(GameObject* staticObject, float collisionTime, D3DXVE
 			this->die();
 			return;
 		}
-		/*
-		NOTE : Khi xét va chạm, không set vị trí và chạm giữa 2 vật trùng nhau mà phải cho chúng nó lệch nhau ít nhất 1px.
-		- Position ở đây là top-left của vật.
-		*/
+
 		//vật đi từ trên xuống
 		FPOINT newPosition = this->getPosition();
 		//FPOINT kamadomaPos = this->getPosition();

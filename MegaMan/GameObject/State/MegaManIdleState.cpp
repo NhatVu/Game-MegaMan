@@ -8,6 +8,7 @@
 #include "../MegaManBullet.h"
 #include <map>
 #include "MegaManAttackState.h"
+#include "MegaManBeAttackedState.h"
 
 using namespace std;
 MegaManIdleState::MegaManIdleState()
@@ -39,16 +40,16 @@ GameState* MegaManIdleState::onKeyDown(GameObject* gameObject, int keyCode){
 		((MegaManClimbingState*)state)->isPressDown = true;
 		return state;
 	}
-	
-	
+
+
 	return NULL;
 }
-GameState*  MegaManIdleState::onKeyUp(GameObject* gameObject, int keyCode){ 
+GameState*  MegaManIdleState::onKeyUp(GameObject* gameObject, int keyCode){
 	if (keyCode == DIK_D){
 		//((MegaMan*)gameObject)->changeAnimation(ECharacter::MEGAMAN, EState::IDLE);
 
 	}
-	return NULL; 
+	return NULL;
 }
 GameState*  MegaManIdleState::processKeyState(GameObject* gameObject, BYTE *keyState){
 	GameState::processKeyState(gameObject, keyState);
@@ -77,19 +78,6 @@ GameState* MegaManIdleState::onCollision(GameObject* gameObject, GameObject* sta
 	D3DXVECTOR2 normal = collisionVector;
 	int staticObjectType = staticObject->getType();
 
-	//DWORD deltaTime = GameTime::getInstance()->getDeltaTime();
-	//FPOINT velocity = gameObject->getVelocity();
-	//velocity.x += gameObject->getAcceleration().x*deltaTime;
-	//velocity.y += gameObject->getAcceleration().y*deltaTime;
-	//
-	//// set Collision BOX for mega man. 
-	//BOX collisionBox(gameObject->getPosition().x, gameObject->getPosition().y, MEGA_MAN_VIRTUAL_WIDTH,
-	//	MEGA_MAN_VIRTUAL_HEIGHT, velocity.x * deltaTime, velocity.y*deltaTime);
-	//gameObject->setCollisionBox(collisionBox);
-
-	// collision
-
-	//float collisionTime = Collision::CheckCollision(gameObject, staticObject, normal);
 	gameObject->setTimeCollision(collisionTime);
 	if (collisionTime > 0.0f && collisionTime < 1.0f){
 		gameObject->setNoCollisionWithAll(false);
@@ -172,12 +160,30 @@ GameState* MegaManIdleState::topCollision(GameObject* gameObject, GameObject* st
 		gameObject->setAcceleration(FPOINT(MEGA_MAN_ACCELERATION_X, 0.0f));
 		gameObject->setVelocity(FPOINT(gameObject->getVelocity().x, 0.0f));
 		break;
+	case ECharacter::KAMADOMA:
+		if (newPosition.x > staticObject->getPosition().x)
+			newPosition.x += MOVING_X_WHEN_ATTACKED;
+		else newPosition.x -= MOVING_X_WHEN_ATTACKED;
+		gameObject->setPostion(newPosition);
+
+		return new MegaManBeAttackedState();
 	default:
 		break;
 	}
 	return NULL;
 }
 GameState* MegaManIdleState::bottomCollision(GameObject* gameObject, GameObject* staticObject){
+	FPOINT newPosition = gameObject->getPosition();
+	switch (staticObject->getType()){
+	case ECharacter::KAMADOMA:
+		if (newPosition.x > staticObject->getPosition().x)
+			newPosition.x += MOVING_X_WHEN_ATTACKED;
+		else newPosition.x -= MOVING_X_WHEN_ATTACKED;
+		gameObject->setPostion(newPosition);
+		return new MegaManBeAttackedState();
+	default:
+		break;
+	}
 	return NULL;
 }
 GameState* MegaManIdleState::leftCollision(GameObject* gameObject, GameObject* staticObject){
@@ -189,6 +195,12 @@ GameState* MegaManIdleState::leftCollision(GameObject* gameObject, GameObject* s
 
 		gameObject->setVelocity(FPOINT(0.0f, gameObject->getVelocity().y));
 		break;
+	case ECharacter::KAMADOMA:
+		if (newPosition.x > staticObject->getPosition().x)
+			newPosition.x += MOVING_X_WHEN_ATTACKED;
+		else newPosition.x -= MOVING_X_WHEN_ATTACKED;
+		gameObject->setPostion(newPosition);
+		return new MegaManBeAttackedState();
 	default:
 		break;
 	}
@@ -202,6 +214,12 @@ GameState* MegaManIdleState::rightCollision(GameObject* gameObject, GameObject* 
 		gameObject->setPostion(newPosition);
 		gameObject->setVelocity(FPOINT(0.0f, gameObject->getVelocity().y));
 		break;
+	case ECharacter::KAMADOMA:
+		if (newPosition.x > staticObject->getPosition().x)
+			newPosition.x += MOVING_X_WHEN_ATTACKED;
+		else newPosition.x -= MOVING_X_WHEN_ATTACKED;
+		gameObject->setPostion(newPosition);
+		return new MegaManBeAttackedState();
 	default:
 		break;
 	}
