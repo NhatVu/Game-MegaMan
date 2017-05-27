@@ -13,6 +13,7 @@ MegaMan::MegaMan() : GameObject()
 	GameObject::setAcceleration(FPOINT(0, GRAVITATIONAL_ACCELERATION));
 	//GameObject::setVelocity(FPOINT(MEGA_MAN_VELOCITY_X, 0.0f));
 	m_state_attack = new MegaManAttackState();
+	canChangeViewportUp = false;
 }
 
 

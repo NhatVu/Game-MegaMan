@@ -37,7 +37,7 @@ GameState*  MegaManClimbingState::onKeyUp(GameObject* gameObject, int keyCode){
 	return NULL;
 }
 GameState*  MegaManClimbingState::processKeyState(GameObject* gameObject, BYTE *keyState){
-	GameState::processKeyState(gameObject, keyState);
+	//GameState::processKeyState(gameObject, keyState);
 	if (gameObject->getCanClimb() && (keyState[DIK_UP] * 0x80) > 0){
 		gameObject->setStopUpdateAnimation(false);
 		gameObject->setVelocity(FPOINT(0.0f, MEGA_MAN_CLIMB_VELOCITY));
@@ -79,8 +79,12 @@ GameState* MegaManClimbingState::onCollision(GameObject* gameObject, GameObject*
 
 	if (staticObjectType == ECharacter::LADDER){
 		// kiểm tra xem megaman có thể leo được hay không. 
-		if (collisionTime == 1.0f)
+		((MegaMan*)gameObject)->canChangeViewportUp = false;
+		if (collisionTime == 1.0f){
 			gameObject->setCanClimb(true);
+			if (staticObject->getCollisionBox().y > ViewPort::getInstance()->getViewportBoundary().y)
+				((MegaMan*)gameObject)->canChangeViewportUp = true;
+		}
 		else{
 			gameObject->setCanClimb(false);
 			return NULL;
@@ -91,8 +95,7 @@ GameState* MegaManClimbingState::onCollision(GameObject* gameObject, GameObject*
 		gameObject->setAcceleration(FPOINT(0.0f, 0.0f));
 
 		// nếu tâm của mega man (trục y) > cầu thang.y => ta chuyển luôn mega man về trạng thái idle. 
-		if (gameObject->getPosition().y - MEGA_MAN_VIRTUAL_HEIGHT / 2 > staticCollisonBox.y
-			|| (gameObject->getPosition().y - MEGA_MAN_VIRTUAL_HEIGHT / 2 < staticCollisonBox.y - staticCollisonBox.height)){
+		if (gameObject->getPosition().y - MEGA_MAN_VIRTUAL_HEIGHT / 2 > staticCollisonBox.y){
 			FPOINT newPosition = gameObject->getPosition();
 
 			newPosition.y = MEGA_MAN_VIRTUAL_HEIGHT + staticObject->getCollisionBox().y + 1;
@@ -103,6 +106,12 @@ GameState* MegaManClimbingState::onCollision(GameObject* gameObject, GameObject*
 			*/
 			gameObject->setAcceleration(FPOINT(MEGA_MAN_ACCELERATION_X, 0.0f));
 			gameObject->setVelocity(FPOINT(gameObject->getVelocity().x, 0.0f));
+			gameObject->setStopUpdateAnimation(false);
+			((MegaMan*)gameObject)->canChangeViewportUp = false;
+			return new MegaManIdleState();
+		}
+		else if (gameObject->getPosition().y - MEGA_MAN_VIRTUAL_HEIGHT / 2 < staticCollisonBox.y - staticCollisonBox.height){
+			((MegaMan*)gameObject)->canChangeViewportUp = false;
 			gameObject->setStopUpdateAnimation(false);
 			return new MegaManIdleState();
 		}
@@ -123,6 +132,7 @@ GameState* MegaManClimbingState::topCollision(GameObject* gameObject, GameObject
 		*/
 		gameObject->setAcceleration(FPOINT(MEGA_MAN_ACCELERATION_X, 0.0f));
 		gameObject->setVelocity(FPOINT(gameObject->getVelocity().x, 0.0f));
+		((MegaMan*)gameObject)->canChangeViewportUp = false;
 		return new MegaManIdleState();
 		break;
 	case ECharacter::LADDER:
@@ -140,6 +150,7 @@ GameState* MegaManClimbingState::topCollision(GameObject* gameObject, GameObject
 			gameObject->setAcceleration(FPOINT(MEGA_MAN_ACCELERATION_X, 0.0f));
 			gameObject->setVelocity(FPOINT(gameObject->getVelocity().x, 0.0f));
 			gameObject->setStopUpdateAnimation(false);
+			((MegaMan*)gameObject)->canChangeViewportUp = false;
 			return new MegaManIdleState();
 		}
 		

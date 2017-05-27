@@ -12,7 +12,7 @@
 #include "State/MegaManRunningState.h"
 #include <vector>
 
-#define MEGA_MAN_VELOCITY_X 0.15f
+#define MEGA_MAN_VELOCITY_X 0.1f
 #define MEGA_MAN_ACCELERATION_X 0.0f
 #define MEGA_MAN_VIRTUAL_WIDTH 22.0f
 #define MEGA_MAN_VIRTUAL_HEIGHT 22.0f
@@ -30,6 +30,7 @@ private:
 	GameState *m_state_attack;
 
 public:
+	bool canChangeViewportUp;
 	void setTexture(LPDIRECT3DTEXTURE9 texture);
 	virtual void processInput(LPDIRECT3DDEVICE9 d3ddv, int Delta);
 	void changeAnimation(int character, int state);
@@ -40,10 +41,6 @@ public:
 
 	void setState(int eState)override{
 		GameObject::setState(eState);
-	/*	if (eState == EState::IDLE){
-			m_state = new MegaManIdleState();
-		}
-		m_state->enter(this);*/
 	}
 
 	/*

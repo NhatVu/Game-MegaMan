@@ -11,7 +11,7 @@ using namespace rapidxml;
 TextureManager* TextureManager::mInstance = NULL;
 char* TextureManager::SOURCE_TEXTURE_XML = "Resources/texture.xml";
 char* TextureManager::SOURCE_TEXTURE_PNG = "Resources/texture.png";
-char* TextureManager::SOURCE_MAP_PNG = "Resources/Bombman's Stage - Mephea.png";
+char* TextureManager::SOURCE_MAP_PNG = "Resources/Cut_Man_map.png";
 TextureManager::TextureManager()
 {
 }

@@ -59,7 +59,7 @@ void ViewPort::updateViewportNextFrame(){
 
 	// update theo trục y
 #pragma region update viewport theo truc y
-	if (megaMan->getCanClimb() && (megaMan->getPosition().y - megaMan->getSpriteSpec()->getHeight() / 2 > ViewPort::getInstance()->getPosition().y)){
+	if (((MegaMan*)megaMan)->canChangeViewportUp && (megaMan->getPosition().y - megaMan->getSpriteSpec()->getHeight() / 2 > ViewPort::getInstance()->getPosition().y)){
 		// change viewport lên trên
 		FPOINT position = ViewPort::getInstance()->getPosition();
 		position.y += 2 * 32;

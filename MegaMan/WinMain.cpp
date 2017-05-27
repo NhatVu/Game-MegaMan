@@ -116,7 +116,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmdLine,
 	SFramework::getInstance()->attachInputObect(megaMan);
 
 	// map
-	MapBombMan* mapBombMan = new MapBombMan("Resources/map.tmx", megaMan);
+	MapBombMan* mapBombMan = new MapBombMan("Resources/map-cut-man.tmx", megaMan);
 	mapBombMan->init();
 
 	/*
