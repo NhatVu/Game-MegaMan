@@ -133,6 +133,7 @@ GameState* MegaManClimbingState::topCollision(GameObject* gameObject, GameObject
 		gameObject->setAcceleration(FPOINT(MEGA_MAN_ACCELERATION_X, 0.0f));
 		gameObject->setVelocity(FPOINT(gameObject->getVelocity().x, 0.0f));
 		((MegaMan*)gameObject)->canChangeViewportUp = false;
+		gameObject->setStopUpdateAnimation(false);
 		return new MegaManIdleState();
 		break;
 	case ECharacter::LADDER:

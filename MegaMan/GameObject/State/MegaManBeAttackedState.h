@@ -8,7 +8,7 @@
 	Ngoài ra, khi bị đụng, mega man lùi về theo hướng bị tấn công 1 khoảng. VD như bị tấn công từ phải sang -> lùi sang trái.
 	Lưu ý lúc mega man đang đứng sát viên gạch -> nếu lùi thì sẽ có chuyện gì ???
 */
-#define MOVING_X_WHEN_ATTACKED 10
+#define MOVING_X_WHEN_ATTACKED 5
 class MegaManBeAttackedState : public GameState
 {
 public:

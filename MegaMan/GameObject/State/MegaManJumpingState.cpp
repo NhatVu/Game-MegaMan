@@ -4,7 +4,7 @@
 #include "../../../SFramework/GameTime.h"
 #include "../../../SFramework/Camera/ViewPort.h"
 #include "MegaManClimbingState.h"
-
+#include "MegaManBeAttackedState.h"
 MegaManJumpingState::MegaManJumpingState()
 {
 	this->name = "Jumping";
@@ -80,6 +80,16 @@ GameState* MegaManJumpingState::onCollision(GameObject* gameObject, GameObject* 
 	}
 	if (collisionTime > 0.0f && collisionTime < 1.0f){
 		gameObject->setNoCollisionWithAll(false);
+		// cho những vật chỉ cần va chạm, không cần hướng 
+		if (staticObjectType == ECharacter::BLADER || staticObjectType == ECharacter::KAMADOMA){
+			FPOINT newPosition = gameObject->getPosition();
+
+			if (newPosition.x > staticObject->getPosition().x)
+				newPosition.x += MOVING_X_WHEN_ATTACKED;
+			else newPosition.x -= MOVING_X_WHEN_ATTACKED;
+			gameObject->setPostion(newPosition);
+			return new MegaManBeAttackedState();
+		}
 		/*
 		NOTE : Khi xét va chạm, không set vị trí và chạm giữa 2 vật trùng nhau mà phải cho chúng nó lệch nhau ít nhất 1px.
 		- Position ở đây là top-left của vật.

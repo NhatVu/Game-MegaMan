@@ -72,6 +72,9 @@
     <ClInclude Include="GameObject\State\MegaManBeAttackedState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GameObject\Blader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -117,6 +120,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GameObject\State\MegaManBeAttackedState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\Blader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

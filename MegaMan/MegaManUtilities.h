@@ -12,6 +12,7 @@ enum ECharacter
 	KAMADOMA = 3,
 	BOMBOMBOMB_PARENT = 4,
 	BOMBOMBOM_CHILDREN = 5,
+	BLADER = 6,
 	MEGAMAN = 10,
 
 };

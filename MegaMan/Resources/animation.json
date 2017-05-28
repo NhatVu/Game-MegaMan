@@ -104,6 +104,20 @@
 			"delayFrame": 0,
 			"frame": [65]
 		}]
+	},{
+		"characterID": 6,
+		"name": "blader",
+		"state": [{
+			"stateID": 8,
+			"name":"active",
+			"delayFrame": 0,
+			"frame": [30]
+		},{
+			"stateID": 5,
+			"name":"die",
+			"delayFrame": 0,
+			"frame": [65]
+		}]
 	}
 	]
 }

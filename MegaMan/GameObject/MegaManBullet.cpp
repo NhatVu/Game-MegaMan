@@ -68,6 +68,7 @@ void MegaManBullet::onCollision(GameObject* staticObject, float collisionTime, D
 		switch (staticObjectType)
 		{
 		case ECharacter::KAMADOMA:
+		case ECharacter::BLADER:
 			this->setState(EState::DIE);
 			break;
 		default:
