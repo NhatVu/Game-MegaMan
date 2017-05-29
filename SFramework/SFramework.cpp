@@ -297,10 +297,9 @@ void s_framework::SFramework::detectCollision(list<GameObject*> game_objects)
 Quadtree* s_framework::SFramework::CreateQuadTree(list<GameObject*> game_objects)
 {
 	Quadtree* quadtree = new Quadtree(1, BOX(0, 0, 800, 600));
-
-
 	for (auto i = game_objects.begin(); i != game_objects.end(); i++)
 		quadtree->Insert(*i);
+
 	return quadtree;
 }
 

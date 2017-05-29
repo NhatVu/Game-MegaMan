@@ -4,6 +4,7 @@
 #include <map>
 #include <vector>
 #include "../GameObject.h"
+#include "../quadtree/QuadTree.h"
 
 using namespace std;
 namespace s_framework {
@@ -22,6 +23,13 @@ namespace s_framework {
 		std::map<int, GameObject*> allBackground;
 		GameObject* megaMan;
 		ObjectManager();
+
+		QuadTree *mQuadtree;
+
+	public:
+		void loadQuadtreeFromFile();
+		void createObjectOnScreen();
+
 	public:
 		static int notInMapObjectId; // những object được tạo ra, không có ở trong map. vd như viên đạn
 

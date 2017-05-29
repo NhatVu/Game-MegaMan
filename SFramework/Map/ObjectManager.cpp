@@ -8,6 +8,14 @@ ObjectManager::ObjectManager()
 {
 }
 
+void s_framework::ObjectManager::loadQuadtreeFromFile()
+{
+}
+
+void s_framework::ObjectManager::createObjectOnScreen()
+{
+}
+
 
 ObjectManager::~ObjectManager()
 {
