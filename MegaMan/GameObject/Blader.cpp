@@ -115,7 +115,7 @@ void Blader::calculateCollisionBox(){
 }
 void Blader::setState(int state){
 	GameObject::setState(state);
-	m_animation = AnimationManager::getInstance()->getAnimationSprites(ECharacter::BLADER, state);
+	m_animation = AnimationManager::getInstance()->getAnimationSprites(ECharacter::BLASTER, state);
 	GameObject::setSpriteSpec(m_animation->getSpriteSpecs()[0]);
 }
 

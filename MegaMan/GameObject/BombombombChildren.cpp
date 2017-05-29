@@ -89,6 +89,4 @@ void BombombombChildren::die(){
 	oldCollisionBox.vx = 0.0f;
 	oldCollisionBox.vy = 0.0f;
 	this->setCollisionBox(oldCollisionBox);
-
-
 }

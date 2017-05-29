@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="105" height="69" tilewidth="32" tileheight="32" nextobjectid="22">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="105" height="69" tilewidth="32" tileheight="32" nextobjectid="23">
  <tileset firstgid="1" name="Cut_Man_map" tilewidth="32" tileheight="32" tilecount="7072" columns="104">
   <image source="Cut_Man_map.png" width="3358" height="2182"/>
  </tileset>
@@ -7273,5 +7273,10 @@
   <object id="19" type="0" x="949" y="2137" width="16.5" height="28.5"/>
   <object id="20" type="0" x="964.5" y="2072.5" width="29" height="63"/>
   <object id="21" name="blader" type="6" x="275" y="2045" width="12" height="13"/>
+  <object id="22" name="blaster" type="7" x="152" y="2112" width="10" height="12">
+   <properties>
+    <property name="data" type="int" value="1"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>

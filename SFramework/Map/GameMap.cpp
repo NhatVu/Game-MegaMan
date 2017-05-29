@@ -166,6 +166,15 @@ void GameMap::parseObjectGroup(){
 			int width = atoi(objectNode->first_attribute("width")->value());
 			int height = atoi(objectNode->first_attribute("height")->value());
 			int objectType = atoi(objectNode->first_attribute("type")->value());
+			string name = "";
+			//try{
+			if (objectNode->first_attribute("data") == NULL){
+				int a = 5;
+			}
+
+			/*}
+			catch ()*/
+
 			//std::string objData = objectNode->first_attribute("data")->value();
 			//int objDataInteger = atoi(objectNode->first_attribute("data")->value());
 

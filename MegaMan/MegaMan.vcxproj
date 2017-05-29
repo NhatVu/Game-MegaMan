@@ -83,6 +83,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="GameObject\BlasterBullet.h" />
+    <ClInclude Include="GameObject\Blaster.h" />
     <ClInclude Include="GameObject\Blader.h" />
     <ClInclude Include="GameObject\BombombombChildren.h" />
     <ClInclude Include="GameObject\BombombombParent.h" />
@@ -101,6 +103,8 @@
     <ClInclude Include="GameObject\MegaMan.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="GameObject\BlasterBullet.cpp" />
+    <ClCompile Include="GameObject\Blaster.cpp" />
     <ClCompile Include="GameObject\Blader.cpp" />
     <ClCompile Include="GameObject\BombombombChildren.cpp" />
     <ClCompile Include="GameObject\BombombombParent.cpp" />

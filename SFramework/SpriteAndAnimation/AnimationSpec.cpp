@@ -1,5 +1,5 @@
 #include "AnimationSpec.h"
-
+#include <algorithm>
 using namespace s_framework;
 
 AnimationSpec::AnimationSpec()
@@ -63,4 +63,8 @@ SpriteSpec* AnimationSpec::getCurrentSpriteSpec(){
 
 
 	return currentSprite;
+}
+
+void AnimationSpec::reverseAnimation(){
+	std::reverse(m_spriteSpecs.begin(), m_spriteSpecs.end());
 }

@@ -118,6 +118,29 @@
 			"delayFrame": 0,
 			"frame": [65]
 		}]
+	},{
+		"characterID": 7,
+		"name": "blaster",
+		"state": [{
+			"stateID": 8,
+			"name":"active",
+			"delayFrame": 0,
+			"frame": [27,28,29]
+		},{
+			"stateID": 1,
+			"name":"idle",
+			"delayFrame": 0,
+			"frame": [26]
+		}]
+	},{
+		"characterID": 8,
+		"name": "blaster_bullet",
+		"state": [{
+			"stateID": 8,
+			"name":"active",
+			"delayFrame": 0,
+			"frame": [25]
+		}]
 	}
 	]
 }
