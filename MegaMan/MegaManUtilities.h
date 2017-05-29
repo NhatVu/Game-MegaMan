@@ -32,6 +32,7 @@ enum EState
 	JUMP_FIRE = 9,
 	ATTACKED_BEGIN = 10,
 	ATTACKED_FINISH = 11,
+	CLIMB_FIRE = 12,
 };
 
 

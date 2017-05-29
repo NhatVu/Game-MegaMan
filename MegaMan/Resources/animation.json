@@ -47,6 +47,11 @@
 			"name": "attack-finish",
 			"delayFrame": 1,
 			"frame": [80,75]
+		},{
+			"stateID": 12,
+			"name": "climb-fire",
+			"delayFrame": 1,
+			"frame": [79]
 		}]
 	},{
 		"characterID": 2,
@@ -131,6 +136,11 @@
 			"name":"idle",
 			"delayFrame": 0,
 			"frame": [26]
+		},{
+			"stateID": 5,
+			"name":"die",
+			"delayFrame": 0,
+			"frame": [65]
 		}]
 	},{
 		"characterID": 8,

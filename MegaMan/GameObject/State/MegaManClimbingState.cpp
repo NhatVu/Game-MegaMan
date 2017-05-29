@@ -3,6 +3,7 @@
 #include "../../../SFramework/GameTime.h"
 #include "MegaManJumpingState.h"
 #include "../../../SFramework/Camera/ViewPort.h"
+#include "MegaManBeAttackedState.h"
 #include <vector>
 
 using namespace std;
@@ -69,6 +70,17 @@ GameState* MegaManClimbingState::onCollision(GameObject* gameObject, GameObject*
 		NOTE : Khi xét va chạm, không set vị trí và chạm giữa 2 vật trùng nhau mà phải cho chúng nó lệch nhau ít nhất 1px.
 		- Position ở đây là top-left của vật.
 		*/
+		// cho những vật chỉ cần va chạm, không cần hướng 
+		if (staticObjectType == ECharacter::BLADER || staticObjectType == ECharacter::KAMADOMA
+			|| staticObjectType == ECharacter::BLASTER_BULLET || staticObjectType == ECharacter::BLASTER){
+			FPOINT newPosition = gameObject->getPosition();
+
+			if (newPosition.x > staticObject->getPosition().x)
+				newPosition.x += MOVING_X_WHEN_ATTACKED;
+			else newPosition.x -= MOVING_X_WHEN_ATTACKED;
+			gameObject->setPostion(newPosition);
+			return new MegaManBeAttackedState();
+		}
 		//vật đi từ trên xuống
 		if (normal.x == 0.0f && normal.y == 1.0f)
 		{

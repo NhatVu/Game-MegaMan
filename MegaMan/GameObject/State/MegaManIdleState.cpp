@@ -103,7 +103,8 @@ GameState* MegaManIdleState::onCollision(GameObject* gameObject, GameObject* sta
 		gameObject->setNoCollisionWithAll(false);
 		((MegaMan*)gameObject)->changeAnimation(ECharacter::MEGAMAN, EState::IDLE);
 		// cho những vật chỉ cần va chạm, không cần hướng 
-		if (staticObjectType == ECharacter::BLADER || staticObjectType == ECharacter::KAMADOMA){
+		if (staticObjectType == ECharacter::BLADER || staticObjectType == ECharacter::KAMADOMA
+			|| staticObjectType == ECharacter::BLASTER_BULLET || staticObjectType == ECharacter::BLASTER){
 			FPOINT newPosition = gameObject->getPosition();
 
 			if (newPosition.x > staticObject->getPosition().x)

@@ -70,6 +70,9 @@ void ObjectManager::processQuadTreeAndViewport(FPOINT viewportPosition){
 				object->setIsInactive(false); // ra khỏi viewport -> đối tượng active trở lại.
 				activeObject.erase(it++);
 			}
+
+			if (object->getObjectID() > 999)
+				delete object;
 		}
 		else
 			++it;

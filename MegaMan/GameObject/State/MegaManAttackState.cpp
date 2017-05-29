@@ -49,6 +49,8 @@ void MegaManAttackState::enter(GameObject* gameObject){
 			((MegaMan*)gameObject)->changeAnimation(ECharacter::MEGAMAN, EState::IDLE);
 		else if (megaManState == EState::JUMP)
 			((MegaMan*)gameObject)->changeAnimation(ECharacter::MEGAMAN, EState::JUMP);
+		/*else if (megaManState == EState::CLIMB)
+			((MegaMan*)gameObject)->changeAnimation(ECharacter::MEGAMAN, EState::CLIMB);*/
 
 	}
 	else{
@@ -56,7 +58,8 @@ void MegaManAttackState::enter(GameObject* gameObject){
 			((MegaMan*)gameObject)->changeAnimation(ECharacter::MEGAMAN, EState::IDLE_FIRE);
 		else if (megaManState == EState::JUMP)
 			((MegaMan*)gameObject)->changeAnimation(ECharacter::MEGAMAN, EState::JUMP_FIRE);
-
+		/*else if (megaManState == EState::CLIMB)
+			((MegaMan*)gameObject)->changeAnimation(ECharacter::MEGAMAN, EState::CLIMB_FIRE);*/
 	}
 	
 

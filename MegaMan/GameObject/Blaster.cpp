@@ -1,9 +1,10 @@
 ﻿#include "Blaster.h"
 #include "../../SFramework/SFramework.h"
-
+#include "BlasterBullet.h"
 
 Blaster::Blaster()
 {
+	this->isRender = false;
 }
 
 
@@ -13,6 +14,7 @@ Blaster::~Blaster()
 
 void Blaster::render() {
 	this->countFrame++;
+	this->isRender = true;
 	if (this->getStopUpdateAnimation() == 0){
 
 		SpriteSpec* currentSpriteSpec = m_animation->getCurrentSpriteSpec();
@@ -31,38 +33,50 @@ void Blaster::onCollision(GameObject* staticObject, float collisionTime, D3DXVEC
 		}
 	}
 
-	// nếu đã idle trong 2s => chuyển sang active
-	if (this->countFrame == 2 * FPS){
-		this->setState(EState::ACTIVE);
-		// bắn viên đạn thứ nhất
-		//creaetBlasterBullet(BLASTER_BULLET_VELOCITY_X, 0.1f);
+#pragma region dicide when to fire bullet
+
+	if (this->isRender){
+		this->isRender = false;
+
+		// nếu đã idle trong 2s => chuyển sang active
+		if (this->countFrame == 2 * FPS){
+			this->setState(EState::ACTIVE);
+			// bắn viên đạn thứ nhất
+			creaetBlasterBullet(-BLASTER_BULLET_VELOCITY_X, 0.07f);
+			//this->countFrame++;
+		}
+		else if (this->countFrame == 2 * FPS + m_animation->getSpriteSpecs().size()){
+			this->setStopUpdateAnimation(true);
+		}
+		else if (this->countFrame == 2.5f * FPS){
+			// bắn viên đạn thứ 2
+			creaetBlasterBullet(-BLASTER_BULLET_VELOCITY_X, 0.0f);
+			//this->countFrame++;
+		}
+
+		else if (this->countFrame == 3 * FPS){
+			// bắn viên thứ 3
+			creaetBlasterBullet(-BLASTER_BULLET_VELOCITY_X, -0.02f);
+			//this->countFrame++;
+		}
+		else if (this->countFrame == 3.5f * FPS){
+			// bắn viên thứ 4
+			creaetBlasterBullet(-BLASTER_BULLET_VELOCITY_X, -0.09f);
+			// đóng blaster => reverse animation order
+			m_animation->reverseAnimation();
+			GameObject::setSpriteSpec(m_animation->getSpriteSpecs()[0]);
+			this->setStopUpdateAnimation(false);
+			//this->countFrame++;
+		}
+		else if (this->countFrame == 3.5f * FPS + m_animation->getSpriteSpecs().size()){
+			// sau khi đã đóng xong => chuyển vể idle
+			m_animation->reverseAnimation();
+			this->setState(EState::IDLE);
+			this->countFrame = 0;
+		}
 	}
-	else if (this->countFrame == 2 * FPS + m_animation->getSpriteSpecs().size()){
-		this->setStopUpdateAnimation(true);
-	}
-	else if (this->countFrame == 2.5f * FPS){
-		// bắn viên đạn thứ 2
-		//creaetBlasterBullet(BLASTER_BULLET_VELOCITY_X, 0.0f);
-	}
-	
-	else if (this->countFrame == 3 * FPS){
-		// bắn viên thứ 3
-		//creaetBlasterBullet(BLASTER_BULLET_VELOCITY_X, -0.1f);
-	}
-	else if (this->countFrame == 3.5f * FPS){
-		// bắn viên thứ 4
-		//creaetBlasterBullet(BLASTER_BULLET_VELOCITY_X, -0.2f);
-		// đóng blaster => reverse animation order
-		m_animation->reverseAnimation();
-		GameObject::setSpriteSpec(m_animation->getSpriteSpecs()[0]);
-		this->setStopUpdateAnimation(false);
-	}
-	else if (this->countFrame == 3.5f * FPS + m_animation->getSpriteSpecs().size() ){
-		// sau khi đã đóng xong => chuyển vể idle
-		m_animation->reverseAnimation();
-		this->setState(EState::IDLE);
-		this->countFrame = 1;
-	}
+#pragma endregion
+
 
 }
 
@@ -125,9 +139,9 @@ void Blaster::creaetBlasterBullet(float vx, float vy){
 	GameObject* blasterBullet = ObjectFactory::createObject(ECharacter::BLASTER_BULLET);
 	blasterBullet->setObjectID(ObjectManager::notInMapObjectId++);
 	blasterBullet->setVelocity(FPOINT(vx, vy));
+	blasterBullet->setPostion(this->getPosition());
 	blasterBullet->calculateCollisionBox();
 	//blasterBullet->setAcceleration(FPOINT(0.0f, GRAVITATIONAL_ACCELERATION / 5));
-	//blasterBullet->setInitPosition(FPOINT(this->getPosition().x, BOMBOMBOMB_PARENT_EXPLOSIVE_HEIGHT));
 	//blasterBullet->resetToInit();
 	//blasterBullet->setIsInactive(true);
 

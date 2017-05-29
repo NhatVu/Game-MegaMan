@@ -3,6 +3,7 @@
 
 BlasterBullet::BlasterBullet()
 {
+	setIsInactive(false);
 }
 
 
@@ -49,11 +50,12 @@ void BlasterBullet::calculateCollisionBox(){
 	// set Collision BOX for kamadoma. 
 	BOX collisionBox(this->getPosition().x, this->getPosition().y, this->getSpriteSpec()->getWidth(),
 		this->getSpriteSpec()->getHeight(), velocity.x * deltaTime, velocity.y*deltaTime);
+	this->setCollisionBox(collisionBox);
 }
 
 void BlasterBullet::setState(int state){
 	GameObject::setState(state);
-	m_animation = AnimationManager::getInstance()->getAnimationSprites(ECharacter::BOMBOMBOM_CHILDREN, state);
+	m_animation = AnimationManager::getInstance()->getAnimationSprites(ECharacter::BLASTER_BULLET, state);
 	GameObject::setSpriteSpec(m_animation->getSpriteSpecs()[0]);
 }
 

@@ -177,7 +177,7 @@ void SFramework::update(float delta)
 
 		if (tmp->getType() == ECharacter::STATIC || tmp->getType() == ECharacter::LADDER)
 			continue;
-		if (tmp->getType() == ECharacter::KAMADOMA){
+		if (tmp->getType() == ECharacter::BLASTER_BULLET){
 			int a = 5;
 		}
 		newScene->addChild(tmp);

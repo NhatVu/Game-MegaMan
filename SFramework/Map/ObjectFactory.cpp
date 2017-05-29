@@ -64,7 +64,7 @@ GameObject* ObjectFactory::createObject(int objectType){
 		object->setTexture(TextureManager::getInstance()->getObjectTexture());
 		break;
 	case ECharacter::BLASTER_BULLET:
-		object = new Blaster();
+		object = new BlasterBullet();
 		object->setState(EState::ACTIVE);
 		object->setType(ECharacter::BLASTER_BULLET);
 		object->setTexture(TextureManager::getInstance()->getObjectTexture());

@@ -2,6 +2,7 @@
 #include "../MegaMan.h"
 #include "../../../SFramework/GameTime.h"
 #include "MegaManClimbingState.h"
+#include "MegaManBeAttackedState.h"
 MegaManRunningState::MegaManRunningState()
 {
 	this->name = "Running";
@@ -77,19 +78,20 @@ GameState* MegaManRunningState::onCollision(GameObject* gameObject, GameObject* 
 	D3DXVECTOR2 normal = collisionVector;
 
 	gameObject->setTimeCollision(collisionTime);
+#pragma region collsion for ladder
 	if (staticObjectType == ECharacter::LADDER){
 		float megaManCenter = gameObject->getPosition().x + MEGA_MAN_VIRTUAL_WIDTH / 2;
 		if (gameObject->getFlipVertical() == -1)
 			megaManCenter += gameObject->getSpriteSpec()->getWidth() - MEGA_MAN_VIRTUAL_WIDTH;
-		if (collisionTime != 0.0f && (megaManCenter> staticObject->getCollisionBox().x + staticObject->getCollisionBox().width / 6)
+		if (collisionTime != 0.0f && (megaManCenter > staticObject->getCollisionBox().x + staticObject->getCollisionBox().width / 6)
 			&& (megaManCenter < staticObject->getCollisionBox().x + 5.0f * staticObject->getCollisionBox().width / 6)){
 			gameObject->setNoCollisionWithAll(false);
-		/*	FPOINT newPosition = gameObject->getPosition();
-			newPosition.x = staticObject->getCollisionBox().x + staticObject->getCollisionBox().width / 2 - MEGA_MAN_VIRTUAL_WIDTH / 2;
-			if (gameObject->getFlipVertical() == -1)
+			/*	FPOINT newPosition = gameObject->getPosition();
+				newPosition.x = staticObject->getCollisionBox().x + staticObject->getCollisionBox().width / 2 - MEGA_MAN_VIRTUAL_WIDTH / 2;
+				if (gameObject->getFlipVertical() == -1)
 				newPosition.x -= gameObject->getSpriteSpec()->getWidth() - MEGA_MAN_VIRTUAL_WIDTH;
 
-			gameObject->setPostion(newPosition);*/
+				gameObject->setPostion(newPosition);*/
 			gameObject->setCanClimb(true);
 
 		}
@@ -97,12 +99,27 @@ GameState* MegaManRunningState::onCollision(GameObject* gameObject, GameObject* 
 			gameObject->setCanClimb(false);
 
 	}
+#pragma endregion
+
 	if (collisionTime > 0.0f && collisionTime < 1.0f){
 		gameObject->setNoCollisionWithAll(false);
 		/*
 		NOTE : Khi xét va chạm, không set vị trí và chạm giữa 2 vật trùng nhau mà phải cho chúng nó lệch nhau ít nhất 1px.
 		- Position ở đây là top-left của vật.
 		*/
+
+		// cho những vật chỉ cần va chạm, không cần hướng 
+		if (staticObjectType == ECharacter::BLADER || staticObjectType == ECharacter::KAMADOMA
+			|| staticObjectType == ECharacter::BLASTER_BULLET || staticObjectType == ECharacter::BLASTER){
+			FPOINT newPosition = gameObject->getPosition();
+
+			if (newPosition.x > staticObject->getPosition().x)
+				newPosition.x += MOVING_X_WHEN_ATTACKED;
+			else newPosition.x -= MOVING_X_WHEN_ATTACKED;
+			gameObject->setPostion(newPosition);
+			return new MegaManBeAttackedState();
+		}
+
 		//vật đi từ trên xuống
 		if (normal.x == 0.0f && normal.y == 1.0f)
 		{

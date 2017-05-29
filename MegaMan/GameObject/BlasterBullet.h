@@ -11,6 +11,8 @@
 
 using namespace std;
 using namespace s_framework;
+#define BLASTER_BULLET_VELOCITY_X 0.1f
+
 class BlasterBullet : public GameObject
 {
 private:

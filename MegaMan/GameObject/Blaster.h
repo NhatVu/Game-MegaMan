@@ -17,13 +17,13 @@ using namespace s_framework;
 	Khi ở open, bắn ra 4 viên đạn với các hướng khác nhau, cố định từ đầu. Mỗi viên cách nhau 20 Frame
 	Khi bắn viên cuối cùng => về trạng thái IDLE trong 2s, rồi quay lại trạng thái Active
 */
-#define BLASTER_BULLET_VELOCITY_X 0.15f
 
 class Blaster : public GameObject
 {
 private:
 	AnimationSpec* m_animation = NULL;
 	int countFrame;
+	bool isRender; // lock trong hàm onCollision. mở lock khi render
 	void creaetBlasterBullet(float vx, float vy);
 public:
 	Blaster();
