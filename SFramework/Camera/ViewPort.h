@@ -41,6 +41,7 @@ namespace s_framework{
 		}
 
 		D3DXVECTOR3 worldToViewport(D3DXVECTOR3 p);
+		void updateViewportNextFrame();
 	};
 }
 #endif // !_VIEW_PORT_H_

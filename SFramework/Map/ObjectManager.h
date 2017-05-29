@@ -47,7 +47,7 @@ namespace s_framework {
 		}
 		/*void addOneToAllBackground(int id, GameObject* gameobject){
 			allBackground[id] = gameobject;
-		}*/
+			}*/
 
 		map<int, GameObject*> &getActiveObject(){ return this->activeObject; }
 		void setActiveObject(map<int, GameObject*> activeObject){
@@ -68,8 +68,11 @@ namespace s_framework {
 		void processQuadTreeAndViewport(FPOINT viewportPosition);
 		static ObjectManager* getInstance();
 		void addObjectToActiveObject(GameObject* object){
-			activeObject[ObjectManager::notInMapObjectId] = object;
-			ObjectManager::notInMapObjectId++;
+			int id = object->getObjectID();
+			if (activeObject.find(id) != activeObject.end())
+				activeObject.erase(id);
+			activeObject[id] = object;
+
 		}
 		~ObjectManager();
 	};

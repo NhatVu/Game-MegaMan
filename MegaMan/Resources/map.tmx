@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="140" height="37" tilewidth="32" tileheight="32" nextobjectid="44">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="140" height="37" tilewidth="32" tileheight="32" nextobjectid="64">
  <tileset firstgid="1" name="Bombman's Stage - Mephea" tilewidth="32" tileheight="32" tilecount="6080" columns="160">
   <image source="Bombman's Stage - Mephea.png" width="5134" height="1219"/>
  </tileset>
@@ -5188,7 +5188,7 @@
   </data>
  </layer>
  <objectgroup name="Object Layer 1">
-  <object id="1" name="static" type="0" x="1.3333" y="1143.67" width="1729.5" height="38.6667"/>
+  <object id="1" name="static" type="0" x="1.3333" y="1143.67" width="839.5" height="38.6667"/>
   <object id="5" name="static" type="0" x="270.333" y="1111.33" width="60" height="15.6667"/>
   <object id="10" name="static" type="0" x="0" y="1019" width="5" height="120.667"/>
   <object id="20" type="0" x="1628" y="1111" width="18" height="14"/>
@@ -5199,7 +5199,7 @@
   <object id="26" type="0" x="1740" y="840" width="31" height="12"/>
   <object id="27" type="0" x="1711" y="806" width="27" height="31"/>
   <object id="28" type="0" x="1581" y="775" width="126" height="31"/>
-  <object id="29" name="ladder" type="1" x="1581" y="662" width="15" height="110"/>
+  <object id="29" name="ladder" type="1" x="1581" y="662" width="16.3333" height="110"/>
   <object id="30" type="0" x="1596" y="662" width="144" height="49"/>
   <object id="31" name="Kamadoma" type="3" x="353" y="1056" width="14" height="16"/>
   <object id="33" type="0" x="333" y="1078" width="62" height="30"/>
@@ -5211,5 +5211,25 @@
   <object id="40" name="Kamadoma" type="3" x="413" y="1027" width="16" height="14"/>
   <object id="41" name="Kamadoma" type="3" x="479" y="1064" width="12" height="9"/>
   <object id="43" name="Kamadoma" type="3" x="516" y="1091" width="10" height="13"/>
+  <object id="44" type="0" x="876" y="1146" width="63" height="34"/>
+  <object id="45" type="0" x="910" y="1112" width="29" height="11"/>
+  <object id="46" type="0" x="942" y="1077" width="28" height="104"/>
+  <object id="47" type="0" x="1007" y="1145" width="60" height="34"/>
+  <object id="48" type="0" x="1037" y="1110" width="29" height="34"/>
+  <object id="49" type="0" x="1070" y="1076" width="29" height="106"/>
+  <object id="50" type="0" x="1131" y="1143" width="64" height="37"/>
+  <object id="51" type="0" x="1165" y="1110" width="29" height="15"/>
+  <object id="52" type="0" x="1198" y="1077" width="28" height="104"/>
+  <object id="53" name="bombombomb" type="4" x="852" y="1177" width="17" height="17"/>
+  <object id="54" name="bombombomb" type="4" x="982.333" y="1178" width="15" height="16"/>
+  <object id="55" name="bombombomb" type="4" x="1108.33" y="1177" width="17" height="15"/>
+  <object id="56" name="bombombomb" type="4" x="1236.67" y="1176.67" width="18" height="16"/>
+  <object id="57" type="0" x="1325.33" y="1111.33" width="30" height="12.6667"/>
+  <object id="58" type="0" x="1261.33" y="1143.33" width="94.6667" height="13.3333"/>
+  <object id="59" type="0" x="1358" y="1078" width="30" height="104.667"/>
+  <object id="60" type="0" x="1436" y="1078.67" width="64.6667" height="13.3333"/>
+  <object id="61" type="0" x="1502" y="1060.67" width="29.3333" height="32.6667"/>
+  <object id="62" type="0" x="1388.67" y="1144" width="351.333" height="38.6667"/>
+  <object id="63" type="0" x="1535" y="665" width="44" height="24"/>
  </objectgroup>
 </map>

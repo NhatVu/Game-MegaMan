@@ -5,6 +5,7 @@
 #include <dinput.h>
 #include "State\MegaManAttackState.h"
 #include "../../SFramework/SFramework.h"
+#include "State\MegaManBeAttackedState.h"
 using namespace s_framework;
 MegaMan::MegaMan() : GameObject()
 {
@@ -12,6 +13,7 @@ MegaMan::MegaMan() : GameObject()
 	GameObject::setAcceleration(FPOINT(0, GRAVITATIONAL_ACCELERATION));
 	//GameObject::setVelocity(FPOINT(MEGA_MAN_VELOCITY_X, 0.0f));
 	m_state_attack = new MegaManAttackState();
+	canChangeViewportUp = false;
 }
 
 
@@ -32,21 +34,39 @@ void MegaMan::render(){
 	m_state_attack->enter(this);
 	/*if (m_state->name == "Running")
 		this->changeAnimation(ECharacter::MEGAMAN, EState::RUNNING);
-*/
+		*/
 	if (this->getStopUpdateAnimation() == 0){
 
-	SpriteSpec* currentSpriteSpec = m_animation->getCurrentSpriteSpec();
-	GameObject::setSpriteSpec(currentSpriteSpec);
+		SpriteSpec* currentSpriteSpec = m_animation->getCurrentSpriteSpec();
+		GameObject::setSpriteSpec(currentSpriteSpec);
 	}
 
 	// set position to render
 	GameObject::render();
 	this->setNoCollisionWithAll(true);
+
+	// dành cho lúc bắn viên đạn
 	int count = ((MegaManAttackState*)m_state_attack)->countFrame;
 	((MegaManAttackState*)m_state_attack)->countFrame++;
-	if (((MegaManAttackState*)m_state_attack)->countFrame > FPS/3){
+	if (((MegaManAttackState*)m_state_attack)->countFrame > FPS / 3){
 		((MegaManAttackState*)m_state_attack)->countFrame = 0;
-	((MegaManAttackState*)m_state_attack)->isFinishAttack = true;
+		((MegaManAttackState*)m_state_attack)->isFinishAttack = true;
+	}
+
+	// lúc bị tấn công
+	if (m_state->name == "BeAttacked"){
+
+		((MegaManBeAttackedState*)m_state)->countFrame++;
+		if (((MegaManBeAttackedState*)m_state)->countFrame > 3 * FPS)
+		{
+			((MegaManBeAttackedState*)m_state)->ChangeToIdleState = true;
+		}
+		else if (((MegaManBeAttackedState*)m_state)->countFrame > FPS / 2){
+			((MegaManBeAttackedState*)m_state)->changeToAttackedFinish = true;
+			((MegaManBeAttackedState*)m_state)->countFrame++;
+		}
+		else
+			((MegaManBeAttackedState*)m_state)->countFrame++;
 	}
 }
 
@@ -87,7 +107,8 @@ void MegaMan::onKeyUp(int KeyCode){
 
 void MegaMan::changeAnimation(int character, int state){
 	m_animation = AnimationManager::getInstance()->getAnimationSprites(character, state);
-	GameObject::setSpriteSpec(m_animation->getSpriteSpecs()[0]);
+	SpriteSpec* a = m_animation->getSpriteSpecs()[0];
+	GameObject::setSpriteSpec(a);
 }
 
 void MegaMan::processKeyState(BYTE *keyState){
@@ -99,13 +120,24 @@ void MegaMan::processKeyState(BYTE *keyState){
 	}
 }
 
-void MegaMan::onCollision(GameObject* staticObject){
-	GameState* newState = m_state->onCollision(this, staticObject);
+void MegaMan::onCollision(GameObject* staticObject, float collisionTime, D3DXVECTOR2 collisionVector){
+	GameState* newState = m_state->onCollision(this, staticObject, collisionTime, collisionVector);
 	if (newState != NULL){
 		delete m_state;
 		m_state = newState;
 		m_state->enter(this);
 	}
+}
+
+void MegaMan::calculateCollisionBox(){
+	DWORD deltaTime = GameTime::getInstance()->getDeltaTime();
+	FPOINT velocity = this->getVelocity();
+	velocity.x += this->getAcceleration().x*deltaTime;
+	velocity.y += this->getAcceleration().y*deltaTime;
+
+	BOX collisionBox(this->getPosition().x, this->getPosition().y, MEGA_MAN_VIRTUAL_WIDTH,
+		MEGA_MAN_VIRTUAL_HEIGHT, velocity.x * deltaTime, velocity.y*deltaTime);
+	this->setCollisionBox(collisionBox);
 }
 
 // update mega man position and VIEWPORT position 
@@ -119,20 +151,6 @@ void MegaMan::updatePosition(){
 	currentPosition.y = currentPosition.y + velocity.y*deltaTime;
 
 	this->setPostion(currentPosition);
-	
-
-	// update postion cho viewport. Tại đây, ta chỉ update position theo chiều x mà thôi
-	// khi tới một điểm nào đó cố định,ta mới update theo chiều y. như vậy cho dễ.
-	FPOINT viewport = ViewPort::getInstance()->getPosition();
-	BOX viewportBoundary = ViewPort::getInstance()->getViewportBoundary();
-	float tmpX = viewport.x + velocity.x * deltaTime;
-	if (this->getPosition().x < SCREEN_WIDTH / 2 + viewportBoundary.x) // không cho di chuyển quá min viewport
-		viewport.x = viewportBoundary.x;
-	else if (this->getPosition().x > viewportBoundary.x + viewportBoundary.width - SCREEN_WIDTH / 2) // không cho di chuyển quả max viewport
-		viewport.x = viewportBoundary.x + viewportBoundary.width - SCREEN_WIDTH;
-	else
-		viewport.x = tmpX;
-	ViewPort::getInstance()->setPosition(viewport);
 
 	// sau khi xét va chạm xong, ta cập nhật lại vận tốc và gia tốc y cho vật. 2 đại lượng này luôn có.
 	// kể cả khi vật đứng yên. 

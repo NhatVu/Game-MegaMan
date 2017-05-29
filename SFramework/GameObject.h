@@ -34,13 +34,13 @@ namespace s_framework
 		int objectID;
 
 		FPOINT initPosition;
-		
+		int state;
+		bool isInactive;// kh ở trạng thái chết -> true. khi ra khỏi viewport => false. và khi true, không xét va chạm, không vẽ
 	public:
 		GameObject();
 		~GameObject();
 
 		void setTexture(LPDIRECT3DTEXTURE9 texture);
-		EState eState;
 
 		/*
 		* GETTERS AND SETTERS
@@ -109,14 +109,28 @@ namespace s_framework
 			this->initPosition = initPosition;
 		}
 		
+		void virtual setState(int state){
+			this->state = state;
+		};
+		int getState(){
+			return this->state;
+		}
+
+		void setIsInactive(bool value){
+			this->isInactive = value;
+		}
+
+		bool getIsInactive(){
+			return this->isInactive;
+		}
 
 		void render()override;
 		void update(long delta)override;
 		virtual void onKeyUp(int keyCode);
 		virtual void onKeyDown(int keyCode);
 		virtual void processKeyState(BYTE *keyState);
-		virtual void onCollision(GameObject* staticObject);
-
+		virtual void onCollision(GameObject* staticObject, float collisionTime, D3DXVECTOR2 collisionVector);
+		virtual void calculateCollisionBox(){};
 		virtual void updatePosition();
 		virtual void resetToInit(){}
 	};

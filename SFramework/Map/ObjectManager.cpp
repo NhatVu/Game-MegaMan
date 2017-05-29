@@ -40,7 +40,6 @@ void ObjectManager::processQuadTreeAndViewport(FPOINT viewportPosition){
 	for (map<int, GameObject*>::iterator it = quadtreeBackground.begin(); it != quadtreeBackground.end();) {
 		object = it->second;
 		BOX collisionBox = object->getCollisionBox();
-		// object trong activeObject nằm ngoài camera => remove
 		if ((collisionBox.x > cameraBox.x + cameraBox.width) || (collisionBox.x + collisionBox.width < cameraBox.x)
 			|| (collisionBox.y < cameraBox.y - cameraBox.height) || (collisionBox.y - collisionBox.height > cameraBox.y)){
 			object->resetToInit();
@@ -52,6 +51,10 @@ void ObjectManager::processQuadTreeAndViewport(FPOINT viewportPosition){
 	// loại bỏ những object trong activeObject nằm ngoài camera
 	for (map<int, GameObject*>::iterator it = activeObject.begin(); it != activeObject.end();) {
 		object = it->second;
+		int a = object->getState();
+		if (object->getState() == EState::DIE){
+			int a = 5;
+		}
 		BOX collisionBox = object->getCollisionBox();
 		// object trong activeObject nằm ngoài camera => remove
 		if ((collisionBox.x > cameraBox.x + cameraBox.width) || (collisionBox.x + collisionBox.width < cameraBox.x)
@@ -60,8 +63,24 @@ void ObjectManager::processQuadTreeAndViewport(FPOINT viewportPosition){
 				++it;
 				continue;
 			}
+			if (object->getState() == EState::DIE){
+				int a = 5;
+			}
+			if (object->getType() == ECharacter::BLADER){
+				int a = 5;
+			}
 			object->resetToInit();
-			activeObject.erase(it++);
+			// nếu init box nằm trong camera -> Inactive
+			if (!((collisionBox.x > cameraBox.x + cameraBox.width) || (collisionBox.x + collisionBox.width < cameraBox.x)
+				|| (collisionBox.y < cameraBox.y - cameraBox.height) || (collisionBox.y - collisionBox.height > cameraBox.y)))
+				object->setIsInactive(true);
+			else{
+				object->setIsInactive(false); // ra khỏi viewport -> đối tượng active trở lại.
+				activeObject.erase(it++);
+			}
+
+			if (object->getObjectID() > 999)
+				delete object;
 		}
 		else
 			++it;

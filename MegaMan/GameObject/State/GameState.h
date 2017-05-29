@@ -18,7 +18,7 @@ public:
 
 	virtual void update(GameObject* gameObject) {}
 	virtual void enter(GameObject* gameObject){} // không được đụng chạm j hết gia tốc 
-	virtual GameState* onCollision(GameObject* gameObject, GameObject* staticObject)=0;
+	virtual GameState* onCollision(GameObject* gameObject, GameObject* staticObject, float collisionTime, D3DXVECTOR2 collisionVector) = 0;
 	//virtual void exit(GameObject* gameObject){}
 	~GameState();
 	string name;

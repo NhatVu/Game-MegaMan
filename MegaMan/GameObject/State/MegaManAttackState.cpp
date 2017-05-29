@@ -22,11 +22,10 @@ GameState* MegaManAttackState::onKeyDown(GameObject* gameObject, int keyCode){
 		map<int, GameObject*> &activeObject = ObjectManager::getInstance()->getActiveObject();
 		GameObject* megaManBullet = ObjectFactory::createObject(ECharacter::MEGAMAN_BULLET);
 		megaManBullet->setObjectID(ObjectManager::notInMapObjectId);
-		megaManBullet->setTexture(TextureManager::getInstance()->getObjectTexture());
 		((MegaManBullet*)megaManBullet)->initFire();
 		ObjectManager::getInstance()->addObjectToActiveObject(megaManBullet);
-		map<int, GameObject*> newactiveObject = ObjectManager::getInstance()->getActiveObject();
 		this->isFinishAttack = false;
+		ObjectManager::notInMapObjectId++;
 	}
 	return NULL;
 }
@@ -44,12 +43,14 @@ GameState*  MegaManAttackState::processKeyState(GameObject* gameObject, BYTE *ke
 void MegaManAttackState::update(GameObject* gameObject) {}
 void MegaManAttackState::enter(GameObject* gameObject){
 	//((MegaMan*)gameObject)->changeAnimation(ECharacter::MEGAMAN, EState::IDLE_FIRE);
-	int megaManState = gameObject->eState;
+	int megaManState = gameObject->getState();
 	if (isFinishAttack){
 		if (megaManState == EState::IDLE)
 			((MegaMan*)gameObject)->changeAnimation(ECharacter::MEGAMAN, EState::IDLE);
 		else if (megaManState == EState::JUMP)
 			((MegaMan*)gameObject)->changeAnimation(ECharacter::MEGAMAN, EState::JUMP);
+		/*else if (megaManState == EState::CLIMB)
+			((MegaMan*)gameObject)->changeAnimation(ECharacter::MEGAMAN, EState::CLIMB);*/
 
 	}
 	else{
@@ -57,30 +58,18 @@ void MegaManAttackState::enter(GameObject* gameObject){
 			((MegaMan*)gameObject)->changeAnimation(ECharacter::MEGAMAN, EState::IDLE_FIRE);
 		else if (megaManState == EState::JUMP)
 			((MegaMan*)gameObject)->changeAnimation(ECharacter::MEGAMAN, EState::JUMP_FIRE);
-
+		/*else if (megaManState == EState::CLIMB)
+			((MegaMan*)gameObject)->changeAnimation(ECharacter::MEGAMAN, EState::CLIMB_FIRE);*/
 	}
 	
 
 }
-GameState* MegaManAttackState::onCollision(GameObject* gameObject, GameObject* staticObject) {
+GameState* MegaManAttackState::onCollision(GameObject* gameObject, GameObject* staticObject, float collisionTime, D3DXVECTOR2 collisionVector) {
 	SpriteSpec* currentSpriteSpec = gameObject->getSpriteSpec();
 
 	int staticObjectType = staticObject->getType();
-	DWORD deltaTime = GameTime::getInstance()->getDeltaTime();
-	FPOINT velocity = gameObject->getVelocity();
-	velocity.x += gameObject->getAcceleration().x*deltaTime;
-	velocity.y += gameObject->getAcceleration().y*deltaTime;
-	//gameObject->setVelocity(velocity);
-
-
-	D3DXVECTOR2 normal;
-
-	// set Collision BOX for mega man. 
-	BOX collisionBox(gameObject->getPosition().x, gameObject->getPosition().y, MEGA_MAN_VIRTUAL_WIDTH,
-		MEGA_MAN_VIRTUAL_HEIGHT, velocity.x * deltaTime, velocity.y*deltaTime);
-	gameObject->setCollisionBox(collisionBox);
-
-	float collisionTime = Collision::CheckCollision(gameObject, staticObject, normal);
+	D3DXVECTOR2 normal = collisionVector;
+	
 	gameObject->setTimeCollision(collisionTime);
 	if (collisionTime > 0.0f && collisionTime < 1.0f){
 		gameObject->setNoCollisionWithAll(false);

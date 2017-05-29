@@ -16,7 +16,7 @@ public:
 
 	void update(GameObject* gameObject) override;
 	void enter(GameObject* gameObject)override;
-	GameState* onCollision(GameObject* gameObject, GameObject* staticObject) override;
+	GameState* onCollision(GameObject* gameObject, GameObject* staticObject, float collisionTime, D3DXVECTOR2 collisionVector) override;
 private:
 	GameState* topCollision(GameObject* gameObject, GameObject* staticObject);
 	GameState* bottomCollision(GameObject* gameObject, GameObject* staticObject);

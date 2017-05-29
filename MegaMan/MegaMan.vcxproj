@@ -20,7 +20,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v120</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -83,6 +83,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="GameObject\BlasterBullet.h" />
+    <ClInclude Include="GameObject\Blaster.h" />
+    <ClInclude Include="GameObject\Blader.h" />
+    <ClInclude Include="GameObject\BombombombChildren.h" />
+    <ClInclude Include="GameObject\BombombombParent.h" />
     <ClInclude Include="GameObject\State\GameState.h" />
     <ClInclude Include="GameObject\Kamadoma.h" />
     <ClInclude Include="Map\MapBombMan.h" />
@@ -93,10 +98,16 @@
     <ClInclude Include="GameObject\State\MegaManClimbingState.h" />
     <ClInclude Include="GameObject\MegaManBullet.h" />
     <ClInclude Include="GameObject\State\MegaManAttackState.h" />
+    <ClInclude Include="GameObject\State\MegaManBeAttackedState.h" />
     <ClInclude Include="MegaManUtilities.h" />
     <ClInclude Include="GameObject\MegaMan.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="GameObject\BlasterBullet.cpp" />
+    <ClCompile Include="GameObject\Blaster.cpp" />
+    <ClCompile Include="GameObject\Blader.cpp" />
+    <ClCompile Include="GameObject\BombombombChildren.cpp" />
+    <ClCompile Include="GameObject\BombombombParent.cpp" />
     <ClCompile Include="GameObject\State\GameState.cpp" />
     <ClCompile Include="GameObject\Kamadoma.cpp" />
     <ClCompile Include="Map\MapBombMan.cpp" />
@@ -108,6 +119,7 @@
     <ClCompile Include="GameObject\State\MegaManClimbingState.cpp" />
     <ClCompile Include="GameObject\MegaManBullet.cpp" />
     <ClCompile Include="GameObject\State\MegaManAttackState.cpp" />
+    <ClCompile Include="GameObject\State\MegaManBeAttackedState.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -3,17 +3,16 @@
 #include "../../../SFramework/GameTime.h"
 #include "MegaManJumpingState.h"
 #include "../../../SFramework/Camera/ViewPort.h"
+#include "MegaManBeAttackedState.h"
 #include <vector>
 
 using namespace std;
 #define MEGA_MAN_CLIMB_VELOCITY 0.25f
 MegaManClimbingState::MegaManClimbingState()
 {
-	this->name = "MegaManClimbingState";
+	this->name = "Climbing";
 	this->canTransitToIdle = false;
 	this->isPressDown = false;
-	this->canChangeToUpViewport = false;
-	this->canChangeToDownViewport = false;
 }
 
 
@@ -26,48 +25,12 @@ MegaManClimbingState::~MegaManClimbingState()
 GameState* MegaManClimbingState::onKeyDown(GameObject* gameObject, int keyCode){
 	if (keyCode == DIK_F){
 		return new MegaManJumpingState();
-	}else
-
-	//if (this->canChangeToUpViewport && keyCode == DIK_UP){
-	//	// change viewport lên trên
-	//	FPOINT position = ViewPort::getInstance()->getPosition();
-	//	position.y += 2 * 32;
-	//	vector<BOX> listViewportState = ViewPort::getInstance()->getListViewportState();
-	//	for (int i = 0; i < listViewportState.size(); i++){
-	//		BOX temp = listViewportState[i];
-	//		if (position.y < temp.y && position.y > temp.y - temp.height) // điểm y thuộc boundary temp
-	//		{
-	//			ViewPort::getInstance()->setViewportBoundary(temp);
-	//			ViewPort::getInstance()->setPosition(FPOINT(position.x, temp.y));
-	//			break;
-	//		}
-	//	}
-	//	//ViewPort::getInstance()->resetViewport(position);
-	//	
-	//}
-	//else
-	//if (this->canChangeToDownViewport && keyCode == DIK_DOWN){
-	//	// change viewport lên trên
-	//	FPOINT position = ViewPort::getInstance()->getPosition();
-	//	position.y -= 9 * 32;
-	//	vector<BOX> listViewportState = ViewPort::getInstance()->getListViewportState();
-	//	for (int i = 0; i < listViewportState.size(); i++){
-	//		BOX temp = listViewportState[i];
-	//		if (position.y < temp.y && position.y > temp.y - temp.height) // điểm y thuộc boundary temp
-	//		{
-	//			ViewPort::getInstance()->setViewportBoundary(temp);
-	//			ViewPort::getInstance()->setPosition(FPOINT(position.x, temp.y));
-	//			break;
-	//		}
-	//	}
-	//	
-	//}
+	}
 	return NULL;
 }
 GameState*  MegaManClimbingState::onKeyUp(GameObject* gameObject, int keyCode){
 	if (keyCode == DIK_UP || keyCode == DIK_DOWN)
 	{
-		//((MegaMan*)gameObject)->changeAnimation(ECharacter::MEGAMAN, EState::CLIMB_IDLE);
 		gameObject->setStopUpdateAnimation(true);
 		gameObject->setVelocity(FPOINT(0.0f, 0.0f));
 		gameObject->setAcceleration(FPOINT(0.0f, 0.0f));
@@ -75,7 +38,7 @@ GameState*  MegaManClimbingState::onKeyUp(GameObject* gameObject, int keyCode){
 	return NULL;
 }
 GameState*  MegaManClimbingState::processKeyState(GameObject* gameObject, BYTE *keyState){
-	GameState::processKeyState(gameObject, keyState);
+	//GameState::processKeyState(gameObject, keyState);
 	if (gameObject->getCanClimb() && (keyState[DIK_UP] * 0x80) > 0){
 		gameObject->setStopUpdateAnimation(false);
 		gameObject->setVelocity(FPOINT(0.0f, MEGA_MAN_CLIMB_VELOCITY));
@@ -85,43 +48,6 @@ GameState*  MegaManClimbingState::processKeyState(GameObject* gameObject, BYTE *
 		this->isPressDown = true;
 		gameObject->setVelocity(FPOINT(0.0f, -MEGA_MAN_CLIMB_VELOCITY));
 	}
-
-	if (this->canChangeToUpViewport && (keyState[DIK_UP] * 0x80) > 0){
-		// change viewport lên trên
-		FPOINT position = ViewPort::getInstance()->getPosition();
-		position.y += 2 * 32;
-		vector<BOX> listViewportState = ViewPort::getInstance()->getListViewportState();
-		for (int i = 0; i < listViewportState.size(); i++){
-			BOX temp = listViewportState[i];
-			if (position.y < temp.y && position.y > temp.y - temp.height) // điểm y thuộc boundary temp
-			{
-				ViewPort::getInstance()->setViewportBoundary(temp);
-				ViewPort::getInstance()->setPosition(FPOINT(position.x, temp.y));
-				break;
-			}
-		}
-		Sleep(400);
-		//ViewPort::getInstance()->resetViewport(position);
-
-	}
-	else
-	if (this->canChangeToDownViewport && (keyState[DIK_DOWN] * 0x80) > 0){
-		// change viewport lên trên
-		FPOINT position = ViewPort::getInstance()->getPosition();
-		position.y -= 9 * 32;
-		vector<BOX> listViewportState = ViewPort::getInstance()->getListViewportState();
-		for (int i = 0; i < listViewportState.size(); i++){
-			BOX temp = listViewportState[i];
-			if (position.y < temp.y && position.y > temp.y - temp.height) // điểm y thuộc boundary temp
-			{
-				ViewPort::getInstance()->setViewportBoundary(temp);
-				ViewPort::getInstance()->setPosition(FPOINT(position.x, temp.y));
-				break;
-			}
-		}
-		Sleep(400);
-
-	}
 	return NULL;
 }
 
@@ -129,27 +55,14 @@ void MegaManClimbingState::update(GameObject* gameObject) {}
 void MegaManClimbingState::enter(GameObject* gameObject){
 
 	((MegaMan*)gameObject)->changeAnimation(ECharacter::MEGAMAN, EState::CLIMB);
-	gameObject->eState = EState::CLIMB;
+	gameObject->setState(EState::CLIMB);
 }
-GameState* MegaManClimbingState::onCollision(GameObject* gameObject, GameObject* staticObject) {
-	SpriteSpec* currentSpriteSpec = gameObject->getSpriteSpec();
+GameState* MegaManClimbingState::onCollision(GameObject* gameObject, GameObject* staticObject, float collisionTime, D3DXVECTOR2 collisionVector) {
 
 	int staticObjectType = staticObject->getType();
-	DWORD deltaTime = GameTime::getInstance()->getDeltaTime();
-	FPOINT velocity = gameObject->getVelocity();
-	velocity.x += gameObject->getAcceleration().x*deltaTime;
-	velocity.y += gameObject->getAcceleration().y*deltaTime;
+	D3DXVECTOR2 normal = collisionVector;
 
-	D3DXVECTOR2 normal;
-
-	// set Collision BOX for mega man. 
-	BOX collisionBox(gameObject->getPosition().x, gameObject->getPosition().y, MEGA_MAN_VIRTUAL_WIDTH,
-		MEGA_MAN_VIRTUAL_HEIGHT, velocity.x * deltaTime, velocity.y*deltaTime);
-	gameObject->setCollisionBox(collisionBox);
-
-	// collision
-
-	float collisionTime = Collision::CheckCollision(gameObject, staticObject, normal);
+	//float collisionTime = Collision::CheckCollision(gameObject, staticObject, normal);
 		gameObject->setNoCollisionWithAll(false);
 		gameObject->setTimeCollision(collisionTime);
 	if (collisionTime > 0.0f && collisionTime < 1.0f){
@@ -157,6 +70,17 @@ GameState* MegaManClimbingState::onCollision(GameObject* gameObject, GameObject*
 		NOTE : Khi xét va chạm, không set vị trí và chạm giữa 2 vật trùng nhau mà phải cho chúng nó lệch nhau ít nhất 1px.
 		- Position ở đây là top-left của vật.
 		*/
+		// cho những vật chỉ cần va chạm, không cần hướng 
+		if (staticObjectType == ECharacter::BLADER || staticObjectType == ECharacter::KAMADOMA
+			|| staticObjectType == ECharacter::BLASTER_BULLET || staticObjectType == ECharacter::BLASTER){
+			FPOINT newPosition = gameObject->getPosition();
+
+			if (newPosition.x > staticObject->getPosition().x)
+				newPosition.x += MOVING_X_WHEN_ATTACKED;
+			else newPosition.x -= MOVING_X_WHEN_ATTACKED;
+			gameObject->setPostion(newPosition);
+			return new MegaManBeAttackedState();
+		}
 		//vật đi từ trên xuống
 		if (normal.x == 0.0f && normal.y == 1.0f)
 		{
@@ -166,38 +90,24 @@ GameState* MegaManClimbingState::onCollision(GameObject* gameObject, GameObject*
 
 
 	if (staticObjectType == ECharacter::LADDER){
-
-		// check xem trong khi đang leo thang có thể chuyển viewport state được hay không 
-		this->canChangeToUpViewport = false;
-		this->canChangeToDownViewport = false;
 		// kiểm tra xem megaman có thể leo được hay không. 
-		if (collisionTime == 1.0f)
+		((MegaMan*)gameObject)->canChangeViewportUp = false;
+		if (collisionTime == 1.0f){
 			gameObject->setCanClimb(true);
+			if (staticObject->getCollisionBox().y > ViewPort::getInstance()->getViewportBoundary().y)
+				((MegaMan*)gameObject)->canChangeViewportUp = true;
+		}
 		else{
 			gameObject->setCanClimb(false);
 			return NULL;
 		}
 
 		BOX staticCollisonBox = staticObject->getCollisionBox();
-		// check xem trong khi đang leo thang có thể chuyển viewport state được hay không 
-		if (gameObject->getCanClimb()){
-			// nếu tâm của megaman > cầu thang.y => có thể di chuyển viewport lên trên
-			if (gameObject->getPosition().y - MEGA_MAN_VIRTUAL_HEIGHT / 2 > ViewPort::getInstance()->getPosition().y - 32)
-				this->canChangeToUpViewport = true;
-			//	else this->canChangeToUpViewport = false;
-
-			// nếu tâm của megaMan < cầu thang.(y-h) => có thể di chuyển viewport xuống dưới 
-			if (gameObject->getPosition().y - MEGA_MAN_VIRTUAL_HEIGHT / 2 < ViewPort::getInstance()->getPosition().y - ViewPort::getInstance()->getViewportBoundary().height + 32)
-				this->canChangeToDownViewport = true;
-			//	else this->canChangeToDownViewport = false;
-
-		}
 		// neu megaman botton < ladder bottom hoac megaman top > ladder top => co gia toc trong tuong
 		gameObject->setAcceleration(FPOINT(0.0f, 0.0f));
 
 		// nếu tâm của mega man (trục y) > cầu thang.y => ta chuyển luôn mega man về trạng thái idle. 
-		if (gameObject->getPosition().y - MEGA_MAN_VIRTUAL_HEIGHT / 2 > staticCollisonBox.y
-			|| (gameObject->getPosition().y - MEGA_MAN_VIRTUAL_HEIGHT / 2 < staticCollisonBox.y - staticCollisonBox.height)){
+		if (gameObject->getPosition().y - MEGA_MAN_VIRTUAL_HEIGHT / 2 > staticCollisonBox.y){
 			FPOINT newPosition = gameObject->getPosition();
 
 			newPosition.y = MEGA_MAN_VIRTUAL_HEIGHT + staticObject->getCollisionBox().y + 1;
@@ -208,6 +118,12 @@ GameState* MegaManClimbingState::onCollision(GameObject* gameObject, GameObject*
 			*/
 			gameObject->setAcceleration(FPOINT(MEGA_MAN_ACCELERATION_X, 0.0f));
 			gameObject->setVelocity(FPOINT(gameObject->getVelocity().x, 0.0f));
+			gameObject->setStopUpdateAnimation(false);
+			((MegaMan*)gameObject)->canChangeViewportUp = false;
+			return new MegaManIdleState();
+		}
+		else if (gameObject->getPosition().y - MEGA_MAN_VIRTUAL_HEIGHT / 2 < staticCollisonBox.y - staticCollisonBox.height){
+			((MegaMan*)gameObject)->canChangeViewportUp = false;
 			gameObject->setStopUpdateAnimation(false);
 			return new MegaManIdleState();
 		}
@@ -228,6 +144,8 @@ GameState* MegaManClimbingState::topCollision(GameObject* gameObject, GameObject
 		*/
 		gameObject->setAcceleration(FPOINT(MEGA_MAN_ACCELERATION_X, 0.0f));
 		gameObject->setVelocity(FPOINT(gameObject->getVelocity().x, 0.0f));
+		((MegaMan*)gameObject)->canChangeViewportUp = false;
+		gameObject->setStopUpdateAnimation(false);
 		return new MegaManIdleState();
 		break;
 	case ECharacter::LADDER:
@@ -245,6 +163,7 @@ GameState* MegaManClimbingState::topCollision(GameObject* gameObject, GameObject
 			gameObject->setAcceleration(FPOINT(MEGA_MAN_ACCELERATION_X, 0.0f));
 			gameObject->setVelocity(FPOINT(gameObject->getVelocity().x, 0.0f));
 			gameObject->setStopUpdateAnimation(false);
+			((MegaMan*)gameObject)->canChangeViewportUp = false;
 			return new MegaManIdleState();
 		}
 		

@@ -1,7 +1,8 @@
 ﻿#include "MegaManRunningState.h"
 #include "../MegaMan.h"
 #include "../../../SFramework/GameTime.h"
-
+#include "MegaManClimbingState.h"
+#include "MegaManBeAttackedState.h"
 MegaManRunningState::MegaManRunningState()
 {
 	this->name = "Running";
@@ -18,6 +19,17 @@ GameState* MegaManRunningState::onKeyDown(GameObject* gameObject, int keyCode){
 	{
 		gameObject->setVelocity(FPOINT(0.0f, MEGA_MAN_JUMP_VELOCITY));
 		return new MegaManJumpingState();
+	}
+	else if (gameObject->getCanClimb() && keyCode == DIK_UP){
+		//gameObject->setVelocity(FPOINT(0.0f, MEGA_MAN_CLIMB_VELOCITY));
+
+		return new MegaManClimbingState();
+	}
+	else if (gameObject->getCanClimb() == 1 && keyCode == DIK_DOWN){
+		//gameObject->setVelocity(FPOINT(0.0f, -MEGA_MAN_CLIMB_VELOCITY));
+		GameState* state = new MegaManClimbingState();
+		((MegaManClimbingState*)state)->isPressDown = true;
+		return state;
 	}
 	return NULL;
 }
@@ -56,36 +68,58 @@ void MegaManRunningState::update(GameObject* gameObject) {}
 void MegaManRunningState::enter(GameObject* gameObject){
 	// change animation for running state
 	((MegaMan*)gameObject)->changeAnimation(ECharacter::MEGAMAN, EState::RUNNING);
-	gameObject->eState = EState::RUNNING;
+	gameObject->setState(EState::RUNNING);
 }
 
-GameState* MegaManRunningState::onCollision(GameObject* gameObject, GameObject* staticObject) {
+GameState* MegaManRunningState::onCollision(GameObject* gameObject, GameObject* staticObject, float collisionTime, D3DXVECTOR2 collisionVector) {
 	//gameObject->setAcceleration(FPOINT(0.0f, GRAVITATIONAL_ACCELERATION));
 	SpriteSpec* currentSpriteSpec = gameObject->getSpriteSpec();
-
 	int staticObjectType = staticObject->getType();
-	DWORD deltaTime = GameTime::getInstance()->getDeltaTime();
-	FPOINT velocity = gameObject->getVelocity();
-	velocity.x += gameObject->getAcceleration().x*deltaTime;
-	velocity.y += gameObject->getAcceleration().y*deltaTime;
-	//gameObject->setVelocity(velocity);
+	D3DXVECTOR2 normal = collisionVector;
 
-	D3DXVECTOR2 normal;
-
-	// set Collision BOX for mega man. 
-	BOX collisionBox(gameObject->getPosition().x, gameObject->getPosition().y, MEGA_MAN_VIRTUAL_WIDTH,
-		MEGA_MAN_VIRTUAL_HEIGHT, velocity.x * deltaTime, velocity.y*deltaTime);
-	gameObject->setCollisionBox(collisionBox);
-
-	// collision
-	float collisionTime = Collision::CheckCollision(gameObject, staticObject, normal);
 	gameObject->setTimeCollision(collisionTime);
+#pragma region collsion for ladder
+	if (staticObjectType == ECharacter::LADDER){
+		float megaManCenter = gameObject->getPosition().x + MEGA_MAN_VIRTUAL_WIDTH / 2;
+		if (gameObject->getFlipVertical() == -1)
+			megaManCenter += gameObject->getSpriteSpec()->getWidth() - MEGA_MAN_VIRTUAL_WIDTH;
+		if (collisionTime != 0.0f && (megaManCenter > staticObject->getCollisionBox().x + staticObject->getCollisionBox().width / 6)
+			&& (megaManCenter < staticObject->getCollisionBox().x + 5.0f * staticObject->getCollisionBox().width / 6)){
+			gameObject->setNoCollisionWithAll(false);
+			/*	FPOINT newPosition = gameObject->getPosition();
+				newPosition.x = staticObject->getCollisionBox().x + staticObject->getCollisionBox().width / 2 - MEGA_MAN_VIRTUAL_WIDTH / 2;
+				if (gameObject->getFlipVertical() == -1)
+				newPosition.x -= gameObject->getSpriteSpec()->getWidth() - MEGA_MAN_VIRTUAL_WIDTH;
+
+				gameObject->setPostion(newPosition);*/
+			gameObject->setCanClimb(true);
+
+		}
+		else
+			gameObject->setCanClimb(false);
+
+	}
+#pragma endregion
+
 	if (collisionTime > 0.0f && collisionTime < 1.0f){
 		gameObject->setNoCollisionWithAll(false);
 		/*
 		NOTE : Khi xét va chạm, không set vị trí và chạm giữa 2 vật trùng nhau mà phải cho chúng nó lệch nhau ít nhất 1px.
 		- Position ở đây là top-left của vật.
 		*/
+
+		// cho những vật chỉ cần va chạm, không cần hướng 
+		if (staticObjectType == ECharacter::BLADER || staticObjectType == ECharacter::KAMADOMA
+			|| staticObjectType == ECharacter::BLASTER_BULLET || staticObjectType == ECharacter::BLASTER){
+			FPOINT newPosition = gameObject->getPosition();
+
+			if (newPosition.x > staticObject->getPosition().x)
+				newPosition.x += MOVING_X_WHEN_ATTACKED;
+			else newPosition.x -= MOVING_X_WHEN_ATTACKED;
+			gameObject->setPostion(newPosition);
+			return new MegaManBeAttackedState();
+		}
+
 		//vật đi từ trên xuống
 		if (normal.x == 0.0f && normal.y == 1.0f)
 		{
@@ -114,13 +148,9 @@ GameState* MegaManRunningState::topCollision(GameObject* gameObject, GameObject*
 	case ECharacter::LADDER:
 		newPosition.y = MEGA_MAN_VIRTUAL_HEIGHT + staticObject->getCollisionBox().y + 1;
 		gameObject->setPostion(newPosition);
-		/*
-		Khi mega man đứng trên mặt đất, có phản lực N triệt tiêu lực hấp dẫn. Do đó có thể coi
-		gia tốc trọng từng = 0 và v.y = 0;
-		*/
+
 		gameObject->setAcceleration(FPOINT(MEGA_MAN_ACCELERATION_X, 0.0f));
 		gameObject->setVelocity(FPOINT(gameObject->getVelocity().x, 0.0f));
-		//return new MegaManIdleState();
 		break;
 	default:
 		break;
@@ -138,13 +168,7 @@ GameState* MegaManRunningState::leftCollision(GameObject* gameObject, GameObject
 	case ECharacter::STATIC:
 		newPosition.x = staticObject->getCollisionBox().x - MEGA_MAN_VIRTUAL_WIDTH - 1;
 		gameObject->setPostion(newPosition);
-
-		gameObject->setVelocity(FPOINT(0.0f, 0.0f));
-		break;
-	case ECharacter::LADDER:{
-		int a = 5;
-
-	}
+		gameObject->setVelocity(FPOINT(0.0f, gameObject->getVelocity().y));
 		break;
 	default:
 		break;
@@ -158,10 +182,7 @@ GameState* MegaManRunningState::rightCollision(GameObject* gameObject, GameObjec
 	case ECharacter::STATIC:
 		newPosition.x = staticObject->getCollisionBox().x + staticObject->getCollisionBox().width + 1;
 		gameObject->setPostion(newPosition);
-
-		// vì chúng ta ko sử dụng gia tốc trục x nên khi va chạm trái phải, ta không set lại gia tốc
-		// gia tốc trục y sẽ được giữ của lần xét va chạm trước đó. 
-		gameObject->setVelocity(FPOINT(0.0f, 0.0f));
+		gameObject->setVelocity(FPOINT(0.0f, gameObject->getVelocity().y));
 		break;
 	default: break;
 	}

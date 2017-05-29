@@ -13,42 +13,67 @@ Kamadoma::~Kamadoma()
 {
 }
 
-
+void Kamadoma::setState(int state){
+	//this->state = state;
+	GameObject::setState(state);
+	m_animation = AnimationManager::getInstance()->getAnimationSprites(ECharacter::KAMADOMA, state);
+	GameObject::setSpriteSpec(m_animation->getSpriteSpecs()[0]);
+}
 void Kamadoma::render() {
 	SpriteSpec* currentSpriteSpec = m_animation->getCurrentSpriteSpec();
 	GameObject::setSpriteSpec(currentSpriteSpec);
 	// set position to render
 	GameObject::render();
 }
-void Kamadoma::onKeyDown(int keyCode) {}
-void Kamadoma::onKeyUp(int keyCode) {}
 
-void Kamadoma::processKeyState(BYTE *keyState){}
-void Kamadoma::onCollision(GameObject* staticObject){
-	SpriteSpec* currentSpriteSpec = this->getSpriteSpec();
-
-	int staticObjectType = staticObject->getType();
+void Kamadoma::calculateCollisionBox(){
+	if (this->getIsInactive())
+		return;
 	DWORD deltaTime = GameTime::getInstance()->getDeltaTime();
 	FPOINT velocity = this->getVelocity();
 
-
 	velocity.x += this->getAcceleration().x*deltaTime;
 	velocity.y += this->getAcceleration().y*deltaTime;
-	D3DXVECTOR2 normal;
 
 	// set Collision BOX for kamadoma. 
 	BOX collisionBox(this->getPosition().x, this->getPosition().y, KAMADOMA_VIRTUAL_WIDTH,
 		KAMADOMA_VIRTUAL_HEIGHT, velocity.x * deltaTime, velocity.y*deltaTime);
 	this->setCollisionBox(collisionBox);
+}
 
-	// collision
+void Kamadoma::die(){
+	this->setState(EState::DIE);
+	this->setIsInactive(true);
+	//this->setPostion(this->getInitPosition());
+	BOX oldCollisionBox = this->getCollisionBox();
+	oldCollisionBox.x = this->getInitPosition().x;
+	oldCollisionBox.y = this->getInitPosition().y;
+	oldCollisionBox.width = KAMADOMA_VIRTUAL_WIDTH;
+	oldCollisionBox.height = KAMADOMA_VIRTUAL_HEIGHT;
+	oldCollisionBox.vx = 0.0f;
+	oldCollisionBox.vy = 0.0f;
+	this->setCollisionBox(oldCollisionBox);
+	this->setVelocity(FPOINT(0.0f, 0.0f));
+	this->setAcceleration(FPOINT(0.0f, 0.0f));
+
+}
+void Kamadoma::onCollision(GameObject* staticObject, float collisionTime, D3DXVECTOR2 collisionVector){
+	SpriteSpec* currentSpriteSpec = this->getSpriteSpec();
+
+	int staticObjectType = staticObject->getType();
+	D3DXVECTOR2 normal = collisionVector;
 	
-	float collisionTime = Collision::CheckCollision(this, staticObject, normal);
+	DWORD deltaTime = GameTime::getInstance()->getDeltaTime();
+	FPOINT velocity = this->getVelocity();
+	// collision
+	BOX collisionBox = this->getCollisionBox();
+	//float collisionTime = Collision::CheckCollision(this, staticObject, normal);
 	if (collisionTime > 0.0f && collisionTime < 1.0f){
-		/*
-		NOTE : Khi xét va chạm, không set vị trí và chạm giữa 2 vật trùng nhau mà phải cho chúng nó lệch nhau ít nhất 1px.
-		- Position ở đây là top-left của vật.
-		*/
+		if (staticObjectType == ECharacter::MEGAMAN_BULLET){
+			this->die();
+			return;
+		}
+
 		//vật đi từ trên xuống
 		FPOINT newPosition = this->getPosition();
 		//FPOINT kamadomaPos = this->getPosition();
@@ -83,7 +108,7 @@ void Kamadoma::onCollision(GameObject* staticObject){
 				if (isRightCollision){// đi từ phải sang
 					velocity.x = 1.5f*KAMADOMA_VELOCITY_X;
 				}
-				else if(isLeftCollision) velocity.x = -1.5f*KAMADOMA_VELOCITY_X;
+				else velocity.x = -1.5f*KAMADOMA_VELOCITY_X;
 
 				isRightCollision = false;
 				isLeftCollision = false;
@@ -135,6 +160,8 @@ void Kamadoma::onCollision(GameObject* staticObject){
 	}
 }
 void Kamadoma::updatePosition(){
+	if (this->getIsInactive())
+		return;
 	FPOINT currentPosition = this->getPosition();
 	DWORD deltaTime = GameTime::getInstance()->getDeltaTime();
 	FPOINT velocity = this->getVelocity();
@@ -156,6 +183,8 @@ void Kamadoma::resetToInit(){
 	BOX oldCollisionBox = this->getCollisionBox();
 	oldCollisionBox.x = this->getPosition().x;
 	oldCollisionBox.y = this->getPosition().y;
+	oldCollisionBox.width = KAMADOMA_VIRTUAL_WIDTH;
+	oldCollisionBox.height = KAMADOMA_VIRTUAL_HEIGHT;
 	oldCollisionBox.vx = 0.0f;
 	oldCollisionBox.vy = 0.0f;
 	this->setCollisionBox(oldCollisionBox);

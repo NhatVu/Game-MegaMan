@@ -9,6 +9,7 @@
 #include "Map\ObjectManager.h"
 #include "Camera\ViewPort.h"
 #include "../MegaMan/MegaManUtilities.h"
+#include "Collision.h"
 using namespace s_framework;
 using namespace std;
 
@@ -75,29 +76,6 @@ int SFramework::initDirectX(HWND hwnd)
 	}
 
 	m_d3ddev->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &m_backBuffer);
-
-	//int result =
-	//	d3ddev->CreateOffscreenPlainSurface(
-	//	250,					// width 				
-	//	250,					// height
-	//	D3DFMT_X8R8G8B8,		// format
-	//	D3DPOOL_DEFAULT,		// where? (VRAM or RAM)
-	//	&surface,
-	//	NULL);
-
-	//D3DXCreateSprite(d3ddev, &sprite_handler);
-	//Kitty = new Texture(sprite_handler, "ImageResource\\kitty.bmp", 92, 60, 6, 3);
-
-	/*drawText = new UserDrawText();
-	drawText->Initialize(d3ddev);
-	RECT tempt;
-	SetRect(&tempt, 0, 0, 100, 40);
-	drawText->setTextRect(tempt);
-	drawText->setMessage("this is a simple text");*/
-
-	// load resource, có thể ghi nguồn ra 1 file text rồi chỉnh trong đó.
-	//Texture::getInstance()->init("Resource/texture.png", "Resource/texture.xml");
-	//Animation::getInstance()->init("Resource/animation.xml");
 
 	return 1;
 }
@@ -192,11 +170,14 @@ void SFramework::update(float delta)
 	vector<GameObject*> mListObject;
 	for (map<int, GameObject*>::iterator it = mapActiveObject.begin(); it != mapActiveObject.end(); ++it) {
 		GameObject* tmp = it->second;
+		// object inactive => ko xét va chạm, không vẽ
+		if (tmp->getIsInactive())
+			continue;
 		mListObject.push_back(it->second);
 
 		if (tmp->getType() == ECharacter::STATIC || tmp->getType() == ECharacter::LADDER)
 			continue;
-		if (tmp->getType() == ECharacter::KAMADOMA){
+		if (tmp->getType() == ECharacter::BLASTER_BULLET){
 			int a = 5;
 		}
 		newScene->addChild(tmp);
@@ -212,17 +193,21 @@ void SFramework::update(float delta)
 	
 
 	for (int i = 0; i < mListObject.size(); i++){
-		bool breakInnerLoopFlag = false;
-		if (mListObject[i]->getType() != 0)
+		if (mListObject[i]->getType() != ECharacter::STATIC && mListObject[i]->getType() != ECharacter::LADDER)
 		{
 			for (int j = 0; j < mListObject.size(); j++){
 				if (mListObject[j]->getType() != 0 && i != j){
-					mListObject[i]->onCollision(mListObject[j]);
+					mListObject[i]->calculateCollisionBox();
+					D3DXVECTOR2 collisionVector(0.0f, 0.0f);
+					float collisionTime = Collision::CheckCollision(mListObject[i], mListObject[j], collisionVector);
+					mListObject[i]->onCollision(mListObject[j], collisionTime, collisionVector);
+					collisionVector.x *= -1;
+					collisionVector.y *= -1;
+					mListObject[j]->onCollision(mListObject[i], collisionTime, collisionVector);
 					if (mListObject[j]->getType() == 1){
 						int x = 5;
 					}
-					if (mListObject[i]->getTimeCollision() > 0.0f && mListObject[i]->getTimeCollision() <= 1.0f){
-						breakInnerLoopFlag = true;
+					if (collisionTime > 0.0f && collisionTime <= 1.0f){
 						break;
 					}
 				}
@@ -232,21 +217,27 @@ void SFramework::update(float delta)
 	}
 
 	for (int i = 0; i < mListObject.size(); i++){
-		bool breakInnerLoopFlag = false;
 		if (mListObject[i]->getType() != 0)
 		{
 			for (int j = 0; j < mListObject.size(); j++){
 				if (mListObject[j]->getType() == 0 && i != j){
-					mListObject[i]->onCollision(mListObject[j]);
+					mListObject[i]->calculateCollisionBox();
+					D3DXVECTOR2 collisionVector;
+					float collisionTime = Collision::CheckCollision(mListObject[i], mListObject[j], collisionVector);
+					mListObject[i]->onCollision(mListObject[j], collisionTime, collisionVector);
+					collisionVector.x *= -1;
+					collisionVector.y *= -1;
+					//mListObject[j]->onCollision(mListObject[i], collisionTime, collisionVector);
 					if (mListObject[i]->getTimeCollision() > 0.0f && mListObject[i]->getTimeCollision() <= 1.0f){
-						breakInnerLoopFlag = true;
-
 					}
 				}
 			}
 
 		}
 	}
+
+	// update viewport position 
+	ViewPort::getInstance()->updateViewportNextFrame();
 	//// update postion before detect collision
 	//for (int i = 0; i < mListObject.size(); i++){
 	//	mListObject[i]->updatePosition();

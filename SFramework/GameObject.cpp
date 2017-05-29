@@ -12,6 +12,7 @@ GameObject::GameObject()
 	mFlipVertical = true;
 	stopUpdateAnimation = false;
 	objectID = -1;
+	isInactive = false;
 }
 
 
@@ -109,6 +110,6 @@ void GameObject::setCollisionBox(BOX box){
 	this->m_collisionBox = box;
 }
 
-void GameObject::onCollision(GameObject* staticObject){}
+void GameObject::onCollision(GameObject* staticObject, float collisionTime, D3DXVECTOR2 collisionVector){}
 
 void GameObject::updatePosition(){}

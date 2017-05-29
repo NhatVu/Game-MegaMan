@@ -1,41 +1,39 @@
-#ifndef _MEGAMAN_BULLET_
-#define _MEGAMAN_BULLET_
+#ifndef _BLASTER_BULLET_H_
+#define _BLASTER_BULLET_H_
 #include <d3dx9.h>
 #include "../../SFramework/SpriteAndAnimation/AnimationSpec.h"
+#include "../../SFramework/SpriteAndAnimation/AnimationManager.h"
 #include "../../SFramework/GameObject.h"
 #include "../../SFramework/Trace.h"
 #include "../MegaManUtilities.h"
 #include "../../SFramework/Collision.h"
-#include "../../SFramework/SpriteAndAnimation/AnimationManager.h"
-#include "../../SFramework/Map/ObjectManager.h"
+#include "../../SFramework/SFramework.h"
 
 using namespace std;
 using namespace s_framework;
+#define BLASTER_BULLET_VELOCITY_X 0.1f
 
-#define MEGAMAN_BULLET_VELOCITY_X 0.45f
-#define MEGAMAN_BULLET_VIRTUAL_WIDTH 9.0f
-#define MEGAMAN_BULLET_VIRTUAL_HEIGHT 9.0f
-class MegaManBullet : public GameObject
+class BlasterBullet : public GameObject
 {
-
 private:
 	AnimationSpec* m_animation = NULL;
-	//EState state;
+	int countFrame;
 public:
-	MegaManBullet();
-	~MegaManBullet();
+	BlasterBullet();
+	~BlasterBullet();
 
 	/*
 	Override
 	*/
 	void render() override;
+
 	void onCollision(GameObject* staticObject, float collisionTime, D3DXVECTOR2 collisionVector)override;
 	void updatePosition()override;
 	void calculateCollisionBox()override;
 	void setState(int state)override;
 
-	void initFire(); // dua vao vi tri cua megaman -> init state
+	void resetToInit()override;
+	void die();
 };
 
-
-#endif // !_MEGAMAN_BULLET_
+#endif

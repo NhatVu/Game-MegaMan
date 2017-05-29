@@ -34,7 +34,7 @@ namespace s_framework{
 		 ----------------------------------------------*/
 
 		SpriteSpec* getCurrentSpriteSpec();		// hàm này sẽ gọi nextFrame() trước khi kết thúc. goi truoc ham render cua GameObject
-
+		void reverseAnimation(); // reverse animation order
 		AnimationSpec();
 		~AnimationSpec();
 	};

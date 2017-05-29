@@ -163,6 +163,8 @@ float Collision::CheckCollision(GameObject* mDynamic, GameObject* mStatic, D3DXV
 
 	BOX broadPhaseBox = GetBroadPhasing(dynamicBox);
 	float timeCollision = 0.0f;
+	normal.x = 0.0f;
+	normal.y = 0.0f;
 	if (staticBox.x == 270 && dynamicBox.x > 260){
 		int a = 5;
 	}
