@@ -2,7 +2,7 @@
 #include "../SpriteAndAnimation/SpriteSpec.h"
 #include "ObjectFactory.h"
 #include "../SpriteAndAnimation/TextureManager.h"
-
+#include "../../MegaMan/GameObject/Suzy.h"
 using namespace s_framework;
 
 GameMap::GameMap(char* filePath)
@@ -197,13 +197,19 @@ void GameMap::parseObjectGroup(){
 
 			// custom property
 			if (objectType == ECharacter::BLASTER){
-				objectNode->first_node("properties")->first_node("property");
 				int direction = atoi(objectNode->first_node("properties")->first_node("property")->first_attribute("value")->value());
 				if (direction == 1)
 					// default : từ phải sang trái
 					gameObject->setFlipVertical(1);
 				else if (direction == -1)
 					gameObject->setFlipVertical(-1);
+			}
+			else if (objectType == ECharacter::SUZY){
+				int direction = atoi(objectNode->first_node("properties")->first_node("property")->first_attribute("value")->value());
+				((Suzy*)gameObject)->setDirection(direction);
+				if (direction == 1)
+					gameObject->setVelocity(FPOINT(SUZY_VELOCITY, 0.0f));
+				else gameObject->setVelocity(FPOINT(0.0f, SUZY_VELOCITY));
 			}
 			//mListObjet.push_back(gameObject);
 			ObjectManager::getInstance()->getAllObject()[id] = gameObject;

@@ -8,6 +8,7 @@
 #include "../SpriteAndAnimation/TextureManager.h"
 #include "../../MegaMan/GameObject/Blaster.h"
 #include "../../MegaMan/GameObject/BlasterBullet.h"
+#include "../../MegaMan/GameObject/Suzy.h"
 using namespace s_framework;
 ObjectFactory::ObjectFactory()
 {
@@ -67,6 +68,12 @@ GameObject* ObjectFactory::createObject(int objectType){
 		object = new BlasterBullet();
 		object->setState(EState::ACTIVE);
 		object->setType(ECharacter::BLASTER_BULLET);
+		object->setTexture(TextureManager::getInstance()->getObjectTexture());
+		break;
+	case ECharacter::SUZY:
+		object = new Suzy();
+		object->setState(EState::ACTIVE);
+		object->setType(ECharacter::SUZY);
 		object->setTexture(TextureManager::getInstance()->getObjectTexture());
 		break;
 	default:

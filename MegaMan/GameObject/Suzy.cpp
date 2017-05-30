@@ -27,13 +27,13 @@ void Suzy::render() {
 		this->setStopUpdateAnimation(0);
 		if (this->getDirection() == 1){
 			if (this->leftToRight == 1) // suzy va chạm từ trái sang lần trước đó
-			this->setVelocity(FPOINT(-SUZY_VELOCITY, 0.0f));
+				this->setVelocity(FPOINT(-SUZY_VELOCITY, 0.0f));
 			else this->setVelocity(FPOINT(SUZY_VELOCITY, 0.0f));
 		}
 		else {
 			if (this->topToBottom == 1)
-			this->setVelocity(FPOINT(0.0f, -SUZY_VELOCITY));
-			else this->setVelocity(FPOINT(0.0f, SUZY_VELOCITY));
+				this->setVelocity(FPOINT(0.0f, SUZY_VELOCITY));
+			else this->setVelocity(FPOINT(0.0f, -SUZY_VELOCITY));
 		}
 	}
 	if (this->getStopUpdateAnimation() == 0){
@@ -129,7 +129,9 @@ void Suzy::resetToInit(){
 	oldCollisionBox.vx = 0.0f;
 	oldCollisionBox.vy = 0.0f;
 	this->setCollisionBox(oldCollisionBox);
-
+	if (this->getDirection() == 1)
+		this->setVelocity(FPOINT(SUZY_VELOCITY, 0.0f));
+	else this->setVelocity(FPOINT(0.0f, SUZY_VELOCITY));
 	this->setState(EState::ACTIVE);
 }
 void Suzy::die(){
