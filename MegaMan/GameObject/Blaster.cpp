@@ -2,6 +2,7 @@
 #include "../../SFramework/SFramework.h"
 #include "BlasterBullet.h"
 
+bool Blaster::reversedFirtTime = false;
 Blaster::Blaster()
 {
 	this->isRender = false;
@@ -17,7 +18,7 @@ void Blaster::render() {
 	this->isRender = true;
 	if (this->getStopUpdateAnimation() == 0){
 
-		SpriteSpec* currentSpriteSpec = m_animation->getCurrentSpriteSpec();
+		SpriteSpec* currentSpriteSpec = m_animation.getCurrentSpriteSpec();
 		GameObject::setSpriteSpec(currentSpriteSpec);
 	}
 	// set position to render
@@ -45,7 +46,7 @@ void Blaster::onCollision(GameObject* staticObject, float collisionTime, D3DXVEC
 			creaetBlasterBullet(-BLASTER_BULLET_VELOCITY_X, 0.07f);
 			//this->countFrame++;
 		}
-		else if (this->countFrame == 2 * FPS + m_animation->getSpriteSpecs().size()){
+		else if (this->countFrame == 2 * FPS + m_animation.getSpriteSpecs().size()){
 			this->setStopUpdateAnimation(true);
 		}
 		else if (this->countFrame == 2.5f * FPS){
@@ -63,14 +64,20 @@ void Blaster::onCollision(GameObject* staticObject, float collisionTime, D3DXVEC
 			// bắn viên thứ 4
 			creaetBlasterBullet(-BLASTER_BULLET_VELOCITY_X, -0.09f);
 			// đóng blaster => reverse animation order
-			m_animation->reverseAnimation();
-			GameObject::setSpriteSpec(m_animation->getSpriteSpecs()[0]);
+			//if (Blaster::reversedFirtTime == false){
+				Blaster::reversedFirtTime = true;
+				m_animation.reverseAnimation();
+			//}
+			GameObject::setSpriteSpec(m_animation.getSpriteSpecs()[0]);
 			this->setStopUpdateAnimation(false);
 			//this->countFrame++;
 		}
-		else if (this->countFrame == 3.5f * FPS + m_animation->getSpriteSpecs().size()){
+		else if (this->countFrame == 3.5f * FPS + m_animation.getSpriteSpecs().size()){
 			// sau khi đã đóng xong => chuyển vể idle
-			m_animation->reverseAnimation();
+			//if (Blaster::reversedFirtTime){
+				Blaster::reversedFirtTime = false;
+				m_animation.reverseAnimation();
+			//}
 			this->setState(EState::IDLE);
 			this->countFrame = 0;
 		}
@@ -100,8 +107,8 @@ void Blaster::calculateCollisionBox(){
 }
 void Blaster::setState(int state){
 	GameObject::setState(state);
-	m_animation = AnimationManager::getInstance()->getAnimationSprites(ECharacter::BLASTER, state);
-	GameObject::setSpriteSpec(m_animation->getSpriteSpecs()[0]);
+	m_animation = *(AnimationManager::getInstance()->getAnimationSprites(ECharacter::BLASTER, state));
+	GameObject::setSpriteSpec(m_animation.getSpriteSpecs()[0]);
 }
 
 void Blaster::resetToInit(){
@@ -136,6 +143,7 @@ void Blaster::die(){
 }
 
 void Blaster::creaetBlasterBullet(float vx, float vy){
+	vx *= this->getFlipVertical();
 	GameObject* blasterBullet = ObjectFactory::createObject(ECharacter::BLASTER_BULLET);
 	blasterBullet->setObjectID(ObjectManager::notInMapObjectId++);
 	blasterBullet->setVelocity(FPOINT(vx, vy));

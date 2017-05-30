@@ -18,10 +18,13 @@ using namespace s_framework;
 	Khi bắn viên cuối cùng => về trạng thái IDLE trong 2s, rồi quay lại trạng thái Active
 */
 
+// direction property: 1 => hình mặc định => flip = 1;
+
 class Blaster : public GameObject
 {
 private:
-	AnimationSpec* m_animation = NULL;
+	static bool reversedFirtTime;
+	AnimationSpec m_animation;
 	int countFrame;
 	bool isRender; // lock trong hàm onCollision. mở lock khi render
 	void creaetBlasterBullet(float vx, float vy);

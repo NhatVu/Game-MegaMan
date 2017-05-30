@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="105" height="69" tilewidth="32" tileheight="32" nextobjectid="34">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="105" height="69" tilewidth="32" tileheight="32" nextobjectid="41">
  <tileset firstgid="1" name="Cut_Man_map" tilewidth="32" tileheight="32" tilecount="7072" columns="104">
   <image source="Cut_Man_map.png" width="3358" height="2182"/>
  </tileset>
@@ -7283,5 +7283,20 @@
   <object id="31" type="0" x="997.333" y="1641.33" width="23.3333" height="59.3333"/>
   <object id="32" type="0" x="900.667" y="1704" width="79.3333" height="31.1667"/>
   <object id="33" name="ladder" type="1" x="917.5" y="1609" width="15.5" height="94.5"/>
+  <object id="35" name="blaster" type="7" x="152" y="2091.5" width="9" height="12.5">
+   <properties>
+    <property name="direction" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="39" type="7" x="184.5" y="2093" width="10" height="9.5">
+   <properties>
+    <property name="direction" type="int" value="-1"/>
+   </properties>
+  </object>
+  <object id="40" type="7" x="218.5" y="2117" width="14.5" height="6.5">
+   <properties>
+    <property name="direction" type="int" value="1"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>

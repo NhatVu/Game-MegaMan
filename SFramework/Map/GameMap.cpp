@@ -194,6 +194,17 @@ void GameMap::parseObjectGroup(){
 			gameObject->setCollisionBox(collistionBox);
 			gameObject->setPostion(FPOINT(collistionBox.x, collistionBox.y));
 			gameObject->setInitPosition(FPOINT(collistionBox.x, collistionBox.y));
+
+			// custom property
+			if (objectType == ECharacter::BLASTER){
+				objectNode->first_node("properties")->first_node("property");
+				int direction = atoi(objectNode->first_node("properties")->first_node("property")->first_attribute("value")->value());
+				if (direction == 1)
+					// default : từ phải sang trái
+					gameObject->setFlipVertical(1);
+				else if (direction == -1)
+					gameObject->setFlipVertical(-1);
+			}
 			//mListObjet.push_back(gameObject);
 			ObjectManager::getInstance()->getAllObject()[id] = gameObject;
 		}
