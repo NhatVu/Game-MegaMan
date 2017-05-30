@@ -1,7 +1,7 @@
-﻿#include "MapBombMan.h"
+﻿#include "MapCutMan.h"
 #include "../../SFramework/Camera/ViewPort.h"
 #include "../../SFramework/Map/ObjectManager.h"
-MapBombMan::MapBombMan(char* tmxFile, GameObject* megaMan)
+MapCutMan::MapCutMan(char* tmxFile, GameObject* megaMan)
 {
 	scene = new Scene();
 	this->map = new GameMap(tmxFile);
@@ -12,7 +12,9 @@ MapBombMan::MapBombMan(char* tmxFile, GameObject* megaMan)
 	//BOX viewportState1 = BOX(0, 7 * 32, 57 * 32, 8 * 32); // trừ thanh tiêu đề ra 32px
 	BOX viewportState1 = BOX(0, 7 * 32, 32 * 32, 8 * 32); // trừ thanh tiêu đề ra 32px
 
-	BOX viewportState2 = BOX(48 * 32, 14 * 32, 8.5f * 32, 7 * 32);
+	BOX viewportState2 = BOX(24 * 32, 14 * 32, 8 * 32, 7 * 32);
+	listViewportState.push_back(BOX(24 * 32, 21 * 32, 8 * 32, 7 * 32));
+	listViewportState.push_back(BOX(24 * 32, 27 * 32, 8 * 32, 7 * 32));
 	BOX viewportState3 = BOX(48 * 32, 21 * 32, 49 * 32, 7 * 32);
 
 	listViewportState.push_back(viewportState1);
@@ -21,19 +23,19 @@ MapBombMan::MapBombMan(char* tmxFile, GameObject* megaMan)
 }
 
 
-MapBombMan::~MapBombMan()
+MapCutMan::~MapCutMan()
 {
 	if (scene != NULL)
 		delete scene;
 	if (this->map != NULL)
 		delete this->map;
 	/*for (auto const &ent1 : mapViewport){
-		delete ent1.second;
+	delete ent1.second;
 	}*/
 }
 
-void MapBombMan::init(){ 
-	std::map<int,GameObject*> mapNode = ObjectManager::getInstance()->getAllBackground();
+void MapCutMan::init(){
+	std::map<int, GameObject*> mapNode = ObjectManager::getInstance()->getAllBackground();
 	for (std::map<int, GameObject*>::iterator it = mapNode.begin(); it != mapNode.end(); ++it) {
 		scene->addChild(it->second);
 	}
@@ -45,6 +47,6 @@ void MapBombMan::init(){
 
 	// Init viewport
 	ViewPort::getInstance()->setListViewportState(listViewportState);
-	ViewPort::getInstance()->setViewportBoundary(listViewportState[0]);
+	ViewPort::getInstance()->setViewportBoundary(BOX(0, 7 * 32, 32 * 32, 8 * 32));
 	ViewPort::getInstance()->setPosition(FPOINT(0, 7 * 32));
 }

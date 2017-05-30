@@ -42,6 +42,7 @@ GameState*  MegaManRunningState::processKeyState(GameObject* gameObject, BYTE *k
 	GameState::processKeyState(gameObject, keyState);
 	FPOINT currentPosition = gameObject->getPosition();
 	DWORD deltaTime = GameTime::getInstance()->getDeltaTime();
+	gameObject->setStopUpdateAnimation(false);
 	if ((keyState[DIK_RIGHT] * 0x80) > 0)
 	{
 		FPOINT velocity = gameObject->getVelocity();

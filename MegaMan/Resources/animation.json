@@ -52,6 +52,11 @@
 			"name": "climb-fire",
 			"delayFrame": 1,
 			"frame": [79]
+		},{
+			"stateID": 13,
+			"name": "running-fire",
+			"delayFrame": 2,
+			"frame": [87,88,89]
 		}]
 	},{
 		"characterID": 2,

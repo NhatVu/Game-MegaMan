@@ -1,5 +1,5 @@
 #include "GameState.h"
-
+#include "../MegaMan.h"
 
 GameState::GameState()
 {
@@ -11,7 +11,7 @@ GameState::~GameState()
 }
 
 GameState* GameState::onKeyDown(GameObject* gameObject, int keyCode){
-	if (keyCode == DIK_RIGHT ){
+	if (keyCode == DIK_RIGHT){
 		gameObject->setFlipVertical(1);
 	}
 

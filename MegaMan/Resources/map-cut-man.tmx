@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="105" height="69" tilewidth="32" tileheight="32" nextobjectid="23">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="105" height="69" tilewidth="32" tileheight="32" nextobjectid="34">
  <tileset firstgid="1" name="Cut_Man_map" tilewidth="32" tileheight="32" tilecount="7072" columns="104">
   <image source="Cut_Man_map.png" width="3358" height="2182"/>
  </tileset>
@@ -7257,7 +7257,7 @@
   <object id="2" name="ladder " type="1" x="84.6667" y="2072" width="15.3333" height="94"/>
   <object id="3" name="ladder" type="1" x="164" y="2072" width="17.3333" height="33"/>
   <object id="4" type="0" x="0.666667" y="2072" width="82.6667" height="12.6667"/>
-  <object id="5" type="0" x="101" y="2072" width="30" height="14"/>
+  <object id="5" type="0" x="101" y="2072" width="61" height="14"/>
   <object id="7" type="0" x="182.333" y="2072" width="14" height="14"/>
   <object id="8" type="0" x="228.667" y="2073.67" width="111.667" height="13.6667"/>
   <object id="9" type="0" x="357" y="2073.33" width="63" height="14.6667"/>
@@ -7268,15 +7268,20 @@
   <object id="14" type="0" x="836.5" y="2040.5" width="15" height="94.5"/>
   <object id="15" type="0" x="869.5" y="2040" width="16.5" height="31.5"/>
   <object id="16" type="0" x="917.5" y="2041" width="78" height="30.5"/>
-  <object id="17" type="0" x="997" y="1945.5" width="22" height="95"/>
-  <object id="18" name="ladder" type="1" x="981" y="1945.5" width="15" height="93.5"/>
+  <object id="17" type="0" x="1003" y="1945.5" width="22" height="95"/>
+  <object id="18" name="ladder" type="1" x="980" y="1945.5" width="15" height="93.5"/>
   <object id="19" type="0" x="949" y="2137" width="16.5" height="28.5"/>
   <object id="20" type="0" x="964.5" y="2072.5" width="29" height="63"/>
-  <object id="21" name="blader" type="6" x="275" y="2045" width="12" height="13"/>
-  <object id="22" name="blaster" type="7" x="152" y="2112" width="10" height="12">
-   <properties>
-    <property name="data" type="int" value="1"/>
-   </properties>
-  </object>
+  <object id="21" name="blader" type="6" x="269" y="2127" width="12" height="13"/>
+  <object id="23" type="0" x="800" y="1946" width="130" height="29"/>
+  <object id="24" name="ladder" type="1" x="805.333" y="1865.33" width="14" height="79.3333"/>
+  <object id="26" type="0" x="821.333" y="1864.67" width="16" height="30.6667"/>
+  <object id="27" type="0" x="870" y="1849.33" width="152.667" height="28.6667"/>
+  <object id="28" type="0" x="900.667" y="1818" width="34.6667" height="28.6667"/>
+  <object id="29" type="0" x="933.333" y="1786" width="91.3333" height="32"/>
+  <object id="30" name="ladder" type="1" x="982" y="1704" width="13.3333" height="79.3333"/>
+  <object id="31" type="0" x="997.333" y="1641.33" width="23.3333" height="59.3333"/>
+  <object id="32" type="0" x="900.667" y="1704" width="79.3333" height="31.1667"/>
+  <object id="33" name="ladder" type="1" x="917.5" y="1609" width="15.5" height="94.5"/>
  </objectgroup>
 </map>

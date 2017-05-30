@@ -5,7 +5,7 @@
 #include <dinput.h>
 //#include "DirectxInput.h"
 #include "GameObject.h"
-#include "Quadtree.h"
+//#include "Quadtree.h"
 #include <list>
 
 #define USING_S_FRAMEWORK using namespace s_framework
@@ -66,8 +66,8 @@ namespace s_framework
 		void initKeyboard(HINSTANCE hInstance, HWND hWnd);
 		void attachInputObect(GameObject* object);
 		void detachInputObject(GameObject* object);
-		void detectCollision(list<GameObject*> game_objects);
-		static Quadtree* CreateQuadTree(list<GameObject*> game_objects);
+		//void detectCollision(list<GameObject*> game_objects);
+		//static Quadtree* CreateQuadTree(list<GameObject*> game_objects);
 		
 
 		/*-----------------------------------------------------

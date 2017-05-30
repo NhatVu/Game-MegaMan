@@ -18,12 +18,15 @@ MegaManClimbingState::MegaManClimbingState()
 
 MegaManClimbingState::~MegaManClimbingState()
 {
-	
+
 
 }
 
 GameState* MegaManClimbingState::onKeyDown(GameObject* gameObject, int keyCode){
+	GameState::onKeyDown(gameObject, keyCode);
+
 	if (keyCode == DIK_F){
+		gameObject->setVelocity(FPOINT(0.0f, MEGA_MAN_JUMP_VELOCITY));
 		return new MegaManJumpingState();
 	}
 	return NULL;
@@ -38,6 +41,8 @@ GameState*  MegaManClimbingState::onKeyUp(GameObject* gameObject, int keyCode){
 	return NULL;
 }
 GameState*  MegaManClimbingState::processKeyState(GameObject* gameObject, BYTE *keyState){
+	//GameState::processKeyState(gameObject, keyState);
+
 	//GameState::processKeyState(gameObject, keyState);
 	if (gameObject->getCanClimb() && (keyState[DIK_UP] * 0x80) > 0){
 		gameObject->setStopUpdateAnimation(false);
@@ -63,8 +68,8 @@ GameState* MegaManClimbingState::onCollision(GameObject* gameObject, GameObject*
 	D3DXVECTOR2 normal = collisionVector;
 
 	//float collisionTime = Collision::CheckCollision(gameObject, staticObject, normal);
-		gameObject->setNoCollisionWithAll(false);
-		gameObject->setTimeCollision(collisionTime);
+	gameObject->setNoCollisionWithAll(false);
+	gameObject->setTimeCollision(collisionTime);
 	if (collisionTime > 0.0f && collisionTime < 1.0f){
 		/*
 		NOTE : Khi xét va chạm, không set vị trí và chạm giữa 2 vật trùng nhau mà phải cho chúng nó lệch nhau ít nhất 1px.
@@ -92,8 +97,17 @@ GameState* MegaManClimbingState::onCollision(GameObject* gameObject, GameObject*
 	if (staticObjectType == ECharacter::LADDER){
 		// kiểm tra xem megaman có thể leo được hay không. 
 		((MegaMan*)gameObject)->canChangeViewportUp = false;
+		//float megaManCenter = gameObject->getPosition().x + MEGA_MAN_VIRTUAL_WIDTH / 2;
+		
 		if (collisionTime == 1.0f){
 			gameObject->setCanClimb(true);
+			FPOINT newPosition = gameObject->getPosition();
+			newPosition.x = staticObject->getCollisionBox().x;
+			//vì hình cắt bị dư 1 khoảng trống nên phải trừ khi flip trái phải
+			if (gameObject->getFlipVertical() == -1)
+				newPosition.x -= (gameObject->getSpriteSpec()->getWidth() - MEGA_MAN_VIRTUAL_WIDTH + 5);
+
+			gameObject->setPostion(newPosition);
 			if (staticObject->getCollisionBox().y > ViewPort::getInstance()->getViewportBoundary().y)
 				((MegaMan*)gameObject)->canChangeViewportUp = true;
 		}
@@ -150,7 +164,7 @@ GameState* MegaManClimbingState::topCollision(GameObject* gameObject, GameObject
 		break;
 	case ECharacter::LADDER:
 		if (isPressDown){
-			newPosition.y = staticObject->getCollisionBox().y + MEGA_MAN_VIRTUAL_HEIGHT/2 ;
+			newPosition.y = staticObject->getCollisionBox().y + MEGA_MAN_VIRTUAL_HEIGHT / 2;
 			gameObject->setPostion(newPosition);
 		}
 		else{
@@ -166,7 +180,7 @@ GameState* MegaManClimbingState::topCollision(GameObject* gameObject, GameObject
 			((MegaMan*)gameObject)->canChangeViewportUp = false;
 			return new MegaManIdleState();
 		}
-		
+
 		break;
 
 	default:

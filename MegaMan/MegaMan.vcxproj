@@ -91,7 +91,7 @@
     <ClInclude Include="GameObject\State\GameState.h" />
     <ClInclude Include="GameObject\Kamadoma.h" />
     <ClInclude Include="Map\MapBombMan.h" />
-    <ClInclude Include="Map\MapOne.h" />
+    <ClInclude Include="Map\MapCutMan.h" />
     <ClInclude Include="GameObject\State\MegaManIdleState.h" />
     <ClInclude Include="GameObject\State\MegaManRunningState.h" />
     <ClInclude Include="GameObject\State\MegaManJumpingState.h" />
@@ -111,7 +111,7 @@
     <ClCompile Include="GameObject\State\GameState.cpp" />
     <ClCompile Include="GameObject\Kamadoma.cpp" />
     <ClCompile Include="Map\MapBombMan.cpp" />
-    <ClCompile Include="Map\MapOne.cpp" />
+    <ClCompile Include="Map\MapCutMan.cpp" />
     <ClCompile Include="GameObject\MegaMan.cpp" />
     <ClCompile Include="GameObject\State\MegaManIdleState.cpp" />
     <ClCompile Include="GameObject\State\MegaManRunningState.cpp" />

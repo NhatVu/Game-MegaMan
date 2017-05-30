@@ -199,14 +199,15 @@ void SFramework::update(float delta)
 				if (mListObject[j]->getType() != 0 && i != j){
 					mListObject[i]->calculateCollisionBox();
 					D3DXVECTOR2 collisionVector(0.0f, 0.0f);
+					if (mListObject[j]->getType() == 1 && mListObject[i]->getType() == 10){
+						int x = 5;
+					}
 					float collisionTime = Collision::CheckCollision(mListObject[i], mListObject[j], collisionVector);
 					mListObject[i]->onCollision(mListObject[j], collisionTime, collisionVector);
 					collisionVector.x *= -1;
 					collisionVector.y *= -1;
 					mListObject[j]->onCollision(mListObject[i], collisionTime, collisionVector);
-					if (mListObject[j]->getType() == 1){
-						int x = 5;
-					}
+					
 					if (collisionTime > 0.0f && collisionTime <= 1.0f){
 						break;
 					}
@@ -258,41 +259,41 @@ void SFramework::detachInputObject(GameObject* object){
 	list_object_input.erase(std::remove(list_object_input.begin(), list_object_input.end(), object), list_object_input.end());
 }
 
-void s_framework::SFramework::detectCollision(list<GameObject*> game_objects)
-{
-	Quadtree* quadtree = CreateQuadTree(game_objects);
+//void s_framework::SFramework::detectCollision(list<GameObject*> game_objects)
+//{
+//	Quadtree* quadtree = CreateQuadTree(game_objects);
+//
+//	list<GameObject*> return_objects_list;
+//
+//	for (list<GameObject*>::iterator i = game_objects.begin(); i != game_objects.end(); i++)
+//	{
+//		//Get all objects that can collide with current entity
+//		quadtree->Retrieve(return_objects_list, *i);
+//
+//		for (auto x = return_objects_list.begin(); x != return_objects_list.end(); x++)
+//		{
+//			GameObject* a = *i;
+//			GameObject* b = *x;
+//			//if (a->onCollision(b) == true)
+//			//{
+//				///
+//			//}
+//		}
+//
+//		return_objects_list.clear();
+//	}
+//
+//	quadtree->Release();
+//}
 
-	list<GameObject*> return_objects_list;
-
-	for (list<GameObject*>::iterator i = game_objects.begin(); i != game_objects.end(); i++)
-	{
-		//Get all objects that can collide with current entity
-		quadtree->Retrieve(return_objects_list, *i);
-
-		for (auto x = return_objects_list.begin(); x != return_objects_list.end(); x++)
-		{
-			GameObject* a = *i;
-			GameObject* b = *x;
-			//if (a->onCollision(b) == true)
-			//{
-				///
-			//}
-		}
-
-		return_objects_list.clear();
-	}
-
-	quadtree->Release();
-}
-
-Quadtree* s_framework::SFramework::CreateQuadTree(list<GameObject*> game_objects)
-{
-	Quadtree* quadtree = new Quadtree(1, BOX(0, 0, 800, 600));
-	for (auto i = game_objects.begin(); i != game_objects.end(); i++)
-		quadtree->Insert(*i);
-
-	return quadtree;
-}
+//Quadtree* s_framework::SFramework::CreateQuadTree(list<GameObject*> game_objects)
+//{
+//	Quadtree* quadtree = new Quadtree(1, BOX(0, 0, 800, 600));
+//	for (auto i = game_objects.begin(); i != game_objects.end(); i++)
+//		quadtree->Insert(*i);
+//
+//	return quadtree;
+//}
 
 void SFramework::initKeyboard(HINSTANCE hInstance, HWND hWnd)
 {
