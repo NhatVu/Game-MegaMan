@@ -99,9 +99,9 @@ void GameMap::parseBackground(){
 
 		//	FPOINT position(n * tileWidth + tileWidth / 2, m * tileHeight + tileHeight / 2);
 		int xInMap = (tileIDInMap % mapWidthCount) * tileSetWidth;
-		int yInmap = (tileIDInMap / mapWidthCount) * tileSetHeight;
+		int yInMap = (tileIDInMap / mapWidthCount) * tileSetHeight;
 
-		FPOINT position(xInMap, yInmap);
+		FPOINT position(xInMap, yInMap);
 		position.y = mapHeight - position.y; // đây là tọa độ top-left của từng tile
 		/*
 		Code demo xét theo hệ trục của màn hình với y hướng xuống. nên phải thiết lập lại độ cao cho tile trong map.
@@ -117,8 +117,8 @@ void GameMap::parseBackground(){
 		sprite->setSpriteSpec(spriteSpec);
 		sprite->setPostion(position);
 		BOX collistionBox;
-		collistionBox.x = x;
-		collistionBox.y = mapHeight - y;
+		collistionBox.x = xInMap;
+		collistionBox.y = mapHeight - yInMap;
 		collistionBox.width = tileSetWidth;
 		collistionBox.height = tileSetHeight;
 		collistionBox.vx = 0.0f;

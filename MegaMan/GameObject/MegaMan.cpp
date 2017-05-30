@@ -75,6 +75,11 @@ void MegaMan::processInput(LPDIRECT3DDEVICE9 d3ddv, int Delta){
 }
 
 void MegaMan::onKeyDown(int keyCode){
+	if (keyCode == DIK_5){
+		ViewPort::getInstance()->setViewportBoundary(BOX(40 * 32, 67 * 32, 24 * 32, 7 * 32));
+		ViewPort::getInstance()->setPosition(FPOINT(40 * 32, 67 * 32));
+		this->setPostion(FPOINT(41 * 32, 66 * 32));
+	}
 	GameState* state = m_state->onKeyDown(this, keyCode);
 	if (state != NULL){
 		delete m_state;

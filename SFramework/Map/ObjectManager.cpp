@@ -45,8 +45,9 @@ void ObjectManager::processQuadTreeAndViewport(FPOINT viewportPosition){
 			object->resetToInit();
 			quadtreeBackground.erase(it++);
 		}
-		else
+		else{
 			++it;
+		}
 	}
 	// loại bỏ những object trong activeObject nằm ngoài camera
 	for (map<int, GameObject*>::iterator it = activeObject.begin(); it != activeObject.end();) {

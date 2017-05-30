@@ -12,7 +12,7 @@
 #include "State/MegaManRunningState.h"
 #include <vector>
 
-#define MEGA_MAN_VELOCITY_X 0.1f
+#define MEGA_MAN_VELOCITY_X 0.15f
 #define MEGA_MAN_ACCELERATION_X 0.0f
 #define MEGA_MAN_VIRTUAL_WIDTH 22.0f
 #define MEGA_MAN_VIRTUAL_HEIGHT 22.0f
