@@ -9,7 +9,7 @@
 using namespace s_framework;
 MegaMan::MegaMan() : GameObject()
 {
-	GameObject::setType(10);
+	GameObject::setType(ECharacter::MEGAMAN);
 	GameObject::setAcceleration(FPOINT(0, GRAVITATIONAL_ACCELERATION));
 	//GameObject::setVelocity(FPOINT(MEGA_MAN_VELOCITY_X, 0.0f));
 	m_state_attack = new MegaManAttackState();

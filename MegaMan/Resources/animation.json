@@ -1,6 +1,6 @@
 {
 	"animation": [{
-		"characterID": 10,
+		"characterID": 100,
 		"name": "MegaMan",
 		"state": [{
 			"stateID": 1,
@@ -155,6 +155,25 @@
 			"name":"active",
 			"delayFrame": 0,
 			"frame": [25]
+		}]
+	},{
+		"characterID": 9,
+		"name": "suzy",
+		"state": [{
+			"stateID": 8,
+			"name":"active",
+			"delayFrame": 0,
+			"frame": [64]
+		},{
+			"stateID": 1,
+			"name":"idle",
+			"delayFrame": 5,
+			"frame": [63,62]
+		},{
+			"stateID": 5,
+			"name":"die",
+			"delayFrame": 0,
+			"frame": [65]
 		}]
 	}
 	]

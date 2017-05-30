@@ -15,7 +15,9 @@ enum ECharacter
 	BLADER = 6,
 	BLASTER = 7,
 	BLASTER_BULLET = 8,
-	MEGAMAN = 10,
+	SUZY = 9,
+	SCREW = 10,
+	MEGAMAN = 100,
 
 };
 

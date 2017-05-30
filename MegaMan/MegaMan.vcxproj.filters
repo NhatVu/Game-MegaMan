@@ -81,6 +81,9 @@
     <ClInclude Include="Map\MapCutMan.h">
       <Filter>Header Files\Map</Filter>
     </ClInclude>
+    <ClInclude Include="GameObject\Suzy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -136,6 +139,9 @@
     </ClCompile>
     <ClCompile Include="Map\MapCutMan.cpp">
       <Filter>Source Files\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\Suzy.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
