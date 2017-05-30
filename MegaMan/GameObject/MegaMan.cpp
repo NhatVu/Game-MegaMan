@@ -80,6 +80,12 @@ void MegaMan::onKeyDown(int keyCode){
 		ViewPort::getInstance()->setPosition(FPOINT(40 * 32, 67 * 32));
 		this->setPostion(FPOINT(41 * 32, 66 * 32));
 	}
+	if (keyCode == DIK_6){
+		ViewPort::getInstance()->setViewportBoundary(BOX(56 * 32, 59.5f * 32, 8 * 32, 7 * 32));
+		ViewPort::getInstance()->setPosition(FPOINT(56 * 32, 59.5f * 32));
+		this->setPostion(FPOINT(57 * 32, 65 * 32));
+
+	}
 	GameState* state = m_state->onKeyDown(this, keyCode);
 	if (state != NULL){
 		delete m_state;

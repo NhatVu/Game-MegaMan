@@ -91,6 +91,20 @@ GameState* MegaManClimbingState::onCollision(GameObject* gameObject, GameObject*
 		{
 			return topCollision(gameObject, staticObject);
 		}
+		// vật đi chuyển từ dưới lên
+		else if (normal.x == 0.0f && normal.y == -1.0f)
+		{
+			return bottomCollision(gameObject, staticObject);
+		}
+		// vật đi từ phải sang
+		else if (normal.x == 1.0f && normal.y == 0.0f){
+			return rightCollision(gameObject, staticObject);
+		}
+		else
+			// vật đi từ trái sang
+		if (normal.x == -1.0f && normal.y == 0.0f){
+			return leftCollision(gameObject, staticObject);
+		}
 	}
 
 
@@ -193,8 +207,30 @@ GameState* MegaManClimbingState::bottomCollision(GameObject* gameObject, GameObj
 	return NULL;
 }
 GameState* MegaManClimbingState::leftCollision(GameObject* gameObject, GameObject* staticObject){
+	FPOINT newPosition = gameObject->getPosition();
+	switch (staticObject->getType()){
+	case ECharacter::STATIC:
+		newPosition.x = staticObject->getCollisionBox().x - MEGA_MAN_VIRTUAL_WIDTH - 1;
+		gameObject->setPostion(newPosition);
+
+		gameObject->setVelocity(FPOINT(0.0f, gameObject->getVelocity().y));
+		break;
+	default:
+		break;
+	}
 	return NULL;
 }
 GameState* MegaManClimbingState::rightCollision(GameObject* gameObject, GameObject* staticObject){
+	FPOINT newPosition = gameObject->getPosition();
+	switch (staticObject->getType()){
+	case ECharacter::STATIC:
+		newPosition.x = staticObject->getCollisionBox().x + staticObject->getCollisionBox().width + 1;
+		gameObject->setPostion(newPosition);
+		gameObject->setVelocity(FPOINT(0.0f, gameObject->getVelocity().y));
+		break;
+	default:
+		break;
+	}
+
 	return NULL;
 }
