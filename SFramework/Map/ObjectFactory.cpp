@@ -9,6 +9,8 @@
 #include "../../MegaMan/GameObject/Blaster.h"
 #include "../../MegaMan/GameObject/BlasterBullet.h"
 #include "../../MegaMan/GameObject/Suzy.h"
+#include "../../MegaMan/GameObject/Screw.h"
+#include "../../MegaMan/GameObject/ScrewBullet.h"
 using namespace s_framework;
 ObjectFactory::ObjectFactory()
 {
@@ -74,6 +76,18 @@ GameObject* ObjectFactory::createObject(int objectType){
 		object = new Suzy();
 		object->setState(EState::ACTIVE);
 		object->setType(ECharacter::SUZY);
+		object->setTexture(TextureManager::getInstance()->getObjectTexture());
+		break;
+	case ECharacter::SCREW:
+		object = new Screw();
+		object->setState(EState::ACTIVE);
+		object->setType(ECharacter::SCREW);
+		object->setTexture(TextureManager::getInstance()->getObjectTexture());
+		break;
+	case ECharacter::SCREW_BULLET:
+		object = new ScrewBullet();
+		object->setState(EState::ACTIVE);
+		object->setType(ECharacter::SCREW_BULLET);
 		object->setTexture(TextureManager::getInstance()->getObjectTexture());
 		break;
 	default:

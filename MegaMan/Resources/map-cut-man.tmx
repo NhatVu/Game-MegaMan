@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="105" height="69" tilewidth="32" tileheight="32" nextobjectid="123">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="105" height="69" tilewidth="32" tileheight="32" nextobjectid="125">
  <tileset firstgid="1" name="Cut_Man_map" tilewidth="32" tileheight="32" tilecount="7072" columns="104">
   <image source="Cut_Man_map.png" width="3358" height="2182"/>
  </tileset>
@@ -7272,7 +7272,7 @@
   <object id="18" name="ladder" type="1" x="980" y="1945.5" width="15" height="93.5"/>
   <object id="19" type="0" x="949" y="2137" width="16.5" height="28.5"/>
   <object id="20" type="0" x="964.5" y="2072.5" width="29" height="63"/>
-  <object id="21" name="blader" type="6" x="549" y="2039.5" width="12" height="13"/>
+  <object id="21" name="blader" type="6" x="537.667" y="2050.83" width="12" height="13"/>
   <object id="23" type="0" x="800" y="1946" width="130" height="29"/>
   <object id="24" name="ladder" type="1" x="805.333" y="1865" width="14" height="79.3333"/>
   <object id="26" type="0" x="821.333" y="1865" width="16" height="30.6667"/>
@@ -7283,16 +7283,6 @@
   <object id="31" type="0" x="997.333" y="1641.33" width="23.3333" height="59.3333"/>
   <object id="32" type="0" x="900.667" y="1704" width="79.3333" height="31.1667"/>
   <object id="33" name="ladder" type="1" x="917.5" y="1609" width="15.5" height="94.5"/>
-  <object id="35" name="blaster" type="7" x="152" y="2091.5" width="9" height="12.5">
-   <properties>
-    <property name="direction" type="int" value="1"/>
-   </properties>
-  </object>
-  <object id="39" type="7" x="184.5" y="2093" width="10" height="9.5">
-   <properties>
-    <property name="direction" type="int" value="-1"/>
-   </properties>
-  </object>
   <object id="42" type="0" x="934" y="1578" width="33.3333" height="30"/>
   <object id="43" type="0" x="964" y="1546" width="44.6667" height="29.3333"/>
   <object id="44" type="1" x="981.333" y="1464.67" width="16" height="79.3333"/>
@@ -7369,13 +7359,23 @@
   <object id="117" type="0" x="1350" y="1080" width="14" height="96"/>
   <object id="118" type="0" x="1924.67" y="764" width="118.667" height="10"/>
   <object id="119" type="0" x="19.5" y="2049" width="10.5" height="24"/>
-  <object id="120" name="suzy" type="9" x="62" y="2055" width="11.5" height="9.5">
+  <object id="120" name="screw" type="10" x="256.5" y="2155.83" width="11.5" height="9.5">
    <properties>
     <property name="direction" type="int" value="1"/>
    </properties>
   </object>
   <object id="121" type="0" x="133.5" y="2044" width="27" height="27.5"/>
   <object id="122" name="suzy" type="9" x="323" y="2125" width="14" height="9.5">
+   <properties>
+    <property name="direction" type="int" value="-1"/>
+   </properties>
+  </object>
+  <object id="123" name="blaster" type="7" x="152.5" y="2089" width="8.5" height="11">
+   <properties>
+    <property name="direction" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="124" name="blaster" type="7" x="196.5" y="2112" width="11" height="12.5">
    <properties>
     <property name="direction" type="int" value="-1"/>
    </properties>

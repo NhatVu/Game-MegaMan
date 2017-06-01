@@ -86,7 +86,7 @@ GameState* MegaManJumpingState::onCollision(GameObject* gameObject, GameObject* 
 		// cho những vật chỉ cần va chạm, không cần hướng 
 		if (staticObjectType == ECharacter::BLADER || staticObjectType == ECharacter::KAMADOMA
 			|| staticObjectType == ECharacter::BLASTER_BULLET || staticObjectType == ECharacter::BLASTER 
-			|| staticObjectType == ECharacter::SUZY){
+			|| staticObjectType == ECharacter::SUZY || staticObjectType == ECharacter::SCREW_BULLET){
 			FPOINT newPosition = gameObject->getPosition();
 
 			if (newPosition.x > staticObject->getPosition().x)

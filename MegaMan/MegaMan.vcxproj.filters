@@ -84,6 +84,12 @@
     <ClInclude Include="GameObject\Suzy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GameObject\Screw.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\ScrewBullet.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -141,6 +147,12 @@
       <Filter>Source Files\Map</Filter>
     </ClCompile>
     <ClCompile Include="GameObject\Suzy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\Screw.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\ScrewBullet.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

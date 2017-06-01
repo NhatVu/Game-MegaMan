@@ -147,7 +147,7 @@ void Blaster::creaetBlasterBullet(float vx, float vy){
 	GameObject* blasterBullet = ObjectFactory::createObject(ECharacter::BLASTER_BULLET);
 	blasterBullet->setObjectID(ObjectManager::notInMapObjectId++);
 	blasterBullet->setVelocity(FPOINT(vx, vy));
-	blasterBullet->setPostion(this->getPosition());
+	blasterBullet->setPostion(FPOINT(this->getPosition().x - this->getFlipVertical()*(this->getSpriteSpec()->getWidth() - 5), this->getPosition().y - this->getSpriteSpec()->getHeight() / 2));
 	blasterBullet->calculateCollisionBox();
 	//blasterBullet->setAcceleration(FPOINT(0.0f, GRAVITATIONAL_ACCELERATION / 5));
 	//blasterBullet->resetToInit();

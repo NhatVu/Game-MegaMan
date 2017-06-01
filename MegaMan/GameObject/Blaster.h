@@ -18,7 +18,7 @@ using namespace s_framework;
 	Khi bắn viên cuối cùng => về trạng thái IDLE trong 2s, rồi quay lại trạng thái Active
 */
 
-// direction property: 1 => hình mặc định => flip = 1;
+// direction property: 1 => hình mặc định (quay sang trái) => flip = -1;
 
 class Blaster : public GameObject
 {
