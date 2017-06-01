@@ -203,6 +203,34 @@
 			"delayFrame": 0,
 			"frame": [43]
 		}]
+	},{
+		"characterID": 12,
+		"name": "flyShell",
+		"state": [{
+			"stateID": 8,
+			"name":"active",
+			"delayFrame": 2,
+			"frame": [34]
+		},{
+			"stateID": 1,
+			"name":"idle",
+			"delayFrame": 0,
+			"frame": [36]
+		},{
+			"stateID": 5,
+			"name":"die",
+			"delayFrame": 0,
+			"frame": [65]
+		}]
+	},{
+		"characterID": 13,
+		"name": "flyShell_bullet",
+		"state": [{
+			"stateID": 8,
+			"name":"active",
+			"delayFrame": 0,
+			"frame": [35]
+		}]
 	}
 	]
 }

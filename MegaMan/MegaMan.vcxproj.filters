@@ -90,6 +90,12 @@
     <ClInclude Include="GameObject\ScrewBullet.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GameObject\FlyShell.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\FlyShellBullet.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -153,6 +159,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GameObject\ScrewBullet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\FlyShell.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\FlyShellBullet.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

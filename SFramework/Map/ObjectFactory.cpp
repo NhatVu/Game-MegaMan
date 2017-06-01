@@ -11,6 +11,8 @@
 #include "../../MegaMan/GameObject/Suzy.h"
 #include "../../MegaMan/GameObject/Screw.h"
 #include "../../MegaMan/GameObject/ScrewBullet.h"
+#include "../../MegaMan/GameObject/FlyShell.h"
+#include "../../MegaMan/GameObject/FlyShellBullet.h"
 using namespace s_framework;
 ObjectFactory::ObjectFactory()
 {
@@ -88,6 +90,18 @@ GameObject* ObjectFactory::createObject(int objectType){
 		object = new ScrewBullet();
 		object->setState(EState::ACTIVE);
 		object->setType(ECharacter::SCREW_BULLET);
+		object->setTexture(TextureManager::getInstance()->getObjectTexture());
+		break;
+	case ECharacter::FLY_SHELL:
+		object = new FlyShell();
+		object->setState(EState::IDLE);
+		object->setType(ECharacter::FLY_SHELL);
+		object->setTexture(TextureManager::getInstance()->getObjectTexture());
+		break;
+	case ECharacter::FLY_SHELL_BULLET:
+		object = new FlyShellBullet();
+		object->setState(EState::ACTIVE);
+		object->setType(ECharacter::FLY_SHELL_BULLET);
 		object->setTexture(TextureManager::getInstance()->getObjectTexture());
 		break;
 	default:

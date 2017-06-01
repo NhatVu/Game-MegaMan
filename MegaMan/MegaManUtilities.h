@@ -18,6 +18,8 @@ enum ECharacter
 	SUZY = 9,
 	SCREW = 10,
 	SCREW_BULLET = 11,
+	FLY_SHELL = 12,
+	FLY_SHELL_BULLET = 13,
 	MEGAMAN = 100,
 
 };

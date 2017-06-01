@@ -6,6 +6,7 @@ Screw::Screw()
 {
 	this->canAttack = false;
 	this->countFrame = 0;
+	this->isRender = false;
 }
 
 
@@ -14,6 +15,7 @@ Screw::~Screw()
 }
 
 void Screw::render() {
+	this->isRender = true;
 	if (this->canAttack)
 		this->countFrame++;
 	if (this->getStopUpdateAnimation() == 0){
@@ -32,7 +34,8 @@ void Screw::onCollision(GameObject* staticObject, float collisionTime, D3DXVECTO
 		}
 	}
 
-	if (staticObject->getType() == ECharacter::MEGAMAN){
+	if (this->isRender){
+		this->isRender = false;
 		FPOINT megaManPos = staticObject->getPosition();
 		if (std::abs(megaManPos.x - this->getPosition().x) < SCREW_FORCE_ATTACK_DISTANCE){
 			this->canAttack = true;
