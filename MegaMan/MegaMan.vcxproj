@@ -106,6 +106,8 @@
     <ClInclude Include="GameObject\Suzy.h" />
     <ClInclude Include="GameObject\Screw.h" />
     <ClInclude Include="GameObject\ScrewBullet.h" />
+    <ClInclude Include="GameObject\SuperCutter.h" />
+    <ClInclude Include="GameObject\SupperCutterFactory.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject\FlyShellBullet.cpp" />
@@ -130,6 +132,8 @@
     <ClCompile Include="GameObject\Suzy.cpp" />
     <ClCompile Include="GameObject\Screw.cpp" />
     <ClCompile Include="GameObject\ScrewBullet.cpp" />
+    <ClCompile Include="GameObject\SuperCutter.cpp" />
+    <ClCompile Include="GameObject\SupperCutterFactory.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>

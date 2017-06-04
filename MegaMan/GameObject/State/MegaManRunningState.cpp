@@ -112,7 +112,7 @@ GameState* MegaManRunningState::onCollision(GameObject* gameObject, GameObject* 
 		// cho những vật chỉ cần va chạm, không cần hướng 
 		if (staticObjectType == ECharacter::BLADER || staticObjectType == ECharacter::KAMADOMA
 			|| staticObjectType == ECharacter::BLASTER_BULLET || staticObjectType == ECharacter::BLASTER
-			|| staticObjectType == ECharacter::SUZY || staticObjectType == ECharacter::SCREW || staticObjectType == ECharacter::SCREW_BULLET){
+			|| staticObjectType == ECharacter::SUZY || staticObjectType == ECharacter::SCREW || staticObjectType == ECharacter::SCREW_BULLET || staticObjectType == ECharacter::SUPER_CUTTER){
 			FPOINT newPosition = gameObject->getPosition();
 
 			if (newPosition.x > staticObject->getPosition().x)

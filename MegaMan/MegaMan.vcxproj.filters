@@ -96,6 +96,12 @@
     <ClInclude Include="GameObject\FlyShellBullet.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GameObject\SuperCutter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\SupperCutterFactory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -165,6 +171,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GameObject\FlyShellBullet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\SuperCutter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\SupperCutterFactory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

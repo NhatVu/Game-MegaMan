@@ -71,6 +71,7 @@ void ObjectManager::processQuadTreeAndViewport(FPOINT viewportPosition){
 				int a = 5;
 			}
 			object->resetToInit();
+			collisionBox = object->getCollisionBox();
 			// nếu init box nằm trong camera -> Inactive
 			if (!((collisionBox.x > cameraBox.x + cameraBox.width) || (collisionBox.x + collisionBox.width < cameraBox.x)
 				|| (collisionBox.y < cameraBox.y - cameraBox.height) || (collisionBox.y - collisionBox.height > cameraBox.y)))

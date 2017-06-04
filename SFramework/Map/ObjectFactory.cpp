@@ -13,6 +13,8 @@
 #include "../../MegaMan/GameObject/ScrewBullet.h"
 #include "../../MegaMan/GameObject/FlyShell.h"
 #include "../../MegaMan/GameObject/FlyShellBullet.h"
+#include "../../MegaMan/GameObject/SuperCutter.h"
+#include "../../MegaMan/GameObject/SupperCutterFactory.h"
 using namespace s_framework;
 ObjectFactory::ObjectFactory()
 {
@@ -102,6 +104,17 @@ GameObject* ObjectFactory::createObject(int objectType){
 		object = new FlyShellBullet();
 		object->setState(EState::ACTIVE);
 		object->setType(ECharacter::FLY_SHELL_BULLET);
+		object->setTexture(TextureManager::getInstance()->getObjectTexture());
+		break;
+	case ECharacter::SUPER_CUTTER_FACTORY:
+		object = new SupperCutterFactory();
+		object->setType(ECharacter::SUPER_CUTTER_FACTORY);
+
+		break;
+	case ECharacter::SUPER_CUTTER:
+		object = new SuperCutter();
+		object->setState(EState::ACTIVE);
+		object->setType(ECharacter::SUPER_CUTTER);
 		object->setTexture(TextureManager::getInstance()->getObjectTexture());
 		break;
 	default:

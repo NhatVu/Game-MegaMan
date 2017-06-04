@@ -231,6 +231,15 @@
 			"delayFrame": 0,
 			"frame": [35]
 		}]
+	},{
+		"characterID": 15,
+		"name": "super cutter",
+		"state": [{
+			"stateID": 8,
+			"name":"active",
+			"delayFrame": 4,
+			"frame": [99,100]
+		}]
 	}
 	]
 }
