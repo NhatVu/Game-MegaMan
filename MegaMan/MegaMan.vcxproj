@@ -83,6 +83,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="GameObject\BigEye.h" />
     <ClInclude Include="GameObject\FlyShellBullet.h" />
     <ClInclude Include="GameObject\FlyShell.h" />
     <ClInclude Include="GameObject\BlasterBullet.h" />
@@ -110,6 +111,7 @@
     <ClInclude Include="GameObject\SupperCutterFactory.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="GameObject\BigEye.cpp" />
     <ClCompile Include="GameObject\FlyShellBullet.cpp" />
     <ClCompile Include="GameObject\FlyShell.cpp" />
     <ClCompile Include="GameObject\BlasterBullet.cpp" />

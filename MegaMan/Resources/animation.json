@@ -240,6 +240,20 @@
 			"delayFrame": 4,
 			"frame": [99,100]
 		}]
+	},{
+		"characterID": 16,
+		"name": "big eye",
+		"state": [{
+			"stateID": 8,
+			"name":"active",
+			"delayFrame": 6,
+			"frame": [97,97,98]
+		},{
+			"stateID": 5,
+			"name":"die",
+			"delayFrame": 0,
+			"frame": [65]
+		}]
 	}
 	]
 }

@@ -15,6 +15,7 @@
 #include "../../MegaMan/GameObject/FlyShellBullet.h"
 #include "../../MegaMan/GameObject/SuperCutter.h"
 #include "../../MegaMan/GameObject/SupperCutterFactory.h"
+#include "../../MegaMan/GameObject/BigEye.h"
 using namespace s_framework;
 ObjectFactory::ObjectFactory()
 {
@@ -115,6 +116,12 @@ GameObject* ObjectFactory::createObject(int objectType){
 		object = new SuperCutter();
 		object->setState(EState::ACTIVE);
 		object->setType(ECharacter::SUPER_CUTTER);
+		object->setTexture(TextureManager::getInstance()->getObjectTexture());
+		break;
+	case ECharacter::BIG_EYE:
+		object = new BigEye();
+		object->setState(EState::ACTIVE);
+		object->setType(ECharacter::BIG_EYE);
 		object->setTexture(TextureManager::getInstance()->getObjectTexture());
 		break;
 	default:

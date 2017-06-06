@@ -106,7 +106,7 @@ GameState* MegaManIdleState::onCollision(GameObject* gameObject, GameObject* sta
 		// cho những vật chỉ cần va chạm, không cần hướng 
 		if (staticObjectType == ECharacter::BLADER || staticObjectType == ECharacter::KAMADOMA
 			|| staticObjectType == ECharacter::BLASTER_BULLET || staticObjectType == ECharacter::BLASTER
-			|| staticObjectType == ECharacter::SUZY || staticObjectType == ECharacter::SCREW_BULLET || staticObjectType == ECharacter::SUPER_CUTTER){
+			|| staticObjectType == ECharacter::SUZY || staticObjectType == ECharacter::SCREW_BULLET || staticObjectType == ECharacter::SUPER_CUTTER || staticObjectType == ECharacter::BIG_EYE){
 			FPOINT newPosition = gameObject->getPosition();
 
 			if (newPosition.x > staticObject->getPosition().x)

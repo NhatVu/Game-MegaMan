@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="105" height="69" tilewidth="32" tileheight="32" nextobjectid="129">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="105" height="69" tilewidth="32" tileheight="32" nextobjectid="130">
  <tileset firstgid="1" name="Cut_Man_map" tilewidth="32" tileheight="32" tilecount="7072" columns="104">
   <image source="Cut_Man_map.png" width="3358" height="2182"/>
  </tileset>
@@ -7382,6 +7382,7 @@
   </object>
   <object id="125" name="flyShell" type="12" x="282.5" y="2113.5" width="10" height="10.5"/>
   <object id="126" name="cutter factory" type="14" x="904.5" y="1178" width="24.5" height="14"/>
-  <object id="127" name="cutter factory" type="14" x="1425.5" y="220" width="6.5" height="4.5"/>
+  <object id="127" name="cutter factory" type="14" x="1414.5" y="218" width="28.5" height="15.5"/>
+  <object id="129" name="big eye" type="16" x="1980.5" y="920.5" width="20.5" height="21.5"/>
  </objectgroup>
 </map>
