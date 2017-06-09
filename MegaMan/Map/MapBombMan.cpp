@@ -3,6 +3,7 @@
 #include "../../SFramework/Map/ObjectManager.h"
 MapBombMan::MapBombMan(char* tmxFile, GameObject* megaMan)
 {
+	int a = 5;
 	scene = new Scene();
 	this->map = new GameMap(tmxFile);
 	this->megaMan = megaMan;

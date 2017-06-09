@@ -29,6 +29,7 @@ namespace s_framework {
 	public:
 		void loadQuadtreeFromFile();
 		void createObjectOnScreen();
+		void deleteObjectOutScreen();
 
 	public:
 		static int notInMapObjectId; // những object được tạo ra, không có ở trong map. vd như viên đạn

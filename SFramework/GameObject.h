@@ -39,6 +39,17 @@ namespace s_framework
 	public:
 		GameObject();
 		~GameObject();
+		RECT getBound()
+		{
+
+			RECT rect;
+			rect.top = m_collisionBox.y;
+			rect.left = m_collisionBox.x;
+			rect.bottom = rect.top - m_collisionBox.height;
+			rect.right = rect.left + m_collisionBox.width;
+
+			return rect;
+		}
 
 		void setTexture(LPDIRECT3DTEXTURE9 texture);
 

@@ -180,9 +180,6 @@
     <ClInclude Include="SpriteAndAnimation\AnimationManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Quadtree.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Map\ObjectManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -190,6 +187,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SpriteAndAnimation\TextureManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="quadtree\NodeQuadTree.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="quadtree\QuadTree.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="File\FileUtil.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -236,9 +242,6 @@
     <ClCompile Include="SpriteAndAnimation\AnimationManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Quadtree.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Map\ObjectManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -246,6 +249,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SpriteAndAnimation\TextureManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="quadtree\NodeQuadTree.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="quadtree\QuadTree.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="File\FileUtil.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

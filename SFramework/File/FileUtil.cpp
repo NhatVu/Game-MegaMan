@@ -1,5 +1,7 @@
 #include "FileUtil.h"
 
+using namespace s_framework;
+FileUtil* FileUtil::mInstance = NULL;
 s_framework::FileUtil::FileUtil()
 {
 }

@@ -1,10 +1,10 @@
 #pragma once
 #include "NodeQuadTree.h"
-#include "NodeObject.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <string>
+#include <map>
 #include "../File/FileUtil.h"
 
 
@@ -15,20 +15,20 @@ namespace s_framework
 	{
 	private:
 		NodeQuadTree* mRoot;
-		int mMaxId;
 	public:
 		QuadTree();
+		QuadTree(float width, float height);
 		~QuadTree();
-		void rebuildQuadTree(std::vector<NodeObject*>& listQuadObj);
-		void rebuildQuadTree(const std::string& file);
-		void buildQuadTree();
-		void addNode(NodeQuadTree*&, NodeQuadTree*&);
-		void getListObjectOnscreen(RECT*, NodeQuadTree*&, std::vector<int>&);
-		void addGameObjectToQuadTree(GameObject*&);
-		void addGameObjectToQuadTree(NodeObject* quadObj);
-		void deleteGameObjectFromQuadTree(NodeObject*);
+		void rebuildQuadTree(std::vector<GameObject*>& listQuadObj);
+		void rebuildQuadTree();
+		void builEmptyQuadTree();
+		void insert(vector<GameObject*> listObject);
+		vector<int>* getListObjectOnscreen(RECT, std::vector<int>*);
+		void deleteGameObjectFromQuadTree(GameObject*);
 		void clear();
-		NodeQuadTree *& searchNode(int iDNode, NodeQuadTree *& node)
+		void exportFile();
+
+		NodeQuadTree *& searchNode(int iDNode, NodeQuadTree * node)
 		{
 			NodeQuadTree* result = nullptr;
 			if (iDNode == node->getId())
@@ -52,10 +52,7 @@ namespace s_framework
 			return result;
 		}
 	public:
-		NodeQuadTree*& getRoot() { return this->mRoot; };
-		void setMaxId(int maxID) { this->mMaxId = maxID; };
-	private: 
-		bool contain(int ID, const std::vector<int>& list);
+		NodeQuadTree* getRoot() { return mRoot;};
 	};
 }
 

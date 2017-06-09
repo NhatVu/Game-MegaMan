@@ -1,7 +1,10 @@
 #include "SpriteSpec.h"
+#include <time.h>
+#include <stdio.h>      /* printf, scanf, puts, NULL */
+#include <stdlib.h>
 
 using namespace s_framework;
-
+using namespace std;
 SpriteSpec::SpriteSpec()
 {
 }
@@ -45,4 +48,12 @@ float SpriteSpec::getWidth()
 }
 void SpriteSpec::setWidth(float a){
 	width = a;
+}
+
+void s_framework::SpriteSpec::random(int maxWidth, int maxHeight)
+{
+	this->x = rand() % maxWidth;
+	this->y = rand() % maxHeight;
+	this->width = rand() % maxWidth;
+	this->height = rand() % maxHeight;
 }

@@ -9,11 +9,12 @@ using namespace std;
 namespace s_framework {
 	class TextureManager
 	{
-	private:
+	public:
 		static   char* SOURCE_TEXTURE_XML;
 		static   char* SOURCE_TEXTURE_PNG;
 		static   char* SOURCE_MAP_PNG;
 
+	private:
 		static TextureManager* mInstance;
 
 		map<int, SpriteSpec*> mTextureMap;

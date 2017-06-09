@@ -39,9 +39,9 @@ using namespace std;
 
 void trace(string data){
 	fstream f;
-	f.open(__trace_file, ios::app);
+	f.open(__trace_file, ios::out);
 	//std::string data;
 	
-	f << data << "\n";
+	f << data;
 	f.close();
 }

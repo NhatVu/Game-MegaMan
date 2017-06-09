@@ -26,7 +26,7 @@ namespace s_framework{
 		float getWidth();
 		void setWidth(float);
 
-
+		void random(int maxWidth, int maxHeight);
 	};
 }
 

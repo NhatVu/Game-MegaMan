@@ -3,7 +3,7 @@
 #include <vector>
 #include "../Utilities.h"
 #include "../GameObject.h"
-#include "NodeObject.h"
+#include "../Trace.h"
 
 using namespace std;
 namespace s_framework {
@@ -33,14 +33,13 @@ namespace s_framework {
 		~NodeQuadTree();
 		NodeQuadTree(int id, float x, float y, float width, float height);
 
-		RECT* getBound();
-		RECT* getBound(BOX box);
-		void clipObject(NodeObject*&);
-		void deleteObjectFromThisNode(NodeObject*&);
+		RECT getBound();
+		void deleteObjectFromThisNode(GameObject*);
 		void clear();
-
-		// detect collision between 2 RECT
-		bool isOverlay(RECT*, RECT*);
+		
+		// detect intersect between 2 RECT
+		static boolean intersect(RECT first, RECT second);
+		static boolean isContain(RECT region, RECT entity);
 	public:
 		// Getter and setter 
 		int getId() { 
@@ -51,7 +50,7 @@ namespace s_framework {
 			this->mId = id;
 		}
 
-		int getX() {
+		float getX() {
 			return this->mX;
 		}
 
@@ -60,7 +59,7 @@ namespace s_framework {
 			this->mX = x;
 		}
 
-		int getY() { 
+		float getY() {
 			return this->mY;
 		}
 
@@ -69,7 +68,7 @@ namespace s_framework {
 			this->mY = y;
 		}
 
-		int getWidth()
+		float getWidth()
 		{
 			return mWidth;
 		}
@@ -79,7 +78,7 @@ namespace s_framework {
 			this->mWidth = width;
 		}
 
-		int getHeight()
+		float getHeight()
 		{
 			return mHeight;
 		}
@@ -94,47 +93,47 @@ namespace s_framework {
 			return this->mNodeTL;
 		}
 
-		void setNodeTL(NodeQuadTree*& node)
+		void setNodeTL(NodeQuadTree* node)
 		{
 			this->mNodeTL = node;
 		}
 
-		NodeQuadTree*& getNodeTR()
+		NodeQuadTree* getNodeTR()
 		{
 			return this->mNodeTR;
 		}
 
-		void setNodeTR(NodeQuadTree*& node)
+		void setNodeTR(NodeQuadTree* node)
 		{
 			this->mNodeTR = node;
 		}
 
-		NodeQuadTree*& getNodeBL()
+		NodeQuadTree* getNodeBL()
 		{
 			return this->mNodeBL;
 		}
 
-		void setNodeBL(NodeQuadTree*& node)
+		void setNodeBL(NodeQuadTree* node)
 		{
 			this->mNodeBL = node;
 		}
 
-		NodeQuadTree*& getNodeBR()
+		NodeQuadTree* getNodeBR()
 		{
 			return this->mNodeBR;
 		}
 
-		void setNodeBR(NodeQuadTree*& node)
+		void setNodeBR(NodeQuadTree* node)
 		{
 			this->mNodeBR = node;
 		}
 
-		vector<int>*& getListObject()
+		vector<int>* getListObject()
 		{
-			return this->mListObject;
+			return mListObject;
 		}
 
-		void setListObject(vector<int>*& list)
+		void setListObject(vector<int>* list)
 		{
 			this->mListObject = list;
 		}

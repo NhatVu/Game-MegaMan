@@ -140,5 +140,25 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Resources\map-cut-man.tmx" />
+    <None Include="Resources\animation.json" />
+    <None Include="Resources\map.tmx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\Bombman%27s Stage - Mephea.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Cut_Man_map.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\texture.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\tileset-platformer.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="Resources\texture.xml" />
   </ItemGroup>
 </Project>

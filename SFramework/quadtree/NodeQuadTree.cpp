@@ -2,25 +2,21 @@
 
 s_framework::NodeQuadTree::NodeQuadTree()
 {
-	this->mId = 0;
+	this->mId = 1;
 	this->mX = 0.0f;
 	this->mY = 0.0f;
 	this->mHeight = 0.0f;
 	this->mWidth = 0.0f;
+	this->mNodeTL = nullptr;
+	this->mNodeTL = nullptr;
+	this->mNodeTL = nullptr;
+	this->mNodeTL = nullptr;
 	this->mListObject = new vector<int>();
-	this->mNodeTL = nullptr;
-	this->mNodeTL = nullptr;
-	this->mNodeTL = nullptr;
-	this->mNodeTL = nullptr;
 }
 
 s_framework::NodeQuadTree::~NodeQuadTree()
 {
-	if (mListObject)
-	{
-		mListObject->clear();
-		delete mListObject;
-	}
+	mListObject->clear();
 	if (this->mNodeTL)
 	{
 		this->mNodeTL->~NodeQuadTree();
@@ -41,66 +37,28 @@ s_framework::NodeQuadTree::NodeQuadTree(int id, float x, float y, float width, f
 	this->mY = y;
 	this->mHeight = height;
 	this->mWidth = width;
+	this->mNodeTL = nullptr;
+	this->mNodeTL = nullptr;
+	this->mNodeTL = nullptr;
+	this->mNodeTL = nullptr;
 	this->mListObject = new vector<int>();
-	this->mNodeTL = nullptr;
-	this->mNodeTL = nullptr;
-	this->mNodeTL = nullptr;
-	this->mNodeTL = nullptr;
 }
 
-RECT * s_framework::NodeQuadTree::getBound()
+RECT s_framework::NodeQuadTree::getBound()
 {
-	RECT* rect = new RECT();
-	rect->top = this->mX;
-	rect->left = this->mY;
-	rect->bottom = rect->top + this->mHeight;
-	rect->right = rect->left + this->mWidth;
+	RECT rect;
+	rect.top = this->mY;
+	rect.left = this->mX;
+	rect.bottom = rect.top - this->mHeight;
+	rect.right = rect.left + this->mWidth;
 	return rect;
 }
 
-RECT * s_framework::NodeQuadTree::getBound(BOX  box)
-{
-	RECT* rect = new RECT();
-	rect->top = box.x;
-	rect->left = box.y;
-	rect->bottom = box.x + box.height;
-	rect->right = box.y + box.width;
-	return rect;
-}
-
-void s_framework::NodeQuadTree::clipObject(NodeObject *& gameObject)
-{
-
-	if (gameObject->getGameObject())
-	{
-		RECT* objectRect = this->getBound(gameObject->getGameObject()->getCollisionBox());
-		if (isOverlay(objectRect, this->getBound()))
-		{
-			if (this->mNodeTL)
-			{
-				this->mNodeTL->clipObject(gameObject);
-				this->mNodeTR->clipObject(gameObject);
-				this->mNodeBL->clipObject(gameObject);
-				this->mNodeBR->clipObject(gameObject);
-			}
-			else
-			{
-				// TT
-				// kiem tra co phai la nut la hay k
-				//if(this->GetHeight > )
-				//{}
-				this->mListObject->push_back(gameObject->getGameObject()->getObjectID());
-			}
-		}
-	}
-}
-
-void s_framework::NodeQuadTree::deleteObjectFromThisNode(NodeObject *& gameObject)
+void s_framework::NodeQuadTree::deleteObjectFromThisNode(GameObject * gameObject)
 {
 	if (gameObject)
 	{
-		RECT* objectRect = this->getBound(gameObject->getGameObject()->getCollisionBox()); 
-		if (isOverlay(objectRect, this->getBound()))
+		if (intersect(gameObject->getBound(), this->getBound()))
 		{
 			if (this->mNodeTL)
 			{
@@ -111,17 +69,17 @@ void s_framework::NodeQuadTree::deleteObjectFromThisNode(NodeObject *& gameObjec
 			}
 			else
 			{
-				if (this->mListObject)
+				if (mListObject->size()>0)
 				{
-					int size = this->mListObject->size();
-					for (int i = 0; i < this->mListObject->size(); ++i)
+					int size = mListObject->size();
+					for (int i = 0; i < mListObject->size(); ++i)
 					{
-						int id = this->mListObject->at(i);
-						if (this->mListObject->at(i))
+						int id = mListObject->at(i);
+						if (mListObject->at(i))
 						{
-							if (id == gameObject->getGameObject()->getObjectID())
+							if (id == gameObject->getObjectID())
 							{
-								this->mListObject->erase(this->mListObject->begin() + i);
+								mListObject->erase(mListObject->begin() + i);
 							}
 						}
 					}
@@ -151,9 +109,18 @@ void s_framework::NodeQuadTree::clear()
 	}
 }
 
-bool s_framework::NodeQuadTree::isOverlay(RECT *first, RECT *second)
+boolean s_framework::NodeQuadTree::intersect(RECT first, RECT second)
 {
-	return !(first->left < second->right 
-		|| first->right > second->left
-		||first->top > second->bottom || first->bottom < second->top);
+	return (first.left < second.right
+		&& first.right > second.left
+		&& first.top > second.bottom 
+		&& first.bottom < second.top);
+}
+
+boolean s_framework::NodeQuadTree::isContain(RECT region, RECT entity)
+{
+	return region.top >= entity.top
+		&& region.bottom <= entity.bottom
+		&& region.left <= entity.left
+		&& region.right >= entity.right;
 }

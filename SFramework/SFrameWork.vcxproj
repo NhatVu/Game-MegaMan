@@ -21,7 +21,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -89,13 +89,15 @@
     <ClInclude Include="Camera\ViewPort.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Director.h" />
+    <ClInclude Include="File\FileUtil.h" />
     <ClInclude Include="GameTime.h" />
     <ClInclude Include="Layer.h" />
     <ClInclude Include="Map\GameMap.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="Map\ObjectManager.h" />
     <ClInclude Include="Map\ObjectFactory.h" />
-    <ClInclude Include="Quadtree.h" />
+    <ClInclude Include="quadtree\NodeQuadTree.h" />
+    <ClInclude Include="quadtree\QuadTree.h" />
     <ClInclude Include="rapidjson\allocators.h" />
     <ClInclude Include="rapidjson\document.h" />
     <ClInclude Include="rapidjson\encodedstream.h" />
@@ -149,13 +151,15 @@
     <ClCompile Include="Camera\ViewPort.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Director.cpp" />
+    <ClCompile Include="File\FileUtil.cpp" />
     <ClCompile Include="GameTime.cpp" />
     <ClCompile Include="Layer.cpp" />
     <ClCompile Include="Map\GameMap.cpp" />
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="Map\ObjectManager.cpp" />
     <ClCompile Include="Map\ObjectFactory.cpp" />
-    <ClCompile Include="Quadtree.cpp" />
+    <ClCompile Include="quadtree\NodeQuadTree.cpp" />
+    <ClCompile Include="quadtree\QuadTree.cpp" />
     <ClCompile Include="SpriteAndAnimation\AnimationManager.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SFramework.cpp" />

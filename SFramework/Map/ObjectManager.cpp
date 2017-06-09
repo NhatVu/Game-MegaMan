@@ -6,13 +6,19 @@ ObjectManager* ObjectManager::instance = NULL;
 int ObjectManager::notInMapObjectId = 1000;
 ObjectManager::ObjectManager()
 {
+	mQuadtree = new QuadTree();
 }
 
 void s_framework::ObjectManager::loadQuadtreeFromFile()
 {
+	
 }
 
 void s_framework::ObjectManager::createObjectOnScreen()
+{
+}
+
+void s_framework::ObjectManager::deleteObjectOutScreen()
 {
 }
 
