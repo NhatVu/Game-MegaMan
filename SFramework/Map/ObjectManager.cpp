@@ -51,8 +51,9 @@ void ObjectManager::processQuadTreeAndViewport(FPOINT viewportPosition){
 			object->resetToInit();
 			quadtreeBackground.erase(it++);
 		}
-		else
+		else{
 			++it;
+		}
 	}
 	// loại bỏ những object trong activeObject nằm ngoài camera
 	for (map<int, GameObject*>::iterator it = activeObject.begin(); it != activeObject.end();) {
@@ -76,6 +77,7 @@ void ObjectManager::processQuadTreeAndViewport(FPOINT viewportPosition){
 				int a = 5;
 			}
 			object->resetToInit();
+			collisionBox = object->getCollisionBox();
 			// nếu init box nằm trong camera -> Inactive
 			if (!((collisionBox.x > cameraBox.x + cameraBox.width) || (collisionBox.x + collisionBox.width < cameraBox.x)
 				|| (collisionBox.y < cameraBox.y - cameraBox.height) || (collisionBox.y - collisionBox.height > cameraBox.y)))

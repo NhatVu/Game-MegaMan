@@ -88,6 +88,7 @@ GameState* MegaManIdleState::onCollision(GameObject* gameObject, GameObject* sta
 			gameObject->setNoCollisionWithAll(false);
 			FPOINT newPosition = gameObject->getPosition();
 			newPosition.x = staticObject->getCollisionBox().x;
+			//vì hình cắt bị dư 1 khoảng trống nên phải trừ khi flip trái phải
 			if (gameObject->getFlipVertical() == -1)
 				newPosition.x -= gameObject->getSpriteSpec()->getWidth() - MEGA_MAN_VIRTUAL_WIDTH;
 
@@ -104,7 +105,8 @@ GameState* MegaManIdleState::onCollision(GameObject* gameObject, GameObject* sta
 		((MegaMan*)gameObject)->changeAnimation(ECharacter::MEGAMAN, EState::IDLE);
 		// cho những vật chỉ cần va chạm, không cần hướng 
 		if (staticObjectType == ECharacter::BLADER || staticObjectType == ECharacter::KAMADOMA
-			|| staticObjectType == ECharacter::BLASTER_BULLET || staticObjectType == ECharacter::BLASTER){
+			|| staticObjectType == ECharacter::BLASTER_BULLET || staticObjectType == ECharacter::BLASTER
+			|| staticObjectType == ECharacter::SUZY || staticObjectType == ECharacter::SCREW_BULLET || staticObjectType == ECharacter::SUPER_CUTTER || staticObjectType == ECharacter::BIG_EYE){
 			FPOINT newPosition = gameObject->getPosition();
 
 			if (newPosition.x > staticObject->getPosition().x)

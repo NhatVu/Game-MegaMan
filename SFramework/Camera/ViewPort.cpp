@@ -66,10 +66,11 @@ void ViewPort::updateViewportNextFrame(){
 		vector<BOX> listViewportState = ViewPort::getInstance()->getListViewportState();
 		for (int i = 0; i < listViewportState.size(); i++){
 			BOX temp = listViewportState[i];
-			if (position.y < temp.y && position.y > temp.y - temp.height) // điểm y thuộc boundary temp
+			if (megaMan->getPosition().x > temp.x && megaMan->getPosition().x < temp.x + temp.width && position.y < temp.y && position.y > temp.y - temp.height) // điểm y thuộc boundary temp
 			{
 				ViewPort::getInstance()->setViewportBoundary(temp);
 				ViewPort::getInstance()->setPosition(FPOINT(position.x, temp.y));
+				megaMan->setPostion(FPOINT(megaMan->getPosition().x, temp.y - temp.height + megaMan->getSpriteSpec()->getHeight() / 2 + 3));
 				break;
 			}
 		}
@@ -81,14 +82,15 @@ void ViewPort::updateViewportNextFrame(){
 	if (megaMan->getPosition().y - megaMan->getSpriteSpec()->getHeight() / 2 < ViewPort::getInstance()->getPosition().y - ViewPort::getInstance()->getViewportBoundary().height){
 		// change viewport xuống dưới
 		FPOINT position = ViewPort::getInstance()->getPosition();
-		position.y -= 9 * 32;
+		position.y -= 10 * 32;
 		vector<BOX> listViewportState = ViewPort::getInstance()->getListViewportState();
 		for (int i = 0; i < listViewportState.size(); i++){
 			BOX temp = listViewportState[i];
-			if (position.y < temp.y && position.y > temp.y - temp.height) // điểm y thuộc boundary temp
+			if (megaMan->getPosition().x > temp.x && megaMan->getPosition().x < temp.x + temp.width && position.y < temp.y && position.y > temp.y - temp.height) // điểm y thuộc boundary temp
 			{
 				ViewPort::getInstance()->setViewportBoundary(temp);
 				ViewPort::getInstance()->setPosition(FPOINT(position.x, temp.y));
+				megaMan->setPostion(FPOINT(megaMan->getPosition().x, temp.y - MEGA_MAN_VIRTUAL_HEIGHT / 2 ));
 				break;
 			}
 		}

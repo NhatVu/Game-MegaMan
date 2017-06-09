@@ -2,7 +2,7 @@
 #include "../SpriteAndAnimation/SpriteSpec.h"
 #include "ObjectFactory.h"
 #include "../SpriteAndAnimation/TextureManager.h"
-
+#include "../../MegaMan/GameObject/Suzy.h"
 using namespace s_framework;
 
 GameMap::GameMap(char* filePath)
@@ -99,9 +99,9 @@ void GameMap::parseBackground(){
 
 		//	FPOINT position(n * tileWidth + tileWidth / 2, m * tileHeight + tileHeight / 2);
 		int xInMap = (tileIDInMap % mapWidthCount) * tileSetWidth;
-		int yInmap = (tileIDInMap / mapWidthCount) * tileSetHeight;
+		int yInMap = (tileIDInMap / mapWidthCount) * tileSetHeight;
 
-		FPOINT position(xInMap, yInmap);
+		FPOINT position(xInMap, yInMap);
 		position.y = mapHeight - position.y; // đây là tọa độ top-left của từng tile
 		/*
 		Code demo xét theo hệ trục của màn hình với y hướng xuống. nên phải thiết lập lại độ cao cho tile trong map.
@@ -117,8 +117,8 @@ void GameMap::parseBackground(){
 		sprite->setSpriteSpec(spriteSpec);
 		sprite->setPostion(position);
 		BOX collistionBox;
-		collistionBox.x = x;
-		collistionBox.y = mapHeight - y;
+		collistionBox.x = xInMap;
+		collistionBox.y = mapHeight - yInMap;
 		collistionBox.width = tileSetWidth;
 		collistionBox.height = tileSetHeight;
 		collistionBox.vx = 0.0f;
@@ -194,6 +194,23 @@ void GameMap::parseObjectGroup(){
 			gameObject->setCollisionBox(collistionBox);
 			gameObject->setPostion(FPOINT(collistionBox.x, collistionBox.y));
 			gameObject->setInitPosition(FPOINT(collistionBox.x, collistionBox.y));
+
+			// custom property
+			if (objectType == ECharacter::BLASTER){
+				int direction = atoi(objectNode->first_node("properties")->first_node("property")->first_attribute("value")->value());
+				if (direction == 1)
+					// default : từ phải sang trái
+					gameObject->setFlipVertical(1);
+				else if (direction == -1)
+					gameObject->setFlipVertical(-1);
+			}
+			else if (objectType == ECharacter::SUZY){
+				int direction = atoi(objectNode->first_node("properties")->first_node("property")->first_attribute("value")->value());
+				((Suzy*)gameObject)->setDirection(direction);
+				if (direction == 1)
+					gameObject->setVelocity(FPOINT(SUZY_VELOCITY, 0.0f));
+				else gameObject->setVelocity(FPOINT(0.0f, SUZY_VELOCITY));
+			}
 			//mListObjet.push_back(gameObject);
 			ObjectManager::getInstance()->getAllObject()[id] = gameObject;
 		}

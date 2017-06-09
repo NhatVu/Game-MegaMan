@@ -42,6 +42,7 @@ GameState*  MegaManRunningState::processKeyState(GameObject* gameObject, BYTE *k
 	GameState::processKeyState(gameObject, keyState);
 	FPOINT currentPosition = gameObject->getPosition();
 	DWORD deltaTime = GameTime::getInstance()->getDeltaTime();
+	gameObject->setStopUpdateAnimation(false);
 	if ((keyState[DIK_RIGHT] * 0x80) > 0)
 	{
 		FPOINT velocity = gameObject->getVelocity();
@@ -110,7 +111,8 @@ GameState* MegaManRunningState::onCollision(GameObject* gameObject, GameObject* 
 
 		// cho những vật chỉ cần va chạm, không cần hướng 
 		if (staticObjectType == ECharacter::BLADER || staticObjectType == ECharacter::KAMADOMA
-			|| staticObjectType == ECharacter::BLASTER_BULLET || staticObjectType == ECharacter::BLASTER){
+			|| staticObjectType == ECharacter::BLASTER_BULLET || staticObjectType == ECharacter::BLASTER
+			|| staticObjectType == ECharacter::SUZY || staticObjectType == ECharacter::SCREW || staticObjectType == ECharacter::SCREW_BULLET || staticObjectType == ECharacter::SUPER_CUTTER || staticObjectType == ECharacter::BIG_EYE){
 			FPOINT newPosition = gameObject->getPosition();
 
 			if (newPosition.x > staticObject->getPosition().x)

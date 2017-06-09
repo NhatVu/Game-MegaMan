@@ -16,7 +16,7 @@ MegaManAttackState::~MegaManAttackState()
 
 GameState* MegaManAttackState::onKeyDown(GameObject* gameObject, int keyCode){
 	if (keyCode == DIK_D){
-		((MegaMan*)gameObject)->changeAnimation(ECharacter::MEGAMAN, EState::IDLE_FIRE);
+		//((MegaMan*)gameObject)->changeAnimation(ECharacter::MEGAMAN, EState::IDLE_FIRE);
 
 		// Thêm viên đạn vào activeObject
 		map<int, GameObject*> &activeObject = ObjectManager::getInstance()->getActiveObject();
@@ -49,8 +49,10 @@ void MegaManAttackState::enter(GameObject* gameObject){
 			((MegaMan*)gameObject)->changeAnimation(ECharacter::MEGAMAN, EState::IDLE);
 		else if (megaManState == EState::JUMP)
 			((MegaMan*)gameObject)->changeAnimation(ECharacter::MEGAMAN, EState::JUMP);
-		/*else if (megaManState == EState::CLIMB)
-			((MegaMan*)gameObject)->changeAnimation(ECharacter::MEGAMAN, EState::CLIMB);*/
+		else if (megaManState == EState::CLIMB)
+			((MegaMan*)gameObject)->changeAnimation(ECharacter::MEGAMAN, EState::CLIMB);
+		else if (megaManState == EState::RUNNING)
+			((MegaMan*)gameObject)->changeAnimation(ECharacter::MEGAMAN, EState::RUNNING);
 
 	}
 	else{
@@ -58,8 +60,10 @@ void MegaManAttackState::enter(GameObject* gameObject){
 			((MegaMan*)gameObject)->changeAnimation(ECharacter::MEGAMAN, EState::IDLE_FIRE);
 		else if (megaManState == EState::JUMP)
 			((MegaMan*)gameObject)->changeAnimation(ECharacter::MEGAMAN, EState::JUMP_FIRE);
-		/*else if (megaManState == EState::CLIMB)
-			((MegaMan*)gameObject)->changeAnimation(ECharacter::MEGAMAN, EState::CLIMB_FIRE);*/
+		else if (megaManState == EState::CLIMB)
+			((MegaMan*)gameObject)->changeAnimation(ECharacter::MEGAMAN, EState::CLIMB_FIRE);
+		else if (megaManState == EState::RUNNING)
+			((MegaMan*)gameObject)->changeAnimation(ECharacter::MEGAMAN, EState::RUNNING_FIRE);
 	}
 	
 

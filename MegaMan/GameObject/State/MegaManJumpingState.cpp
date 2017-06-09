@@ -17,6 +17,7 @@ MegaManJumpingState::~MegaManJumpingState()
 
 GameState* MegaManJumpingState::onKeyDown(GameObject* gameObject, int keyCode){
 	// phim F = fly
+	GameState::onKeyDown(gameObject, keyCode);
 	if (keyCode == DIK_UP || keyCode == DIK_DOWN){
 		gameObject->setCanClimb(true);
 	}
@@ -31,6 +32,8 @@ GameState*  MegaManJumpingState::onKeyUp(GameObject* gameObject, int keyCode){
 	return NULL;
 }
 GameState*  MegaManJumpingState::processKeyState(GameObject* gameObject, BYTE *keyState){
+	GameState::processKeyState(gameObject, keyState);
+
 	if ((keyState[DIK_RIGHT] * 0x80) > 0){
 		//GameState* newState = new MegaManRunningState();
 		//newState->enter(gameObject);
@@ -64,9 +67,9 @@ GameState* MegaManJumpingState::onCollision(GameObject* gameObject, GameObject* 
 	D3DXVECTOR2 normal = collisionVector;
 	//gameObject->setCanClimb(false);
 	gameObject->setTimeCollision(collisionTime);
-
+	
 	// xử lý riêng cho cái cầu thang
-	if (gameObject->getCanClimb() && staticObjectType == ECharacter::LADDER && collisionTime > 0.0f && collisionTime <= 1.0f){
+	if (gameObject->getCanClimb() && !gameObject->getStopUpdateAnimation() && staticObjectType == ECharacter::LADDER && collisionTime > 0.0f && collisionTime <= 1.0f){
 		FPOINT newPosition = gameObject->getPosition();
 		newPosition.x = staticObject->getCollisionBox().x;
 		if (gameObject->getFlipVertical() == -1)
@@ -82,7 +85,8 @@ GameState* MegaManJumpingState::onCollision(GameObject* gameObject, GameObject* 
 		gameObject->setNoCollisionWithAll(false);
 		// cho những vật chỉ cần va chạm, không cần hướng 
 		if (staticObjectType == ECharacter::BLADER || staticObjectType == ECharacter::KAMADOMA
-			|| staticObjectType == ECharacter::BLASTER_BULLET || staticObjectType == ECharacter::BLASTER){
+			|| staticObjectType == ECharacter::BLASTER_BULLET || staticObjectType == ECharacter::BLASTER 
+			|| staticObjectType == ECharacter::SUZY || staticObjectType == ECharacter::SCREW_BULLET || staticObjectType == ECharacter::SUPER_CUTTER || staticObjectType == ECharacter::BIG_EYE){
 			FPOINT newPosition = gameObject->getPosition();
 
 			if (newPosition.x > staticObject->getPosition().x)

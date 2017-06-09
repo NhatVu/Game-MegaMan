@@ -96,8 +96,6 @@
     <ClInclude Include="Node.h" />
     <ClInclude Include="Map\ObjectManager.h" />
     <ClInclude Include="Map\ObjectFactory.h" />
-    <ClInclude Include="quadtree\NodeQuadTree.h" />
-    <ClInclude Include="quadtree\QuadTree.h" />
     <ClInclude Include="rapidjson\allocators.h" />
     <ClInclude Include="rapidjson\document.h" />
     <ClInclude Include="rapidjson\encodedstream.h" />
@@ -158,8 +156,6 @@
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="Map\ObjectManager.cpp" />
     <ClCompile Include="Map\ObjectFactory.cpp" />
-    <ClCompile Include="quadtree\NodeQuadTree.cpp" />
-    <ClCompile Include="quadtree\QuadTree.cpp" />
     <ClCompile Include="SpriteAndAnimation\AnimationManager.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SFramework.cpp" />

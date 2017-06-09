@@ -33,9 +33,6 @@
     <ClInclude Include="GameObject\MegaMan.h">
       <Filter>Header Files\Characters</Filter>
     </ClInclude>
-    <ClInclude Include="Map\MapOne.h">
-      <Filter>Header Files\Map</Filter>
-    </ClInclude>
     <ClInclude Include="GameObject\State\GameState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -81,6 +78,33 @@
     <ClInclude Include="GameObject\BlasterBullet.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Map\MapCutMan.h">
+      <Filter>Header Files\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\Suzy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\Screw.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\ScrewBullet.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\FlyShell.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\FlyShellBullet.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\SuperCutter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\SupperCutterFactory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\BigEye.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -88,9 +112,6 @@
     </ClCompile>
     <ClCompile Include="GameObject\MegaMan.cpp">
       <Filter>Source Files\Characters</Filter>
-    </ClCompile>
-    <ClCompile Include="Map\MapOne.cpp">
-      <Filter>Source Files\Map</Filter>
     </ClCompile>
     <ClCompile Include="GameObject\State\GameState.cpp">
       <Filter>Source Files</Filter>
@@ -135,6 +156,33 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GameObject\BlasterBullet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Map\MapCutMan.cpp">
+      <Filter>Source Files\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\Suzy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\Screw.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\ScrewBullet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\FlyShell.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\FlyShellBullet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\SuperCutter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\SupperCutterFactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\BigEye.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

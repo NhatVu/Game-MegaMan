@@ -18,6 +18,7 @@
 #include "MegaManUtilities.h"
 #include "GameObject/MegaMan.h"
 #include "Map/MapBombMan.h"
+#include "Map\MapCutMan.h"
 
 #define APP_CLASS L"SampleWindow"
 #define MAIN_WINDOW_TITLE L"Mega Man"
@@ -116,7 +117,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmdLine,
 	SFramework::getInstance()->attachInputObect(megaMan);
 
 	// map
-	MapBombMan* mapBombMan = new MapBombMan("Resources/map-cut-man.tmx", megaMan);
+	MapCutMan* mapBombMan = new MapCutMan("Resources/map-cut-man.tmx", megaMan);
 	mapBombMan->init();
 
 	/*

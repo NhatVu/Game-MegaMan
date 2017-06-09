@@ -83,6 +83,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="GameObject\BigEye.h" />
+    <ClInclude Include="GameObject\FlyShellBullet.h" />
+    <ClInclude Include="GameObject\FlyShell.h" />
     <ClInclude Include="GameObject\BlasterBullet.h" />
     <ClInclude Include="GameObject\Blaster.h" />
     <ClInclude Include="GameObject\Blader.h" />
@@ -91,7 +94,7 @@
     <ClInclude Include="GameObject\State\GameState.h" />
     <ClInclude Include="GameObject\Kamadoma.h" />
     <ClInclude Include="Map\MapBombMan.h" />
-    <ClInclude Include="Map\MapOne.h" />
+    <ClInclude Include="Map\MapCutMan.h" />
     <ClInclude Include="GameObject\State\MegaManIdleState.h" />
     <ClInclude Include="GameObject\State\MegaManRunningState.h" />
     <ClInclude Include="GameObject\State\MegaManJumpingState.h" />
@@ -101,8 +104,16 @@
     <ClInclude Include="GameObject\State\MegaManBeAttackedState.h" />
     <ClInclude Include="MegaManUtilities.h" />
     <ClInclude Include="GameObject\MegaMan.h" />
+    <ClInclude Include="GameObject\Suzy.h" />
+    <ClInclude Include="GameObject\Screw.h" />
+    <ClInclude Include="GameObject\ScrewBullet.h" />
+    <ClInclude Include="GameObject\SuperCutter.h" />
+    <ClInclude Include="GameObject\SupperCutterFactory.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="GameObject\BigEye.cpp" />
+    <ClCompile Include="GameObject\FlyShellBullet.cpp" />
+    <ClCompile Include="GameObject\FlyShell.cpp" />
     <ClCompile Include="GameObject\BlasterBullet.cpp" />
     <ClCompile Include="GameObject\Blaster.cpp" />
     <ClCompile Include="GameObject\Blader.cpp" />
@@ -111,7 +122,7 @@
     <ClCompile Include="GameObject\State\GameState.cpp" />
     <ClCompile Include="GameObject\Kamadoma.cpp" />
     <ClCompile Include="Map\MapBombMan.cpp" />
-    <ClCompile Include="Map\MapOne.cpp" />
+    <ClCompile Include="Map\MapCutMan.cpp" />
     <ClCompile Include="GameObject\MegaMan.cpp" />
     <ClCompile Include="GameObject\State\MegaManIdleState.cpp" />
     <ClCompile Include="GameObject\State\MegaManRunningState.cpp" />
@@ -120,6 +131,11 @@
     <ClCompile Include="GameObject\MegaManBullet.cpp" />
     <ClCompile Include="GameObject\State\MegaManAttackState.cpp" />
     <ClCompile Include="GameObject\State\MegaManBeAttackedState.cpp" />
+    <ClCompile Include="GameObject\Suzy.cpp" />
+    <ClCompile Include="GameObject\Screw.cpp" />
+    <ClCompile Include="GameObject\ScrewBullet.cpp" />
+    <ClCompile Include="GameObject\SuperCutter.cpp" />
+    <ClCompile Include="GameObject\SupperCutterFactory.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>

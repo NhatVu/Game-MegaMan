@@ -65,7 +65,6 @@ namespace s_framework
 		void initKeyboard(HINSTANCE hInstance, HWND hWnd);
 		void attachInputObect(GameObject* object);
 		void detachInputObject(GameObject* object);
-		
 
 		/*-----------------------------------------------------
 		 * GETTERS AND SETTERS

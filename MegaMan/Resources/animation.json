@@ -1,57 +1,62 @@
 {
 	"animation": [{
-		"characterID": 10,
+		"characterID": 100,
 		"name": "MegaMan",
 		"state": [{
 			"stateID": 1,
 			"name": "idle",
 			"delayFrame": 4,
-			"frame": [80,81]
+			"frame": [79,80]
 		},{
 			"stateID": 2,
 			"name": "running",
 			"delayFrame": 2,
-			"frame": [84,85,86]
+			"frame": [83,84,85]
 		},{
 			"stateID": 3,
 			"name": "climb",
 			"delayFrame": 2,
-			"frame": [76,77]
+			"frame": [75,76]
 		},{
 			"stateID": 4,
 			"name": "jump",
 			"delayFrame": 0,
-			"frame": [82]
+			"frame": [81]
 		},{
 			"stateID": 6,
 			"name": "climb-idle",
 			"delayFrame": 0,
-			"frame": [77]
+			"frame": [76]
 		},{
 			"stateID": 7,
 			"name": "idle-fire",
 			"delayFrame": 1,
-			"frame": [90]
+			"frame": [89]
 		},{
 			"stateID": 9,
 			"name": "jump-fire",
 			"delayFrame": 1,
-			"frame": [83]
+			"frame": [82]
 		},{
 			"stateID": 10,
-			"name": "attack-begin",
+			"name": "attacked-begin",
 			"delayFrame": 1,
-			"frame": [73,75]
+			"frame": [73,74]
 		},{
 			"stateID": 11,
-			"name": "attack-finish",
+			"name": "attacked-finish",
 			"delayFrame": 1,
-			"frame": [80,75]
+			"frame": [79,74]
 		},{
 			"stateID": 12,
 			"name": "climb-fire",
 			"delayFrame": 1,
-			"frame": [79]
+			"frame": [78]
+		},{
+			"stateID": 13,
+			"name": "running-fire",
+			"delayFrame": 2,
+			"frame": [86,87,88]
 		}]
 	},{
 		"characterID": 2,
@@ -60,12 +65,12 @@
 			"stateID": 8,
 			"name":"active",
 			"delayFrame": 0,
-			"frame": [95]
+			"frame": [94]
 		},{
 			"stateID": 5,
 			"name":"die",
 			"delayFrame": 0,
-			"frame": [75]
+			"frame": [74]
 		}]
 	},{
 		"characterID": 3,
@@ -116,7 +121,7 @@
 			"stateID": 8,
 			"name":"active",
 			"delayFrame": 0,
-			"frame": [30]
+			"frame": [95,96]
 		},{
 			"stateID": 5,
 			"name":"die",
@@ -150,6 +155,104 @@
 			"name":"active",
 			"delayFrame": 0,
 			"frame": [25]
+		}]
+	},{
+		"characterID": 9,
+		"name": "suzy",
+		"state": [{
+			"stateID": 8,
+			"name":"active",
+			"delayFrame": 0,
+			"frame": [64]
+		},{
+			"stateID": 1,
+			"name":"idle",
+			"delayFrame": 5,
+			"frame": [63,62]
+		},{
+			"stateID": 5,
+			"name":"die",
+			"delayFrame": 0,
+			"frame": [65]
+		}]
+	},{
+		"characterID": 10,
+		"name": "screw",
+		"state": [{
+			"stateID": 8,
+			"name":"active",
+			"delayFrame": 2,
+			"frame": [48,49,50]
+		},{
+			"stateID": 1,
+			"name":"idle",
+			"delayFrame": 0,
+			"frame": [51]
+		},{
+			"stateID": 5,
+			"name":"die",
+			"delayFrame": 0,
+			"frame": [65]
+		}]
+	},{
+		"characterID": 11,
+		"name": "screw_bullet",
+		"state": [{
+			"stateID": 8,
+			"name":"active",
+			"delayFrame": 0,
+			"frame": [43]
+		}]
+	},{
+		"characterID": 12,
+		"name": "flyShell",
+		"state": [{
+			"stateID": 8,
+			"name":"active",
+			"delayFrame": 2,
+			"frame": [34]
+		},{
+			"stateID": 1,
+			"name":"idle",
+			"delayFrame": 0,
+			"frame": [36]
+		},{
+			"stateID": 5,
+			"name":"die",
+			"delayFrame": 0,
+			"frame": [65]
+		}]
+	},{
+		"characterID": 13,
+		"name": "flyShell_bullet",
+		"state": [{
+			"stateID": 8,
+			"name":"active",
+			"delayFrame": 0,
+			"frame": [35]
+		}]
+	},{
+		"characterID": 15,
+		"name": "super cutter",
+		"state": [{
+			"stateID": 8,
+			"name":"active",
+			"delayFrame": 4,
+			"frame": [99,100]
+		}]
+	},{
+		"characterID": 16,
+		"name": "big eye",
+		"state": [{
+			"stateID": 8,
+			"name":"active",
+			"delayFrame": 6,
+			"frame": [97,97,98]
+		},{
+			"stateID": 5,
+			"name":"die",
+			"delayFrame": 0,
+			"frame": [65]
 		}]
 	}
 	]

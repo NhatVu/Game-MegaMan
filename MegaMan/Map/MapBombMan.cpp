@@ -10,7 +10,9 @@ MapBombMan::MapBombMan(char* tmxFile, GameObject* megaMan)
 
 
 	// 1 map chứa viewport state, gồm id và Box
-	BOX viewportState1 = BOX(0, 7 * 32, 57 * 32, 8 * 32); // trừ thanh tiêu đề ra 32px
+	//BOX viewportState1 = BOX(0, 7 * 32, 57 * 32, 8 * 32); // trừ thanh tiêu đề ra 32px
+	BOX viewportState1 = BOX(0, 7 * 32, 32 * 32, 8 * 32); // trừ thanh tiêu đề ra 32px
+
 	BOX viewportState2 = BOX(48 * 32, 14 * 32, 8.5f * 32, 7 * 32);
 	BOX viewportState3 = BOX(48 * 32, 21 * 32, 49 * 32, 7 * 32);
 
@@ -44,6 +46,6 @@ void MapBombMan::init(){
 
 	// Init viewport
 	ViewPort::getInstance()->setListViewportState(listViewportState);
-	ViewPort::getInstance()->setViewportBoundary(BOX(0, 7 * 32, 57 * 32, 8 * 32));
+	ViewPort::getInstance()->setViewportBoundary(listViewportState[0]);
 	ViewPort::getInstance()->setPosition(FPOINT(0, 7 * 32));
 }

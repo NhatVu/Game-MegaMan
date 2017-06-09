@@ -29,7 +29,7 @@ void MegaManBullet::initFire(){
 	FPOINT initPos = megaMan->getPosition();
 	//megaManPos.y = 2.0f / 3 * megaManPos.y;
 	int flipVertical = megaMan->getFlipVertical(); // = 1, quay sang phai
-	initPos.x += flipVertical * MEGA_MAN_VIRTUAL_WIDTH;
+	initPos.x += flipVertical * MEGA_MAN_VIRTUAL_WIDTH + flipVertical;
 	initPos.y -= MEGAMAN_BULLET_VIRTUAL_HEIGHT / 2;
 
 	this->setPostion(initPos);

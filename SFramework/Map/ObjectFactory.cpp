@@ -8,6 +8,14 @@
 #include "../SpriteAndAnimation/TextureManager.h"
 #include "../../MegaMan/GameObject/Blaster.h"
 #include "../../MegaMan/GameObject/BlasterBullet.h"
+#include "../../MegaMan/GameObject/Suzy.h"
+#include "../../MegaMan/GameObject/Screw.h"
+#include "../../MegaMan/GameObject/ScrewBullet.h"
+#include "../../MegaMan/GameObject/FlyShell.h"
+#include "../../MegaMan/GameObject/FlyShellBullet.h"
+#include "../../MegaMan/GameObject/SuperCutter.h"
+#include "../../MegaMan/GameObject/SupperCutterFactory.h"
+#include "../../MegaMan/GameObject/BigEye.h"
 using namespace s_framework;
 ObjectFactory::ObjectFactory()
 {
@@ -67,6 +75,53 @@ GameObject* ObjectFactory::createObject(int objectType){
 		object = new BlasterBullet();
 		object->setState(EState::ACTIVE);
 		object->setType(ECharacter::BLASTER_BULLET);
+		object->setTexture(TextureManager::getInstance()->getObjectTexture());
+		break;
+	case ECharacter::SUZY:
+		object = new Suzy();
+		object->setState(EState::ACTIVE);
+		object->setType(ECharacter::SUZY);
+		object->setTexture(TextureManager::getInstance()->getObjectTexture());
+		break;
+	case ECharacter::SCREW:
+		object = new Screw();
+		object->setState(EState::ACTIVE);
+		object->setType(ECharacter::SCREW);
+		object->setTexture(TextureManager::getInstance()->getObjectTexture());
+		break;
+	case ECharacter::SCREW_BULLET:
+		object = new ScrewBullet();
+		object->setState(EState::ACTIVE);
+		object->setType(ECharacter::SCREW_BULLET);
+		object->setTexture(TextureManager::getInstance()->getObjectTexture());
+		break;
+	case ECharacter::FLY_SHELL:
+		object = new FlyShell();
+		object->setState(EState::IDLE);
+		object->setType(ECharacter::FLY_SHELL);
+		object->setTexture(TextureManager::getInstance()->getObjectTexture());
+		break;
+	case ECharacter::FLY_SHELL_BULLET:
+		object = new FlyShellBullet();
+		object->setState(EState::ACTIVE);
+		object->setType(ECharacter::FLY_SHELL_BULLET);
+		object->setTexture(TextureManager::getInstance()->getObjectTexture());
+		break;
+	case ECharacter::SUPER_CUTTER_FACTORY:
+		object = new SupperCutterFactory();
+		object->setType(ECharacter::SUPER_CUTTER_FACTORY);
+
+		break;
+	case ECharacter::SUPER_CUTTER:
+		object = new SuperCutter();
+		object->setState(EState::ACTIVE);
+		object->setType(ECharacter::SUPER_CUTTER);
+		object->setTexture(TextureManager::getInstance()->getObjectTexture());
+		break;
+	case ECharacter::BIG_EYE:
+		object = new BigEye();
+		object->setState(EState::ACTIVE);
+		object->setType(ECharacter::BIG_EYE);
 		object->setTexture(TextureManager::getInstance()->getObjectTexture());
 		break;
 	default:
