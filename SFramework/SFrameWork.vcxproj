@@ -144,6 +144,8 @@
     <ClInclude Include="SpriteAndAnimation\TextureManager.h" />
     <ClInclude Include="Trace.h" />
     <ClInclude Include="Utilities.h" />
+    <ClInclude Include="quadtree\NodeQuadTree.h" />
+    <ClInclude Include="quadtree\QuadTree.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera\ViewPort.cpp" />
@@ -164,6 +166,8 @@
     <ClCompile Include="SpriteAndAnimation\SpriteSpec.cpp" />
     <ClCompile Include="SpriteAndAnimation\TextureManager.cpp" />
     <ClCompile Include="Trace.cpp" />
+    <ClCompile Include="quadtree\NodeQuadTree.cpp" />
+    <ClCompile Include="quadtree\QuadTree.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="rapidxml-1.13\manual.html" />

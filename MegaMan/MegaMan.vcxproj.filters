@@ -209,4 +209,7 @@
   <ItemGroup>
     <Xml Include="Resources\texture.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="trace.log.txt" />
+  </ItemGroup>
 </Project>
