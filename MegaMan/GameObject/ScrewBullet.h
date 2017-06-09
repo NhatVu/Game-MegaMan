@@ -11,7 +11,7 @@
 
 using namespace std;
 using namespace s_framework;
-#define SCREW_BULLET_VELOCITY_X 0.2f
+#define SCREW_BULLET_VELOCITY_X 0.25f
 
 class ScrewBullet : public GameObject
 {

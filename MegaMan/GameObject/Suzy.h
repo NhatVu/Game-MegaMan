@@ -20,8 +20,8 @@ using namespace s_framework;
 
 	Thuộc tính direction trong map: nếu = 1 => di chuyển theo x, -1 di chuyển theo y
 */
-#define SUZY_VIRTUAL_WIDTH 16
-#define SUZY_VIRTUAL_HEIGHT 16
+#define SUZY_VIRTUAL_WIDTH 11
+#define SUZY_VIRTUAL_HEIGHT 14
 #define SUZY_VELOCITY 0.15f
 class Suzy : public GameObject
 {

@@ -6,6 +6,8 @@ BigEye::BigEye()
 {
 	GameObject::setAcceleration(FPOINT(0, GRAVITATIONAL_ACCELERATION / 2));
 	setVelocity(FPOINT(-BIG_EYE_VELOCITY_X, BIG_EYE_VELOCITY_Y));
+	this->setAttackDamage(10);
+	this->setBlood(20);
 }
 
 
@@ -30,10 +32,16 @@ void BigEye::onCollision(GameObject* staticObject, float collisionTime, D3DXVECT
 	// collision
 	BOX collisionBox = this->getCollisionBox();
 	//float collisionTime = Collision::CheckCollision(this, staticObject, normal);
-	if (collisionTime > 0.0f && collisionTime < 1.0f){
-		if (staticObjectType == ECharacter::MEGAMAN_BULLET){
-			this->die();
-			return;
+	if (collisionTime > 0.0f && collisionTime <= 1.0f){
+		if (staticObjectType == ECharacter::MEGAMAN_BULLET && staticObject->getType() != EState::DIE){
+			int blood = this->getBlood();
+			int staticAttackDamage = staticObject->getAttackDamage();
+			blood -= staticAttackDamage;
+			if (blood <= 0){
+				this->die();
+				return;
+			}
+			else this->setBlood(blood);
 		}
 
 		//vật đi từ trên xuống
@@ -157,6 +165,8 @@ void BigEye::resetToInit(){
 	this->setState(EState::ACTIVE);
 	GameObject::setAcceleration(FPOINT(0, GRAVITATIONAL_ACCELERATION / 2));
 	setVelocity(FPOINT(-BIG_EYE_VELOCITY_X, BIG_EYE_VELOCITY_Y));
+	this->setAttackDamage(10);
+	this->setBlood(20);
 }
 
 void BigEye::die(){

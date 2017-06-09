@@ -30,7 +30,7 @@ class Blader : public GameObject
 {
 private:
 	int attackCountFrame;
-	AnimationSpec* m_animation = NULL;
+	AnimationSpec m_animation;
 	bool isAttacked;
 	FPOINT attackPos;
 public:

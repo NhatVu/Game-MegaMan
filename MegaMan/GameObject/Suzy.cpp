@@ -5,6 +5,8 @@ Suzy::Suzy()
 {
 	this->countFrame = 0;
 	this->setAcceleration(FPOINT(0.0f, 0.0f));
+	this->setAttackDamage(4);
+	this->setBlood(5);
 }
 
 
@@ -17,6 +19,7 @@ void Suzy::render() {
 		this->countFrame++;
 	if (this->countFrame == 5){
 		this->setStopUpdateAnimation(true);
+		this->setState(EState::IDLE);
 		GameObject::setSpriteSpec(m_animation->getSpriteSpecs()[1]);
 
 	}
@@ -45,15 +48,21 @@ void Suzy::render() {
 }
 
 void Suzy::onCollision(GameObject* staticObject, float collisionTime, D3DXVECTOR2 collisionVector){
-	if (staticObject->getCollisionBox().x == 133){
-		int a = 5;
-	}
-	if (collisionTime > 0.0f && collisionTime <= 1.0f){
-		if (staticObject->getType() == ECharacter::MEGAMAN_BULLET){
-			this->die();
-			return;
-		}
 
+	if (collisionTime > 0.0f && collisionTime <= 1.0f){
+		if (staticObject->getType() == ECharacter::MEGAMAN_BULLET && staticObject->getType() != EState::DIE){
+			int blood = this->getBlood();
+			int staticAttackDamage = staticObject->getAttackDamage();
+			blood -= staticAttackDamage;
+			if (blood <= 0){
+				this->die();
+				return;
+			}
+			else this->setBlood(blood);
+		}
+	}
+
+	if (collisionTime > 0.0f && collisionTime < 1.0f){
 		if (staticObject->getType() == ECharacter::STATIC){
 			FPOINT velocity = this->getVelocity();
 			velocity.x *= -0;
@@ -133,6 +142,8 @@ void Suzy::resetToInit(){
 		this->setVelocity(FPOINT(SUZY_VELOCITY, 0.0f));
 	else this->setVelocity(FPOINT(0.0f, SUZY_VELOCITY));
 	this->setState(EState::ACTIVE);
+	this->setAttackDamage(4);
+	this->setBlood(5);
 }
 void Suzy::die(){
 	this->setState(EState::DIE);

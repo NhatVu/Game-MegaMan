@@ -4,6 +4,7 @@
 MegaManBullet::MegaManBullet()
 {
 	setAcceleration(FPOINT(0.0f, 0.0f));
+	this->setAttackDamage(1);
 }
 
 
@@ -29,7 +30,9 @@ void MegaManBullet::initFire(){
 	FPOINT initPos = megaMan->getPosition();
 	//megaManPos.y = 2.0f / 3 * megaManPos.y;
 	int flipVertical = megaMan->getFlipVertical(); // = 1, quay sang phai
-	initPos.x += flipVertical * MEGA_MAN_VIRTUAL_WIDTH + flipVertical;
+	if (flipVertical == 1)
+		initPos.x += flipVertical * MEGA_MAN_VIRTUAL_WIDTH + flipVertical;
+	else initPos.x = initPos.x - MEGAMAN_BULLET_VIRTUAL_WIDTH - 1;
 	initPos.y -= MEGAMAN_BULLET_VIRTUAL_HEIGHT / 2;
 
 	this->setPostion(initPos);
@@ -63,13 +66,19 @@ void MegaManBullet::onCollision(GameObject* staticObject, float collisionTime, D
 	D3DXVECTOR2 normal = collisionVector;
 	DWORD deltaTime = GameTime::getInstance()->getDeltaTime();
 	FPOINT velocity = this->getVelocity();
-	if (collisionTime > 0.0f && collisionTime < 1.0f){
-
+	if (collisionTime > 0.0f && collisionTime <= 1.0f){
+	
 		switch (staticObjectType)
 		{
 		case ECharacter::KAMADOMA:
 		case ECharacter::BLADER:
+		case ECharacter::BIG_EYE:
+		case ECharacter::FLY_SHELL:
+		case ECharacter::SUZY:
+		case ECharacter::SCREW:
+		case ECharacter::BLASTER:
 			this->setState(EState::DIE);
+			this->setIsInactive(true);
 			break;
 		default:
 			break;

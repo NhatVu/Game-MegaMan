@@ -3,6 +3,7 @@
 
 ScrewBullet::ScrewBullet()
 {
+	this->setAttackDamage(2);
 }
 
 

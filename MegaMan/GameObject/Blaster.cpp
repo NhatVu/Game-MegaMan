@@ -6,6 +6,8 @@ bool Blaster::reversedFirtTime = false;
 Blaster::Blaster()
 {
 	this->isRender = false;
+	this->setAttackDamage(1);
+	this->setBlood(1);
 }
 
 
@@ -27,10 +29,16 @@ void Blaster::render() {
 
 void Blaster::onCollision(GameObject* staticObject, float collisionTime, D3DXVECTOR2 collisionVector){
 	// blaster chết khi nó đang open (active)
-	if (collisionTime > 0.0f && collisionTime < 1.0f){
-		if (this->getState() == EState::ACTIVE && staticObject->getType() == ECharacter::MEGAMAN_BULLET){
-			this->die();
-			return;
+	if (collisionTime > 0.0f && collisionTime <= 1.0f){
+		if (this->getState() == EState::ACTIVE && staticObject->getType() == ECharacter::MEGAMAN_BULLET && staticObject->getType() != EState::DIE){
+			int blood = this->getBlood();
+			int staticAttackDamage = staticObject->getAttackDamage();
+			blood -= staticAttackDamage;
+			if (blood <= 0){
+				this->die();
+				return;
+			}
+			else this->setBlood(blood);
 		}
 	}
 
@@ -43,7 +51,7 @@ void Blaster::onCollision(GameObject* staticObject, float collisionTime, D3DXVEC
 		if (this->countFrame == 2 * FPS){
 			this->setState(EState::ACTIVE);
 			// bắn viên đạn thứ nhất
-			creaetBlasterBullet(-BLASTER_BULLET_VELOCITY_X, 0.07f);
+			creaetBlasterBullet(-BLASTER_BULLET_VELOCITY_X, 0.707f*BLASTER_BULLET_VELOCITY_X);
 			//this->countFrame++;
 		}
 		else if (this->countFrame == 2 * FPS + m_animation.getSpriteSpecs().size()){
@@ -57,7 +65,7 @@ void Blaster::onCollision(GameObject* staticObject, float collisionTime, D3DXVEC
 
 		else if (this->countFrame == 3 * FPS){
 			// bắn viên thứ 3
-			creaetBlasterBullet(-BLASTER_BULLET_VELOCITY_X, -0.02f);
+			creaetBlasterBullet(-BLASTER_BULLET_VELOCITY_X, -0.707*BLASTER_BULLET_VELOCITY_X);
 			//this->countFrame++;
 		}
 		else if (this->countFrame == 3.5f * FPS){
@@ -124,6 +132,8 @@ void Blaster::resetToInit(){
 
 	this->setState(EState::IDLE);
 	this->countFrame = 0;
+	this->setAttackDamage(3);
+	this->setBlood(1);
 }
 
 void Blaster::die(){

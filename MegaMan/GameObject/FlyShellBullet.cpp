@@ -3,6 +3,7 @@
 
 FlyShellBullet::FlyShellBullet()
 {
+	this->setAttackDamage(2);
 }
 
 
