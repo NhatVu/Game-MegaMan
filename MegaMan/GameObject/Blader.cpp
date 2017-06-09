@@ -7,6 +7,8 @@ Blader::Blader()
 	this->setVelocity(FPOINT(BLADER_VELOCITY_X, 0.0f));
 	this->isAttacked = false;
 	this->attackPos = FPOINT(0.0f, 0.0f);
+	this->setAttackDamage(3);
+	this->setBlood(1);
 }
 
 
@@ -17,7 +19,7 @@ Blader::~Blader()
 void Blader::render() {
 	if (this->isAttacked)
 		this->attackCountFrame++;
-	SpriteSpec* currentSpriteSpec = m_animation->getCurrentSpriteSpec();
+	SpriteSpec* currentSpriteSpec = m_animation.getCurrentSpriteSpec();
 	GameObject::setSpriteSpec(currentSpriteSpec);
 	// set position to render
 	GameObject::render();
@@ -75,10 +77,16 @@ void Blader::onCollision(GameObject* staticObject, float collisionTime, D3DXVECT
 	}
 #pragma endregion
 
-	if (collisionTime > 0.0f && collisionTime < 1.0f){
-		if (staticObject->getType() == ECharacter::MEGAMAN_BULLET){
-			this->die();
-			return;
+	if (collisionTime > 0.0f && collisionTime <= 1.0f){
+		if (staticObject->getType() == ECharacter::MEGAMAN_BULLET && staticObject->getType() != EState::DIE){
+			int blood = this->getBlood();
+			int staticAttackDamage = staticObject->getAttackDamage();
+			blood -= staticAttackDamage;
+			if (blood <= 0){
+				this->die();
+				return;
+			}
+			else this->setBlood(blood);
 		}
 	}
 
@@ -115,8 +123,8 @@ void Blader::calculateCollisionBox(){
 }
 void Blader::setState(int state){
 	GameObject::setState(state);
-	m_animation = AnimationManager::getInstance()->getAnimationSprites(ECharacter::BLADER, state);
-	GameObject::setSpriteSpec(m_animation->getSpriteSpecs()[0]);
+	m_animation = *AnimationManager::getInstance()->getAnimationSprites(ECharacter::BLADER, state);
+	GameObject::setSpriteSpec(m_animation.getSpriteSpecs()[0]);
 }
 
 void Blader::resetToInit(){
@@ -134,6 +142,8 @@ void Blader::resetToInit(){
 	this->attackCountFrame = 0;
 	this->isAttacked = false;
 	this->attackPos = FPOINT(0.0f, 0.0f);
+	this->setAttackDamage(3);
+	this->setBlood(1);
 }
 void Blader::die(){
 	this->setState(EState::DIE);

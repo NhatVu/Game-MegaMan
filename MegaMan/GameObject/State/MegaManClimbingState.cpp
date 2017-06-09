@@ -38,6 +38,8 @@ GameState*  MegaManClimbingState::onKeyUp(GameObject* gameObject, int keyCode){
 		gameObject->setVelocity(FPOINT(0.0f, 0.0f));
 		gameObject->setAcceleration(FPOINT(0.0f, 0.0f));
 	}
+	if (keyCode == DIK_UP)
+		this->isPressDown = false;
 	return NULL;
 }
 GameState*  MegaManClimbingState::processKeyState(GameObject* gameObject, BYTE *keyState){

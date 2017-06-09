@@ -7,6 +7,8 @@ FlyShell::FlyShell()
 	this->countFrame = 0;
 	this->setVelocity(FPOINT(FLY_SHELL_VELOCITY, 0.0f));
 	this->isRender = false;
+	this->setAttackDamage(1);
+	this->setBlood(1);
 }
 
 
@@ -26,10 +28,16 @@ void FlyShell::render() {
 }
 
 void FlyShell::onCollision(GameObject* staticObject, float collisionTime, D3DXVECTOR2 collisionVector){
-	if (collisionTime > 0.0f && collisionTime < 1.0f){
-		if (this->getState() == EState::ACTIVE && staticObject->getType() == ECharacter::MEGAMAN_BULLET){
-			this->die();
-			return;
+	if (collisionTime > 0.0f && collisionTime <= 1.0f){
+		if (this->getState() == EState::ACTIVE && staticObject->getType() == ECharacter::MEGAMAN_BULLET && staticObject->getType() != EState::DIE){
+			int blood = this->getBlood();
+			int staticAttackDamage = staticObject->getAttackDamage();
+			blood -= staticAttackDamage;
+			if (blood <= 0){
+				this->die();
+				return;
+			}
+			else this->setBlood(blood);
 		}
 	}
 
@@ -92,6 +100,8 @@ void FlyShell::resetToInit(){
 	this->setState(EState::IDLE);
 	this->countFrame = 0;
 	this->setVelocity(FPOINT(FLY_SHELL_VELOCITY, 0.0f));
+	this->setAttackDamage(1);
+	this->setBlood(1);
 
 }
 void FlyShell::die(){
@@ -122,11 +132,11 @@ void FlyShell::createBullet(float vx, float vy){
 
 void FlyShell::createAttack(){
 	createBullet(-FLY_SHELL_BULLET_VELOCITY, 0.0f);
-	createBullet(-FLY_SHELL_BULLET_VELOCITY, FLY_SHELL_BULLET_VELOCITY);
+	createBullet(-0.707f*FLY_SHELL_BULLET_VELOCITY, 0.707f*FLY_SHELL_BULLET_VELOCITY);
 	createBullet(0.0f, FLY_SHELL_BULLET_VELOCITY);
-	createBullet(FLY_SHELL_BULLET_VELOCITY, FLY_SHELL_BULLET_VELOCITY);
+	createBullet(0.707f*FLY_SHELL_BULLET_VELOCITY, 0.707f*FLY_SHELL_BULLET_VELOCITY);
 	createBullet(FLY_SHELL_BULLET_VELOCITY, 0.0f);
-	createBullet(FLY_SHELL_BULLET_VELOCITY, -FLY_SHELL_BULLET_VELOCITY);
+	createBullet(0.707f*FLY_SHELL_BULLET_VELOCITY, -0.707f*FLY_SHELL_BULLET_VELOCITY);
 	createBullet(0.0f, -FLY_SHELL_BULLET_VELOCITY);
-	createBullet(-FLY_SHELL_BULLET_VELOCITY, -FLY_SHELL_BULLET_VELOCITY);
+	createBullet(-0.707f*FLY_SHELL_BULLET_VELOCITY, -0.707f*FLY_SHELL_BULLET_VELOCITY);
 }

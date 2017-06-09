@@ -27,11 +27,14 @@ void MegaMan::setTexture(LPDIRECT3DTEXTURE9 texture){
 void MegaMan::render(){
 	// nếu như không va chạm với bất kỳ vật nào => đang rơi tự do, chuyển hình thành jump.
 	// cá biệt với trường hợp leo thang.
+	//if (m_state->name != "BeAttacked"){
+
 	if (this->getNoCollisionWithAll())
 		this->changeAnimation(ECharacter::MEGAMAN, EState::JUMP);
 	else m_state->enter(this);
 
 	m_state_attack->enter(this);
+//	}
 	/*if (m_state->name == "Running")
 		this->changeAnimation(ECharacter::MEGAMAN, EState::RUNNING);
 		*/
@@ -47,26 +50,25 @@ void MegaMan::render(){
 
 	// dành cho lúc bắn viên đạn
 	int count = ((MegaManAttackState*)m_state_attack)->countFrame;
-	((MegaManAttackState*)m_state_attack)->countFrame++;
-	if (((MegaManAttackState*)m_state_attack)->countFrame > FPS / 3){
+	if (!((MegaManAttackState*)m_state_attack)->isFinishAttack && ((MegaManAttackState*)m_state_attack)->countFrame > FPS / 3){
 		((MegaManAttackState*)m_state_attack)->countFrame = 0;
 		((MegaManAttackState*)m_state_attack)->isFinishAttack = true;
-	}
+	}else
+	((MegaManAttackState*)m_state_attack)->countFrame++;
 
 	// lúc bị tấn công
 	if (m_state->name == "BeAttacked"){
 
 		((MegaManBeAttackedState*)m_state)->countFrame++;
-		if (((MegaManBeAttackedState*)m_state)->countFrame > 3 * FPS)
+		if (((MegaManBeAttackedState*)m_state)->countFrame == 1.5 * FPS)
 		{
 			((MegaManBeAttackedState*)m_state)->ChangeToIdleState = true;
 		}
-		else if (((MegaManBeAttackedState*)m_state)->countFrame > FPS / 2){
+		else if (((MegaManBeAttackedState*)m_state)->countFrame > FPS / 3){
 			((MegaManBeAttackedState*)m_state)->changeToAttackedFinish = true;
-			((MegaManBeAttackedState*)m_state)->countFrame++;
+		//	((MegaManBeAttackedState*)m_state)->countFrame++;
 		}
-		else
-			((MegaManBeAttackedState*)m_state)->countFrame++;
+		
 	}
 }
 
@@ -75,6 +77,19 @@ void MegaMan::processInput(LPDIRECT3DDEVICE9 d3ddv, int Delta){
 }
 
 void MegaMan::onKeyDown(int keyCode){
+	
+	if (keyCode == DIK_0){
+		ViewPort::getInstance()->setViewportBoundary(BOX(0, 7 * 32, 32 * 32, 7 * 32));
+		ViewPort::getInstance()->setPosition(FPOINT(0 * 32, 7 * 32));
+		this->setPostion(FPOINT(3 * 32, 5 * 32));
+	}
+	else
+	if (keyCode == DIK_1){
+		ViewPort::getInstance()->setViewportBoundary(BOX(24 * 32, 14.5f * 32, 8 * 32, 7 * 32));
+		ViewPort::getInstance()->setPosition(FPOINT(24 * 32, 14.5f * 32));
+		this->setPostion(FPOINT(26 * 32, 12 * 32));
+	}
+	else
 	if (keyCode == DIK_5){
 		ViewPort::getInstance()->setViewportBoundary(BOX(40 * 32, 67 * 32, 24 * 32, 7 * 32));
 		ViewPort::getInstance()->setPosition(FPOINT(40 * 32, 67 * 32));
@@ -92,6 +107,14 @@ void MegaMan::onKeyDown(int keyCode){
 		this->setPostion(FPOINT(57 * 32, 50 * 32));
 
 	}
+	else if (keyCode == DIK_8){
+		ViewPort::getInstance()->setViewportBoundary(BOX(56 * 32, 44.5f * 32, 48 * 32, 7 * 32));
+		ViewPort::getInstance()->setPosition(FPOINT(56 * 32, 44.5f * 32));
+		this->setPostion(FPOINT(67 * 32, 42 * 32));
+
+	}
+
+	
 
 	GameState* state = m_state->onKeyDown(this, keyCode);
 	if (state != NULL){

@@ -36,6 +36,9 @@ namespace s_framework
 		FPOINT initPosition;
 		int state;
 		bool isInactive;// kh ở trạng thái chết -> true. khi ra khỏi viewport => false. và khi true, không xét va chạm, không vẽ
+		int blood;
+		int attackDamage;
+		int point;
 	public:
 		GameObject();
 		~GameObject();
@@ -124,6 +127,24 @@ namespace s_framework
 			return this->isInactive;
 		}
 
+		void setBlood(int value){
+			this->blood = value;
+		}
+
+		int getBlood(){ return this->blood; }
+		void setAttackDamage(int value){
+			this->attackDamage = value;
+		}
+		int getAttackDamage(){
+			return this->attackDamage;
+		}
+
+		void setPoint(int value){
+			this->point = value;
+		}
+		int getPoint(){
+			return this->point;
+		}
 		void render()override;
 		void update(long delta)override;
 		virtual void onKeyUp(int keyCode);

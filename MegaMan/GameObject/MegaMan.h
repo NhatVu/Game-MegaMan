@@ -14,8 +14,8 @@
 
 #define MEGA_MAN_VELOCITY_X 0.15f
 #define MEGA_MAN_ACCELERATION_X 0.0f
-#define MEGA_MAN_VIRTUAL_WIDTH 22.0f
-#define MEGA_MAN_VIRTUAL_HEIGHT 22.0f
+#define MEGA_MAN_VIRTUAL_WIDTH 20.0f
+#define MEGA_MAN_VIRTUAL_HEIGHT 20.0f
 
 using namespace s_framework;
 class MegaMan : public GameObject

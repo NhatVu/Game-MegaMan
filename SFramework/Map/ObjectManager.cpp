@@ -71,7 +71,8 @@ void ObjectManager::processQuadTreeAndViewport(FPOINT viewportPosition){
 				int a = 5;
 			}
 			object->resetToInit();
-			collisionBox = object->getCollisionBox();
+			if (object->getType() != ECharacter::FLY_SHELL)
+				collisionBox = object->getCollisionBox();
 			// nếu init box nằm trong camera -> Inactive
 			if (!((collisionBox.x > cameraBox.x + cameraBox.width) || (collisionBox.x + collisionBox.width < cameraBox.x)
 				|| (collisionBox.y < cameraBox.y - cameraBox.height) || (collisionBox.y - collisionBox.height > cameraBox.y)))
@@ -90,7 +91,7 @@ void ObjectManager::processQuadTreeAndViewport(FPOINT viewportPosition){
 
 	for (map<int, GameObject*>::iterator it = quadtreeObject.begin(); it != quadtreeObject.end(); ++it) {
 		object = it->second;
-		
+
 		BOX collisionBox = object->getCollisionBox();
 		// object trong quadtreeObject nằm ngoài camera
 		if ((collisionBox.x > cameraBox.x + cameraBox.width) || (collisionBox.x + collisionBox.width < cameraBox.x)

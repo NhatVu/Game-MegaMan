@@ -4,6 +4,7 @@
 SuperCutter::SuperCutter()
 {
 	this->setAcceleration(FPOINT(0.0f, GRAVITATIONAL_ACCELERATION/2));
+	this->setAttackDamage(4);
 }
 
 

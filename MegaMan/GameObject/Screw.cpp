@@ -7,6 +7,8 @@ Screw::Screw()
 	this->canAttack = false;
 	this->countFrame = 0;
 	this->isRender = false;
+	this->setAttackDamage(1);
+	this->setBlood(3);
 }
 
 
@@ -27,10 +29,16 @@ void Screw::render() {
 }
 
 void Screw::onCollision(GameObject* staticObject, float collisionTime, D3DXVECTOR2 collisionVector){
-	if (collisionTime > 0.0f && collisionTime < 1.0f){
-		if (this->getState() == EState::ACTIVE && staticObject->getType() == ECharacter::MEGAMAN_BULLET){
-			this->die();
-			return;
+	if (collisionTime > 0.0f && collisionTime <= 1.0f){
+		if (this->getState() == EState::ACTIVE && staticObject->getType() == ECharacter::MEGAMAN_BULLET && staticObject->getType() != EState::DIE){
+			int blood = this->getBlood();
+			int staticAttackDamage = staticObject->getAttackDamage();
+			blood -= staticAttackDamage;
+			if (blood <= 0){
+				this->die();
+				return;
+			}
+			else this->setBlood(blood);
 		}
 	}
 
@@ -87,6 +95,8 @@ void Screw::resetToInit(){
 	oldCollisionBox.vy = 0.0f;
 	this->setCollisionBox(oldCollisionBox);
 	this->setState(EState::ACTIVE);
+	this->setAttackDamage(1);
+	this->setBlood(3);
 }
 void Screw::die(){
 	this->setState(EState::DIE);
@@ -117,8 +127,8 @@ void Screw::createScrewBullet(float vx, float vy){
 
 void Screw::createAttack(){
 	createScrewBullet(-SCREW_BULLET_VELOCITY_X, 0.0f);
-	createScrewBullet(-SCREW_BULLET_VELOCITY_X, SCREW_BULLET_VELOCITY_X);
+	createScrewBullet(-0.707f*SCREW_BULLET_VELOCITY_X, 0.707f*SCREW_BULLET_VELOCITY_X);
 	createScrewBullet(0.0f, SCREW_BULLET_VELOCITY_X);
-	createScrewBullet(SCREW_BULLET_VELOCITY_X, SCREW_BULLET_VELOCITY_X);
+	createScrewBullet(0.707f*SCREW_BULLET_VELOCITY_X, 0.707f*SCREW_BULLET_VELOCITY_X);
 	createScrewBullet(SCREW_BULLET_VELOCITY_X, 0.0f);
 }

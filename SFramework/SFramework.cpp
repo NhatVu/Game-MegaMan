@@ -199,7 +199,7 @@ void SFramework::update(float delta)
 				if (mListObject[j]->getType() != 0 && i != j){
 					mListObject[i]->calculateCollisionBox();
 					D3DXVECTOR2 collisionVector(0.0f, 0.0f);
-					if (mListObject[j]->getType() == 1 && mListObject[i]->getType() == 10){
+					if (mListObject[j]->getType() == 1 && mListObject[i]->getType() == 100){
 						int x = 5;
 					}
 					float collisionTime = Collision::CheckCollision(mListObject[i], mListObject[j], collisionVector);

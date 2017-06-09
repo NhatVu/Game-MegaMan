@@ -41,7 +41,7 @@
 			"stateID": 10,
 			"name": "attacked-begin",
 			"delayFrame": 1,
-			"frame": [73,74]
+			"frame": [74,74]
 		},{
 			"stateID": 11,
 			"name": "attacked-finish",

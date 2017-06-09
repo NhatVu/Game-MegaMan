@@ -3,6 +3,7 @@
 BombombombChildren::BombombombChildren()
 {
 	setIsInactive(false);
+	this->setAttackDamage(1);
 }
 
 
@@ -76,6 +77,7 @@ void BombombombChildren::resetToInit(){
 	this->setState(EState::ACTIVE);
 	this->setAcceleration(FPOINT(0.0f, GRAVITATIONAL_ACCELERATION / 5));
 	this->setVelocity(FPOINT(this->getVelocity().x, BOMBOMBOMB_CHILDREN_VELOCITY_Y));
+	this->setAttackDamage(1);
 
 }
 void BombombombChildren::die(){

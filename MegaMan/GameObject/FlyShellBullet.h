@@ -11,7 +11,7 @@
 
 using namespace std;
 using namespace s_framework;
-#define FLY_SHELL_BULLET_VELOCITY 0.2f
+#define FLY_SHELL_BULLET_VELOCITY 0.25f
 
 class FlyShellBullet : public GameObject
 {

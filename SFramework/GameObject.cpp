@@ -13,6 +13,8 @@ GameObject::GameObject()
 	stopUpdateAnimation = false;
 	objectID = -1;
 	isInactive = false;
+	blood = -1;
+	attackDamage = -1;
 }
 
 

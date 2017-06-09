@@ -208,8 +208,8 @@ void GameMap::parseObjectGroup(){
 				int direction = atoi(objectNode->first_node("properties")->first_node("property")->first_attribute("value")->value());
 				((Suzy*)gameObject)->setDirection(direction);
 				if (direction == 1)
-					gameObject->setVelocity(FPOINT(SUZY_VELOCITY, 0.0f));
-				else gameObject->setVelocity(FPOINT(0.0f, SUZY_VELOCITY));
+					gameObject->setVelocity(FPOINT(-SUZY_VELOCITY, 0.0f));
+				else gameObject->setVelocity(FPOINT(0.0f, -SUZY_VELOCITY));
 			}
 			//mListObjet.push_back(gameObject);
 			ObjectManager::getInstance()->getAllObject()[id] = gameObject;

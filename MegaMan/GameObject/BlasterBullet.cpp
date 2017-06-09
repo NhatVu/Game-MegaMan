@@ -4,6 +4,8 @@
 BlasterBullet::BlasterBullet()
 {
 	setIsInactive(false);
+	this->setAttackDamage(3);
+	this->setBlood(1);
 }
 
 

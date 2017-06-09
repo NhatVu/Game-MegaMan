@@ -90,7 +90,7 @@ void ViewPort::updateViewportNextFrame(){
 			{
 				ViewPort::getInstance()->setViewportBoundary(temp);
 				ViewPort::getInstance()->setPosition(FPOINT(position.x, temp.y));
-				megaMan->setPostion(FPOINT(megaMan->getPosition().x, temp.y - MEGA_MAN_VIRTUAL_HEIGHT / 2 ));
+				megaMan->setPostion(FPOINT(megaMan->getPosition().x, temp.y + MEGA_MAN_VIRTUAL_HEIGHT / 2 ));
 				break;
 			}
 		}

@@ -6,6 +6,8 @@ Kamadoma::Kamadoma()
 	GameObject::setAcceleration(FPOINT(0, GRAVITATIONAL_ACCELERATION / 2));
 	setVelocity(FPOINT(-KAMADOMA_VELOCITY_X, KAMADOMA_VELOCITY_Y));
 	canAttack = true;
+	this->setAttackDamage(2);
+	this->setBlood(1);
 }
 
 
@@ -68,10 +70,16 @@ void Kamadoma::onCollision(GameObject* staticObject, float collisionTime, D3DXVE
 	// collision
 	BOX collisionBox = this->getCollisionBox();
 	//float collisionTime = Collision::CheckCollision(this, staticObject, normal);
-	if (collisionTime > 0.0f && collisionTime < 1.0f){
-		if (staticObjectType == ECharacter::MEGAMAN_BULLET){
-			this->die();
-			return;
+	if (collisionTime > 0.0f && collisionTime <= 1.0f){
+		if (staticObjectType == ECharacter::MEGAMAN_BULLET && staticObject->getType() != EState::DIE){
+			int blood = this->getBlood();
+			int staticAttackDamage = staticObject->getAttackDamage();
+			blood -= staticAttackDamage;
+			if (blood <= 0){
+				this->die();
+				return;
+			}
+			else this->setBlood(blood);
 		}
 
 		//vật đi từ trên xuống
@@ -190,5 +198,7 @@ void Kamadoma::resetToInit(){
 	this->setCollisionBox(oldCollisionBox);
 
 	this->setState(EState::ACTIVE);
+	this->setAttackDamage(2);
+	this->setBlood(1);
 
 }
