@@ -215,4 +215,6 @@ void GameMap::parseObjectGroup(){
 			ObjectManager::getInstance()->getAllObject()[id] = gameObject;
 		}
 	}
+	map<int, GameObject*> map = ObjectManager::getInstance()->getAllObject();
+	int a = 5;
 }

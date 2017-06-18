@@ -129,26 +129,25 @@ void insertNodeToQuadTree(NodeQuadTree* root, GameObject * gameObj, int depth)
 		return;
 	}
 
-	if (NodeQuadTree::isContain(root->getNodeTL()->getBound(), gameObj->getBound()))
+	if (NodeQuadTree::intersect(root->getNodeTL()->getBound(), gameObj->getBound()))
 	{
 		insertNodeToQuadTree(root->getNodeTL(), gameObj, depth + 1);
 	}
-	else if (NodeQuadTree::isContain(root->getNodeTR()->getBound(), gameObj->getBound()))
+	else if (NodeQuadTree::intersect(root->getNodeTR()->getBound(), gameObj->getBound()))
 	{
 		insertNodeToQuadTree(root->getNodeTR(), gameObj, depth + 1);
 	}
-	else if (NodeQuadTree::isContain(root->getNodeBL()->getBound(), gameObj->getBound()))
+	else if (NodeQuadTree::intersect(root->getNodeBL()->getBound(), gameObj->getBound()))
 	{
 		insertNodeToQuadTree(root->getNodeBL(), gameObj, depth + 1);
 	}
-	else if (NodeQuadTree::isContain(root->getNodeBR()->getBound(), gameObj->getBound()))
+	else if (NodeQuadTree::intersect(root->getNodeBR()->getBound(), gameObj->getBound()))
 	{
 		insertNodeToQuadTree(root->getNodeBR(), gameObj, depth + 1);
 	}
 	else
 	{
 		root->getListObject()->push_back(gameObj->getObjectID());
-		int a = 5;
 	}
 }
 

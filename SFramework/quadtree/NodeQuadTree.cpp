@@ -111,10 +111,10 @@ void s_framework::NodeQuadTree::clear()
 
 boolean s_framework::NodeQuadTree::intersect(RECT first, RECT second)
 {
-	return (first.left < second.right
-		&& first.right > second.left
-		&& first.top > second.bottom 
-		&& first.bottom < second.top);
+	return (first.left <= second.right
+		&& first.right >= second.left
+		&& first.top >= second.bottom 
+		&& first.bottom <= second.top);
 }
 
 boolean s_framework::NodeQuadTree::isContain(RECT region, RECT entity)

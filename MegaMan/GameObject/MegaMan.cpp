@@ -60,11 +60,11 @@ void MegaMan::render(){
 	if (m_state->name == "BeAttacked"){
 
 		((MegaManBeAttackedState*)m_state)->countFrame++;
-		if (((MegaManBeAttackedState*)m_state)->countFrame == 1.5 * FPS)
+		if (((MegaManBeAttackedState*)m_state)->countFrame == 1 * FPS)
 		{
 			((MegaManBeAttackedState*)m_state)->ChangeToIdleState = true;
 		}
-		else if (((MegaManBeAttackedState*)m_state)->countFrame > FPS / 3){
+		else if (((MegaManBeAttackedState*)m_state)->countFrame > FPS / 5){
 			((MegaManBeAttackedState*)m_state)->changeToAttackedFinish = true;
 		//	((MegaManBeAttackedState*)m_state)->countFrame++;
 		}

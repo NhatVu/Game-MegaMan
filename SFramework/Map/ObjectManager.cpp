@@ -6,7 +6,8 @@ ObjectManager* ObjectManager::instance = NULL;
 int ObjectManager::notInMapObjectId = 1000;
 ObjectManager::ObjectManager()
 {
-	mQuadtree = new QuadTree();
+	mQuadtree = new QuadTree(105 * 32, 69 * 32);
+	mQuadtree->rebuildQuadTree();
 }
 
 void s_framework::ObjectManager::loadQuadtreeFromFile()
@@ -37,11 +38,24 @@ ObjectManager* ObjectManager::getInstance(){
 void ObjectManager::processQuadTreeAndViewport(FPOINT viewportPosition){
 	// 1. lấy các đối tượng có thể va chạm với viewport trong quadtree
 	this->quadtreeBackground = this->allBackground;
-	this->quadtreeObject = this->allObject;
+	
 	// 2. từ các đối tường này, chỉ chọn những đối tượng nằm trong camera
 	// nếu nằm trong camera và có rồi => khỏi tạo lại. chưa có thì tạo
 	// nếu quadtreeObject nằm ngoài camera => remove 
 	BOX cameraBox = BOX(viewportPosition.x, viewportPosition.y, SCREEN_WIDTH, SCREEN_HEIGHT);
+	RECT rect;
+	rect.top = viewportPosition.y;
+	rect.left = viewportPosition.x;
+	rect.right = rect.left + SCREEN_WIDTH;
+	rect.bottom = rect.top - SCREEN_HEIGHT;
+	vector<int>* listIdObjs = new vector<int>;
+	mQuadtree->getListObjectOnscreen(rect, listIdObjs);
+
+	for (std::vector<int>::iterator it = listIdObjs->begin(); it != listIdObjs->end(); ++it) {
+		int id = *it;
+		this->quadtreeObject[*it] = this->allObject[*it];
+	}
+
 	GameObject *object;
 	for (map<int, GameObject*>::iterator it = quadtreeBackground.begin(); it != quadtreeBackground.end();) {
 		object = it->second;
