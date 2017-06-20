@@ -254,6 +254,59 @@
 			"delayFrame": 0,
 			"frame": [65]
 		}]
+	},{
+		"characterID": 17,
+		"name": "cutman boss",
+		"state": [{
+			"stateID": 14,
+			"name":"attack",
+			"delayFrame": 3,
+			"frame": [103,104]
+		},{
+			"stateID": 10,
+			"name":"attacked-begin",
+			"delayFrame": 0,
+			"frame": [105]
+		},{
+			"stateID": 1,
+			"name":"idle",
+			"delayFrame": 5,
+			"frame": [113,114]
+		},{
+			"stateID": 4,
+			"name":"jump",
+			"delayFrame": 0,
+			"frame": [115]
+		},{
+			"stateID": 2,
+			"name":"running",
+			"delayFrame": 2,
+			"frame": [97,98]
+		},{
+			"stateID": 5,
+			"name":"die",
+			"delayFrame": 2,
+			"frame": [65]
+		}]
+	},{
+		"characterID": 18,
+		"name": "cutman-cut",
+		"state": [{
+			"stateID": 8,
+			"name":"active",
+			"delayFrame": 6,
+			"frame": [97,97,98]
+		},{
+			"stateID": 1,
+			"name":"idle",
+			"delayFrame": 2,
+			"frame": [111,112]
+		},{
+			"stateID": 5,
+			"name":"die",
+			"delayFrame": 0,
+			"frame": [65]
+		}]
 	}
 	]
 }

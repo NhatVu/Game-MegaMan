@@ -103,7 +103,8 @@ void ViewPort::updateViewportNextFrame(){
 	FPOINT viewportPos = this->getPosition();
 	BOX viewportBoundary = this->getViewportBoundary();
 
-	
+	if (viewportPos.x ==3088)
+		return;
 	if (megaMan->getPosition().x - SCREEN_WIDTH / 2 < viewportBoundary.x) // không cho di chuyển quá min viewport
 		viewportPos.x = viewportBoundary.x;
 	else if (megaMan->getPosition().x + SCREEN_WIDTH / 2> viewportBoundary.x + viewportBoundary.width) // không cho di chuyển quả max viewport

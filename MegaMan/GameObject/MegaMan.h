@@ -1,4 +1,4 @@
-#ifndef _MEGA_MAN_H_
+﻿#ifndef _MEGA_MAN_H_
 #define _MEGA_MAN_H_
 
 #include <d3dx9.h>
@@ -18,6 +18,13 @@
 #define MEGA_MAN_VIRTUAL_HEIGHT 20.0f
 
 using namespace s_framework;
+/*
+	Có 3 trạng thái chính: Đứng(vỗ tay), chạy và nhảy. Trạng thái tấn công xen kẽ giữa 3 trạng thái này, có thể là sau vài giây thì sẽ tấn công 1 lần.
+
+	- Nếu xa hơn 1 khoảng distance => cutman chạy hoặc random cho nó vỗ tay. ít lại.
+	- Nếu nhỏ hơn 1 khoảng distnace => cutman nhảy
+
+*/
 class MegaMan : public GameObject
 {
 public:

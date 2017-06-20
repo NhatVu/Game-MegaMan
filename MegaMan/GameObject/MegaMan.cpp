@@ -108,9 +108,15 @@ void MegaMan::onKeyDown(int keyCode){
 
 	}
 	else if (keyCode == DIK_8){
-		ViewPort::getInstance()->setViewportBoundary(BOX(56 * 32, 44.5f * 32, 48 * 32, 7 * 32));
+		ViewPort::getInstance()->setViewportBoundary(BOX(56 * 32, 44.5f * 32, 49.5 * 32, 7 * 32));
 		ViewPort::getInstance()->setPosition(FPOINT(56 * 32, 44.5f * 32));
 		this->setPostion(FPOINT(67 * 32, 42 * 32));
+
+	}
+	else if (keyCode == DIK_9){
+		ViewPort::getInstance()->setViewportBoundary(BOX(56 * 32, 44.5f * 32, 49.5 * 32, 7 * 32));
+		ViewPort::getInstance()->setPosition(FPOINT(96* 32, 44.5f * 32));
+		this->setPostion(FPOINT(98 * 32, 42 * 32));
 
 	}
 

@@ -23,7 +23,7 @@ MapCutMan::MapCutMan(char* tmxFile, GameObject* megaMan)
 
 	listViewportState.push_back(BOX(56 * 32, 59.5f * 32, 8 * 32, 7 * 32));
 	listViewportState.push_back(BOX(56 * 32, 52 * 32, 8 * 32, 7 * 32));
-	listViewportState.push_back(BOX(56 * 32, 44.5f * 32, 48 * 32, 7 * 32));
+	listViewportState.push_back(BOX(56 * 32, 44.5f * 32, 49.5 * 32, 7 * 32));
 	
 }
 

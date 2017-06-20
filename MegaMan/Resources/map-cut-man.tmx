@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="105" height="69" tilewidth="32" tileheight="32" nextobjectid="237">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="105" height="69" tilewidth="32" tileheight="32" nextobjectid="240">
  <tileset firstgid="1" name="Cut_Man_map" tilewidth="32" tileheight="32" tilecount="7072" columns="104">
   <image source="Cut_Man_map.png" width="3358" height="2182"/>
  </tileset>
@@ -2629,7 +2629,7 @@
    <tile gid="2494"/>
    <tile gid="2495"/>
    <tile gid="2496"/>
-   <tile gid="0"/>
+   <tile gid="970"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -2734,7 +2734,7 @@
    <tile gid="2598"/>
    <tile gid="2599"/>
    <tile gid="2600"/>
-   <tile gid="0"/>
+   <tile gid="1074"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -2839,7 +2839,7 @@
    <tile gid="2702"/>
    <tile gid="2703"/>
    <tile gid="2704"/>
-   <tile gid="0"/>
+   <tile gid="1178"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -2944,7 +2944,7 @@
    <tile gid="2806"/>
    <tile gid="2807"/>
    <tile gid="2808"/>
-   <tile gid="0"/>
+   <tile gid="1282"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -3049,7 +3049,7 @@
    <tile gid="2910"/>
    <tile gid="2911"/>
    <tile gid="2912"/>
-   <tile gid="0"/>
+   <tile gid="1386"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -3154,7 +3154,7 @@
    <tile gid="3014"/>
    <tile gid="3015"/>
    <tile gid="3016"/>
-   <tile gid="0"/>
+   <tile gid="1490"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -3259,7 +3259,7 @@
    <tile gid="3118"/>
    <tile gid="3119"/>
    <tile gid="3120"/>
-   <tile gid="0"/>
+   <tile gid="1594"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -3364,7 +3364,7 @@
    <tile gid="3222"/>
    <tile gid="3223"/>
    <tile gid="3224"/>
-   <tile gid="0"/>
+   <tile gid="1698"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -7353,9 +7353,9 @@
   <object id="111" type="0" x="1889.33" y="936.667" width="33.3333" height="30.6667"/>
   <object id="112" type="0" x="1925.33" y="969.333" width="286" height="15.3333"/>
   <object id="113" type="0" x="2214" y="938" width="90.6667" height="30"/>
-  <object id="114" type="0" x="2308.67" y="938" width="810" height="26.6667"/>
-  <object id="115" type="0" x="3124" y="970" width="202" height="24.6667"/>
-  <object id="116" type="0" x="3327.33" y="824.667" width="3.33333" height="141.333"/>
+  <object id="114" type="0" x="2308.67" y="938" width="816" height="26.6667"/>
+  <object id="115" type="0" x="3124" y="970" width="225" height="24.6667"/>
+  <object id="116" type="0" x="3349.33" y="805.667" width="3.33333" height="160.333"/>
   <object id="117" type="0" x="1350" y="1081" width="14" height="96"/>
   <object id="118" type="0" x="1924.67" y="764" width="118.667" height="10"/>
   <object id="119" type="0" x="2.5" y="1988.67" width="2.5" height="82"/>
@@ -7566,5 +7566,8 @@
   <object id="234" name="screw" type="10" x="2467" y="922" width="14" height="12"/>
   <object id="235" name="screw" type="10" x="3011.33" y="922" width="14" height="12"/>
   <object id="236" name="screw" type="10" x="2730" y="921.333" width="14" height="12"/>
+  <object id="237" type="0" x="3107.33" y="800.667" width="239.333" height="6"/>
+  <object id="238" type="0" x="3101.33" y="806.667" width="6" height="48"/>
+  <object id="239" type="17" x="3269.33" y="916" width="24.6667" height="26"/>
  </objectgroup>
 </map>

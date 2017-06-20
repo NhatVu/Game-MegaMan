@@ -2,7 +2,8 @@
 #define _MARIO_UTILITIES_H_
 
 //#define GRAVITATIONAL_ACCELERATION 0.000f
-#define SCREEN_WIDTH 256
+//#define SCREEN_WIDTH 256
+#define SCREEN_WIDTH 9*32
 #define SCREEN_HEIGHT 256
 enum ECharacter
 {
@@ -23,6 +24,8 @@ enum ECharacter
 	SUPER_CUTTER_FACTORY = 14,
 	SUPER_CUTTER = 15,
 	BIG_EYE = 16,
+	CUTMAN = 17,
+	CUTMAN_CUT = 18,
 	MEGAMAN = 100,
 
 };
@@ -42,6 +45,7 @@ enum EState
 	ATTACKED_FINISH = 11,
 	CLIMB_FIRE = 12,
 	RUNNING_FIRE = 13,
+	ATTACK = 14,
 };
 
 
