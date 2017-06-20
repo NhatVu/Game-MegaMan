@@ -1,12 +1,19 @@
 ﻿#include "CutMan.h"
 #include "../GameObject/MegaMan.h"
 #include <cmath>
+#include "../../SFramework/SFramework.h"
 CutMan::CutMan()
 {
 	this->colliseLeftRight = false;
 	this->isRender = false;
 	this->canChangeState = false;
 	this->jumpingCollideBottom = true;
+	this->countFrameIdle = 0;
+
+	 //create cutman Cut
+	this->cutManCut = (CutManCut*)ObjectFactory::createObject(ECharacter::CUTMAN_CUT);
+	this->cutManCut->setObjectID(ObjectManager::notInMapObjectId++);
+	ObjectManager::getInstance()->addObjectToActiveObject(this->cutManCut);
 }
 
 
@@ -29,6 +36,8 @@ void CutMan::updatePosition(){
 	this->setPostion(currentPosition);
 	this->setVelocity(velocity);
 	this->setAcceleration(FPOINT(0.0f, GRAVITATIONAL_ACCELERATION / 2));
+	returnCutIdle();
+	cutManCut->updatePosition();
 }
 
 void CutMan::onCollision(GameObject* staticObject, float collisionTime, D3DXVECTOR2 collisionVector){
@@ -37,12 +46,14 @@ void CutMan::onCollision(GameObject* staticObject, float collisionTime, D3DXVECT
 	int staticObjectType = staticObject->getType();
 	FPOINT megaManPos = ObjectManager::getInstance()->getMegaMan()->getPosition();
 
-	if (this->getState() != EState::IDLE && megaManPos.x - this->getPosition().x >10 && !this->colliseLeftRight){
+	if (megaManPos.x - this->getPosition().x >10){
+		if(this->getState() != EState::IDLE)
 		this->setVelocity(FPOINT(CUTMAN_VELOCITY_X, this->getVelocity().y));
 		this->setFlipVertical(-1);
 	}
-	else if (this->getState() != EState::IDLE && megaManPos.x - this->getPosition().x < -10 && !this->colliseLeftRight)
+	else if ( megaManPos.x - this->getPosition().x < -10)
 	{
+		if (this->getState() != EState::IDLE)
 		this->setVelocity(FPOINT(-CUTMAN_VELOCITY_X, this->getVelocity().y));
 		this->setFlipVertical(1);
 	}
@@ -55,7 +66,11 @@ void CutMan::onCollision(GameObject* staticObject, float collisionTime, D3DXVECT
 				changeToJump();
 			}
 		}
-		else if (this->getState() == EState::IDLE) changeToRun();
+		else if (this->getState() == EState::IDLE && this->countFrameIdle >= 1.0f*FPS){
+			this->countFrameIdle = 0;
+			changeToRun();
+		}
+
 		
 	}
 
@@ -108,6 +123,7 @@ void CutMan::resetToInit(){
 	this->setAttackDamage(2);
 	this->setBlood(1);
 
+	cutManCut->resetToInit();
 }
 
 void CutMan::setState(int state){
@@ -119,10 +135,14 @@ void CutMan::setState(int state){
 void CutMan::render() {
 	this->colliseLeftRight = false;
 	this->isRender = true;
+	if (this->getState() == EState::IDLE)
+		this->countFrameIdle++;
 	SpriteSpec* currentSpriteSpec = m_animation->getCurrentSpriteSpec();
 	GameObject::setSpriteSpec(currentSpriteSpec);
 	// set position to render
 	GameObject::render();
+
+	cutManCut->render();
 }
 
 void CutMan::calculateCollisionBox(){
@@ -357,4 +377,27 @@ void CutMan::changeToJump(){
 	this->setVelocity(FPOINT(CUTMAN_VELOCITY_X, CUTMAN_VELOCITY_Y));
 	this->setAcceleration(FPOINT(0.0f, GRAVITATIONAL_ACCELERATION / 2));
 
+}
+
+void CutMan::createAttack(){
+
+}
+void CutMan::returnCutIdle(){
+	cutManCut->setVelocity(FPOINT(0.0f, 0.0f));
+	int tempX = 0;
+	if (this->getFlipVertical() == 1) // quay mặt sang trái
+	{
+		tempX = this->getPosition().x - 2;
+		tempX = tempX + (this->getSpriteSpec()->getWidth()  - cutManCut->getSpriteSpec()->getWidth()) / 2;
+		if (this->getState() == EState::IDLE)
+			tempX += 6;
+	}
+	else{
+		tempX = this->getPosition().x + 5;
+		tempX = tempX + (this->getSpriteSpec()->getWidth() - cutManCut->getSpriteSpec()->getWidth()) / 2;
+		if (this->getState() == EState::IDLE)
+			tempX -= 8;
+	}
+	cutManCut->setPostion(FPOINT(tempX, this->getPosition().y + cutManCut->getSpriteSpec()->getHeight()));
+	cutManCut->calculateCollisionBox();
 }

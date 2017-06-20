@@ -9,6 +9,7 @@
 #include "../../SFramework/Collision.h"
 #include "../../SFramework/Map/ObjectFactory.h"
 #include "../../SFramework/Map/ObjectManager.h"
+#include "CutManCut.h"
 
 using namespace std;
 using namespace s_framework;
@@ -28,7 +29,9 @@ class CutMan : public GameObject
 {
 private:
 	AnimationSpec *m_animation;
+	CutManCut *cutManCut;
 	int countFrame;
+	int countFrameIdle;
 	bool colliseLeftRight;
 	bool isRender;
 	bool canChangeState;
@@ -42,6 +45,9 @@ private:
 	void changeToIdle();
 	void changeToRun();
 	void changeToJump();
+
+	void createAttack();
+	void returnCutIdle(); // gọi hàm này => cái kéo sẽ nằm trên đầu cutman
 public:
 	CutMan();
 	~CutMan();

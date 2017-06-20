@@ -17,6 +17,7 @@
 #include "../../MegaMan/GameObject/SupperCutterFactory.h"
 #include "../../MegaMan/GameObject/BigEye.h"
 #include "../../MegaMan/GameObject/CutMan.h"
+#include "../../MegaMan/GameObject/CutManCut.h"
 using namespace s_framework;
 ObjectFactory::ObjectFactory()
 {
@@ -130,6 +131,13 @@ GameObject* ObjectFactory::createObject(int objectType){
 		object->setState(EState::IDLE);
 		object->setType(ECharacter::CUTMAN);
 		object->setTexture(TextureManager::getInstance()->getObjectTexture());
+		break;
+	case ECharacter::CUTMAN_CUT:
+		object = new CutManCut();
+		object->setState(EState::IDLE);
+		object->setType(ECharacter::CUTMAN_CUT);
+		object->setTexture(TextureManager::getInstance()->getObjectTexture());
+		break;
 	default:
 		break;
 	}

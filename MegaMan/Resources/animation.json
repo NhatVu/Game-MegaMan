@@ -238,7 +238,7 @@
 			"stateID": 8,
 			"name":"active",
 			"delayFrame": 4,
-			"frame": [99,100]
+			"frame": [101,102]
 		}]
 	},{
 		"characterID": 16,
@@ -247,7 +247,7 @@
 			"stateID": 8,
 			"name":"active",
 			"delayFrame": 6,
-			"frame": [97,97,98]
+			"frame": [99,99,100]
 		},{
 			"stateID": 5,
 			"name":"die",

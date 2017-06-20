@@ -83,6 +83,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="GameObject\CutManCut.h" />
     <ClInclude Include="GameObject\CutMan.h" />
     <ClInclude Include="GameObject\BigEye.h" />
     <ClInclude Include="GameObject\FlyShellBullet.h" />
@@ -112,6 +113,7 @@
     <ClInclude Include="GameObject\SupperCutterFactory.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="GameObject\CutManCut.cpp" />
     <ClCompile Include="GameObject\CutMan.cpp" />
     <ClCompile Include="GameObject\BigEye.cpp" />
     <ClCompile Include="GameObject\FlyShellBullet.cpp" />
