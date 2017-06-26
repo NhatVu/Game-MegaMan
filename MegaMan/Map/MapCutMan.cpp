@@ -12,18 +12,18 @@ MapCutMan::MapCutMan(char* tmxFile, GameObject* megaMan)
 	//BOX viewportState1 = BOX(0, 7 * 32, 57 * 32, 8 * 32); // trừ thanh tiêu đề ra 32px
 	listViewportState.push_back( BOX(0, 7 * 32, 32 * 32, 7 * 32)); // stage 1
 
-	listViewportState.push_back(BOX(24 * 32, 14.5f * 32, 8 * 32, 7 * 32)); // stage 2
+	listViewportState.push_back(BOX(24 * 32, 14.5f * 32, 9 * 32, 7 * 32)); // stage 2
 	listViewportState.push_back(BOX(24 * 32, 22 * 32, 8 * 32, 7 * 32)); // stage 3
-	listViewportState.push_back(BOX(24 * 32, 29.5f * 32, 8 * 32, 7 * 32));
+	listViewportState.push_back(BOX(24 * 32, 29.5f * 32, 9 * 32, 7 * 32));
 	listViewportState.push_back(BOX(24 * 32, 37 * 32, 24 * 32, 7 * 32));
-	listViewportState.push_back(BOX(40 * 32, 44.5f * 32, 8 * 32, 7 * 32));
-	listViewportState.push_back(BOX(40 * 32, 52 * 32, 8 * 32, 7 * 32));
-	listViewportState.push_back(BOX(40 * 32, 59.5 * 32, 8 * 32, 7 * 32));
+	listViewportState.push_back(BOX(40 * 32, 44.5f * 32, 9 * 32, 7 * 32));
+	listViewportState.push_back(BOX(40 * 32, 52 * 32, 9 * 32, 7 * 32));
+	listViewportState.push_back(BOX(40 * 32, 59.5 * 32, 9 * 32, 7 * 32));
 	listViewportState.push_back(BOX(40 * 32, 67 * 32, 24 * 32, 7 * 32)); // stage cao nhất
 
-	listViewportState.push_back(BOX(56 * 32, 59.5f * 32, 8 * 32, 7 * 32));
-	listViewportState.push_back(BOX(56 * 32, 52 * 32, 8 * 32, 7 * 32));
-	listViewportState.push_back(BOX(56 * 32, 44.5f * 32, 48 * 32, 7 * 32));
+	listViewportState.push_back(BOX(55 * 32, 59.5f * 32,  9* 32, 7 * 32));
+	listViewportState.push_back(BOX(55 * 32, 52 * 32, 9 * 32, 7 * 32));
+	listViewportState.push_back(BOX(55 * 32, 44.5f * 32, 50.5 * 32, 7 * 32));
 	
 }
 

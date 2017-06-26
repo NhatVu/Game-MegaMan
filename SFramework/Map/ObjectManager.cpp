@@ -102,7 +102,7 @@ void ObjectManager::processQuadTreeAndViewport(FPOINT viewportPosition){
 				activeObject.erase(it++);
 			}
 
-			if (object->getObjectID() > 999)
+			if (object->getObjectID() > 999 && object->getType() != ECharacter::CUTMAN_CUT)
 				delete object;
 		}
 		else

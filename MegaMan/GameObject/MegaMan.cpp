@@ -96,21 +96,27 @@ void MegaMan::onKeyDown(int keyCode){
 		this->setPostion(FPOINT(41 * 32, 66 * 32));
 	}else
 	if (keyCode == DIK_6){
-		ViewPort::getInstance()->setViewportBoundary(BOX(56 * 32, 59.5f * 32, 8 * 32, 7 * 32));
-		ViewPort::getInstance()->setPosition(FPOINT(56 * 32, 59.5f * 32));
-		this->setPostion(FPOINT(57 * 32, 65 * 32));
+		ViewPort::getInstance()->setViewportBoundary(BOX(55 * 32, 59.5f * 32, 8 * 32, 7 * 32));
+		ViewPort::getInstance()->setPosition(FPOINT(55 * 32, 59.5f * 32));
+		this->setPostion(FPOINT(58 * 32, 55 * 32));
 
 	}else
 	if (keyCode == DIK_7){
-		ViewPort::getInstance()->setViewportBoundary(BOX(56 * 32, 52 * 32, 8 * 32, 7 * 32));
-		ViewPort::getInstance()->setPosition(FPOINT(56 * 32, 52 * 32));
+		ViewPort::getInstance()->setViewportBoundary(BOX(55 * 32, 52 * 32, 8 * 32, 7 * 32));
+		ViewPort::getInstance()->setPosition(FPOINT(55 * 32, 52 * 32));
 		this->setPostion(FPOINT(57 * 32, 50 * 32));
 
 	}
 	else if (keyCode == DIK_8){
-		ViewPort::getInstance()->setViewportBoundary(BOX(56 * 32, 44.5f * 32, 48 * 32, 7 * 32));
-		ViewPort::getInstance()->setPosition(FPOINT(56 * 32, 44.5f * 32));
+		ViewPort::getInstance()->setViewportBoundary(BOX(55 * 32, 44.5f * 32, 50.5 * 32, 7 * 32));
+		ViewPort::getInstance()->setPosition(FPOINT(55 * 32, 44.5f * 32));
 		this->setPostion(FPOINT(67 * 32, 42 * 32));
+
+	}
+	else if (keyCode == DIK_9){
+		ViewPort::getInstance()->setViewportBoundary(BOX(55 * 32, 44.5f * 32, 50.5 * 32, 7 * 32));
+		ViewPort::getInstance()->setPosition(FPOINT(96* 32, 44.5f * 32));
+		this->setPostion(FPOINT(98 * 32, 42 * 32));
 
 	}
 
