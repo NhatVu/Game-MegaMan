@@ -69,7 +69,7 @@ void showListObjectOnscreen()
 	rect.left = 0;
 	rect.top = 256;
 	rect.right = 256;
-	rect.bottom = 0;
+	rect.bottom = 256;
 	vector<int>* objOnscreen = new vector<int>;
 	quadtree->getListObjectOnscreen(rect, objOnscreen);
 	for (std::vector<int>::iterator it = objOnscreen->begin(); it != objOnscreen->end(); ++it) {
