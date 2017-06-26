@@ -20,8 +20,8 @@ void showListObjectOnscreen();
 
 int main()
 {	
-	//build();
-	showListObjectOnscreen();
+	build();
+	//showListObjectOnscreen();
 
 	return 0;
 }
